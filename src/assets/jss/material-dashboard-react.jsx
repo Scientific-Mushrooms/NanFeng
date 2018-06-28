@@ -18,6 +18,13 @@
 // // // Variables - Styles that are used on more than one component
 // #############################
 
+
+
+/**
+ * @providesModule "material-dashboard-react"
+ */
+
+
 const drawerWidth = 260;
 
 const transition = {
