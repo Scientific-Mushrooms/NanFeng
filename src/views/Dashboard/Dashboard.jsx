@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
@@ -12,14 +12,13 @@ import InfoOutline from "@material-ui/icons/InfoOutline";
 import Warning from "@material-ui/icons/Warning";
 import DateRange from "@material-ui/icons/DateRange";
 import LocalOffer from "@material-ui/icons/LocalOffer";
-import Update from "@material-ui/icons/Update";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
-import Accessibility from "@material-ui/icons/Accessibility";
 import BugReport from "@material-ui/icons/BugReport";
 import Code from "@material-ui/icons/Code";
 import Cloud from "@material-ui/icons/Cloud";
-// core components
+
+
 import GridItem from "../../components/Grid/GridItem.jsx";
 import Table from "../../components/Table/Table.jsx";
 import Tasks from "../../components/Tasks/Tasks.jsx";
@@ -39,19 +38,20 @@ import {
   completedTasksChart
 } from "../../variables/charts";
 
-import dashboardStyle from "../../assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+class Dashboard extends Component {
 
-class Dashboard extends React.Component {
-  state = {
-    value: 0
-  };
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
+    state = {
+      value: 0
+    };
 
-  handleChangeIndex = index => {
-    this.setState({ value: index });
-  };
+    handleChange = (event, value) => {
+      this.setState({ value });
+    };
+
+    handleChangeIndex = index => {
+      this.setState({ value: index });
+    };
+
   render() {
     const { classes } = this.props;
     return (
@@ -80,23 +80,28 @@ class Dashboard extends React.Component {
               </CardFooter>
             </Card>
           </GridItem>
+
+
           <GridItem xs={12} sm={6} md={3}>
-            <Card>
-              <CardHeader color="success" stats icon>
-                <CardIcon color="success">
-                  <Store />
-                </CardIcon>
-                <p className={classes.cardCategory}>Revenue</p>
-                <h3 className={classes.cardTitle}>$34,245</h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <DateRange />
-                  Last 24 Hours
-                </div>
-              </CardFooter>
-            </Card>
+              <Card>
+                  <CardHeader color="success" stats icon>
+                    <CardIcon color="success">
+                      <Store />
+                    </CardIcon>
+                    <p className={classes.cardCategory}>Revenue</p>
+                    <h3 className={classes.cardTitle}>$34,245</h3>
+                  </CardHeader>
+                  <CardFooter stats>
+                    <div className={classes.stats}>
+                      <DateRange />
+                      Last 24 Hours
+                    </div>
+                  </CardFooter>
+              </Card>
           </GridItem>
+
+
+
           <GridItem xs={12} sm={6} md={3}>
             <Card>
               <CardHeader color="danger" stats icon>
@@ -104,7 +109,7 @@ class Dashboard extends React.Component {
                   <InfoOutline />
                 </CardIcon>
                 <p className={classes.cardCategory}>Fixed Issues</p>
-                <h3 className={classes.cardTitle}>75</h3>
+                <h3 style={dashboardStyle.cardTitle} className={classes.cardTitle}>75</h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
@@ -114,23 +119,7 @@ class Dashboard extends React.Component {
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem xs={12} sm={6} md={3}>
-            <Card>
-              <CardHeader color="info" stats icon>
-                <CardIcon color="info">
-                  <Accessibility />
-                </CardIcon>
-                <p className={classes.cardCategory}>Followers</p>
-                <h3 className={classes.cardTitle}>+245</h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <Update />
-                  Just Updated
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
+          
         </Grid>
         <Grid container>
           <GridItem xs={12} sm={12} md={4}>
@@ -283,5 +272,74 @@ class Dashboard extends React.Component {
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
+
+const dashboardStyle = {
+  successText: {
+    color: "#4caf50"
+  },
+  upArrowCardCategory: {
+    width: "16px",
+    height: "16px"
+  },
+  stats: {
+    color: "#999999",
+    display: "inline-flex",
+    fontSize: "12px",
+    lineHeight: "22px",
+    "& svg": {
+      top: "4px",
+      width: "16px",
+      height: "16px",
+      position: "relative",
+      marginRight: "3px"
+    }
+  },
+  cardCategory: {
+    color: "#999999",
+    margin: "0",
+    fontSize: "14px",
+    marginTop: "0",
+    paddingTop: "10px",
+    marginBottom: "0"
+  },
+  cardCategoryWhite: {
+    color: "rgba(255,255,255,.62)",
+    margin: "0",
+    fontSize: "14px",
+    marginTop: "0",
+    marginBottom: "0"
+  },
+  cardTitle: {
+    color: "#3C4858",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "300",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    marginBottom: "3px",
+    textDecoration: "none",
+    "& small": {
+      color: "#777",
+      fontSize: "65%",
+      fontWeight: "400",
+      lineHeight: "1"
+    }
+  },
+  cardTitleWhite: {
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "300",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    marginBottom: "3px",
+    textDecoration: "none",
+    "& small": {
+      color: "#777",
+      fontSize: "65%",
+      fontWeight: "400",
+      lineHeight: "1"
+    }
+  }
+};
+
 
 export default withStyles(dashboardStyle)(Dashboard);

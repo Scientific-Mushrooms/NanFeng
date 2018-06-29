@@ -44,7 +44,7 @@ const styles = {
   }
 };
 
-class Notifications extends React.Component {
+export class Notifications extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,12 +69,12 @@ class Notifications extends React.Component {
     );
   }
   render() {
-    const { classes } = this.props;
+
     return (
       <Card>
         <CardHeader color="primary">
-          <h4 className={classes.cardTitleWhite}>Notifications</h4>
-          <p className={classes.cardCategoryWhite}>
+          <h4 style={styles.cardTitleWhite}>Notifications</h4>
+          <p style={styles.cardCategoryWhite}>
             Handcrafted by our friends from{" "}
             <a target="_blank" href="https://material-ui-next.com/">
               Material UI
@@ -286,5 +286,3 @@ class Notifications extends React.Component {
     );
   }
 }
-
-export default withStyles(styles)(Notifications);
