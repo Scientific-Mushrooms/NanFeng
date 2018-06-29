@@ -36,13 +36,5 @@ function CardFooter({ ...props }) {
   );
 }
 
-CardFooter.propTypes = {
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  plain: PropTypes.bool,
-  profile: PropTypes.bool,
-  stats: PropTypes.bool,
-  chart: PropTypes.bool
-};
 
 export default withStyles(cardFooterStyle)(CardFooter);

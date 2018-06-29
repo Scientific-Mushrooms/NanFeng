@@ -39,6 +39,29 @@ const styles = {
   }
 };
 
+var data = [
+  ["1", "Dakota Rice", "$36,738", "Niger"],
+  ["2", "Minerva Hooper", "$23,789", "Curaçao"],
+  ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
+  ["4", "Philip Chaney", "$38,735", "Korea, South"],
+]
+
+var bugs = [
+  'Sign contract for "What are conference organizers afraid of?"',
+  "Lines From Great Russian Literature? Or E-mails From My Boss?",
+  "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
+  "Create 4 Invisible User Experiences you Never Knew About"
+];
+var website = [
+  "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
+  'Sign contract for "What are conference organizers afraid of?"'
+];
+var server = [
+  "Lines From Great Russian Literature? Or E-mails From My Boss?",
+  "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
+  'Sign contract for "What are conference organizers afraid of?"'
+];
+
 function TableList(props) {
   const { classes } = props;
   return (
@@ -105,7 +128,11 @@ function TableList(props) {
           </CardBody>
         </Card>
       </GridItem>
+
+      
     </Grid>
+
+    
   );
 }
 

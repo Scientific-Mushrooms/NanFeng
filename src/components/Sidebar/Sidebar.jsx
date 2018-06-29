@@ -1,191 +1,131 @@
-import React from "react";
-import classNames from "classnames";
-import PropTypes from "prop-types";
+import React, {Component} from "react";
 import { NavLink } from "react-router-dom";
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+
 import Drawer from "@material-ui/core/Drawer";
-import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-// core components
-import HeaderLinks from "../../components/Header/HeaderLinks.jsx";
 
+import image from "./src/background_1.jpg";
+import logo from './src/logo.png';
 
-const Sidebar = ({ ...props }) => {
-  // verifies if routeName is the one active (in browser input)
-  function activeRoute(routeName) {
-    return props.location.pathname.indexOf(routeName) > -1 ? true : false;
-  }
-  const { classes, color, logo, image, logoText, routes } = props;
-  var links = (
-    <List className={classes.list}>
-      {routes.map((prop, key) => {
-        if (prop.redirect) return null;
-        var activePro = " ";
-        var listItemClasses;
-        if(prop.path === "/upgrade-to-pro"){
-          activePro = classes.activePro + " ";
-          listItemClasses = classNames({
-            [" " + classes[color]]: true
-          });
-        } else {
-          listItemClasses = classNames({
-            [" " + classes[color]]: activeRoute(prop.path)
-          });
-        }
-        const whiteFontClasses = classNames({
-          [" " + classes.whiteFont]: activeRoute(prop.path)
-        });
+export default class SideBar extends Component {
+
+    activeRoute = (routeName) => {
+        return this.props.location.pathname.indexOf(routeName) > -1 ? true : false;
+    }
+
+    routesToList = (prop, key) => {
         return (
-          <NavLink
-            to={prop.path}
-            className={activePro + classes.item}
-            activeClassName="active"
-            key={key}
-          >
-            <ListItem button className={classes.itemLink + listItemClasses}>
-              <ListItemIcon className={classes.itemIcon + whiteFontClasses}>
-                <prop.icon />
-              </ListItemIcon>
-              <ListItemText
-                primary={prop.sidebarName}
-                // className={classes.itemText + whiteFontClasses}
-                disableTypography={true}
-                style={sidebarStyle.itemText}
-              />
-            </ListItem>
-          </NavLink>
+            <NavLink to={prop.path} style={styles.item} activeClassName="active" key={key}>
+                <ListItem button style={this.activeRoute(prop.path) ? styles.selectedItemLink : styles.itemLink} >
+                    <ListItemIcon style={styles.itemIcon}>
+                        <prop.icon />
+                    </ListItemIcon>
+                    <ListItemText primary={prop.sidebarName} style={styles.itemText} disableTypography={true} />
+                </ListItem>
+            </NavLink>
         );
-      })}
-    </List>
-  );
-  var brand = (
-    <div className={classes.logo}>
-      <a href="https://www.creative-tim.com" className={classes.logoLink}>
-        <div className={classes.logoImage}>
-          <img src={logo} alt="logo" className={classes.img} />
-        </div>
-        {logoText}
-      </a>
-    </div>
-  );
-  return (
-    <div>
-      <Hidden mdUp>
-        <Drawer
-          variant="temporary"
-          anchor="right"
-          open={props.open}
-          classes={{
-            paper: classes.drawerPaper
-          }}
-          onClose={props.handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true // Better open performance on mobile.
-          }}
-        >
-          {brand}
-          <div className={classes.sidebarWrapper}>
-            <HeaderLinks />
-            {links}
-          </div>
-          {image !== undefined ? (
-            <div
-              className={classes.background}
-              style={{ backgroundImage: "url(" + image + ")" }}
-            />
-          ) : null}
-        </Drawer>
-      </Hidden>
-      <Hidden smDown>
-        <Drawer
-          anchor="left"
-          variant="permanent"
-          open
-          classes={{
-            paper: classes.drawerPaper
-          }}
-        >
-          {brand}
-          <div className={classes.sidebarWrapper}>{links}</div>
-          {image !== undefined ? (
-            <div
-              className={classes.background}
-              style={{ backgroundImage: "url(" + image + ")" }}
-            />
-          ) : null}
-        </Drawer>
-      </Hidden>
-    </div>
-  );
+    }
+
+    render() {
+        return (
+            <div>
+
+                
+                <Drawer  variant="permanent" open>
+                    <div style={styles.logo}>
+                        <a href="https://www.creative-tim.com" style={styles.logoLink}>
+                            <div style={styles.logoImage}>
+                                <img src={logo} alt="logo" style={styles.img} />
+                            </div>
+                            CODE SQUAD
+                        </a>
+                    </div>
+
+                    <div style={styles.sidebarWrapper}>
+                        <List style={styles.list}>
+                            {this.props.routes.map(this.routesToList)}
+                        </List>
+                    </div>
+                    <div style={{ ...styles.background, backgroundImage: "url(" + image + ")"}}/> 
+                </Drawer>
+            </div>
+        );
+    }
 };
 
-Sidebar.propTypes = {
-  classes: PropTypes.object.isRequired
-}; 
 
-
-const drawerWidth = 260;
-const transition = {
-    transition: "all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)"
-};
-const boxShadow = {
-    boxShadow:
-        "0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
-};
-const primaryBoxShadow = {
-    boxShadow:
-        "0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2)"
-};
-const primaryColor = "#9c27b0";
-const warningColor = "#ff9800";
-const dangerColor = "#f44336";
-const successColor = "#4caf50";
-const infoColor = "#00acc1";
 const defaultFont = {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     fontWeight: "300",
     lineHeight: "1.5em"
 };
 
-const sidebarStyle = theme => ({
-    drawerPaper: {
-        border: "none",
-        position: "fixed",
-        top: "0",
-        bottom: "0",
-        left: "0",
-        zIndex: "1",
-        ...boxShadow,
-        width: drawerWidth,
-        [theme.breakpoints.up("md")]: {
-            width: drawerWidth,
-            position: "fixed",
-            height: "100%"
-        },
-        [theme.breakpoints.down("sm")]: {
-            width: drawerWidth,
-            ...boxShadow,
-            position: "fixed",
-            display: "block",
-            top: "0",
-            height: "100vh",
-            right: "0",
-            left: "auto",
-            zIndex: "1032",
-            visibility: "visible",
-            overflowY: "visible",
-            borderTop: "none",
-            textAlign: "left",
-            paddingRight: "0px",
-            paddingLeft: "0",
-            transform: `translate3d(${drawerWidth}px, 0, 0)`,
-            ...transition
+const styles = {
+
+    list: {
+        marginTop: "20px",
+        paddingLeft: "0",
+        paddingTop: "0",
+        paddingBottom: "0",
+        marginBottom: "0",
+        listStyle: "none",
+        position: "unset"
+    },
+
+    itemLink: {
+        width: "auto",
+        transition: "all 300ms linear",
+        margin: "10px 15px 0",
+        borderRadius: "3px",
+        position: "relative",
+        display: "block",
+        padding: "10px 15px",
+        backgroundColor: "transparent",
+        ...defaultFont
+    },
+
+    selectedItemLink: {
+        width: "auto",
+        transition: "all 300ms linear",
+        margin: "10px 15px 0",
+        borderRadius: "3px",
+        position: "relative",
+        display: "block",
+        padding: "10px 15px",
+        backgroundColor: "#00acc1",
+        ...defaultFont
+    },
+
+    itemIcon: {
+        width: "24px",
+        height: "30px",
+        float: "left",
+        marginRight: "15px",
+        textAlign: "center",
+        verticalAlign: "middle",
+        color: "rgba(255, 255, 255, 0.8)"
+    },
+
+    itemText: {
+        ...defaultFont,
+        margin: "0",
+        lineHeight: "30px",
+        fontSize: "14px",
+        color: "#FFFFFF"
+    },
+
+    item: {
+        position: "relative",
+        display: "block",
+        textDecoration: "none",
+        "&:hover,&:focus,&:visited,&": {
+            color: "#FFFFFF"
         }
     },
+
     logo: {
         position: "relative",
         padding: "15px 15px",
@@ -201,6 +141,16 @@ const sidebarStyle = theme => ({
             backgroundColor: "rgba(180, 180, 180, 0.3)"
         }
     },
+
+    sidebarWrapper: {
+        position: "relative",
+        height: "calc(100vh - 75px)",
+        overflow: "auto",
+        width: "260px",
+        zIndex: "4",
+        overflowScrolling: "touch"
+    },
+
     logoLink: {
         ...defaultFont,
         textTransform: "uppercase",
@@ -216,6 +166,7 @@ const sidebarStyle = theme => ({
             color: "#FFFFFF"
         }
     },
+
     logoImage: {
         width: "30px",
         display: "inline-block",
@@ -223,6 +174,7 @@ const sidebarStyle = theme => ({
         marginLeft: "10px",
         marginRight: "15px"
     },
+
     img: {
         width: "35px",
         top: "22px",
@@ -230,6 +182,7 @@ const sidebarStyle = theme => ({
         verticalAlign: "middle",
         border: "0"
     },
+
     background: {
         position: "absolute",
         zIndex: "1",
@@ -251,117 +204,9 @@ const sidebarStyle = theme => ({
             opacity: ".8"
         }
     },
-    list: {
-        marginTop: "20px",
-        paddingLeft: "0",
-        paddingTop: "0",
-        paddingBottom: "0",
-        marginBottom: "0",
-        listStyle: "none",
-        position: "unset"
-    },
-    item: {
-        position: "relative",
-        display: "block",
-        textDecoration: "none",
-        "&:hover,&:focus,&:visited,&": {
-            color: "#FFFFFF"
-        }
-    },
-    itemLink: {
-        width: "auto",
-        transition: "all 300ms linear",
-        margin: "10px 15px 0",
-        borderRadius: "3px",
-        position: "relative",
-        display: "block",
-        padding: "10px 15px",
-        backgroundColor: "transparent",
-        ...defaultFont
-    },
-    itemIcon: {
-        width: "24px",
-        height: "30px",
-        float: "left",
-        marginRight: "15px",
-        textAlign: "center",
-        verticalAlign: "middle",
-        color: "rgba(255, 255, 255, 0.8)"
-    },
-    itemText: {
-        ...defaultFont,
-        margin: "0",
-        lineHeight: "30px",
-        fontSize: "14px",
-        color: "#FFFFFF"
-    },
-    whiteFont: {
-        color: "#FFFFFF"
-    },
-    purple: {
-        backgroundColor: primaryColor,
-        ...primaryBoxShadow,
-        "&:hover": {
-            backgroundColor: primaryColor,
-            ...primaryBoxShadow
-        }
-    },
-    blue: {
-        backgroundColor: infoColor,
-        boxShadow:
-            "0 12px 20px -10px rgba(0,188,212,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(0,188,212,.2)",
-        "&:hover": {
-            backgroundColor: infoColor,
-            boxShadow:
-                "0 12px 20px -10px rgba(0,188,212,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(0,188,212,.2)"
-        }
-    },
-    green: {
-        backgroundColor: successColor,
-        boxShadow:
-            "0 12px 20px -10px rgba(76,175,80,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(76,175,80,.2)",
-        "&:hover": {
-            backgroundColor: successColor,
-            boxShadow:
-                "0 12px 20px -10px rgba(76,175,80,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(76,175,80,.2)"
-        }
-    },
-    orange: {
-        backgroundColor: warningColor,
-        boxShadow:
-            "0 12px 20px -10px rgba(255,152,0,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(255,152,0,.2)",
-        "&:hover": {
-            backgroundColor: warningColor,
-            boxShadow:
-                "0 12px 20px -10px rgba(255,152,0,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(255,152,0,.2)"
-        }
-    },
-    red: {
-        backgroundColor: dangerColor,
-        boxShadow:
-            "0 12px 20px -10px rgba(244,67,54,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(244,67,54,.2)",
-        "&:hover": {
-            backgroundColor: dangerColor,
-            boxShadow:
-                "0 12px 20px -10px rgba(244,67,54,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(244,67,54,.2)"
-        }
-    },
-    sidebarWrapper: {
-        position: "relative",
-        height: "calc(100vh - 75px)",
-        overflow: "auto",
-        width: "260px",
-        zIndex: "4",
-        overflowScrolling: "touch"
-    },
-    activePro: {
-        [theme.breakpoints.up("md")]: {
-            position: "absolute",
-            width: "100%",
-            bottom: "13px",
-        },
-    }
-});
+
+}
 
 
-export default withStyles(sidebarStyle)(Sidebar);
+
+

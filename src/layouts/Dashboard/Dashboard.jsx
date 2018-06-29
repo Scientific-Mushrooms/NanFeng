@@ -15,9 +15,6 @@ import dashboardRoutes from "../../routes/dashboard.jsx";
 
 import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
-import image from "../../assets/img/sidebar-2.jpg";
-import logo from "../../assets/img/reactlogo.png";
-
 const switchRoutes = (
     <Switch>
       {dashboardRoutes.map((prop, key) => {
@@ -55,14 +52,9 @@ class App extends React.Component {
     const { classes, ...rest } = this.props;
     return (
       <div className={classes.wrapper}>
-        <Sidebar
-          routes={dashboardRoutes}
-          logoText={"Creative Tim"}
-          logo={logo}
-          image={image}
+        <Sidebar routes={dashboardRoutes}
           handleDrawerToggle={this.handleDrawerToggle}
           open={this.state.mobileOpen}
-          color="blue"
           {...rest}
         />
         <div className={classes.mainPanel} ref="mainPanel">
@@ -84,9 +76,5 @@ class App extends React.Component {
     );
   }
 }
-
-App.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(dashboardStyle)(App);

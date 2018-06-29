@@ -26,9 +26,9 @@ const dashboardRoutes = [
         component: UserProfile
     },
     {
-        path: "/table",
-        sidebarName: "Table List",
-        navbarName: "Table List",
+        path: "/tasks",
+        sidebarName: "Tasks",
+        navbarName: "Tasks",
         icon: ContentPaste,
         component: TableList
     },
@@ -48,7 +48,7 @@ const dashboardRoutes = [
         component: Screens.Home,
     },
 
-    { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+ 
 ];
 
 export default dashboardRoutes;

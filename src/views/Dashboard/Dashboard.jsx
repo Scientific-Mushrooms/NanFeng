@@ -1,17 +1,11 @@
 import React, {Component} from "react";
-import PropTypes from "prop-types";
-// react plugin for creating charts
+
 import ChartistGraph from "react-chartist";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
-// @material-ui/icons
-import ContentCopy from "@material-ui/icons/ContentCopy";
-import Store from "@material-ui/icons/Store";
-import InfoOutline from "@material-ui/icons/InfoOutline";
-import Warning from "@material-ui/icons/Warning";
-import DateRange from "@material-ui/icons/DateRange";
-import LocalOffer from "@material-ui/icons/LocalOffer";
+
+
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
 import BugReport from "@material-ui/icons/BugReport";
@@ -23,106 +17,75 @@ import GridItem from "../../components/Grid/GridItem.jsx";
 import Table from "../../components/Table/Table.jsx";
 import Tasks from "../../components/Tasks/Tasks.jsx";
 import CustomTabs from "../../components/CustomTabs/CustomTabs.jsx";
-import Danger from "../../components/Typography/Danger.jsx";
 import Card from "../../components/Card/Card.jsx";
 import CardHeader from "../../components/Card/CardHeader.jsx";
-import CardIcon from "../../components/Card/CardIcon.jsx";
 import CardBody from "../../components/Card/CardBody.jsx";
 import CardFooter from "../../components/Card/CardFooter.jsx";
 
-import { bugs, website, server } from "../../variables/general";
-
+import InfoCard from "../../components/infoCard";
 import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
+    dailySalesChart,
+    emailsSubscriptionChart,
 } from "../../variables/charts";
 
+
+var bugs = [
+  'Sign contract for "What are conference organizers afraid of?"',
+  "Lines From Great Russian Literature? Or E-mails From My Boss?",
+  "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
+  "Create 4 Invisible User Experiences you Never Knew About"
+];
+var website = [
+  "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
+  'Sign contract for "What are conference organizers afraid of?"'
+];
+var server = [
+  "Lines From Great Russian Literature? Or E-mails From My Boss?",
+  "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
+  'Sign contract for "What are conference organizers afraid of?"'
+];
+
+
+var data = [
+  ["1", "Clavier", "666"],
+  ["2", "Minerva Hooper", "233"],
+  ["3", "Sage Rodriguez", "131"],
+  ["4", "Philip Chaney", "10"],
+]
+
 class Dashboard extends Component {
-
-    state = {
-      value: 0
-    };
-
-    handleChange = (event, value) => {
-      this.setState({ value });
-    };
-
-    handleChangeIndex = index => {
-      this.setState({ value: index });
-    };
 
   render() {
     const { classes } = this.props;
     return (
       <div>
+
         <Grid container>
-          <GridItem xs={12} sm={6} md={3}>
-            <Card>
-              <CardHeader color="warning" stats icon>
-                <CardIcon color="warning">
-                  <ContentCopy />
-                </CardIcon>
-                <p className={classes.cardCategory}>Used Space</p>
-                <h3 className={classes.cardTitle}>
-                  49/50 <small>GB</small>
-                </h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <Danger>
-                    <Warning />
-                  </Danger>
-                  <a href="#pablo" onClick={e => e.preventDefault()}>
-                    Get more space
-                  </a>
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-
 
           <GridItem xs={12} sm={6} md={3}>
-              <Card>
-                  <CardHeader color="success" stats icon>
-                    <CardIcon color="success">
-                      <Store />
-                    </CardIcon>
-                    <p className={classes.cardCategory}>Revenue</p>
-                    <h3 className={classes.cardTitle}>$34,245</h3>
-                  </CardHeader>
-                  <CardFooter stats>
-                    <div className={classes.stats}>
-                      <DateRange />
-                      Last 24 Hours
-                    </div>
-                  </CardFooter>
-              </Card>
+              <InfoCard color="info" icon="extension" title="Pending" value="32"/>
           </GridItem>
-
-
 
           <GridItem xs={12} sm={6} md={3}>
-            <Card>
-              <CardHeader color="danger" stats icon>
-                <CardIcon color="danger">
-                  <InfoOutline />
-                </CardIcon>
-                <p className={classes.cardCategory}>Fixed Issues</p>
-                <h3 style={dashboardStyle.cardTitle} className={classes.cardTitle}>75</h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <LocalOffer />
-                  Tracked from Github
-                </div>
-              </CardFooter>
-            </Card>
+            <InfoCard color="warning" icon="build" title="Progressing" value="32"/>
           </GridItem>
-          
+
+          <GridItem xs={12} sm={6} md={3}>
+            <InfoCard color="success" icon="check_circle" title="Finished" value="23"/>
+          </GridItem>
+
+          <GridItem xs={12} sm={6} md={3}>
+            <InfoCard color="danger" icon="error" title="Bugs" value="32"/>
+          </GridItem>
+
         </Grid>
+
+
         <Grid container>
-          <GridItem xs={12} sm={12} md={4}>
+
+          
+          <GridItem  xs={8}>
+            <GridItem xs={12}>
             <Card chart>
               <CardHeader color="success">
                 <ChartistGraph
@@ -148,57 +111,65 @@ class Dashboard extends Component {
                 </div>
               </CardFooter>
             </Card>
+            </GridItem>
+
+            <GridItem xs={12}>
+              <Card chart>
+                <CardHeader color="warning">
+                  <ChartistGraph
+                    className="ct-chart"
+                    data={emailsSubscriptionChart.data}
+                    type="Bar"
+                    options={emailsSubscriptionChart.options}
+                    responsiveOptions={emailsSubscriptionChart.responsiveOptions}
+                    listener={emailsSubscriptionChart.animation}
+                  />
+                </CardHeader>
+                <CardBody>
+                  <h4 className={classes.cardTitle}>Email Subscriptions</h4>
+                  <p className={classes.cardCategory}>
+                    Last Campaign Performance
+                </p>
+                </CardBody>
+                <CardFooter chart>
+                  <div className={classes.stats}>
+                    <AccessTime /> campaign sent 2 days ago
+                </div>
+                </CardFooter>
+              </Card>
+            </GridItem>
           </GridItem>
+          
+
+          
+         
           <GridItem xs={12} sm={12} md={4}>
-            <Card chart>
+            <Card>
               <CardHeader color="warning">
-                <ChartistGraph
-                  className="ct-chart"
-                  data={emailsSubscriptionChart.data}
-                  type="Bar"
-                  options={emailsSubscriptionChart.options}
-                  responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                  listener={emailsSubscriptionChart.animation}
-                />
+                <h4 className={classes.cardTitleWhite}>Squad Member Stats</h4>
+                <p className={classes.cardCategoryWhite}>
+                  New member on 15th June, 2018
+                </p>
               </CardHeader>
               <CardBody>
-                <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-                <p className={classes.cardCategory}>
-                  Last Campaign Performance
-                </p>
-              </CardBody>
-              <CardFooter chart>
-                <div className={classes.stats}>
-                  <AccessTime /> campaign sent 2 days ago
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card chart>
-              <CardHeader color="danger">
-                <ChartistGraph
-                  className="ct-chart"
-                  data={completedTasksChart.data}
-                  type="Line"
-                  options={completedTasksChart.options}
-                  listener={completedTasksChart.animation}
+                <Table
+                  tableHeaderColor="warning"
+                  tableHead={["Rank", "Name", "Contribution"]}
+                  tableData={data}
                 />
-              </CardHeader>
-              <CardBody>
-                <h4 className={classes.cardTitle}>Completed Tasks</h4>
-                <p className={classes.cardCategory}>
-                  Last Campaign Performance
-                </p>
               </CardBody>
-              <CardFooter chart>
-                <div className={classes.stats}>
-                  <AccessTime /> campaign sent 2 days ago
-                </div>
-              </CardFooter>
             </Card>
           </GridItem>
+
+          
+          
+
+
+
         </Grid>
+
+
+
         <Grid container>
           <GridItem xs={12} sm={12} md={6}>
             <CustomTabs
@@ -206,7 +177,7 @@ class Dashboard extends Component {
               headerColor="primary"
               tabs={[
                 {
-                  tabName: "Bugs",
+                  tabName: "New",
                   tabIcon: BugReport,
                   tabContent: (
                     <Tasks
@@ -217,7 +188,7 @@ class Dashboard extends Component {
                   )
                 },
                 {
-                  tabName: "Website",
+                  tabName: "Progressing",
                   tabIcon: Code,
                   tabContent: (
                     <Tasks
@@ -228,7 +199,7 @@ class Dashboard extends Component {
                   )
                 },
                 {
-                  tabName: "Server",
+                  tabName: "Complete",
                   tabIcon: Cloud,
                   tabContent: (
                     <Tasks
@@ -253,12 +224,7 @@ class Dashboard extends Component {
                 <Table
                   tableHeaderColor="warning"
                   tableHead={["ID", "Name", "Salary", "Country"]}
-                  tableData={[
-                    ["1", "Dakota Rice", "$36,738", "Niger"],
-                    ["2", "Minerva Hooper", "$23,789", "Curaçao"],
-                    ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
-                    ["4", "Philip Chaney", "$38,735", "Korea, South"]
-                  ]}
+                  tableData={data}
                 />
               </CardBody>
             </Card>
@@ -269,9 +235,6 @@ class Dashboard extends Component {
   }
 }
 
-Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 const dashboardStyle = {
   successText: {
@@ -293,6 +256,23 @@ const dashboardStyle = {
       position: "relative",
       marginRight: "3px"
     }
+  },
+
+  card: {
+    border: "0",
+    marginBottom: "30px",
+    marginTop: "30px",
+    borderRadius: "6px",
+    color: "rgba(0, 0, 0, 0.87)",
+    background: "#fff",
+    width: "100%",
+    boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.14)",
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    minWidth: "0",
+    wordWrap: "break-word",
+    fontSize: ".875rem"
   },
   cardCategory: {
     color: "#999999",
