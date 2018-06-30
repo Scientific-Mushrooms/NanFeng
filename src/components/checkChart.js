@@ -5,50 +5,80 @@ import Card from "./Card/Card.jsx";
 import CardHeader from "./Card/CardHeader.jsx";
 import CardBody from "./Card/CardBody.jsx";
 import CardFooter from "./Card/CardFooter.jsx";
-
+import Table from "./Table/Table.jsx";
+import CustomTabs from "./CustomTabs/CustomTabs.jsx";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
+import Tasks from "./Tasks/Tasks.jsx";
 
+
+import BugReport from "@material-ui/icons/BugReport";
+import Code from "@material-ui/icons/Code";
+import Cloud from "@material-ui/icons/Cloud";
 
 import ChartistGraph from "react-chartist";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 
-
-import {
-    dailySalesChart,
-    emailsSubscriptionChart,
-} from "../variables/charts";
-
-
-class BarChart extends Component {
+var bugs = [
+    'Sign contract for "What are conference organizers afraid of?"',
+    "Lines From Great Russian Literature? Or E-mails From My Boss?",
+    "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
+    "Create 4 Invisible User Experiences you Never Knew About"
+];
+var website = [
+    "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
+    'Sign contract for "What are conference organizers afraid of?"'
+];
+var server = [
+    "Lines From Great Russian Literature? Or E-mails From My Boss?",
+    "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
+    'Sign contract for "What are conference organizers afraid of?"'
+];
+class CheckChart extends Component {
     state = {}
     render() {
         const { classes } = this.props;
         return (
-            <Card chart>
-                <CardHeader color="warning">
-                    <ChartistGraph
-                        className="ct-chart"
-                        data={emailsSubscriptionChart.data}
-                        type="Bar"
-                        options={emailsSubscriptionChart.options}
-                        responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                        listener={emailsSubscriptionChart.animation}
-                    />
-                </CardHeader>
-                <CardBody>
-                    <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-                    <p className={classes.cardCategory}>
-                        Last Campaign Performance
-                </p>
-                </CardBody>
-                <CardFooter chart>
-                    <div className={classes.stats}>
-                        <AccessTime /> campaign sent 2 days ago
-                </div>
-                </CardFooter>
-            </Card>
+            <CustomTabs
+                title="Tasks:"
+                headerColor="primary"
+                tabs={[
+                    {
+                        tabName: "New",
+                        tabIcon: BugReport,
+                        tabContent: (
+                            <Tasks
+                                checkedIndexes={[0, 3]}
+                                tasksIndexes={[0, 1, 2, 3]}
+                                tasks={bugs}
+                            />
+                        )
+                    },
+                    {
+                        tabName: "Progressing",
+                        tabIcon: Code,
+                        tabContent: (
+                            <Tasks
+                                checkedIndexes={[0]}
+                                tasksIndexes={[0, 1]}
+                                tasks={website}
+                            />
+                        )
+                    },
+                    {
+                        tabName: "Complete",
+                        tabIcon: Cloud,
+                        tabContent: (
+                            <Tasks
+                                checkedIndexes={[1]}
+                                tasksIndexes={[0, 1, 2]}
+                                tasks={server}
+                            />
+                        )
+                    }
+                ]}
+            />
         );
     }
 }
@@ -140,4 +170,4 @@ const dashboardStyle = {
     }
 };
 
-export default withStyles(dashboardStyle)(BarChart);
+export default withStyles(dashboardStyle)(CheckChart);

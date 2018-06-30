@@ -5,6 +5,7 @@ import Card from "./Card/Card.jsx";
 import CardHeader from "./Card/CardHeader.jsx";
 import CardBody from "./Card/CardBody.jsx";
 import CardFooter from "./Card/CardFooter.jsx";
+import Table from "./Table/Table.jsx";
 
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
@@ -21,33 +22,31 @@ import {
 } from "../variables/charts";
 
 
-class BarChart extends Component {
+var data = [
+    ["1", "Clavier", "666"],
+    ["2", "Minerva Hooper", "233"],
+    ["3", "Sage Rodriguez", "131"],
+    ["4", "Philip Chaney", "10"],
+]
+class RankChart extends Component {
     state = {}
     render() {
         const { classes } = this.props;
         return (
-            <Card chart>
+            <Card>
                 <CardHeader color="warning">
-                    <ChartistGraph
-                        className="ct-chart"
-                        data={emailsSubscriptionChart.data}
-                        type="Bar"
-                        options={emailsSubscriptionChart.options}
-                        responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                        listener={emailsSubscriptionChart.animation}
-                    />
+                    <h4 className={classes.cardTitleWhite}>Squad Member Stats</h4>
+                    <p className={classes.cardCategoryWhite}>
+                        New member on 15th June, 2018
+                </p>
                 </CardHeader>
                 <CardBody>
-                    <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-                    <p className={classes.cardCategory}>
-                        Last Campaign Performance
-                </p>
+                    <Table
+                        tableHeaderColor="warning"
+                        tableHead={["Rank", "Name", "Contribution"]}
+                        tableData={data}
+                    />
                 </CardBody>
-                <CardFooter chart>
-                    <div className={classes.stats}>
-                        <AccessTime /> campaign sent 2 days ago
-                </div>
-                </CardFooter>
             </Card>
         );
     }
@@ -140,4 +139,4 @@ const dashboardStyle = {
     }
 };
 
-export default withStyles(dashboardStyle)(BarChart);
+export default withStyles(dashboardStyle)(RankChart);
