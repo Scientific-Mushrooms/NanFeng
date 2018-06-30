@@ -36,7 +36,7 @@ class LineChart extends Component {
                     />
                 </CardHeader>
                 <CardBody>
-                    <h4 className={classes.cardTitle}>Daily Sales</h4>
+                    <h4 className={classes.cardTitle}>{this.props.title}</h4>
                     <p className={classes.cardCategory}>
                         <span className={classes.successText}>
                             <ArrowUpward className={classes.upArrowCardCategory} /> 55%

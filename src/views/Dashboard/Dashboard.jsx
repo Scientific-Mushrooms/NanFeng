@@ -1,26 +1,14 @@
 import React, {Component} from "react";
 
-import ChartistGraph from "react-chartist";
-// @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
 
 
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import AccessTime from "@material-ui/icons/AccessTime";
 import BugReport from "@material-ui/icons/BugReport";
 import Code from "@material-ui/icons/Code";
 import Cloud from "@material-ui/icons/Cloud";
 
 
 import GridItem from "../../components/Grid/GridItem.jsx";
-import Table from "../../components/Table/Table.jsx";
-import Tasks from "../../components/Tasks/Tasks.jsx";
-import CustomTabs from "../../components/CustomTabs/CustomTabs.jsx";
-import Card from "../../components/Card/Card.jsx";
-import CardHeader from "../../components/Card/CardHeader.jsx";
-import CardBody from "../../components/Card/CardBody.jsx";
-import CardFooter from "../../components/Card/CardFooter.jsx";
 
 
 import LineChart from '../../components/lineChart';
@@ -89,7 +77,7 @@ class Dashboard extends Component {
 
                     <GridItem xs={8}>
                         <GridItem xs={12}>
-                            <LineChart/>
+                            <LineChart title='Daily Finished'/>
                         </GridItem>
                         <GridItem xs={12}>
                             <BarChart/>
