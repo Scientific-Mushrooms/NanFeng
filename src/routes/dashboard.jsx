@@ -15,28 +15,28 @@ const dashboardRoutes = [
         path: "/dashboard",
         sidebarName: "Dashboard",
         navbarName: "Code Dashboard",
-        icon: Dashboard,
+        icon: "dashboard",
         component: DashboardPage
     },
     {
         path: "/react-learn",
         sidebarName: "React Learn",
         navbarName: "React Learn",
-        icon: Person,
+        icon: 'code',
         component: UserProfile
     },
     {
         path: "/react-native-learn",
         sidebarName: "React Native Learn",
         navbarName: "React Native Learn",
-        icon: ContentPaste,
+        icon: 'code',
         component: TableList
     },
     {
         path: "/java-spring-api",
         sidebarName: "Java Spring API",
         navbarName: "Java Spring API",
-        icon: Notifications,
+        icon: 'code',
         component: Screens.Notifications
     },
 
@@ -44,7 +44,7 @@ const dashboardRoutes = [
         path: "/code-squad",
         sidebarName: "Code Squad",
         navbarName: "Code Squad",
-        icon: Notifications,
+        icon: 'code',
         component: Screens.Home,
     },
 

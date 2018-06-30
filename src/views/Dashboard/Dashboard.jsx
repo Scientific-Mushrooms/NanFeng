@@ -2,12 +2,6 @@ import React, {Component} from "react";
 
 import Grid from "@material-ui/core/Grid";
 
-
-import BugReport from "@material-ui/icons/BugReport";
-import Code from "@material-ui/icons/Code";
-import Cloud from "@material-ui/icons/Cloud";
-
-
 import GridItem from "../../components/Grid/GridItem.jsx";
 
 
@@ -75,18 +69,18 @@ class Dashboard extends Component {
 
                 <Grid container>
 
-                    <GridItem xs={8}>
+                    <Grid xs={8}>
                         <GridItem xs={12}>
                             <LineChart title='Daily Finished'/>
                         </GridItem>
                         <GridItem xs={12}>
                             <BarChart/>
                         </GridItem>
-                    </GridItem>
+                    </Grid>
                     
-                    <GridItem xs={4}>
+                    <Grid xs={4}>
                         <RankChart/>
-                    </GridItem>
+                    </Grid>
 
                 </Grid>
 
