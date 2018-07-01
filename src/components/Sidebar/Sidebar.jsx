@@ -6,10 +6,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
-import Button from "@material-ui/core/Button";
 
 import image from "./src/background_1.jpg";
-import logo from './src/logo.png';
 
 export default class SideBar extends Component {
 
@@ -32,16 +30,12 @@ export default class SideBar extends Component {
 
     render() {
         return (
-            <div>
-                <Drawer  variant="permanent" open>
-
-                    <div style={styles.sidebarWrapper}>    
-                        {this.props.routes.map(this.routesToList)}
-                    </div>
-                    
-                    <div style={{ ...styles.background, backgroundImage: "url(" + image + ")"}}/> 
-                </Drawer>
-            </div>
+            <Drawer  variant="permanent" open style={styles.drawer}>
+                <div style={styles.sidebarWrapper}>
+                    {this.props.routes.map(this.routesToList)}
+                </div>
+                <div style={{ ...styles.background, backgroundImage: "url(" + image + ")"}}/> 
+            </Drawer>
         );
     }
 };
@@ -54,6 +48,11 @@ const defaultFont = {
 };
 
 const styles = {
+
+    drawer: {
+        width: '100%',
+        height: '100%'
+    },
 
     itemLink: {
         width: "auto",
@@ -114,32 +113,19 @@ const styles = {
     },
 
     sidebarWrapper: {
-        position: "relative",
+        
         height: "calc(100vh - 75px)",
-        overflow: "auto",
         width: "300px",
         zIndex: "4",
-        overflowScrolling: "touch"
     },
 
 
-    img: {
-        width: "35px",
-        top: "22px",
-        verticalAlign: "middle",
-        border: "0",
-        float: 'left',
-        paddingRight: '15px'
-    },
 
     background: {
         position: "absolute",
         zIndex: "1",
         height: "100%",
         width: "100%",
-        display: "block",
-        top: "0",
-        left: "0",
         backgroundSize: "cover",
         backgroundPosition: "center center",
     },

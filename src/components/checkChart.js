@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 
 
-import Card from "./Card/Card.jsx";
-import CardHeader from "./Card/CardHeader.jsx";
-import CardBody from "./Card/CardBody.jsx";
-import CardFooter from "./Card/CardFooter.jsx";
-import Table from "./Table/Table.jsx";
 import CustomTabs from "./CustomTabs/CustomTabs.jsx";
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import AccessTime from "@material-ui/icons/AccessTime";
 import Tasks from "./Tasks/Tasks.jsx";
 
 
@@ -16,9 +9,6 @@ import BugReport from "@material-ui/icons/BugReport";
 import Code from "@material-ui/icons/Code";
 import Cloud from "@material-ui/icons/Cloud";
 
-import ChartistGraph from "react-chartist";
-// @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
 
 var bugs = [
     'Sign contract for "What are conference organizers afraid of?"',
@@ -38,7 +28,6 @@ var server = [
 class CheckChart extends Component {
     state = {}
     render() {
-        const { classes } = this.props;
         return (
             <CustomTabs
                 title="Tasks:"
@@ -170,4 +159,4 @@ const dashboardStyle = {
     }
 };
 
-export default withStyles(dashboardStyle)(CheckChart);
+export default CheckChart;

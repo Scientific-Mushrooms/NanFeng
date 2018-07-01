@@ -1,5 +1,10 @@
 import * as Screens from "../screens";
+import { connect } from 'react-redux';
 
+
+const mapStateToProps = state => ({
+    user: state.user.info,
+})
 
 const dashboardRoutes = [
 
@@ -7,7 +12,7 @@ const dashboardRoutes = [
         path: "/dashboard",
         sidebarName: "Dashboard",
         icon: "dashboard",
-        component: Screens.Dashboard
+        component: connect(mapStateToProps)(Screens.Dashboard)
     },
 
     {

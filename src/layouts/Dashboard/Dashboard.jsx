@@ -4,15 +4,14 @@ import React, {Component} from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
-import Header from "../../components/Header/Header.jsx";
+
 import Sidebar from "../../components/Sidebar/Sidebar.jsx";
 
 import dashboardRoutes from "../../routes/dashboard.jsx";
 
 import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import Grid from "@material-ui/core/Grid";
-
-import GridItem from "../../components/Grid/GridItem.jsx";
+import HeaderLinks from '../../components/Header/HeaderLinks';
 
 const switchRoutes = (
     <Switch>
@@ -29,20 +28,48 @@ class App extends Component {
     render() {
         const { classes, ...rest } = this.props;
         return (
-            <div className={classes.wrapper}>
-   
+            <Grid container>
+                <Grid xs={3}>
                     <Sidebar routes={dashboardRoutes} {...rest}/>
-          
-                    <div className={classes.mainPanel} ref="mainPanel">
-                        <Header routes={dashboardRoutes}  {...rest}/>
-                        <div className={classes.content}>
-                            <div className={classes.container}>{switchRoutes}</div>
-                        </div>
-                    </div>
-         
-            </div>
+                </Grid>
+                <Grid xs={9}>
+                    <Grid xs={9}>
+                        <HeaderLinks routes={dashboardRoutes}  {...rest}/>
+                    </Grid>
+                    <Grid xs={12}>
+                        <div className={classes.container}>{switchRoutes}</div>
+                    </Grid>
+                </Grid>
+            </Grid>
         );
     }
 }
+
+const styles = {
+
+    wrapper: {
+        position: "relative",
+        top: "0",
+        height: "100vh"
+    },
+    mainPanel: {
+
+        overflow: "auto",
+        position: "relative",
+        float: "right",
+
+        maxHeight: "100%",
+        width: "100%",
+        overflowScrolling: "touch"
+    },
+    content: {
+        marginTop: "70px",
+        padding: "30px 15px",
+        minHeight: "calc(100vh - 123px)"
+    },
+    map: {
+        marginTop: "70px"
+    }
+};
 
 export default withStyles(dashboardStyle)(App);

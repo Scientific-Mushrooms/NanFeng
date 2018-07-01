@@ -6,17 +6,15 @@ import CardHeader from "./Card/CardHeader.jsx";
 import CardBody from "./Card/CardBody.jsx";
 import CardFooter from "./Card/CardFooter.jsx";
 
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
+
 import AccessTime from "@material-ui/icons/AccessTime";
 
 
 import ChartistGraph from "react-chartist";
-// @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 
 
 import {
-    dailySalesChart,
     emailsSubscriptionChart,
 } from "../variables/charts";
 
