@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import CheckChart from '../../components/checkChart';
 import GridItem from "../../components/Grid/GridItem.jsx";
 
-export class Home extends Component {
+export class ReactLearn extends Component {
     state = {  }
     render() {
         return (

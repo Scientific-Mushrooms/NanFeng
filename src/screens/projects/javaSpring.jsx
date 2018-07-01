@@ -44,7 +44,7 @@ const styles = {
   }
 };
 
-export class Notifications extends React.Component {
+export class JavaSpring extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -40,7 +40,7 @@ var data = [
     ["4", "Philip Chaney", "10"],
 ]
 
-class Dashboard extends Component {
+export class Dashboard extends Component {
 
     render() {
 
@@ -89,4 +89,3 @@ class Dashboard extends Component {
 
 
 
-export default Dashboard;
