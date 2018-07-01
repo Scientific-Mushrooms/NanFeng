@@ -1,12 +1,7 @@
-import React from "react";
-import classNames from "classnames";
+import React, {Component} from "react";
 import { Manager, Target, Popper } from "react-popper";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Hidden from "@material-ui/core/Hidden";
 // @material-ui/icons
@@ -23,7 +18,7 @@ import LoginBox from '../loginBox';
 
 
 
-class HeaderLinks extends React.Component {
+class HeaderLinks extends Component {
     state = {
       open: false
     };
@@ -76,58 +71,7 @@ class HeaderLinks extends React.Component {
                 </Hidden>
               </Button>
             </Target>
-            <Popper
-              placement="bottom-start"
-              eventsEnabled={open}
-              className={
-                classNames({ [classes.popperClose]: !open }) +
-                " " +
-                classes.pooperResponsive
-              }
-            >
-             
-                <Grow
-                  in={open}
-                  id="menu-list"
-                  style={{ transformOrigin: "0 0 0" }}
-                >
-                  <Paper className={classes.dropdown}>
-                    <MenuList role="menu">
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={classes.dropdownItem}
-                      >
-                        Mike John responded to your email
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={classes.dropdownItem}
-                      >
-                        You have 5 new tasks
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={classes.dropdownItem}
-                      >
-                        You're now friend with Andrew
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={classes.dropdownItem}
-                      >
-                        Another Notification
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={classes.dropdownItem}
-                      >
-                        Another One
-                      </MenuItem>
-                    </MenuList>
-                  </Paper>
-                </Grow>
-        
-            </Popper>
+  
           </Manager>
           <Button
             color={window.innerWidth > 959 ? "transparent" : "white"}
@@ -135,6 +79,7 @@ class HeaderLinks extends React.Component {
             simple={!(window.innerWidth > 959)}
             aria-label="Person"
             className={classes.buttonLink}
+            onClick={this.handleOpen}
           >
             <Person className={classes.icons} />
             <Hidden mdUp>
