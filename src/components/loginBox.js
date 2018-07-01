@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import Grid from '@material-ui/core/Grid';
@@ -11,7 +11,7 @@ import CardBody from "./Card/CardBody.jsx";
 
 
 import withStyles from "@material-ui/core/styles/withStyles";
-
+import Button from './CustomButtons/Button'
 
 
 class LoginBox extends Component {
@@ -28,21 +28,22 @@ class LoginBox extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Grid style={styles.container} xs={4}>
+            <Grid style={styles.container} xs={3}>
             <Card>
                 <CardHeader color="warning">
                     <h4 className={classes.cardTitleWhite}>Squad Member Stats</h4>
                 </CardHeader>
                 <CardBody>
-                        <Grid xs={12}>
-                            <TextField
-                                id="name"
-                                label="Name"
-                                className={styles.textField}
-                                value={this.state.name}
-                                onChange={this.handleChange('name')}
-                                margin="normal"
-                            />
+                    <Grid xs={12}>
+                        <TextField
+                            id="name"
+                            label="Name"
+                            className={styles.textField}
+                            value={this.state.name}
+                            onChange={this.handleChange('name')}
+                            margin="normal"
+                            fullWidth={true}
+                        />
                         </Grid>
                         <Grid xs={12}>
                             <TextField
@@ -52,13 +53,14 @@ class LoginBox extends Component {
                                 type="password"
                                 autoComplete="current-password"
                                 margin="normal"
+                                fullWidth={true}
                             />
                         </Grid>
                         <Grid xs={12}>
-                            <Button size="large">LOGIN</Button>
+                            <Button size="large" style={styles.button} color='primary'>LOGIN</Button>
                         </Grid>
                         <Grid xs={12}>
-                            <Button size="large" >SIGN UP</Button>
+                            <Button size="large" style={styles.button} color='primary'>SIGN UP</Button>
                         </Grid>
                 </CardBody>
             </Card>
@@ -82,8 +84,12 @@ const styles = {
     textField: {
         marginLeft: '10px',
         marginRight: '10px',
-        width: '400px',
     },
+
+    button: {
+        width: '100%',
+        marginTop: '10px'
+    }
 };
 
 const dashboardStyle = {
