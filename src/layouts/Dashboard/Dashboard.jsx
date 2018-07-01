@@ -10,6 +10,9 @@ import Sidebar from "../../components/Sidebar/Sidebar.jsx";
 import dashboardRoutes from "../../routes/dashboard.jsx";
 
 import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
+import Grid from "@material-ui/core/Grid";
+
+import GridItem from "../../components/Grid/GridItem.jsx";
 
 const switchRoutes = (
     <Switch>
@@ -27,15 +30,16 @@ class App extends Component {
         const { classes, ...rest } = this.props;
         return (
             <div className={classes.wrapper}>
-
-                <Sidebar routes={dashboardRoutes} {...rest}/>
-
-                <div className={classes.mainPanel} ref="mainPanel">
-                    <Header routes={dashboardRoutes}  {...rest}/>
-                    <div className={classes.content}>
-                        <div className={classes.container}>{switchRoutes}</div>
+   
+                    <Sidebar routes={dashboardRoutes} {...rest}/>
+          
+                    <div className={classes.mainPanel} ref="mainPanel">
+                        <Header routes={dashboardRoutes}  {...rest}/>
+                        <div className={classes.content}>
+                            <div className={classes.container}>{switchRoutes}</div>
+                        </div>
                     </div>
-                </div>
+         
             </div>
         );
     }

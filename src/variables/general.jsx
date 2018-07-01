@@ -1,6 +1,3 @@
-// ##############################
-// // // Tasks for TasksCard - see Dashboard view
-// #############################
 
 var bugs = [
   'Sign contract for "What are conference organizers afraid of?"',

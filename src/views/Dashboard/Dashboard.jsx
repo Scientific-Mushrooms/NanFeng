@@ -8,7 +8,6 @@ import GridItem from "../../components/Grid/GridItem.jsx";
 import LineChart from '../../components/lineChart';
 import BarChart from '../../components/barChart';
 import RankChart from '../../components/rankChart';
-import CheckChart from '../../components/checkChart';
 import InfoCard from "../../components/infoCard";
 
 import {
@@ -44,7 +43,7 @@ var data = [
 class Dashboard extends Component {
 
     render() {
-        const { classes } = this.props;
+
         return (
             <div>
 
@@ -82,12 +81,6 @@ class Dashboard extends Component {
                         <RankChart/>
                     </Grid>
 
-                </Grid>
-
-                <Grid container>
-                    <GridItem cs={12}>
-                        <CheckChart/>
-                    </GridItem>
                 </Grid>
             </div>
         );
