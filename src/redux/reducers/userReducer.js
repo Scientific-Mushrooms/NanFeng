@@ -1,4 +1,4 @@
-var user = (state = {}, action) => {
+var userReducer = (state = {}, action) => {
     
     switch (action.type) {
 
@@ -16,4 +16,4 @@ var user = (state = {}, action) => {
     }
 }
 
-export default user;
+export default userReducer;

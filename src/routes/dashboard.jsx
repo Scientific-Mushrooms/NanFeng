@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 
 const mapStateToProps = state => ({
-    user: state.user.info,
+    user: state.userReducer.info,
+    loginbox: state.modalReducer.loginbox
 })
 
 const dashboardRoutes = [

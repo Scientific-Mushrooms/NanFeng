@@ -8,6 +8,6 @@ export const login = (info) => ({ type: 'LOGIN', info: info });
 
 export const logout = () => ({ type: 'LOGOUT'});
 
-export const  addPhoto = (photos) => ({ type: 'PHOTO_ADD', photos: photos });
+export const loginBoxShow = { type: 'LOGINBOX_SHOW' };
 
-export const  cleanPhoto = () => ({ type: 'PHOTO_CLEAN' });
+export const loginBoxHide = { type: 'LOGINBOX_HIDE' };

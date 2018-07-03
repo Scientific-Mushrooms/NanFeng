@@ -1,11 +1,9 @@
 import { combineReducers } from 'redux';
 
-import counter from './reducers/counter'
-import user from './reducers/userReducer'
-import photos from './reducers/photos'
+import modalReducer from './reducers/modalReducer'
+import userReducer from './reducers/userReducer'
 
 export default combineReducers({
-    counter,
-    user,
-    photos,
+    modalReducer,
+    userReducer,
 });

@@ -4,18 +4,14 @@ import rootReducer from './rootReducer';
 
 const preloadedState = {
 
-    counter: {
-        count: 10,
-        factor: 1
+    modalReducer: {
+        loginbox: false
     },
 
-    user: {
+    userReducer: {
         info: null
     },
 
-    photos: {
-        photos: []
-    }
 }
 
 const store = createStore (
