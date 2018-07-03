@@ -42,6 +42,44 @@ var data = [
 
 export class Dashboard extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = { 
+            squad: null,
+            pendingNum: -1,
+            progressingNum: -1,
+            finishedNum: -1,
+            bugNum: -1,
+        };
+    }
+
+
+    post = (url, form) => {
+        return fetch(url, { method: 'POST', body: form })
+            .then((response) => (response.json()))
+            .catch((error) => { console.error(error); });
+    }
+
+    componentWillMount() {
+        let form = new FormData();
+        form.append("id", "a79f86c3-5bc5-48d3-bf95-84dd5c58e959");
+
+        this.post('/api/squad/findById', form).then((result) => {
+            if (result.status == 'fail') {
+                alert(result.description);
+            } else {
+                const squad = result.detail
+                this.setState({ 
+                    squad: squad,
+                    pendingNum: squad.pendingNum,
+                    progressingNum: squad.progressingNum,
+                    finishedNum: squad.finishedNum,
+                    bugNum: squad.bugNum,
+                })
+            }
+        })
+    }
+
     render() {
 
         return (
@@ -49,19 +87,19 @@ export class Dashboard extends Component {
 
                 <Grid container>
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="info" icon="extension" title="Pending" value="32"/>
+                        <InfoCard color="info" icon="extension" title="Pending" value={this.state.pendingNum}/>
                     </GridItem>
 
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="warning" icon="build" title="Progressing" value="32"/>
+                        <InfoCard color="warning" icon="build" title="Progressing" value={this.state.progressingNum}/>
                     </GridItem>
 
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="success" icon="check_circle" title="Finished" value="23"/>
+                        <InfoCard color="success" icon="check_circle" title={JSON.stringify(this.state.squad)} value={this.state.finishedNum}/>
                     </GridItem>
 
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="danger" icon="error" title={JSON.stringify(this.props.user)} value={JSON.stringify(this.props.user)}/>
+                        <InfoCard color="danger" icon="error" title={JSON.stringify(this.props.user)} value={this.state.bugNum}/>
                     </GridItem>
                 </Grid>
 
@@ -78,7 +116,7 @@ export class Dashboard extends Component {
                     </Grid>
                     
                     <Grid xs={4}>
-                        <RankChart/>
+                        <RankChart data={data}/>
                     </Grid>
 
                 </Grid>
@@ -87,5 +125,9 @@ export class Dashboard extends Component {
     }
 }
 
-
-
+var data = [
+    ["1", "Clavier", "666"],
+    ["2", "Minerva Hooper", "233"],
+    ["3", "Sage Rodriguez", "131"],
+    ["4", "Philip Chaney", "10"],
+]

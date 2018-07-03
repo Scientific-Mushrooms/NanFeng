@@ -10,12 +10,8 @@ import Table from "./Table/Table.jsx";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 
-var data = [
-    ["1", "Clavier", "666"],
-    ["2", "Minerva Hooper", "233"],
-    ["3", "Sage Rodriguez", "131"],
-    ["4", "Philip Chaney", "10"],
-]
+
+
 class RankChart extends Component {
     state = {}
     render() {
@@ -32,7 +28,7 @@ class RankChart extends Component {
                     <Table
                         tableHeaderColor="warning"
                         tableHead={["Rank", "Name", "Contribution"]}
-                        tableData={data}
+                        tableData={this.props.data}
                     />
                 </CardBody>
             </Card>
