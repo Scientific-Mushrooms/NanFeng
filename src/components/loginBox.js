@@ -10,7 +10,6 @@ import Button from './CustomButtons/Button'
 import { login } from '../redux/actions/action';
 import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { loginBoxHide } from '../redux/actions/action'
 
 const mapStateToProps = state => ({
@@ -41,12 +40,13 @@ class LoginBox extends Component {
             form.append("email", this.state.username);
             form.append("password", this.state.password);
 
-            this.post('login', form).then((result) => {
+            this.post('/api/user/login', form).then((result) => {
                 if (result.status == 'fail') {
                     alert(result.description);
                 } else {
                     alert("success")
                     this.props.dispatch(login(result.detail));
+                    this.props.dispatch(loginBoxHide)
                 }
             })
         }
@@ -60,9 +60,13 @@ class LoginBox extends Component {
 
     render() {
         return (
-            <Modal open={this.props.loginbox} style={styles.modalContainer} disableAutoFocus={true} onBackdropClick={() => this.props.dispatch(loginBoxHide)}>
-               
-            <Grid style={styles.container} xs={3}>
+            <Modal 
+                open={this.props.loginbox} 
+                style={styles.modalContainer} 
+                disableAutoFocus={true} 
+                onBackdropClick={() => this.props.dispatch(loginBoxHide)}
+                >
+                <Grid style={styles.container} xs={3}>
             <Card>
                 <CardHeader color="warning">
                     <h4 style={styles.cardTitleWhite}>Squad Member Stats</h4>
@@ -105,10 +109,8 @@ class LoginBox extends Component {
                         </Grid>
                 </CardBody>
             </Card>
-            </Grid>
-               
+                </Grid>
             </Modal>
-
         );
     }
 }

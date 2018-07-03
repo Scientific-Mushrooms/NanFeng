@@ -11,7 +11,7 @@ import dashboardRoutes from "../../routes/dashboard.jsx";
 
 import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import Grid from "@material-ui/core/Grid";
-import HeaderLinks from '../../components/Header/HeaderLinks';
+import Header from '../../components/Header/Header';
 
 const switchRoutes = (
     <Switch>
@@ -34,7 +34,7 @@ class App extends Component {
                 </Grid>
                 <Grid xs={9}>
                     <Grid xs={9}>
-                        <HeaderLinks routes={dashboardRoutes}  {...rest}/>
+                        <Header routes={dashboardRoutes}  {...rest}/>
                     </Grid>
                     <Grid xs={12}>
                         <div className={classes.container}>{switchRoutes}</div>

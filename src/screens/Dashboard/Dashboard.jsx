@@ -61,7 +61,7 @@ export class Dashboard extends Component {
                     </GridItem>
 
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="danger" icon="error" title="Bugs" value={JSON.stringify(this.props.user)}/>
+                        <InfoCard color="danger" icon="error" title={JSON.stringify(this.props.user)} value={JSON.stringify(this.props.user)}/>
                     </GridItem>
                 </Grid>
 
