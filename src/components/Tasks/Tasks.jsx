@@ -5,7 +5,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 
-import Edit from "@material-ui/icons/Edit";
 import Close from "@material-ui/icons/Close";
 
 
@@ -19,30 +18,26 @@ class Tasks extends Component {
                 <Grid container>
 
                     <Grid xs={1}>
-                        {task.key}
+                        {task.taskKey}
                     </Grid>
 
                     <Grid xs={1}>
-                        {task.status}
+                        {task.creatorId}
                     </Grid>
 
                     <Grid xs={8}>
                         {task.title}
                     </Grid>
 
-                    <Grid xs={2}>
-                        <Tooltip
-                            title="Edit Task"
-                            placement="top"
-                            style={styles.tooltip}
-                        >
-                            <IconButton
-                                aria-label="Edit"
-                                style={styles.tableActionButton}
-                            >
-                                <Edit />
-                            </IconButton>
-                        </Tooltip>
+                    <Grid xs={1}>
+                        {task.level}
+                    </Grid>
+
+                    <Grid xs={1}>
+                        {task.date}
+                    </Grid>
+
+                    {/* <Grid xs={1}>
                         <Tooltip
                             title="Remove"
                             placement="top"
@@ -55,18 +50,26 @@ class Tasks extends Component {
                                 <Close />
                             </IconButton>
                         </Tooltip>
-                    </Grid>
+                    </Grid> */}
+
                 </Grid>
             </Button>
         )
     }
 
     render() { 
-        return (
-            <Grid xs={12}>
-                {this.props.tasks.map(this.renderRow)}
-            </Grid>
-        );
+        if (this.props.tasks != null) {
+            return (
+                <Grid xs={12}>
+                    {this.props.tasks.map(this.renderRow)}
+                </Grid>
+            );
+        } else {
+            return (
+                <Grid xs={12}>
+                </Grid>
+            );
+        }
     }
 }
 
@@ -76,27 +79,13 @@ const styles = {
         width: '100%'
     },
 
-    table: {
-        marginBottom: "0",
-        overflow: "visible"
-    },
-
-    tableRow: {
-        position: "relative",
-    },
     tableActions: {
         display: "flex",
         border: "none",
         padding: "12px 8px !important",
         verticalAlign: "middle"
     },
-    tableCell: {
-        padding: "8px",
-        verticalAlign: "middle",
-        
-        lineHeight: "1.42857143",
-        fontSize: "14px"
-    },
+
     tableActionButton: {
         width: "27px",
         height: "27px"
@@ -105,10 +94,7 @@ const styles = {
         width: "17px",
         height: "17px"
     },
-    edit: {
-        backgroundColor: "transparent",
-        boxShadow: "none"
-    },
+
     close: {
         backgroundColor: "transparent",
         boxShadow: "none"

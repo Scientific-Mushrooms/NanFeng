@@ -38,41 +38,28 @@ export class Dashboard extends Component {
 
     constructor(props) {
         super(props);
-        
         this.state = { 
-            squad: null,
-            pendingNum: -1,
-            progressingNum: -1,
-            finishedNum: -1,
-            bugNum: -1,
-            rankChartData: [
-                { ranking: "1", name: "Clavier", contribution: "666" },
-            ],
+            squad: { pendingNum: -1, progressingNum: -1, finishedNum: -1, bugNum: -1,},
+            dataForRankChart: [{ ranking: "1", name: "Clavier", contribution: "666" }],
             lineChartData: null,
             barChartData: null,
         };
-
     }
 
-    fetchDataForDashBoard = () => {
+    fetchSquad = () => {
         let form = new FormData();
+        // squad ID, gonna replace later
         form.append("id", "8073c598-674c-40a7-9fc8-611a82823944");
 
         this.post('/api/squad/findById', form).then((result) => {
             if (result.status == 'fail') {
                 alert("result.description");
             } else {
-                const squad = result.detail
                 this.setState({
-                    squad: squad,
-                    pendingNum: squad.pendingNum,
-                    progressingNum: squad.progressingNum,
-                    finishedNum: squad.finishedNum,
-                    bugNum: squad.bugNum,
+                    squad: result.detail,
                 })
             }
         })
-
     }
 
     fetchDataForRankChart = () => {
@@ -83,10 +70,8 @@ export class Dashboard extends Component {
             if (result.status == 'fail') {
                 alert(result.description);
             } else {
-                const data = result.detail
-                // alert(JSON.stringify(data))
                 this.setState({
-                    rankChartData: data,
+                    dataForRankChart: result.detail,
                 })
             }
         })
@@ -99,29 +84,28 @@ export class Dashboard extends Component {
     }
 
     componentWillMount() {
-        this.fetchDataForDashBoard()
+        this.fetchSquad()
         this.fetchDataForRankChart();
     }
 
     render() {
         return (
             <div>
-
                 <Grid container>
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="info" icon="extension" title="Pending" value={this.state.pendingNum}/>
+                        <InfoCard color="info" icon="extension" title="Pending" value={this.state.squad.pendingNum}/>
                     </GridItem>
 
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="warning" icon="build" title="Progressing" value={this.state.progressingNum}/>
+                        <InfoCard color="warning" icon="build" title="Progressing" value={this.state.squad.progressingNum}/>
                     </GridItem>
 
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="success" icon="check_circle" title="finished" value={this.state.finishedNum}/>
+                        <InfoCard color="success" icon="check_circle" title="finished" value={this.state.squad.finishedNum}/>
                     </GridItem>
 
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="danger" icon="error" title="Bugs" value={this.state.bugNum}/>
+                        <InfoCard color="danger" icon="error" title="Bugs" value={this.state.squad.bugNum}/>
                     </GridItem>
                 </Grid>
 
@@ -137,10 +121,9 @@ export class Dashboard extends Component {
                     </Grid>
                     
                     <Grid xs={4}>
-                        <RankChart data={this.state.rankChartData}/>
+                        <RankChart data={this.state.dataForRankChart}/>
                     </Grid>
                 </Grid>
-
             </div>
         );
     }
