@@ -45,7 +45,7 @@ export class ReactLearn extends Component {
         form.append("projectId", projectId);
         form.append("type", type);
 
-        this.post('/api/task/projectIdToTasksByType', form).then((result) => {
+        this.post('/api/task/dataForTaskChart', form).then((result) => {
             if (result.status == 'fail') {
                 alert(result.description);
             } else {

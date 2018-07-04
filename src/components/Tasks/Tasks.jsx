@@ -22,7 +22,7 @@ class Tasks extends Component {
                     </Grid>
 
                     <Grid xs={1}>
-                        {task.creatorId}
+                        {task.ownerName}
                     </Grid>
 
                     <Grid xs={8}>
