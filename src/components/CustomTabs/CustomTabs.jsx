@@ -1,11 +1,9 @@
-import React from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// nodejs library to set properties for components
-import PropTypes from "prop-types";
+import React, { Component } from "react";
 
-// material-ui components
+import classNames from "classnames";
+
 import withStyles from "@material-ui/core/styles/withStyles";
+import Icon from "@material-ui/core/styles/withStyles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 // core components
@@ -15,14 +13,15 @@ import CardHeader from "../../components/Card/CardHeader.jsx";
 
 import customTabsStyle from "../../assets/jss/material-dashboard-react/components/customTabsStyle.jsx";
 
-class CustomTabs extends React.Component {
-  state = {
-    value: 0
-  };
+class CustomTabs extends Component {
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
+    state = {
+      value: 0
+    };
+
+    handleChange = (event, value) => {
+      this.setState({ value });
+    };
 
   render() {
     const {
@@ -89,26 +88,5 @@ class CustomTabs extends React.Component {
     );
   }
 }
-
-CustomTabs.propTypes = {
-  classes: PropTypes.object.isRequired,
-  headerColor: PropTypes.oneOf([
-    "warning",
-    "success",
-    "danger",
-    "info",
-    "primary"
-  ]),
-  title: PropTypes.string,
-  tabs: PropTypes.arrayOf(
-    PropTypes.shape({
-      tabName: PropTypes.string.isRequired,
-      tabIcon: PropTypes.func,
-      tabContent: PropTypes.node.isRequired
-    })
-  ),
-  rtlActive: PropTypes.bool,
-  plainTabs: PropTypes.bool
-};
 
 export default withStyles(customTabsStyle)(CustomTabs);

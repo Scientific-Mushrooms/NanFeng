@@ -16,6 +16,7 @@ import {
 } from "../../variables/charts";
 
 
+
 var bugs = [
     'Sign contract for "What are conference organizers afraid of?"',
     "Lines From Great Russian Literature? Or E-mails From My Boss?",
@@ -33,43 +34,36 @@ var server = [
 ];
 
 
-var data = [
-    ["1", "Clavier", "666"],
-    ["2", "Minerva Hooper", "233"],
-    ["3", "Sage Rodriguez", "131"],
-    ["4", "Philip Chaney", "10"],
-]
-
 export class Dashboard extends Component {
 
     constructor(props) {
         super(props);
+        
         this.state = { 
             squad: null,
             pendingNum: -1,
             progressingNum: -1,
             finishedNum: -1,
             bugNum: -1,
+            rankChartData: [
+                { ranking: "1", name: "Clavier", contribution: "666" },
+            ],
+            lineChartData: null,
+            barChartData: null,
         };
+
     }
 
-
-    post = (url, form) => {
-        return fetch(url, { method: 'POST', body: form })
-            .then((response) => (response.json()))
-            .catch((error) => { console.error(error); });
-    }
-
-    componentWillMount() {
+    fetchDataForDashBoard = () => {
         let form = new FormData();
-        form.append("id", "a79f86c3-5bc5-48d3-bf95-84dd5c58e959");
+        form.append("id", "8073c598-674c-40a7-9fc8-611a82823944");
 
         this.post('/api/squad/findById', form).then((result) => {
             if (result.status == 'fail') {
-                alert(result.description);
+                alert("result.description");
             } else {
                 const squad = result.detail
-                this.setState({ 
+                this.setState({
                     squad: squad,
                     pendingNum: squad.pendingNum,
                     progressingNum: squad.progressingNum,
@@ -78,10 +72,38 @@ export class Dashboard extends Component {
                 })
             }
         })
+
+    }
+
+    fetchDataForRankChart = () => {
+        let form = new FormData();
+        form.append("squadId", "8073c598-674c-40a7-9fc8-611a82823944");
+
+        this.post('/api/squadMember/rankChart', form).then((result) => {
+            if (result.status == 'fail') {
+                alert(result.description);
+            } else {
+                const data = result.detail
+                // alert(JSON.stringify(data))
+                this.setState({
+                    rankChartData: data,
+                })
+            }
+        })
+    }
+
+    post = (url, form) => {
+        return fetch(url, { method: 'POST', body: form })
+            .then((response) => (response.json()))
+            .catch((error) => { console.error(error); });
+    }
+
+    componentWillMount() {
+        this.fetchDataForDashBoard()
+        this.fetchDataForRankChart();
     }
 
     render() {
-
         return (
             <div>
 
@@ -95,17 +117,16 @@ export class Dashboard extends Component {
                     </GridItem>
 
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="success" icon="check_circle" title={JSON.stringify(this.state.squad)} value={this.state.finishedNum}/>
+                        <InfoCard color="success" icon="check_circle" title="finished" value={this.state.finishedNum}/>
                     </GridItem>
 
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="danger" icon="error" title={JSON.stringify(this.props.user)} value={this.state.bugNum}/>
+                        <InfoCard color="danger" icon="error" title="Bugs" value={this.state.bugNum}/>
                     </GridItem>
                 </Grid>
 
 
                 <Grid container>
-
                     <Grid xs={8}>
                         <GridItem xs={12}>
                             <LineChart title='Daily Finished'/>
@@ -116,18 +137,11 @@ export class Dashboard extends Component {
                     </Grid>
                     
                     <Grid xs={4}>
-                        <RankChart data={data}/>
+                        <RankChart data={this.state.rankChartData}/>
                     </Grid>
-
                 </Grid>
+
             </div>
         );
     }
 }
-
-var data = [
-    ["1", "Clavier", "666"],
-    ["2", "Minerva Hooper", "233"],
-    ["3", "Sage Rodriguez", "131"],
-    ["4", "Philip Chaney", "10"],
-]

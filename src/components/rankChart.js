@@ -13,7 +13,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 
 class RankChart extends Component {
-    state = {}
+    constructor(props) {
+        super();
+    }
     render() {
         const { classes } = this.props;
         return (
@@ -22,7 +24,7 @@ class RankChart extends Component {
                     <h4 className={classes.cardTitleWhite}>Squad Member Stats</h4>
                     <p className={classes.cardCategoryWhite}>
                         New member on 15th June, 2018
-                </p>
+                    </p>
                 </CardHeader>
                 <CardBody>
                     <Table
