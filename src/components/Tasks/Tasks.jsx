@@ -1,12 +1,7 @@
 import React, {Component} from "react";
 
-import withStyles from "@material-ui/core/styles/withStyles";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
-import Table from "@material-ui/core/Table";
-import TableRow from "@material-ui/core/TableRow";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 
@@ -15,67 +10,61 @@ import Close from "@material-ui/icons/Close";
 
 
 
-import tasksStyle from "../../assets/jss/material-dashboard-react/components/tasksStyle.jsx";
 
 class Tasks extends Component {
-    render() {
-        const { classes } = this.props;
+
+    renderRow = (task) => {
+        return (
+            <Button style={styles.button}>
+                <Grid container>
+
+                    <Grid xs={1}>
+                        {task.key}
+                    </Grid>
+
+                    <Grid xs={1}>
+                        {task.status}
+                    </Grid>
+
+                    <Grid xs={8}>
+                        {task.title}
+                    </Grid>
+
+                    <Grid xs={2}>
+                        <Tooltip
+                            title="Edit Task"
+                            placement="top"
+                            style={styles.tooltip}
+                        >
+                            <IconButton
+                                aria-label="Edit"
+                                style={styles.tableActionButton}
+                            >
+                                <Edit />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip
+                            title="Remove"
+                            placement="top"
+                            style={styles.tooltip}
+                            >
+                            <IconButton
+                                aria-label="Close"
+                                style={styles.tableActionButton}
+                                >
+                                <Close />
+                            </IconButton>
+                        </Tooltip>
+                    </Grid>
+                </Grid>
+            </Button>
+        )
+    }
+
+    render() { 
         return (
             <Grid xs={12}>
-                {this.props.tasks.map(task => (
-                    
-                        <Button style={styles.button}>
-                            <TableRow className={classes.tableRow}>
-                      
-                                <TableCell className={classes.tableCell}>
-                                    {task.status}
-                                </TableCell>
-                   
-                      
-                                <TableCell className={classes.tableCell}>
-                                    {task.title}
-                                </TableCell>
-                  
-                                <TableCell className={classes.tableActions}>
-                                    <Tooltip
-                                        id="tooltip-top"
-                                        title="Edit Task"
-                                        placement="top"
-                                        classes={{ tooltip: classes.tooltip }}
-                                        >
-                                    <IconButton
-                                        aria-label="Edit"
-                                        className={classes.tableActionButton}
-                                        >
-                                    <Edit
-                                        className={
-                                            classes.tableActionButtonIcon + " " + classes.edit
-                                        }
-                                        />
-                                    </IconButton>
-                                    </Tooltip>
-                                    <Tooltip
-                                        id="tooltip-top-start"
-                                        title="Remove"
-                                        placement="top"
-                                        classes={{ tooltip: classes.tooltip }}
-                                        >
-                                    <IconButton
-                                        aria-label="Close"
-                                        className={classes.tableActionButton}
-                                        >
-                                    <Close
-                                        className={
-                                            classes.tableActionButtonIcon + " " + classes.close
-                                        }
-                                        />
-                                    </IconButton>
-                                    </Tooltip>
-                                </TableCell>
-                            </TableRow>
-                        </Button>
-            
-                ))}
+                {this.props.tasks.map(this.renderRow)}
             </Grid>
         );
     }
@@ -85,6 +74,44 @@ const styles = {
     
     button: {
         width: '100%'
+    },
+
+    table: {
+        marginBottom: "0",
+        overflow: "visible"
+    },
+
+    tableRow: {
+        position: "relative",
+    },
+    tableActions: {
+        display: "flex",
+        border: "none",
+        padding: "12px 8px !important",
+        verticalAlign: "middle"
+    },
+    tableCell: {
+        padding: "8px",
+        verticalAlign: "middle",
+        
+        lineHeight: "1.42857143",
+        fontSize: "14px"
+    },
+    tableActionButton: {
+        width: "27px",
+        height: "27px"
+    },
+    tableActionButtonIcon: {
+        width: "17px",
+        height: "17px"
+    },
+    edit: {
+        backgroundColor: "transparent",
+        boxShadow: "none"
+    },
+    close: {
+        backgroundColor: "transparent",
+        boxShadow: "none"
     }
 }
-export default withStyles(tasksStyle)(Tasks);
+export default Tasks;

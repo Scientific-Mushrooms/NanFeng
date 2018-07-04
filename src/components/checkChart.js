@@ -5,8 +5,16 @@ import CustomTabs from "./CustomTabs/CustomTabs.jsx";
 import Tasks from "./Tasks/Tasks.jsx";
 
 var bugs = [
-    { title: 'Sign contract for "What are conference organizers afraid of?"', status: "A"},
-    { title: 'Sign contract for "What are conference organizers afraid of?"', status: "A" },
+    { 
+        key: 1002,
+        title: 'Sign contract for "What are conference organizers afraid of?"', 
+        status: "Aadgdg",
+    },
+    {
+        key: 1003,
+        title: 'Sign contract for "What are conference organizers afraid of?"',
+        status: "Aadgdg",
+    },
 ];
 
 
