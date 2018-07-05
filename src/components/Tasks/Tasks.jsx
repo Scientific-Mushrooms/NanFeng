@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { connect } from 'react-redux';
 
-import { taskDetailBoxShow, taskDetailDataSet } from '../../redux/actions/action';
+import { taskDetailBoxShow, taskDetailDataSet, dataForTaskChartSet } from '../../redux/actions/action';
 
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 const mapStateToProps = state => ({
     taskDetailBox: state.modalReducer.taskDetailBox,
     taskDetailData: state.modalReducer.taskDetailData,
+    dataForTaskChart: state.projectReducer.dataForTaskChart
 })
 
 var moment = require('moment');
@@ -20,6 +21,9 @@ class Tasks extends Component {
         this.props.dispatch(taskDetailDataSet(task))
         this.props.dispatch(taskDetailBoxShow());
     }
+
+
+    
 
     renderRow = (task) => {
         return (

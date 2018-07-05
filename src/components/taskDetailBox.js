@@ -8,21 +8,58 @@ import CardBody from "./Card/CardBody.jsx";
 import Button from './CustomButtons/Button'
 import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
-import { taskDetailBoxHide } from '../redux/actions/action';
+import { taskDetailBoxHide, dataForTaskChartSet } from '../redux/actions/action';
 
 const mapStateToProps = state => ({
     taskDetailBox: state.modalReducer.taskDetailBox,
     taskDetailData: state.modalReducer.taskDetailData,
+    dataForTaskChart: state.projectReducer.dataForTaskChart
 })
 
 class TaskDetailBox extends Component {
+
+
 
     onClickCancelButton = () => {
         this.props.dispatch(taskDetailBoxHide())
     }
 
     onClickAcceptButton = () => {
-        
+        this.updateType(this.props.taskDetailData.taskId, "progressing")
+    }
+
+    post = (url, form) => {
+        return fetch(url, { method: 'POST', body: form })
+            .then((response) => (response.json()))
+            .catch((error) => { console.error(error); });
+    }
+
+    updateType = (taskId, type) => {
+        let form = new FormData();
+        form.append("taskId", taskId);
+        form.append("type", type);
+
+        this.post('/api/task/updateTypeByTaskId', form).then((result) => {
+            if (result.status == 'fail') {
+                alert(result.description);
+            } else {
+                this.props.dispatch(taskDetailBoxHide())
+            }
+        })
+        this.fetchDataForTaskChartByType("392988bc-72e1-468f-8679-d6fc9948fe2f")
+    }
+
+    fetchDataForTaskChartByType = (projectId) => {
+        let form = new FormData();
+        form.append("projectId", projectId);
+
+        this.post('/api/task/dataForTaskChart', form).then((result) => {
+            if (result.status == 'fail') {
+                alert(result.description);
+            } else {
+                this.props.dispatch(dataForTaskChartSet(result.detail))
+            }
+        })
     }
  
     render() {
@@ -51,7 +88,7 @@ class TaskDetailBox extends Component {
                                      color='primary'
                                      onClick={this.onClickCancelButton}
                                      >Cancel</Button>
-                                <Button  style={styles.button} color='primary'>Accpet</Button>
+                                <Button style={styles.button} color='primary' onClick={this.onClickAcceptButton}>Accpet</Button>
                             </Grid>
                         </CardBody>
                     </Card>
