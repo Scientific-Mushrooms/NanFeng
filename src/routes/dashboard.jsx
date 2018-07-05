@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
     user: state.userReducer.info,
-    loginbox: state.modalReducer.loginbox
+    loginbox: state.modalReducer.loginbox,
+    dataForTaskChart: state.projectReducer.dataForTaskChart,
+    pending: state.projectReducer.pending,
+    progressing: state.projectReducer.progressing,
+    finished: state.projectReducer.finished,
+    bugs: state.projectReducer.bugs,
 })
 
 const dashboardRoutes = [
@@ -20,7 +25,7 @@ const dashboardRoutes = [
         path: "/react-learn",
         sidebarName: "React Learn",
         icon: 'code',
-        component: Screens.ReactLearn
+        component: connect(mapStateToProps)(Screens.ReactLearn)
     },
 
     {

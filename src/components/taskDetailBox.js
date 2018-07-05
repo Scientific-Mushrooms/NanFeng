@@ -17,6 +17,14 @@ const mapStateToProps = state => ({
 
 class TaskDetailBox extends Component {
 
+    onClickCancelButton = () => {
+        this.props.dispatch(taskDetailBoxHide())
+    }
+
+    onClickAcceptButton = () => {
+        
+    }
+ 
     render() {
         return (
             <Modal
@@ -25,24 +33,25 @@ class TaskDetailBox extends Component {
                 disableAutoFocus={true}
                 onBackdropClick={() => this.props.dispatch(taskDetailBoxHide())}
                 >
-                <Grid style={styles.container} xs={3}>
+                <Grid style={styles.container} xs={5}>
                     <Card>
                         <CardHeader color="warning">
                             <h4 style={styles.cardTitleWhite}>{this.props.taskDetailData.title}</h4>
                         </CardHeader>
                         <CardBody>
-                  
                             <Grid xs={12}>
-                                <Button
-                                    size="large"
-                                    style={styles.button}
-                                    color='primary'
-                                    onChange
-                                    // onClick={this._login}
-                                >LOGIN</Button>
+                                <div style={styles.contentContainer}>
+                                    {this.props.taskDetailData.content}
+                                </div>
                             </Grid>
+
                             <Grid xs={12}>
-                                <Button size="large" style={styles.button} color='primary'>SIGN UP</Button>
+                                <Button 
+                                     style={styles.button} 
+                                     color='primary'
+                                     onClick={this.onClickCancelButton}
+                                     >Cancel</Button>
+                                <Button  style={styles.button} color='primary'>Accpet</Button>
                             </Grid>
                         </CardBody>
                     </Card>
@@ -56,9 +65,6 @@ class TaskDetailBox extends Component {
 const styles = {
 
     container: {
-        width: '400px',
-        height: '400px',
-        marginTop: '100px',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -69,13 +75,19 @@ const styles = {
     },
 
     button: {
-        width: '100%',
+        width: '40%',
         marginTop: '10px'
     },
 
     modalContainer: {
         textAlign: 'center',
         justifyContent: 'center',
+        marginTop: '100px',
+    },
+
+    contentContainer: {
+        width: '100%',
+        height: '300px'
     }
 };
 

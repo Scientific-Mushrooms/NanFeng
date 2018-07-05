@@ -26,15 +26,15 @@ class Tasks extends Component {
             <Button style={styles.button} onClick={this.renderTaskBox.bind(this, task)}>
                 <Grid container>
 
-                    <Grid xs={1}>
+                    <Grid xs={1} style={styles.text}>
                         {task.taskKey}
                     </Grid>
 
-                    <Grid xs={1}>
+                    <Grid xs={1} style={styles.text}>
                         {task.ownerName}
                     </Grid>
 
-                    <Grid xs={7}>
+                    <Grid xs={7} style={styles.text}>
                         {task.title}
                     </Grid>
 
@@ -107,6 +107,10 @@ const styles = {
     close: {
         backgroundColor: "transparent",
         boxShadow: "none"
+    },
+
+    text: {
+        textAlign: 'left'
     }
 }
 export default connect(mapStateToProps)(Tasks);
