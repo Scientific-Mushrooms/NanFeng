@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Grid from "@material-ui/core/Grid";
 import CheckChart from '../../components/checkChart';
+import TaskDetailBox from '../../components/taskDetailBox';
+
 
 var data1 = [{
     taskKey: 1002,
@@ -75,6 +77,7 @@ export class ReactLearn extends Component {
                     finished: this.state.finished,
                     bugs: this.state.bugs,
                     }}/>
+                <TaskDetailBox/>
             </Grid>
         );
     }

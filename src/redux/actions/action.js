@@ -11,3 +11,9 @@ export const logout = () => ({ type: 'LOGOUT'});
 export const loginBoxShow = { type: 'LOGINBOX_SHOW' };
 
 export const loginBoxHide = { type: 'LOGINBOX_HIDE' };
+
+export const taskDetailBoxShow = () => ({ type: 'TASK_DETAIL_BOX_SHOW', taskDetailBox: true});
+
+export const taskDetailBoxHide = () => ({ type: 'TASK_DETAIL_BOX_HIDE', taskDetailBox: false });
+
+export const taskDetailDataSet = (data) => ({ type: 'TASK_DETAIL_DATA_SET', taskDetailData: data });

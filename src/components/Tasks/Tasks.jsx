@@ -1,20 +1,29 @@
 import React, {Component} from "react";
+import { connect } from 'react-redux';
 
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
+import { taskDetailBoxShow, taskDetailDataSet } from '../../redux/actions/action';
+
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 
-import Close from "@material-ui/icons/Close";
 
+const mapStateToProps = state => ({
+    taskDetailBox: state.modalReducer.taskDetailBox,
+    taskDetailData: state.modalReducer.taskDetailData,
+})
 
-
+var moment = require('moment');
 
 class Tasks extends Component {
 
+    renderTaskBox = (task) => {
+        this.props.dispatch(taskDetailDataSet(task))
+        this.props.dispatch(taskDetailBoxShow());
+    }
+
     renderRow = (task) => {
         return (
-            <Button style={styles.button}>
+            <Button style={styles.button} onClick={this.renderTaskBox.bind(this, task)}>
                 <Grid container>
 
                     <Grid xs={1}>
@@ -25,7 +34,7 @@ class Tasks extends Component {
                         {task.ownerName}
                     </Grid>
 
-                    <Grid xs={8}>
+                    <Grid xs={7}>
                         {task.title}
                     </Grid>
 
@@ -33,8 +42,8 @@ class Tasks extends Component {
                         {task.level}
                     </Grid>
 
-                    <Grid xs={1}>
-                        {task.date}
+                    <Grid xs={2}>
+                        {moment(task.date).fromNow()}
                     </Grid>
 
                     {/* <Grid xs={1}>
@@ -100,4 +109,4 @@ const styles = {
         boxShadow: "none"
     }
 }
-export default Tasks;
+export default connect(mapStateToProps)(Tasks);

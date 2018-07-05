@@ -5,7 +5,9 @@ import rootReducer from './rootReducer';
 const preloadedState = {
 
     modalReducer: {
-        loginbox: false
+        loginbox: false,
+        taskDetailBox: false,
+        taskDetailData: {title: "233"},
     },
 
     userReducer: {
