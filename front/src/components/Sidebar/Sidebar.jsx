@@ -34,6 +34,7 @@ export default class SideBar extends Component {
                 <div style={styles.sidebarWrapper}>
                     {this.props.routes.map(this.routesToList)}
                 </div>
+                <div style = {styles.shadow}></div>
                 <div style={{ ...styles.background, backgroundImage: "url(" + image + ")"}}/> 
             </Drawer>
         );
@@ -135,6 +136,17 @@ const styles = {
         float: 'left',
         color: 'white'
     },
+    
+        // adds a slight shadow to the sidebar so you have better contrast
+    shadow:{
+        position:"absolute",
+        height:"100%",
+        width:"100%",
+        backgroundColor: "black",
+        opacity: 0.5,
+        zIndex:"2"
+        
+    }
 
 
 }
