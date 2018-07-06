@@ -72,6 +72,7 @@ Thumbs.db
 
 # Build Artifacts
 
+.class/
 .gradle/
 build/
 target/
