@@ -43,5 +43,5 @@
     "url": "https://github.com/creativetimofficial/material-dashboard-react/issues"
   },
   "homepage": ".",
-  "proxy": "http://localhost:8080"
+  "proxy": "http://47.254.17.215:8080"
 }
