@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import classNames from "classnames";
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import Icon from "@material-ui/core/styles/withStyles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 // core components

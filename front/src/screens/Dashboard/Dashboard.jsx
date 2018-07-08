@@ -14,32 +14,15 @@ import {
     dailySalesChart,
     emailsSubscriptionChart,
 } from "../../variables/charts";
+import BaseComponent from '../../components/BaseComponent';
 
 
-
-var bugs = [
-    'Sign contract for "What are conference organizers afraid of?"',
-    "Lines From Great Russian Literature? Or E-mails From My Boss?",
-    "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
-    "Create 4 Invisible User Experiences you Never Knew About"
-];
-var website = [
-    "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
-    'Sign contract for "What are conference organizers afraid of?"'
-];
-var server = [
-    "Lines From Great Russian Literature? Or E-mails From My Boss?",
-    "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
-    'Sign contract for "What are conference organizers afraid of?"'
-];
-
-
-export class Dashboard extends Component {
+export class Dashboard extends BaseComponent {
 
     constructor(props) {
         super(props);
         this.state = { 
-            squad: { pendingNum: -1, progressingNum: -1, finishedNum: -1, bugNum: -1,},
+            squad: null,
             dataForRankChart: [{ ranking: "1", name: "Clavier", contribution: "666" }],
             lineChartData: null,
             barChartData: null,
@@ -77,37 +60,54 @@ export class Dashboard extends Component {
         })
     }
 
-    post = (url, form) => {
-        return fetch(url, { method: 'POST', body: form })
-            .then((response) => (response.json()))
-            .catch((error) => { console.error(error); });
-    }
-
     componentWillMount() {
         this.fetchSquad()
         this.fetchDataForRankChart();
     }
 
-    render() {
-        return (
-            <div>
+    renderInfoCards() {
+        if (this.state.squad === null) {
+            return (
                 <Grid container>
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="info" icon="extension" title="Pending" value={this.state.squad.pendingNum}/>
+                        <InfoCard color="info" icon="extension" title="Pending"  />
                     </GridItem>
-
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="warning" icon="build" title="Progressing" value={this.state.squad.progressingNum}/>
+                        <InfoCard color="warning" icon="build" title="Progressing" />
                     </GridItem>
-
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="success" icon="check_circle" title="finished" value={this.state.squad.finishedNum}/>
+                        <InfoCard color="success" icon="check_circle" title="finished" />
                     </GridItem>
-
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="danger" icon="error" title="Bugs" value={this.state.squad.bugNum}/>
+                        <InfoCard color="danger" icon="error" title="Bugs" />
                     </GridItem>
                 </Grid>
+            )
+        } else {
+            return (
+                <Grid container>
+                    <GridItem xs={12} sm={6} md={3}>
+                        <InfoCard color="info" icon="extension" title="Pending" value={this.state.squad.pendingNum} />
+                    </GridItem>
+                    <GridItem xs={12} sm={6} md={3}>
+                        <InfoCard color="warning" icon="build" title="Progressing" value={this.state.squad.progressingNum} />
+                    </GridItem>
+                    <GridItem xs={12} sm={6} md={3}>
+                        <InfoCard color="success" icon="check_circle" title="finished" value={this.state.squad.finishedNum} />
+                    </GridItem>
+                    <GridItem xs={12} sm={6} md={3}>
+                        <InfoCard color="danger" icon="error" title="Bugs" value={this.state.squad.bugNum} />
+                    </GridItem>
+                </Grid>
+            )
+        }
+    }
+
+    render() {
+
+        return (
+            <div>
+                {this.renderInfoCards()}
 
 
                 <Grid container>

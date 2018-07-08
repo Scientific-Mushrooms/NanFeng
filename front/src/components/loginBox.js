@@ -32,7 +32,7 @@ class LoginBox extends Component {
 
     _login = () => {
 
-        if (this.account == '' || this.password == '') {
+        if (this.account === '' || this.password === '') {
             alert('can not be empty');
 
         } else {
@@ -41,7 +41,7 @@ class LoginBox extends Component {
             form.append("password", this.state.password);
 
             this.post('/api/user/login', form).then((result) => {
-                if (result.status == 'fail') {
+                if (result.status === 'fail') {
                     alert(result.description);
                 } else {
                     alert("success")
@@ -141,6 +141,5 @@ const styles = {
         justifyContent: 'center',
     }
 };
-
 
 export default connect(mapStateToProps)(LoginBox);

@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import CheckChart from '../../components/checkChart';
 import TaskDetailBox from '../../components/taskDetailBox';
 import { dataForTaskChartSet } from '../../redux/actions/action';
+import BaseComponent from '../../components/BaseComponent';
 
-
-export class ReactLearn extends Component {
+export class ReactLearn extends BaseComponent {
 
     constructor(props) {
         super(props);
@@ -23,7 +23,7 @@ export class ReactLearn extends Component {
         form.append("projectId", projectId);
 
         this.post('/api/task/dataForTaskChart', form).then((result) => {
-            if (result.status == 'fail') {
+            if (result.status === 'fail') {
                 alert(result.description);
             } else {
                 this.props.dispatch(dataForTaskChartSet(result.detail))       
@@ -35,11 +35,6 @@ export class ReactLearn extends Component {
         this.fetchDataForTaskChart();
     }
 
-    post = (url, form) => {
-        return fetch(url, { method: 'POST', body: form })
-            .then((response) => (response.json()))
-            .catch((error) => { console.error(error); });
-    }
 
     render() {
         return (

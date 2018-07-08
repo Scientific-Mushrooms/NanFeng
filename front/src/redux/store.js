@@ -31,6 +31,10 @@ const preloadedState = {
         bugs: data1,
     },
 
+    squadReducer: {
+        squad: null,
+    },
+
     userReducer: {
         info: null
     },

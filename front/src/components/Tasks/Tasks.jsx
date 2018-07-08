@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { connect } from 'react-redux';
 
-import { taskDetailBoxShow, taskDetailDataSet, dataForTaskChartSet } from '../../redux/actions/action';
+import { taskDetailBoxShow, taskDetailDataSet } from '../../redux/actions/action';
 
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";

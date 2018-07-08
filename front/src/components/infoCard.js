@@ -85,7 +85,6 @@ const styles = {
         textDecoration: "none",
         textAlign: 'center',
         fontSize: "19px",
-        color: "#999999",
     },
 
     icon: {
