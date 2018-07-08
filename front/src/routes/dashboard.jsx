@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
     finished: state.projectReducer.finished,
     bugs: state.projectReducer.bugs,
     squad: state.squadReducer.squad,
+    rankChart: state.chartReducer.rankChart,
 })
 
 const dashboardRoutes = [

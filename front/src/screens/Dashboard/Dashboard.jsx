@@ -15,48 +15,19 @@ import {
     dailySalesChart,
     emailsSubscriptionChart,
 } from "../../variables/charts";
-import { squadSet } from '../../redux/actions/action';
+
 
 
 
 export class Dashboard extends BaseComponent {
 
-    constructor(props) {
-        super(props);
-        this.state = { 
-            dataForRankChart: [{ ranking: "1", name: "Clavier", contribution: "666" }],
-        };
-    }
-
-    fetchSquad = (squadId) => {
-        let form = new FormData();
-        form.append("squadId", squadId);
-        this.post('/api/squad/squadIdToSquad', form).then((result) => {
-            if (result.status == 'fail') {
-                alert("result.description");
-            } else {
-                this.props.dispatch(squadSet(result.detail));
-            }
-        })
-    }
-
-    fetchDataForRankChart = (squadId) => {
-        let form = new FormData();
-        form.append("squadId", squadId);
-        this.post('/api/squadMember/squadIdToDataForRankChart', form).then((result) => {
-            if (result.status == 'fail') {
-                alert(result.description);
-            } else {
-                this.setState({
-                    dataForRankChart: result.detail,
-                })
-            }
-        })
+    dispatch = (action) => {
+        this.props.dispatch(action);
     }
 
     componentWillMount() {
-        this.fetchSquad("8073c598-674c-40a7-9fc8-611a82823944")
-        this.fetchDataForRankChart("8073c598-674c-40a7-9fc8-611a82823944");
+        this.fetchSquad("8073c598-674c-40a7-9fc8-611a82823944", this.dispatch)
+        this.fetchRankChart("8073c598-674c-40a7-9fc8-611a82823944", this.dispatch);
     }
 
     render() {
@@ -89,7 +60,7 @@ export class Dashboard extends BaseComponent {
                     </Grid>
                     
                     <Grid xs={4}>
-                        <RankChart data={this.state.dataForRankChart}/>
+                        <RankChart data={this.props.rankChart === null ? [{ ranking: "1", name: "Clavier", contribution: "666" }] : this.props.rankChart}/>
                     </Grid>
                 </Grid>
             </div>

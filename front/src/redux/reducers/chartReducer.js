@@ -1,7 +1,7 @@
 var chartReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'CHART_SET':
-            return { ...state, squad: action.squad };
+        case 'RANK_CHART_SET':
+            return { ...state, rankChart: action.data };
         default:
             return state;
     }
