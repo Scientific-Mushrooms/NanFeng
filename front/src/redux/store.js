@@ -39,6 +39,10 @@ const preloadedState = {
         info: null
     },
 
+    chartReducer: {
+        rankChart: null,
+    }
+
 }
 
 const store = createStore (

@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
     progressing: state.projectReducer.progressing,
     finished: state.projectReducer.finished,
     bugs: state.projectReducer.bugs,
+    squad: state.squadReducer.squad,
 })
 
 const dashboardRoutes = [

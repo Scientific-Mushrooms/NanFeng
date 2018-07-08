@@ -58,7 +58,7 @@ public class SquadMemberController extends BaseController {
         return new Result("success", "find all By Squad Id", suquadMembers);
     }
 
-    @PostMapping("/squadMember/rankChart")
+    @PostMapping("/squadMember/squadIdToDataForRankChart")
     public Result test(HttpServletRequest request) {
 
         String squadId = request.getParameter("squadId");

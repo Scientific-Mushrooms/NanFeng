@@ -27,3 +27,5 @@ export const finishedSet = (data) => ({ type: 'FINISHED_SET', data: data });
 export const bugsSet = (data) => ({ type: 'BUGS_SET', data: data });
 
 export const dataForTaskChartSet = (data) => ({ type: 'DATA_FOR_TASK_CHART_SET', data: data });
+
+export const squadSet = (squad) => ({ type: 'SQUAD_SET', squad: squad});

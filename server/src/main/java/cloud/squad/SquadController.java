@@ -46,10 +46,10 @@ public class SquadController extends BaseController {
         return new Result("success", "add squad", squad);
     }
 
-    @PostMapping("/squad/findById")
+    @PostMapping("/squad/squadIdToSquad")
     public Result findById(HttpServletRequest request) {
 
-        String id = request.getParameter("id");
+        String id = request.getParameter("squadId");
 
         Squad squad = squadRepository.findById(id);
 
