@@ -63,7 +63,26 @@ class TaskDetailBox extends Component {
     }
 
     renderButton = () => {
+
+        if (this.props.task === null) {
+            return null;
+        }
+
+        if (this.props.task.type === "pending") {
+            return (
+                <Button style={styles.button} color='primary' onClick={this.onClickAcceptButton}>Accpet</Button>
+            )
+        }
+
+        if (this.props.task.type === "progressing") {
+            return (
+                <Button style={styles.button} color='primary' onClick={this.onClickAcceptButton}>Submit</Button>
+            )
+        }
         
+        return (
+            <Button style={styles.button} color='primary' onClick={this.onClickAcceptButton}>Test</Button>
+        )
     }
  
     render() {
@@ -92,7 +111,7 @@ class TaskDetailBox extends Component {
                                      color='primary'
                                      onClick={this.onClickCancelButton}
                                      >Cancel</Button>
-                                <Button style={styles.button} color='primary' onClick={this.onClickAcceptButton}>Accpet</Button>
+                                {this.renderButton()}
                             </Grid>
                         </CardBody>
                     </Card>
