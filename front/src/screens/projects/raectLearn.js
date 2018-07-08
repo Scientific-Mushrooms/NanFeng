@@ -7,12 +7,6 @@ import BaseComponent from '../../components/BaseComponent';
 
 export class ReactLearn extends BaseComponent {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            squad: { pendingNum: -1, progressingNum: -1, finishedNum: -1, bugNum: -1, },
-        };
-    }
 
     fetchDataForTaskChart = () => {
         this.fetchDataForTaskChartByType("392988bc-72e1-468f-8679-d6fc9948fe2f")

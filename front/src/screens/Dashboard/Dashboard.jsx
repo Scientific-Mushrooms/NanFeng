@@ -11,11 +11,6 @@ import BarChart from '../../components/barChart';
 import RankChart from '../../components/rankChart';
 import InfoCard from "../../components/infoCard";
 
-import {
-    dailySalesChart,
-    emailsSubscriptionChart,
-} from "../../variables/charts";
-
 
 
 
@@ -60,7 +55,7 @@ export class Dashboard extends BaseComponent {
                     </Grid>
                     
                     <Grid xs={4}>
-                        <RankChart data={this.props.rankChart === null ? [{ ranking: "1", name: "Clavier", contribution: "666" }] : this.props.rankChart}/>
+                        <RankChart data={this.props.rankChart === null ? [] : this.props.rankChart}/>
                     </Grid>
                 </Grid>
             </div>

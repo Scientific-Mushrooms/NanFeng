@@ -15,7 +15,7 @@ export class BaseComponent extends Component {
         let form = new FormData();
         form.append("squadId", squadId);
         this.post('/api/squad/squadIdToSquad', form).then((result) => {
-            if (result.status == 'fail') {
+            if (result.status === 'fail') {
                 alert("result.description");
             } else {
                 dispatch(squadSet(result.detail));
@@ -27,7 +27,7 @@ export class BaseComponent extends Component {
         let form = new FormData();
         form.append("squadId", squadId);
         this.post('/api/squadMember/squadIdToDataForRankChart', form).then((result) => {
-            if (result.status == 'fail') {
+            if (result.status === 'fail') {
                 alert(result.description);
             } else {
                 dispatch(rankChartSet(result.detail));

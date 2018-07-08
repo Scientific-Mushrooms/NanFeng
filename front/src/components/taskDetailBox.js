@@ -12,8 +12,8 @@ import { taskDetailBoxHide, dataForTaskChartSet } from '../redux/actions/action'
 
 const mapStateToProps = state => ({
     taskDetailBox: state.modalReducer.taskDetailBox,
-    taskDetailData: state.modalReducer.taskDetailData,
-    dataForTaskChart: state.projectReducer.dataForTaskChart
+    dataForTaskChart: state.projectReducer.dataForTaskChart,
+    task: state.taskReducer.task,
 })
 
 class TaskDetailBox extends Component {
@@ -25,7 +25,7 @@ class TaskDetailBox extends Component {
     }
 
     onClickAcceptButton = () => {
-        this.updateType(this.props.taskDetailData.taskId, "progressing")
+        this.updateType(this.props.task.taskId, "progressing")
     }
 
     post = (url, form) => {
@@ -61,6 +61,10 @@ class TaskDetailBox extends Component {
             }
         })
     }
+
+    renderButton = () => {
+        
+    }
  
     render() {
         return (
@@ -73,12 +77,12 @@ class TaskDetailBox extends Component {
                 <Grid style={styles.container} xs={5}>
                     <Card>
                         <CardHeader color="warning">
-                            <h4 style={styles.cardTitleWhite}>{this.props.taskDetailData.title}</h4>
+                            <h4 style={styles.cardTitleWhite}>{this.props.task === null ? "" : this.props.task.title}</h4>
                         </CardHeader>
                         <CardBody>
                             <Grid xs={12}>
                                 <div style={styles.contentContainer}>
-                                    {this.props.taskDetailData.content}
+                                    {this.props.task === null ? "" : this.props.task.content}
                                 </div>
                             </Grid>
 

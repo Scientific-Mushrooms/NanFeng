@@ -6,11 +6,14 @@ const mapStateToProps = state => ({
     user: state.userReducer.info,
     loginbox: state.modalReducer.loginbox,
     dataForTaskChart: state.projectReducer.dataForTaskChart,
+    
     pending: state.projectReducer.pending,
     progressing: state.projectReducer.progressing,
     finished: state.projectReducer.finished,
     bugs: state.projectReducer.bugs,
+
     squad: state.squadReducer.squad,
+
     rankChart: state.chartReducer.rankChart,
 })
 

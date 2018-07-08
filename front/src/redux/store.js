@@ -15,7 +15,10 @@ const preloadedState = {
     modalReducer: {
         loginbox: false,
         taskDetailBox: false,
-        taskDetailData: {title: "233"},
+    },
+
+    taskReducer: {
+        task: null,
     },
 
     projectReducer: {

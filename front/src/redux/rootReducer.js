@@ -5,6 +5,8 @@ import userReducer from './reducers/userReducer'
 import projectReducer from './reducers/projectReducer';
 import squadReducer from './reducers/squadReducer';
 import chartReducer from './reducers/chartReducer';
+import taskReducer from './reducers/taskReducer';
+
 
 export default combineReducers({
     modalReducer,
@@ -12,4 +14,5 @@ export default combineReducers({
     projectReducer,
     squadReducer,
     chartReducer,
+    taskReducer,
 });

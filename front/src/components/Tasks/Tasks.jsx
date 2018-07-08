@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { connect } from 'react-redux';
 
-import { taskDetailBoxShow, taskDetailDataSet } from '../../redux/actions/action';
+import { taskDetailBoxShow, taskDetailDataSet, taskSet } from '../../redux/actions/action';
 
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -18,6 +18,7 @@ var moment = require('moment');
 class Tasks extends Component {
 
     renderTaskBox = (task) => {
+        this.props.dispatch(taskSet(task))
         this.props.dispatch(taskDetailDataSet(task))
         this.props.dispatch(taskDetailBoxShow());
     }
