@@ -18,7 +18,13 @@ const mapStateToProps = state => ({
 
 class TaskDetailBox extends Component {
 
+    componentWillReceiveProps(nextProps) {
+        
+    }
 
+    onClickTestButton = () => {
+        this.updateType(this.props.task.taskId, "pending")
+    }
 
     onClickCancelButton = () => {
         this.props.dispatch(taskDetailBoxHide())
@@ -26,6 +32,10 @@ class TaskDetailBox extends Component {
 
     onClickAcceptButton = () => {
         this.updateType(this.props.task.taskId, "progressing")
+    }
+
+    onClickSubmitButton = () => {
+        this.updateType(this.props.task.taskId, "finished")
     }
 
     post = (url, form) => {
@@ -38,15 +48,14 @@ class TaskDetailBox extends Component {
         let form = new FormData();
         form.append("taskId", taskId);
         form.append("type", type);
-
         this.post('/api/task/updateTypeByTaskId', form).then((result) => {
             if (result.status == 'fail') {
                 alert(result.description);
             } else {
+                this.fetchDataForTaskChartByType("392988bc-72e1-468f-8679-d6fc9948fe2f")
                 this.props.dispatch(taskDetailBoxHide())
             }
         })
-        this.fetchDataForTaskChartByType("392988bc-72e1-468f-8679-d6fc9948fe2f")
     }
 
     fetchDataForTaskChartByType = (projectId) => {
@@ -68,7 +77,7 @@ class TaskDetailBox extends Component {
             return null;
         }
 
-        if (this.props.task.type === "pending") {
+        if (this.props.task.type === "pending" || this.props.task.type === "bugs") {
             return (
                 <Button style={styles.button} color='primary' onClick={this.onClickAcceptButton}>Accpet</Button>
             )
@@ -76,7 +85,7 @@ class TaskDetailBox extends Component {
 
         if (this.props.task.type === "progressing") {
             return (
-                <Button style={styles.button} color='primary' onClick={this.onClickAcceptButton}>Submit</Button>
+                <Button style={styles.button} color='primary' onClick={this.onClickSubmitButton}>Submit</Button>
             )
         }
         

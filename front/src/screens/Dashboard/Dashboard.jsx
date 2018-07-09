@@ -20,9 +20,9 @@ export class Dashboard extends BaseComponent {
         this.props.dispatch(action);
     }
 
-    componentWillMount() {
-        this.fetchSquad("8073c598-674c-40a7-9fc8-611a82823944", this.dispatch)
-        this.fetchRankChart("8073c598-674c-40a7-9fc8-611a82823944", this.dispatch);
+    async componentWillMount() {
+        await this.fetchSquad("8073c598-674c-40a7-9fc8-611a82823944", this.dispatch)
+        await this.fetchRankChart("8073c598-674c-40a7-9fc8-611a82823944", this.dispatch);
     }
 
     render() {

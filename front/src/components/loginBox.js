@@ -13,7 +13,6 @@ import Modal from '@material-ui/core/Modal';
 import { loginBoxHide } from '../redux/actions/action'
 
 const mapStateToProps = state => ({
-    user: state.userReducer.info,
     loginbox: state.modalReducer.loginbox,
 })
 

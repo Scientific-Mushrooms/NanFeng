@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import CheckChart from '../../components/checkChart';
-import TaskDetailBox from '../../components/taskDetailBox';
+import TaskDetailBox from '../../components/taskDetailBox.jsx';
 import { dataForTaskChartSet } from '../../redux/actions/action';
 import BaseComponent from '../../components/BaseComponent';
 
