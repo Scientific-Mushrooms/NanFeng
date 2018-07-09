@@ -3,6 +3,7 @@ package cloud.squad;
 import cloud.common.BaseController;
 import cloud.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,7 +46,8 @@ public class SquadController extends BaseController {
 
         return new Result("success", "add squad", squad);
     }
-
+    
+    @CrossOrigin
     @PostMapping("/squad/squadIdToSquad")
     public Result findById(HttpServletRequest request) {
 

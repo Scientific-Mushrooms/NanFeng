@@ -7,6 +7,7 @@ import cloud.returnType.DataForRankChart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +58,7 @@ public class SquadMemberController extends BaseController {
 
         return new Result("success", "find all By Squad Id", suquadMembers);
     }
+
 
     @PostMapping("/squadMember/squadIdToDataForRankChart")
     public Result test(HttpServletRequest request) {
