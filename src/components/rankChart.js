@@ -14,19 +14,16 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 class RankChart extends Component {
     constructor(props) {
-        super();
+        super(props);
     }
     render() {
         const { classes } = this.props;
         return (
-            <Card>
+            <Card >
                 <CardHeader color="warning">
                     <h4 className={classes.cardTitleWhite}>Squad Member Stats</h4>
-                    <p className={classes.cardCategoryWhite}>
-                        New member on 15th June, 2018
-                    </p>
                 </CardHeader>
-                <CardBody>
+                <CardBody >
                     <Table
                         tableHeaderColor="warning"
                         tableHead={["Rank", "Name", "Contribution"]}
@@ -110,12 +107,13 @@ const dashboardStyle = {
     },
     cardTitleWhite: {
         color: "#FFFFFF",
-        marginTop: "0px",
+        margin: "0 auto",
         minHeight: "auto",
-        fontWeight: "300",
-        fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-        marginBottom: "3px",
+        fontWeight: "700",
+        fontFamily: "'Montserrat', sans-serif",
+        fontSize: "1.6em",
         textDecoration: "none",
+        textAlign:"center",
         "& small": {
             color: "#777",
             fontSize: "65%",

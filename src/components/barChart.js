@@ -27,7 +27,7 @@ class BarChart extends Component {
             <Card chart>
                 <CardHeader color="warning">
                     <ChartistGraph
-                        className="ct-chart"
+                        className={classes.graph}
                         data={emailsSubscriptionChart.data}
                         type="Bar"
                         options={emailsSubscriptionChart.options}
@@ -53,14 +53,8 @@ class BarChart extends Component {
 
 
 
-const dashboardStyle = {
-    successText: {
-        color: "#4caf50"
-    },
-    upArrowCardCategory: {
-        width: "16px",
-        height: "16px"
-    },
+const barChartStyle = {
+    
     stats: {
         color: "#999999",
         display: "inline-flex",
@@ -75,22 +69,6 @@ const dashboardStyle = {
         }
     },
 
-    card: {
-        border: "0",
-        marginBottom: "30px",
-        marginTop: "30px",
-        borderRadius: "6px",
-        color: "rgba(0, 0, 0, 0.87)",
-        background: "#fff",
-        width: "100%",
-        boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.14)",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        minWidth: "0",
-        wordWrap: "break-word",
-        fontSize: ".875rem"
-    },
     cardCategory: {
         color: "#999999",
         margin: "0",
@@ -135,7 +113,13 @@ const dashboardStyle = {
             fontWeight: "400",
             lineHeight: "1"
         }
+    },
+    graph:{
+        backgroundColor:"white",
+        borderRadius: 4,
+        fontFamily: "'Titillium Web', sans-serif",
+
     }
 };
 
-export default withStyles(dashboardStyle)(BarChart);
+export default withStyles(barChartStyle)(BarChart);

@@ -40,13 +40,11 @@ class App extends Component {
         let marLeft = this.state.openDrawer? "300px": "0px"; 
 
         return (
-            <Grid container>
-                <Grid xs={3}>
+            <Grid justify="flex-end" container>
                     <Sidebar open = {this.state.openDrawer}   routes={dashboardRoutes} {...rest}/>
-                </Grid>
+                     <Header handleDrawer = {this.handleDrawer}  routes={dashboardRoutes}  {...rest}/> 
                 <Grid style= {{marginLeft: marLeft, transition: "margin 0.2s ease-out" }} container>
-                    <Grid item  xs={9}  zeroMinWidth>
-                        <Header handleDrawer = {this.handleDrawer}  routes={dashboardRoutes}  {...rest}/> 
+                    <Grid item  xs={12} >
                          <div className={classes.container}>{switchRoutes}</div>
                     </Grid>
                 </Grid>
