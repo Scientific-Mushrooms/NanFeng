@@ -2,8 +2,10 @@ import { Component } from 'react';
 import { squadSet, rankChartSet } from '../redux/actions/action';
 
 
-
 export class BaseComponent extends Component {
+
+    ip = "http://www.clavier.moe:8080";
+    
 
     post = (url, form) => {
         return fetch(url, { method: 'POST', body: form, mode: 'cors'})
@@ -14,7 +16,7 @@ export class BaseComponent extends Component {
     fetchSquad = (squadId, dispatch) => {
         let form = new FormData();
         form.append("squadId", squadId);
-        this.post('http://localhost:8080/api/squad/squadIdToSquad', form).then((result) => {
+        this.post(this.ip + '/api/squad/squadIdToSquad', form).then((result) => {
             if (result.status === 'fail') {
                 alert("result.description");
             } else {
@@ -26,7 +28,7 @@ export class BaseComponent extends Component {
     fetchRankChart = (squadId, dispatch) => {
         let form = new FormData();
         form.append("squadId", squadId);
-        this.post('http://localhost:8080/api/squadMember/squadIdToDataForRankChart', form).then((result) => {
+        this.post(this.ip + '/api/squadMember/squadIdToDataForRankChart', form).then((result) => {
             if (result.status === 'fail') {
                 alert(result.description);
             } else {
