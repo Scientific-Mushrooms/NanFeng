@@ -17,10 +17,14 @@ export class ReactLearn extends BaseComponent {
         form.append("projectId", projectId);
 
         this.post('/api/task/dataForTaskChart', form).then((result) => {
-            if (result.status === 'fail') {
-                alert(result.description);
-            } else {
-                this.props.dispatch(dataForTaskChartSet(result.detail))       
+            if (!result){
+                alert("connection to server error")
+            }else{
+                if (result.status === 'fail') {
+                    alert(result.description);
+                } else {
+                    this.props.dispatch(dataForTaskChartSet(result.detail))       
+                }
             }
         })
     }
