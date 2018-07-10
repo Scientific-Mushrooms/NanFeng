@@ -18,9 +18,17 @@ const mapStateToProps = state => ({
 
 class LoginBox extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            register:false,
+        };
+    }
+
     state = {
         username: '',
         password: '',
+        invitecode:'',
     };
 
     _handleChange = name => event => {
@@ -28,6 +36,15 @@ class LoginBox extends Component {
             [name]: event.target.value,
         });
     };
+
+    _passwordVeri=()=>{
+        //do something, @Clavier
+        //验证注册时二次输入密码，你的handlechange逻辑我怕写错，你来吧
+    }
+
+    _regist=()=>{
+        //do something, @Clavier
+    }
 
     _login = () => {
 
@@ -62,17 +79,38 @@ class LoginBox extends Component {
     }
 
     render() {
-        return (
-            <Modal 
+        if(this.state.register){
+            return (  
+                <Modal 
                 open={this.props.loginbox} 
                 style={styles.modalContainer} 
                 disableAutoFocus={true} 
                 onBackdropClick={() => this.props.dispatch(loginBoxHide)}
                 >
+                    {this._renderRegist()}
+                </Modal>
+            )
+        }
+        else
+            return(
+                <Modal 
+                open={this.props.loginbox} 
+                style={styles.modalContainer} 
+                disableAutoFocus={true} 
+                onBackdropClick={() => this.props.dispatch(loginBoxHide)}
+                >
+                    {this._renderLogin()}
+                </Modal>
+            )
+    }
+
+    _renderLogin=()=>{
+        return(
                 <Grid style={styles.container} xs={3}>
             <Card>
                 <CardHeader color="warning">
                     <h4 style={styles.cardTitleWhite}>Squad Member Stats</h4>
+                    <h2 style={styles.cardTitleWhite}>Login In</h2>
                 </CardHeader>
                 <CardBody>
                     <Grid xs={12}>
@@ -103,17 +141,95 @@ class LoginBox extends Component {
                                 size="large" 
                                 style={styles.button} 
                                 color='primary'
-                                onChange
                                 onClick={this._login}
                                 >LOGIN</Button>
                         </Grid>
                         <Grid xs={12}>
-                            <Button size="large" style={styles.button} color='primary'>SIGN UP</Button>
+                            <Button 
+                                size="large" 
+                                style={styles.button} 
+                                onClick={()=>this.setState({register:true})}
+                                color='primary'
+                                >Be A New Member</Button>
                         </Grid>
                 </CardBody>
             </Card>
                 </Grid>
-            </Modal>
+        );
+    }
+    _renderRegist=()=>{
+        return(
+                <Grid style={styles.container} xs={3}>
+            <Card>
+                <CardHeader color="warning">
+                    <h4 style={styles.cardTitleWhite}>Squad Member Stats</h4>
+                    <h2 style={styles.cardTitleWhite}>Be A New Member</h2>
+                </CardHeader>
+                <CardBody>
+                    <Grid xs={12}>
+                        <TextField
+                            id="name"
+                            label="Name"
+                            style={styles.textField}
+                            value={this.state.name}
+                            onChange={this._handleChange('username')}
+                            margin="small"
+                            fullWidth={true}
+                        />
+                        </Grid>
+                        <Grid xs={12}>
+                            <TextField
+                                id="password-input"
+                                label="Password"
+                                style={styles.textField}
+                                type="password"
+                                autoComplete="current-password"
+                                onChange={this._handleChange('password')}
+                                margin="small"
+                                fullWidth={true}
+                            />
+                        </Grid>
+                        <Grid xs={12}>
+                            <TextField
+                                id="password-verify"
+                                label="Password Verification"
+                                style={styles.textField}
+                                type="password"
+                                autoComplete="current-password"
+                                onChange={this._passwordVeri('password')}
+                                margin="small"
+                                fullWidth={true}
+                            />
+                        </Grid>
+                        <Grid xs={6}>
+                            <TextField
+                                id="invitation-check"
+                                label="Invitation Code"
+                                style={styles.textField}
+                                onChange={this._handleChange('invitecode')}
+                                margin="normal"
+                                fullWidth={false}
+                            />
+                        </Grid>
+                        <Grid xs={12}>
+                            <Button 
+                                size="large" 
+                                style={styles.button} 
+                                color='primary'
+                                onClick={this._login}
+                                >Sign Up</Button>
+                        </Grid>
+                        <Grid xs={12}>
+                            <Button 
+                            size="large" 
+                            style={styles.button} 
+                            color='primary'
+                            onClick={()=>this.setState({register:false})}
+                            >Already A Member</Button>
+                        </Grid>
+                </CardBody>
+            </Card>
+                </Grid>
         );
     }
 }
@@ -142,6 +258,10 @@ const styles = {
     modalContainer: {
         textAlign: 'center',
         justifyContent: 'center',
+    },
+    
+    cardTitleWhite:{
+        margin:'0px'
     }
 };
 
