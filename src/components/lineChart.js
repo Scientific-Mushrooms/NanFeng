@@ -25,7 +25,7 @@ class LineChart extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Card chart>
+            <Card  chart>
                 <CardHeader color="success">
                     <ChartistGraph
                         className={classes.graph}

@@ -13,7 +13,6 @@ import InfoCard from "../../components/infoCard";
 
 
 
-
 export class Dashboard extends BaseComponent {
 
     dispatch = (action) => {
@@ -24,6 +23,8 @@ export class Dashboard extends BaseComponent {
         await this.fetchSquad("8073c598-674c-40a7-9fc8-611a82823944", this.dispatch)
         await this.fetchRankChart("8073c598-674c-40a7-9fc8-611a82823944", this.dispatch);
     }
+
+   
 
     render() {
 
@@ -37,7 +38,7 @@ export class Dashboard extends BaseComponent {
                         <InfoCard color="warning" icon="build" title="Progressing" value={this.props.squad === null ? "" : this.props.squad.progressingNum} />
                     </GridItem>
                     <GridItem xs={12} sm={6} md={3}>
-                        <InfoCard color="success" icon="check_circle" title="finished" value={this.props.squad === null ? "" : this.props.squad.finishedNum} />
+                        <InfoCard color="success" icon="check_circle" title="Finished" value={this.props.squad === null ? "" : this.props.squad.finishedNum} />
                     </GridItem>
                     <GridItem xs={12} sm={6} md={3}>
                         <InfoCard color="danger" icon="error" title="Bugs" value={this.props.squad === null ? "" : this.props.squad.bugNum} />

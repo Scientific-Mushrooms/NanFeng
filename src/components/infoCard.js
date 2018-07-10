@@ -13,16 +13,14 @@ class InfoCard extends Component {
         return (
             <div style={styles.card}>
                 <CardHeader stats icon>
-                <div style={styles.header}>
+                    <CardIcon color={this.props.color}>
+                        <Icon style={styles.icon}>{this.props.icon}</Icon>
+                    </CardIcon>
                     <div style={styles.headerLeft}>
-                        <CardIcon color={this.props.color}>
-                            <Icon style={styles.icon}>{this.props.icon}</Icon>
-                        </CardIcon>
-                    </div>
-                    <div style={styles.headerRight}>
-                        <p style={styles.title}>{this.props.title}</p>
+                        
+                                    <p style={styles.title}>{this.props.title}</p>
+                        
                         <p style={styles.value}>{this.props.value}</p>
-                    </div>
                     </div>
                 </CardHeader>
                 <CardFooter stats>
@@ -56,9 +54,13 @@ const styles = {
     },
 
     title: {
-        color: "#999999",
+        color: "black",
         fontSize: "19px",
-        textAlign: 'center',
+        textAlign: 'right',
+        fontFamily: "'Montserrat', sans-serif",
+        fontWeight:"700",
+        display: "inline-block",
+    
     },
 
     stats: {
@@ -66,6 +68,7 @@ const styles = {
         display: "inline-flex",
         fontSize: "12px",
         lineHeight: "22px",
+         fontFamily: "'Titillium Web', sans-serif",
         "& svg": {
             top: "4px",
             width: "16px",
@@ -76,37 +79,24 @@ const styles = {
     },
 
     value: {
-        color: "#3C4858",
-        marginTop: "0px",
-        minHeight: "auto",
-        fontWeight: "300",
-        fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-        marginBottom: "3px",
-        textDecoration: "none",
-        textAlign: 'center',
+        color: "#999999",
         fontSize: "19px",
+        textAlign: "center",
+        fontFamily: "'Titillium Web', sans-serif",
+        margin: 0
     },
 
     icon: {
-        fontSize: "50px"
+        fontSize: "50px",
     },
 
     headerLeft: {
-        width: '50%',
-        height: '100%',
-        float: 'left',
+        display:"flex",
+        flexDirection:"column",
+        alignItems:"center",
+
     },
 
-    headerRight: {
-        width: '50%',
-        height: '100%',
-        float: 'left'
-    },
-
-    header: {
-        float: 'left',
-        width: '100%'
-    },
 
     date: {
         paddingLeft: '10px'
