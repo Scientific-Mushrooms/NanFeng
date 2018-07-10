@@ -40,12 +40,16 @@ class LoginBox extends Component {
             form.append("password", this.state.password);
 
             this.post('/api/user/login', form).then((result) => {
-                if (result.status === 'fail') {
-                    alert(result.description);
-                } else {
-                    alert("success")
-                    this.props.dispatch(login(result.detail));
-                    this.props.dispatch(loginBoxHide)
+                if (!result){
+                    alert("connection to server error")
+                }else{
+                    if (result.status === 'fail') {
+                        alert(result.description);
+                    } else {
+                        alert("success")
+                        this.props.dispatch(login(result.detail));
+                        this.props.dispatch(loginBoxHide)
+                    }
                 }
             })
         }
