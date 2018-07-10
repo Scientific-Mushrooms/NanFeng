@@ -30,7 +30,7 @@ export default class SideBar extends Component {
 
     render() {
         return (
-            <Drawer  variant="permanent" open style={styles.drawer}>
+           <Drawer open={this.props.open} variant="persistent" style={styles.drawer}>
                 <div style={styles.sidebarWrapper}>
                     {this.props.routes.map(this.routesToList)}
                 </div>

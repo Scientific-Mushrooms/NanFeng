@@ -24,20 +24,30 @@ const switchRoutes = (
 );
 
 class App extends Component {
+    constructor(props){
+        super(props);
+        this.state={openDrawer: false};
+        this.handleDrawer= this.handleDrawer.bind(this);
+
+    }
+
+     handleDrawer = () => {
+        this.setState({ openDrawer: !this.state.openDrawer });
+    };
 
     render() {
         const { classes, ...rest } = this.props;
+        let marLeft = this.state.openDrawer? "300px": "0px"; 
+
         return (
             <Grid container>
                 <Grid xs={3}>
-                    <Sidebar routes={dashboardRoutes} {...rest}/>
+                    <Sidebar open = {this.state.openDrawer}   routes={dashboardRoutes} {...rest}/>
                 </Grid>
-                <Grid xs={9}>
-                    <Grid xs={9}>
-                        <Header routes={dashboardRoutes}  {...rest}/>
-                    </Grid>
-                    <Grid xs={12}>
-                        <div className={classes.container}>{switchRoutes}</div>
+                <Grid style= {{marginLeft: marLeft, transition: "margin 0.2s ease-out" }} container>
+                    <Grid item  xs={9}  zeroMinWidth>
+                        <Header handleDrawer = {this.handleDrawer}  routes={dashboardRoutes}  {...rest}/> 
+                         <div className={classes.container}>{switchRoutes}</div>
                     </Grid>
                 </Grid>
             </Grid>
