@@ -26,6 +26,7 @@ class Header extends Component {
                 <Button
                     color={"transparent"}
                     justIcon={true}
+                    onClick = {this.props.handleDrawer}
                     >
                     <Icon>dashboard</Icon>
                 </Button>
