@@ -30,7 +30,7 @@ const dashboardRoutes = [
         path: "/react-learn",
         sidebarName: "React Learn",
         icon: 'code',
-        component: connect(mapStateToProps)(Screens.ReactLearn)
+        component: connect(mapStateToProps)(Screens.TaskBoard)
     },
 
     {
@@ -48,10 +48,10 @@ const dashboardRoutes = [
     },
 
     {
-        path: "/code-squad",
-        sidebarName: "Code Squad",
-        icon: 'code',
-        component: Screens.CodeSquad,
+        path: "/users",
+        sidebarName: "Users",
+        icon: 'user',
+        component: Screens.UserBoard,
     },
 
 ];

@@ -3,15 +3,15 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
-import Card from "./Card/Card.jsx";
-import CardHeader from "./Card/CardHeader.jsx";
-import CardBody from "./Card/CardBody.jsx";
-import Button from './CustomButtons/Button'
-import { login } from '../redux/actions/action';
+import Card from "../Card/Card.jsx";
+import CardHeader from "../Card/CardHeader.jsx";
+import CardBody from "../Card/CardBody.jsx";
+import Button from '../CustomButtons/Button'
+import { login } from '../../redux/actions/action';
 import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
-import { loginBoxHide } from '../redux/actions/action'
-import { BaseComponent } from './BaseComponent';
+import { loginBoxHide } from '../../redux/actions/action'
+import { BaseComponent } from '../BaseComponent';
 
 
 const mapStateToProps = state => ({

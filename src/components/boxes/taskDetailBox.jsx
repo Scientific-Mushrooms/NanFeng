@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 
-import Card from "./Card/Card.jsx";
-import CardHeader from "./Card/CardHeader.jsx";
-import CardBody from "./Card/CardBody.jsx";
-import Button from './CustomButtons/Button'
+import Card from "../Card/Card.jsx";
+import CardHeader from "../Card/CardHeader.jsx";
+import CardBody from "../Card/CardBody.jsx";
+import Button from '../CustomButtons/Button'
 import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
-import { taskDetailBoxHide, dataForTaskChartSet } from '../redux/actions/action';
-import { BaseComponent } from './BaseComponent';
+import { taskDetailBoxHide, dataForTaskChartSet } from '../../redux/actions/action';
+import { BaseComponent } from '../BaseComponent';
 
 const mapStateToProps = state => ({
     taskDetailBox: state.modalReducer.taskDetailBox,
@@ -34,10 +34,6 @@ class TaskDetailBox extends BaseComponent {
     onClickSubmitButton = () => {
         this.updateTaskType(this.props.task.taskId, "finished", this.props.dispatch)
     }
-
-    
-
-
 
     renderButton = () => {
 

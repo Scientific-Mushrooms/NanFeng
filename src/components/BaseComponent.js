@@ -67,7 +67,7 @@ export class BaseComponent extends Component {
         this.post(this.ip + '/api/task/updateTypeByTaskId', form).then((result) => {
             if (!result) {
                 alert("connection to server error")
-            } else if (result.status == 'fail') {
+            } else if (result.status === 'fail') {
                 alert(result.description);
             } else {
                 this.fetchDataForTaskChart("392988bc-72e1-468f-8679-d6fc9948fe2f", this.props.dispatch)

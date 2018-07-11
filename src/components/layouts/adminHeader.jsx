@@ -2,7 +2,7 @@ import React, {Component} from "react";
 
 import Icon from "@material-ui/core/Icon";
 import Button from "../../components/CustomButtons/Button.jsx";
-import LoginBox from '../loginBox';
+import LoginBox from '../boxes/loginBox';
 
 import { loginBoxShow } from '../../redux/actions/action'
 

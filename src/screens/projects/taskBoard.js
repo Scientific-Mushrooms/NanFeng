@@ -1,13 +1,10 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import CheckChart from '../../components/checkChart';
-import TaskDetailBox from '../../components/taskDetailBox.jsx';
-import { dataForTaskChartSet } from '../../redux/actions/action';
+import TaskDetailBox from '../../components/boxes/taskDetailBox';
 import BaseComponent from '../../components/BaseComponent';
 
-export class ReactLearn extends BaseComponent {
-
-    
+export class TaskBoard extends BaseComponent {
 
     componentWillMount() {
         this.fetchDataForTaskChart("392988bc-72e1-468f-8679-d6fc9948fe2f", this.props.dispatch)

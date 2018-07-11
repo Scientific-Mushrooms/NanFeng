@@ -180,6 +180,10 @@ export class JavaSpring extends React.Component {
                     close
                   />
                 </GridItem>
+
+
+
+
                 <GridItem xs={12} sm={12} md={4}>
                   <Button
                     fullWidth
@@ -198,6 +202,9 @@ export class JavaSpring extends React.Component {
                     close
                   />
                 </GridItem>
+
+
+                
                 <GridItem xs={12} sm={12} md={4}>
                   <Button
                     fullWidth
