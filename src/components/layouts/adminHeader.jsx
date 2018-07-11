@@ -33,8 +33,22 @@ class Header extends BaseComponent {
         this.state = {
             register: false,
             userPopover: null,
+            notif: null
         };
     }
+
+    handleNotifClick = event => {
+        this.setState({
+            notif: event.currentTarget,
+        });
+    };
+
+
+    handleNotifClose = () => {
+        this.setState({
+           notif: null,
+        });
+    };
 
     handleUserButton = (event) => {
         if (this.props.user === null) {
@@ -67,6 +81,7 @@ class Header extends BaseComponent {
     }
 
     render() {
+        const { anchorEl } = this.state;
         return (
             <div>    
                 <Button
@@ -80,7 +95,7 @@ class Header extends BaseComponent {
                 <Button
                     color={"transparent"}
                     justIcon={true}
-                    onClick={this.pushNotification.bind(this, "danger", "23333", this.props.dispatch)}
+                    onClick={this.handleNotifClick}
                     >
                     <Icon>notifications</Icon>
                     <span style={styles.notifications}>5</span>  
@@ -118,6 +133,42 @@ class Header extends BaseComponent {
                         <hr/>
                         <Button style={styles.buttonBottom} onClick={this.signOut.bind(this)}>Sign out</Button>
                     </Grid>
+                </Popover>
+
+                <Popover
+                    open={Boolean(this.state.notif)}
+                    anchorEl={this.state.notif}
+                    onClose={this.handleNotifClose}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                    }}
+                >
+                    <List component="nav">
+                        <ListItem button>
+                            <Typography>hi</Typography>
+                        </ListItem>
+                        <Divider />
+                        <ListItem button divider>
+                            <Typography>hello</Typography>
+                        </ListItem>
+                        <ListItem button>
+                            <Typography>greetings</Typography>
+                        </ListItem>
+                        <Divider light />
+                        <ListItem button>
+                            <Typography>goodbye</Typography>
+                        </ListItem>
+                        <Divider light />
+                        <ListItem button>
+                            <Typography>bye</Typography>
+                        </ListItem>
+
+                    </List>
                 </Popover>
 
                 <Notification/>
