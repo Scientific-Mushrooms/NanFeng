@@ -57,6 +57,7 @@ class LoginBox extends BaseComponent {
                     } else {
                         this.props.dispatch(login(result.detail));
                         this.props.dispatch(loginBoxHide)
+                        this.pushNotification("normal","Sign Up Succeeded",this.props.dispatch);
                     }
                 }
             })
@@ -64,7 +65,6 @@ class LoginBox extends BaseComponent {
     }
 
     login = () => {
-
         if (this.state.email === '' ) {
             this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
         } else if(this.state.password === ''){
@@ -83,6 +83,7 @@ class LoginBox extends BaseComponent {
                     } else {
                         this.props.dispatch(login(result.detail));
                         this.props.dispatch(loginBoxHide)
+                        this.pushNotification("normal","Login Succeeded",this.props.dispatch);
                     }
                 }
             })
