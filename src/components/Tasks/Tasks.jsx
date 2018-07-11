@@ -43,7 +43,7 @@ class Tasks extends Component {
                         {task.title}
                     </Grid>
 
-                    <Grid xs={1}>
+                    <Grid  xs={1}>
                         {task.level}
                     </Grid>
 

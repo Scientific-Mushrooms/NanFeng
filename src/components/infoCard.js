@@ -16,10 +16,8 @@ class InfoCard extends Component {
                     <CardIcon color={this.props.color}>
                         <Icon style={styles.icon}>{this.props.icon}</Icon>
                     </CardIcon>
-                    <div style={styles.headerLeft}>
-                        
-                                    <p style={styles.title}>{this.props.title}</p>
-                        
+                    <div style={styles.headerContainer}>                      
+                        <p style={styles.title}>{this.props.title}</p>
                         <p style={styles.value}>{this.props.value}</p>
                     </div>
                 </CardHeader>
@@ -90,7 +88,7 @@ const styles = {
         fontSize: "50px",
     },
 
-    headerLeft: {
+    headerContainer: {
         display:"flex",
         flexDirection:"column",
         alignItems:"center",

@@ -40,7 +40,7 @@ class App extends Component {
         let marLeft = this.state.openDrawer? "300px": "0px"; 
 
         return (
-            <Grid justify="flex-end" container>
+            <Grid  justify="flex-end" container>
                     <Sidebar open = {this.state.openDrawer}   routes={dashboardRoutes} {...rest}/>
                      <Header handleDrawer = {this.handleDrawer}  routes={dashboardRoutes}  {...rest}/> 
                 <Grid style= {{marginLeft: marLeft, transition: "margin 0.2s ease-out" }} container>

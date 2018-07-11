@@ -3,16 +3,43 @@ import React, {Component} from "react";
 import Icon from "@material-ui/core/Icon";
 import Button from "../../components/CustomButtons/Button.jsx";
 import LoginBox from '../loginBox';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 
 import { loginBoxShow } from '../../redux/actions/action'
 
 import { connect } from 'react-redux';
+
 const mapStateToProps = state => ({
     user: state.userReducer.info,
     loginbox: state.modalReducer.loginbox,
 })
 
 class Header extends Component {
+
+    constructor(props){
+        super(props);
+        this.state={
+            anchorEl: null
+        }
+    }
+
+    handleNotifClick = event => {
+    this.setState({
+      anchorEl: event.currentTarget,
+        });
+    };
+
+
+  handleNotifClose = () => {
+    this.setState({
+      anchorEl: null,
+        });
+    };
 
     handleUserButton = () => {
         if (this.props.user === null) {
@@ -21,6 +48,8 @@ class Header extends Component {
     };
 
     render() {
+
+        const { anchorEl } = this.state;
         return (
             <div>    
                 <Button
@@ -34,10 +63,47 @@ class Header extends Component {
                 <Button
                     color={"transparent"}
                     justIcon={true}
+                    onClick={this.handleNotifClick}
+                    variant="contained"
                     >
                     <Icon>notifications</Icon>
                     <span style={styles.notifications}>5</span>  
                 </Button>
+                <Popover
+                  open={Boolean(anchorEl)}
+                  anchorEl={anchorEl}
+                  onClose={this.handleNotifClose}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                >
+                    <List component="nav">
+                        <ListItem button>
+                          <Typography>hi</Typography>
+                        </ListItem>
+                        <Divider />
+                        <ListItem button divider>
+                          <Typography>hello</Typography>
+                        </ListItem>
+                        <ListItem button>
+                          <Typography>greetings</Typography>
+                        </ListItem>
+                        <Divider light />
+                        <ListItem button>
+                          <Typography>goodbye</Typography>
+                        </ListItem>
+                        <Divider light />
+                        <ListItem button>
+                          <Typography>bye</Typography>
+                        </ListItem>
+
+                  </List>
+                </Popover>
         
                 <Button
                     color={"transparent"}
@@ -73,6 +139,10 @@ const styles = {
         verticalAlign: "middle",
         display: "block"
     },
+    popoverItem:{
+        margin:"10px",
+        cursor:"pointer"
+    }
 
 };
 
