@@ -10,14 +10,8 @@ import Table from "./Table/Table.jsx";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 
-
-
-class RankChart extends Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        const { classes } = this.props;
+function RankChart(props) {
+        const { classes } = props;
         return (
             <Card >
                 <CardHeader color="warning">
@@ -27,12 +21,11 @@ class RankChart extends Component {
                     <Table
                         tableHeaderColor="warning"
                         tableHead={["Rank", "Name", "Contribution"]}
-                        tableData={this.props.data}
+                        tableData={props.data}
                     />
                 </CardBody>
             </Card>
         );
-    }
 }
 
 
