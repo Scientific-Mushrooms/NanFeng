@@ -32,9 +32,9 @@ export class BaseComponent extends Component {
         form.append("squadId", squadId);
         this.post('/api/squad/squadIdToSquad', form).then((result) => {
             if (!result){
-                alert("connection to server error")
+                this.pushNotification("danger","Connection to server failed",this.props.dispatch);
             } else if (result.status === 'fail') {
-                alert("result.description");
+                this.pushNotification("danger",result.description,this.props.dispatch);
             } else {
                 dispatch(squadSet(result.detail));
             }
@@ -47,9 +47,9 @@ export class BaseComponent extends Component {
         form.append("squadId", squadId);
         this.post('/api/squadMember/squadIdToDataForRankChart', form).then((result) => {
             if (!result){
-                alert("connection to server error")
+                this.pushNotification("danger","Connection to server failed",this.props.dispatch);
             } else if(result.status === 'fail') {
-                alert(result.description);
+                this.pushNotification("danger",result.description,this.props.dispatch);
             } else {
                 dispatch(rankChartSet(result.detail));
             }
@@ -63,9 +63,9 @@ export class BaseComponent extends Component {
 
         this.post('/api/task/dataForTaskChart', form).then((result) => {
             if (!result) {
-                alert("connection to server error")
+                this.pushNotification("danger","Connection To Server Failed",this.props.dispatch);
             } else if (result.status === 'fail') {
-                alert(result.description);
+                this.pushNotification("danger",result.description,this.props.dispatch);
             } else {
                 dispatch(dataForTaskChartSet(result.detail))
             }
@@ -79,9 +79,9 @@ export class BaseComponent extends Component {
         form.append("type", type);
         this.post('/api/task/updateTypeByTaskId', form).then((result) => {
             if (!result) {
-                alert("connection to server error")
+                this.pushNotification("danger","Connection To Server Failed",this.props.dispatch);
             } else if (result.status === 'fail') {
-                alert(result.description);
+                this.pushNotification("danger",result.description,this.props.dispatch);
             } else {
                 this.fetchDataForTaskChart("392988bc-72e1-468f-8679-d6fc9948fe2f", this.props.dispatch)
                 dispatch(taskDetailBoxHide())
