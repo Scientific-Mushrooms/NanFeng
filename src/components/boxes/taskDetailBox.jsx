@@ -69,12 +69,20 @@ class TaskDetailBox extends BaseComponent {
                 <Grid style={styles.container} xs={5}>
                     <Card>
                         <CardHeader color="warning">
-                            <h4 style={styles.cardTitleWhite}>{this.props.task === null ? "" : this.props.task.title}</h4>
+                            <div>title:</div>
+                            <div style={styles.cardTitleWhite}>{this.props.task === null ? "" : this.props.task.title}</div>
                         </CardHeader>
                         <CardBody>
                             <Grid xs={12}>
+                                <div>content:</div>
                                 <div style={styles.contentContainer}>
                                     {this.props.task === null ? "" : this.props.task.content}
+                                </div>
+                            </Grid>
+                            <Grid xs={12}>
+                                <div>level:</div>
+                                <div style={styles.contentContainer}>
+                                    {this.props.task === null ? "" : this.props.task.level}
                                 </div>
                             </Grid>
 
@@ -98,6 +106,8 @@ class TaskDetailBox extends BaseComponent {
 const styles = {
 
     container: {
+        height: '400px',
+        width: '400px',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -120,7 +130,7 @@ const styles = {
 
     contentContainer: {
         width: '100%',
-        height: '300px'
+        height: '100px'
     }
 };
 
