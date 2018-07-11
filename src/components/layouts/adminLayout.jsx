@@ -5,13 +5,15 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 
-import Sidebar from "../../components/Sidebar/Sidebar.jsx";
+
 
 import dashboardRoutes from "../../routes/dashboard.jsx";
 
 import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
+
 import Grid from "@material-ui/core/Grid";
-import Header from '../../components/Header/Header';
+import Header from './adminHeader';
+import Sidebar from "./adminSidebar";
 
 const switchRoutes = (
     <Switch>

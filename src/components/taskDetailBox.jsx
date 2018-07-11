@@ -9,6 +9,7 @@ import Button from './CustomButtons/Button'
 import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import { taskDetailBoxHide, dataForTaskChartSet } from '../redux/actions/action';
+import { BaseComponent } from './BaseComponent';
 
 const mapStateToProps = state => ({
     taskDetailBox: state.modalReducer.taskDetailBox,
@@ -16,14 +17,10 @@ const mapStateToProps = state => ({
     task: state.taskReducer.task,
 })
 
-class TaskDetailBox extends Component {
-
-    componentWillReceiveProps(nextProps) {
-        
-    }
+class TaskDetailBox extends BaseComponent {
 
     onClickTestButton = () => {
-        this.updateType(this.props.task.taskId, "pending")
+        this.updateTaskType(this.props.task.taskId, "pending", this.props.dispatch)
     }
 
     onClickCancelButton = () => {
@@ -31,45 +28,16 @@ class TaskDetailBox extends Component {
     }
 
     onClickAcceptButton = () => {
-        this.updateType(this.props.task.taskId, "progressing")
+        this.updateTaskType(this.props.task.taskId, "progressing", this.props.dispatch)
     }
 
     onClickSubmitButton = () => {
-        this.updateType(this.props.task.taskId, "finished")
+        this.updateTaskType(this.props.task.taskId, "finished", this.props.dispatch)
     }
 
-    post = (url, form) => {
-        return fetch(url, { method: 'POST', body: form })
-            .then((response) => (response.json()))
-            .catch((error) => { console.error(error); });
-    }
+    
 
-    updateType = (taskId, type) => {
-        let form = new FormData();
-        form.append("taskId", taskId);
-        form.append("type", type);
-        this.post('/api/task/updateTypeByTaskId', form).then((result) => {
-            if (result.status == 'fail') {
-                alert(result.description);
-            } else {
-                this.fetchDataForTaskChartByType("392988bc-72e1-468f-8679-d6fc9948fe2f")
-                this.props.dispatch(taskDetailBoxHide())
-            }
-        })
-    }
 
-    fetchDataForTaskChartByType = (projectId) => {
-        let form = new FormData();
-        form.append("projectId", projectId);
-
-        this.post('/api/task/dataForTaskChart', form).then((result) => {
-            if (result.status == 'fail') {
-                alert(result.description);
-            } else {
-                this.props.dispatch(dataForTaskChartSet(result.detail))
-            }
-        })
-    }
 
     renderButton = () => {
 

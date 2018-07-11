@@ -11,12 +11,14 @@ import { login } from '../redux/actions/action';
 import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import { loginBoxHide } from '../redux/actions/action'
+import { BaseComponent } from './BaseComponent';
+
 
 const mapStateToProps = state => ({
     loginbox: state.modalReducer.loginbox,
 })
 
-class LoginBox extends Component {
+class LoginBox extends BaseComponent {
 
     constructor(props) {
         super(props);
@@ -31,11 +33,12 @@ class LoginBox extends Component {
         invitecode:'',
     };
 
-    _handleChange = name => event => {
+    handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
         });
     };
+
 
     _passwordVeri=()=>{
         //do something, @Clavier
@@ -72,11 +75,6 @@ class LoginBox extends Component {
         }
     };
 
-    post = (url, form) => {
-        return fetch(url, { method: 'POST', body: form })
-            .then((response) => (response.json()))
-            .catch((error) => { console.error(error); });
-    }
 
     render() {
         if(this.state.register){
@@ -119,7 +117,7 @@ class LoginBox extends Component {
                             label="Name"
                             style={styles.textField}
                             value={this.state.name}
-                            onChange={this._handleChange('username')}
+                            onChange={this.handleChange('username')}
                             margin="normal"
                             fullWidth={true}
                         />
@@ -131,7 +129,7 @@ class LoginBox extends Component {
                                 style={styles.textField}
                                 type="password"
                                 autoComplete="current-password"
-                                onChange={this._handleChange('password')}
+                                onChange={this.handleChange('password')}
                                 margin="normal"
                                 fullWidth={true}
                             />
@@ -172,7 +170,7 @@ class LoginBox extends Component {
                             label="Name"
                             style={styles.textField}
                             value={this.state.name}
-                            onChange={this._handleChange('username')}
+                            onChange={this.handleChange('username')}
                             margin="small"
                             fullWidth={true}
                         />
@@ -184,7 +182,7 @@ class LoginBox extends Component {
                                 style={styles.textField}
                                 type="password"
                                 autoComplete="current-password"
-                                onChange={this._handleChange('password')}
+                                onChange={this.handleChange('password')}
                                 margin="small"
                                 fullWidth={true}
                             />
@@ -206,7 +204,7 @@ class LoginBox extends Component {
                                 id="invitation-check"
                                 label="Invitation Code"
                                 style={styles.textField}
-                                onChange={this._handleChange('invitecode')}
+                                onChange={this.handleChange('invitecode')}
                                 margin="normal"
                                 fullWidth={false}
                             />

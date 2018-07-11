@@ -1,2 +1,2 @@
-export * from './Dashboard';
+export * from './admin';
 export * from './projects';
