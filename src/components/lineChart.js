@@ -28,7 +28,7 @@ class LineChart extends Component {
             <Card chart>
                 <CardHeader color="success">
                     <ChartistGraph
-                        className="ct-chart"
+                        className={classes.graph}
                         data={dailySalesChart.data}
                         type="Line"
                         options={dailySalesChart.options}
@@ -138,6 +138,12 @@ const dashboardStyle = {
             fontWeight: "400",
             lineHeight: "1"
         }
+    },
+    graph:{
+        backgroundColor:"white",
+        borderRadius: 4,
+        fontFamily: "'Titillium Web', sans-serif",
+
     }
 };
 

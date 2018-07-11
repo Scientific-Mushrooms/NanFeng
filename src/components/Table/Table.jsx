@@ -1,26 +1,27 @@
 import React, {Component} from "react";
+import withStyles from "@material-ui/core/styles/withStyles"; 
 
 import Table from "@material-ui/core/Table";
+import TableBody from '@material-ui/core/TableBody';
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 
 
 
-class CustomTable extends Component {
-    render() {
-        return (
-            <div className={styles.tableResponsive}>
+function CustomTable(props){
+      const {classes} = props;
 
-          
-              <TableHead style={styles.tableHeader}>
-              
-                <TableRow>
-                  {this.props.tableHead.map((prop, key) => {
+
+        return (
+            <div className={classes.table}>
+              <TableHead >
+                <TableRow  >
+                  {props.tableHead.map((prop, key) => {
                     return (
                       <TableCell
-                        style={styles.tableCell}
                         key={key}
+                        className={classes.tableHead}
                       >
                         {prop}
                       </TableCell>
@@ -28,63 +29,63 @@ class CustomTable extends Component {
                   })}
                 </TableRow>
               </TableHead>
-      
-
-                <Table style={styles.table}>
-
-                    {this.props.tableData.map((prop, key) => {
+                <TableBody>
+                    {props.tableData.map((prop, key) => {
                             return (
-                              <TableRow key={key}>
-                                  <TableCell style={styles.tableCell} key={key}>
+                              <TableRow  key={key}>
+                                  <TableCell className={classes.number}  key={key}>
                                         {key + 1}
                                   </TableCell>
-                                  <TableCell style={styles.tableCell} key={key}>
+                                  <TableCell className={classes.words}  key={key}>
                                         {prop.name}
                                   </TableCell>
-                                  <TableCell style={styles.tableCell} key={key}>
+                                  <TableCell className={classes.number}  key={key}>
                                         {prop.contribution}
                                   </TableCell>
                               </TableRow>
                             );
                         })}
 
-                </Table>
+                </TableBody>
             </div>
         );
-    }
+}
+
+function determineColor(key){
+  if(key === 1){
+    return "red";
+  }else if(key === 2){
+    return "blue";
+  }else if(key === 3){
+    return "green";
+  }else{
+    return "black";
+  }
 }
 
 const styles = {
-
-    table: {
-        marginBottom: "0",
-        width: "100%",
-        maxWidth: "100%",
-        backgroundColor: "transparent",
-        borderSpacing: "0",
-        borderCollapse: "collapse"
-    },
-
-    tableHeadCell: {
-        color: "inherit",
-        fontSize: "1em"
-    },
-
-    tableCell: {
-        lineHeight: "1.42857143",
-        padding: "12px 8px",
-        verticalAlign: "middle"
-    },
-
-    tableResponsive: {
-        width: "100%",
-        overflowX: "auto"
-    },
-
-    TableHead: {
-      width: '100%'
-    }
+  table:{
+    width:"100%",
+    display:"table",
+    textAlign:"center"
+  },
+  tableHead:{
+    fontFamily: "'Montserrat', sans-serif",
+    fontSize:"1.2em",
+    fontWeight:"700",
+    textAlign:"center"
+  },
+  number:{
+    fontFamily: "'Montserrat', sans-serif",
+    fontSize:"1.1em",
+    textAlign:"center"
+  },
+  words:{
+    fontFamily: "'Titillium Web', sans-serif",
+    fontSize:"1.1em",
+    textAlign:"center"
+  }
 
 };
 
-export default CustomTable;
+export default withStyles(styles) (CustomTable);
