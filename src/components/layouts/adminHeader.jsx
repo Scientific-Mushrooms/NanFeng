@@ -1,8 +1,10 @@
 import React, {Component} from "react";
 
 
-import Button from "../../components/CustomButtons/Button.jsx";
+//import Button from "../../components/CustomButtons/Button.jsx";
+import Button from '@material-ui/core/Button';
 import LoginBox from '../boxes/loginBox';
+import Grid from '@material-ui/core/Grid';
 
 import { loginBoxShow, show_notification, hide_notification } from '../../redux/actions/action';
 
@@ -22,6 +24,7 @@ const mapStateToProps = state => ({
     user: state.userReducer.info,
     loginbox: state.modalReducer.loginbox,
 })
+
 
 class Header extends BaseComponent {
 
@@ -48,6 +51,20 @@ class Header extends BaseComponent {
             anchorEl: null,
         });
     };
+
+    renderUsername=()=>{
+        if(this.props.user!=undefined)
+        return(
+            <Typography style={styles.typography}>
+                <span style={{fontSize:17}}>Acting Like </span>
+                <span style={{fontSize:17,fontWeight:"bold"}}>{this.props.user.email}</span>
+            </Typography>
+        )
+    }
+
+    signOut=()=>{
+        //need to do something
+    }
 
     render() {
         return (
@@ -90,7 +107,17 @@ class Header extends BaseComponent {
                         horizontal: 'center',
                     }}
                 >
-                    <Typography style={styles.typography}>The content of the Popover.</Typography>
+                    <Grid justify="center" >
+                        <Grid justify="center" container>
+                            {this.renderUsername()}
+                        </Grid>
+                        <hr/>
+                        <Button style={styles.button}>My Upload</Button>
+                        <Button style={styles.button}>Help</Button>
+                        <Button style={styles.button}>Settings</Button>
+                        <hr/>
+                        <Button style={styles.buttonBottom} onClick={this.signOut.bind(this)}>Sign out</Button>
+                    </Grid>
                 </Popover>
 
                 <Notification/>
@@ -123,8 +150,22 @@ const styles = {
     },
 
     typography: {
-        margin: '5px',
+        marginTop: '5px',
     },
+
+
+    button: {
+        marginLeft: '1px',
+        marginRight:'1px',
+        width:"100%",
+    },
+
+    buttonBottom:{
+        marginBottom: '10px',
+        marginLeft: '1px',
+        marginRight:'1px',
+        width:"100%",
+    }
 
 };
 
