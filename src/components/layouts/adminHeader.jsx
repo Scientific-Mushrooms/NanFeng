@@ -4,10 +4,12 @@ import React, {Component} from "react";
 import Button from "../../components/CustomButtons/Button.jsx";
 import LoginBox from '../boxes/loginBox';
 
-import { loginBoxShow } from '../../redux/actions/action'
+import { loginBoxShow, show_notification, hide_notification } from '../../redux/actions/action';
 
 import { connect } from 'react-redux';
 import { Popover, Icon, Typography } from '@material-ui/core';
+import Notification from '../notification';
+import { BaseComponent } from '../BaseComponent';
 
 
 const mapStateToProps = state => ({
@@ -15,7 +17,7 @@ const mapStateToProps = state => ({
     loginbox: state.modalReducer.loginbox,
 })
 
-class Header extends Component {
+class Header extends BaseComponent {
 
     constructor(props) {
         super(props);
@@ -55,6 +57,7 @@ class Header extends Component {
                 <Button
                     color={"transparent"}
                     justIcon={true}
+                    onClick={this.pushNotification.bind(this, "danger", "23333", this.props.dispatch)}
                     >
                     <Icon>notifications</Icon>
                     <span style={styles.notifications}>5</span>  
@@ -83,6 +86,8 @@ class Header extends Component {
                 >
                     <Typography style={styles.typography}>The content of the Popover.</Typography>
                 </Popover>
+
+                <Notification/>
 
                 <LoginBox/>
             </div>

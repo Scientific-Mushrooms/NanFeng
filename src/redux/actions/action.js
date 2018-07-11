@@ -30,3 +30,8 @@ export const chartSet = (title, data) => ({ type: 'RANK_CHART_SET', data: data, 
 
 
 export const taskSet = (task) => ({ type: 'TASK_SET', task: task });
+
+
+export const show_notification = (kind, reason) => ({ type: 'SHOW_NOTIFICATION', kind: kind, reason: reason});
+
+export const hide_notification = () => ({ type: 'HIDE_NOTIFICATION'});

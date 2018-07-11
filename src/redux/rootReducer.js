@@ -6,6 +6,7 @@ import projectReducer from './reducers/projectReducer';
 import squadReducer from './reducers/squadReducer';
 import chartReducer from './reducers/chartReducer';
 import taskReducer from './reducers/taskReducer';
+import notificationReducer from './reducers/notificationReducer';
 
 
 export default combineReducers({
@@ -15,4 +16,5 @@ export default combineReducers({
     squadReducer,
     chartReducer,
     taskReducer,
+    notificationReducer,
 });
