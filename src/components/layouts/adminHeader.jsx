@@ -1,12 +1,15 @@
 import React, {Component} from "react";
 
-import Icon from "@material-ui/core/Icon";
+
 import Button from "../../components/CustomButtons/Button.jsx";
 import LoginBox from '../boxes/loginBox';
 
 import { loginBoxShow } from '../../redux/actions/action'
 
 import { connect } from 'react-redux';
+import { Popover, Icon, Typography } from '@material-ui/core';
+
+
 const mapStateToProps = state => ({
     user: state.userReducer.info,
     loginbox: state.modalReducer.loginbox,
@@ -14,10 +17,28 @@ const mapStateToProps = state => ({
 
 class Header extends Component {
 
-    handleUserButton = () => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            register: false,
+            userPopover: null,
+        };
+    }
+
+    handleUserButton = (event) => {
         if (this.props.user === null) {
             this.props.dispatch(loginBoxShow)
+        } else {
+            this.setState({
+                anchorEl: event.currentTarget,
+            });
         }
+    };
+
+    handleClose = () => {
+        this.setState({
+            anchorEl: null,
+        });
     };
 
     render() {
@@ -47,6 +68,22 @@ class Header extends Component {
                     <Icon>person</Icon>
                 </Button>
 
+                <Popover
+                    open={Boolean(this.state.anchorEl)}
+                    anchorEl={this.state.anchorEl}
+                    onClose={this.handleClose}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                    }}
+                >
+                    <Typography style={styles.typography}>The content of the Popover.</Typography>
+                </Popover>
+
                 <LoginBox/>
             </div>
         );
@@ -72,6 +109,10 @@ const styles = {
         lineHeight: "16px",
         verticalAlign: "middle",
         display: "block"
+    },
+
+    typography: {
+        margin: '5px',
     },
 
 };

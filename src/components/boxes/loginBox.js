@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -23,15 +23,12 @@ class LoginBox extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
-            register:false,
+            register: false,
+            email: '',
+            password: '',
+            repassword: '',
         };
     }
-
-    state = {
-        username: '',
-        password: '',
-        invitecode:'',
-    };
 
     handleChange = name => event => {
         this.setState({
@@ -39,34 +36,48 @@ class LoginBox extends BaseComponent {
         });
     };
 
+    signUp=()=>{
+        if (this.email === '' || this.password === '') {
+            alert('can not be empty');
+        } else if (this.state.password !== this.state.repassword) {
+            alert("wrong repassword")
+        } else {
+            let form = new FormData();
+            form.append("email", this.state.email);
+            form.append("password", this.state.password);
 
-    _passwordVeri=()=>{
-        //do something, @Clavier
-        //验证注册时二次输入密码，你的handlechange逻辑我怕写错，你来吧
+            this.post('/api/security/signup', form).then((result) => {
+                if (!result) {
+                    alert("connection to server error")
+                } else {
+                    if (result.status === 'fail') {
+                        alert(result.description);
+                    } else {
+                        this.props.dispatch(login(result.detail));
+                        this.props.dispatch(loginBoxHide)
+                    }
+                }
+            })
+        }
     }
 
-    _regist=()=>{
-        //do something, @Clavier
-    }
+    login = () => {
 
-    _login = () => {
-
-        if (this.account === '' || this.password === '') {
+        if (this.email === '' || this.password === '') {
             alert('can not be empty');
 
         } else {
             let form = new FormData();
-            form.append("email", this.state.username);
+            form.append("email", this.state.email);
             form.append("password", this.state.password);
 
-            this.post('/api/user/login', form).then((result) => {
+            this.post('/api/security/login', form).then((result) => {
                 if (!result){
                     alert("connection to server error")
                 }else{
                     if (result.status === 'fail') {
                         alert(result.description);
                     } else {
-                        alert("success")
                         this.props.dispatch(login(result.detail));
                         this.props.dispatch(loginBoxHide)
                     }
@@ -104,10 +115,9 @@ class LoginBox extends BaseComponent {
 
     _renderLogin=()=>{
         return(
-                <Grid style={styles.container} xs={3}>
+            <Grid style={styles.container} xs={3}>
             <Card>
                 <CardHeader color="warning">
-                    <h4 style={styles.cardTitleWhite}>Squad Member Stats</h4>
                     <h2 style={styles.cardTitleWhite}>Login In</h2>
                 </CardHeader>
                 <CardBody>
@@ -117,7 +127,7 @@ class LoginBox extends BaseComponent {
                             label="Name"
                             style={styles.textField}
                             value={this.state.name}
-                            onChange={this.handleChange('username')}
+                            onChange={this.handleChange('email')}
                             margin="normal"
                             fullWidth={true}
                         />
@@ -139,7 +149,7 @@ class LoginBox extends BaseComponent {
                                 size="large" 
                                 style={styles.button} 
                                 color='primary'
-                                onClick={this._login}
+                                onClick={this.login}
                                 >LOGIN</Button>
                         </Grid>
                         <Grid xs={12}>
@@ -155,12 +165,12 @@ class LoginBox extends BaseComponent {
                 </Grid>
         );
     }
+
     _renderRegist=()=>{
         return(
                 <Grid style={styles.container} xs={3}>
             <Card>
                 <CardHeader color="warning">
-                    <h4 style={styles.cardTitleWhite}>Squad Member Stats</h4>
                     <h2 style={styles.cardTitleWhite}>Be A New Member</h2>
                 </CardHeader>
                 <CardBody>
@@ -170,7 +180,7 @@ class LoginBox extends BaseComponent {
                             label="Name"
                             style={styles.textField}
                             value={this.state.name}
-                            onChange={this.handleChange('username')}
+                            onChange={this.handleChange('email')}
                             margin="small"
                             fullWidth={true}
                         />
@@ -194,19 +204,9 @@ class LoginBox extends BaseComponent {
                                 style={styles.textField}
                                 type="password"
                                 autoComplete="current-password"
-                                onChange={this._passwordVeri('password')}
+                                onChange={this.handleChange('repassword')}
                                 margin="small"
                                 fullWidth={true}
-                            />
-                        </Grid>
-                        <Grid xs={6}>
-                            <TextField
-                                id="invitation-check"
-                                label="Invitation Code"
-                                style={styles.textField}
-                                onChange={this.handleChange('invitecode')}
-                                margin="normal"
-                                fullWidth={false}
                             />
                         </Grid>
                         <Grid xs={12}>
@@ -214,7 +214,7 @@ class LoginBox extends BaseComponent {
                                 size="large" 
                                 style={styles.button} 
                                 color='primary'
-                                onClick={this._login}
+                                onClick={this.signUp}
                                 >Sign Up</Button>
                         </Grid>
                         <Grid xs={12}>
@@ -227,7 +227,7 @@ class LoginBox extends BaseComponent {
                         </Grid>
                 </CardBody>
             </Card>
-                </Grid>
+            </Grid>
         );
     }
 }

@@ -4,11 +4,14 @@ import { squadSet, rankChartSet, dataForTaskChartSet, taskDetailBoxHide } from '
 
 export class BaseComponent extends Component {
 
-    ip = "http://www.clavier.moe:8080";
+    // server
+    // ip = "http://www.clavier.moe:8080";
     
+    // local
+    ip = "http://localhost:8080";
 
     post = (url, form) => {
-        return fetch(url, { method: 'POST', body: form})
+        return fetch(this.ip + url, { method: 'POST', body: form})
             .then((response) => (response.json()))
             .catch((error) => { console.error(error); });
     }
@@ -17,7 +20,7 @@ export class BaseComponent extends Component {
     fetchSquad = (squadId, dispatch) => {
         let form = new FormData();
         form.append("squadId", squadId);
-        this.post(this.ip + '/api/squad/squadIdToSquad', form).then((result) => {
+        this.post('/api/squad/squadIdToSquad', form).then((result) => {
             if (!result){
                 alert("connection to server error")
             } else if (result.status === 'fail') {
@@ -32,7 +35,7 @@ export class BaseComponent extends Component {
     fetchRankChart = (squadId, dispatch) => {
         let form = new FormData();
         form.append("squadId", squadId);
-        this.post(this.ip + '/api/squadMember/squadIdToDataForRankChart', form).then((result) => {
+        this.post('/api/squadMember/squadIdToDataForRankChart', form).then((result) => {
             if (!result){
                 alert("connection to server error")
             } else if(result.status === 'fail') {
@@ -48,7 +51,7 @@ export class BaseComponent extends Component {
         let form = new FormData();
         form.append("projectId", projectId);
 
-        this.post(this.ip + '/api/task/dataForTaskChart', form).then((result) => {
+        this.post('/api/task/dataForTaskChart', form).then((result) => {
             if (!result) {
                 alert("connection to server error")
             } else if (result.status === 'fail') {
@@ -64,7 +67,7 @@ export class BaseComponent extends Component {
         let form = new FormData();
         form.append("taskId", taskId);
         form.append("type", type);
-        this.post(this.ip + '/api/task/updateTypeByTaskId', form).then((result) => {
+        this.post('/api/task/updateTypeByTaskId', form).then((result) => {
             if (!result) {
                 alert("connection to server error")
             } else if (result.status === 'fail') {
