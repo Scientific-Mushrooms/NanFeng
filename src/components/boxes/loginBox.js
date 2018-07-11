@@ -37,10 +37,12 @@ class LoginBox extends BaseComponent {
     };
 
     signUp=()=>{
-        if (this.email === '' || this.password === '') {
-            alert('can not be empty');
-        } else if (this.state.password !== this.state.repassword) {
-            alert("wrong repassword")
+        if (this.state.email === '' ) {
+            this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
+        } else if(this.state.password === ''){
+            this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
+        }else if (this.state.password !== this.state.repassword) {
+            this.pushNotification("danger","Wrong Repassword",this.props.dispatch);
         } else {
             let form = new FormData();
             form.append("email", this.state.email);
@@ -48,13 +50,14 @@ class LoginBox extends BaseComponent {
 
             this.post('/api/security/signup', form).then((result) => {
                 if (!result) {
-                    alert("connection to server error")
+                    this.pushNotification("danger","Connection To Server Failed",this.props.dispatch);
                 } else {
                     if (result.status === 'fail') {
-                        alert(result.description);
+                        this.pushNotification("danger",result.description,this.props.dispatch);
                     } else {
                         this.props.dispatch(login(result.detail));
                         this.props.dispatch(loginBoxHide)
+                        this.pushNotification("normal","Sign Up Succeeded",this.props.dispatch);
                     }
                 }
             })
@@ -62,10 +65,10 @@ class LoginBox extends BaseComponent {
     }
 
     login = () => {
-
-        if (this.email === '' || this.password === '') {
-            alert('can not be empty');
-
+        if (this.state.email === '' ) {
+            this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
+        } else if(this.state.password === ''){
+            this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
         } else {
             let form = new FormData();
             form.append("email", this.state.email);
@@ -73,13 +76,14 @@ class LoginBox extends BaseComponent {
 
             this.post('/api/security/login', form).then((result) => {
                 if (!result){
-                    alert("connection to server error")
+                    this.pushNotification("danger","Connection To Server Failed",this.props.dispatch);
                 }else{
                     if (result.status === 'fail') {
-                        alert(result.description);
+                        this.pushNotification("danger",result.description,this.props.dispatch);
                     } else {
                         this.props.dispatch(login(result.detail));
                         this.props.dispatch(loginBoxHide)
+                        this.pushNotification("normal","Login Succeeded",this.props.dispatch);
                     }
                 }
             })
