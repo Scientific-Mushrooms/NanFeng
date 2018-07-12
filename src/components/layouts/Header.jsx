@@ -1,7 +1,5 @@
-import React, {Component} from "react";
+import React from "react";
 
-
-//import Button from "../../components/CustomButtons/Button.jsx";
 import Button from '@material-ui/core/Button';
 import LoginBox from '../boxes/loginBox';
 import Grid from '@material-ui/core/Grid';
@@ -9,15 +7,14 @@ import Grid from '@material-ui/core/Grid';
 import { loginBoxShow, show_notification, hide_notification } from '../../redux/actions/action';
 
 import { connect } from 'react-redux';
-import { Popover, Icon, Typography } from '@material-ui/core';
+import { Popover, Icon, Typography, IconButton } from '@material-ui/core';
 import Notification from '../notification';
 import { BaseComponent } from '../BaseComponent';
-
+import Avatar from '@material-ui/core/Avatar';
 
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
 const mapStateToProps = state => ({
@@ -80,34 +77,70 @@ class Header extends BaseComponent {
         //need to do something
     }
 
-    render() {
-        const { anchorEl } = this.state;
+    renderRight = () => {
+        if (this.props.user === null) {
+            return (
+                <Grid container xs={4} style={styles.subRightContainer}>
+
+                    {/* <Button onClick={this.props.handleDrawer} style={styles.iconButton}>
+                            <Icon>dashboard</Icon>
+                        </Button>
+
+                        <Button onClick={this.handleUserButton} style={styles.iconButton}>
+                            <Icon>person</Icon>
+                        </Button> */}
+
+                    <Button onClick={this.handleUserButton} style={styles.iconButton} >Sign in</Button>
+                    <Button onClick={this.handleUserButton} style={styles.iconButton}>Sign up</Button>
+
+                </Grid>
+            )
+        }
         return (
-            <div>    
-                <Button
-                    color={"transparent"}
-                    justIcon={true}
-                    onClick = {this.props.handleDrawer}
-                    >
-                    <Icon>dashboard</Icon>
+            <Grid container xs={4} style={styles.subRightContainer}>
+
+                <IconButton onClick={this.handleNotifClick} style={styles.iconButton} >
+                    <Icon>notifications</Icon>
+                    <span style={styles.notifications}>5</span>
+                </IconButton>
+
+                
+
+                <Button onClick={this.handleUserButton} style={styles.iconButton} >
+                    <Avatar style={styles.avatar}>猫</Avatar>
+                    <div style={styles.text}>{this.props.user.name}</div>
                 </Button>
 
-                <Button
-                    color={"transparent"}
-                    justIcon={true}
-                    onClick={this.handleNotifClick}
-                    >
-                    <Icon>notifications</Icon>
-                    <span style={styles.notifications}>5</span>  
-                </Button>
-        
-                <Button
-                    color={"transparent"}
-                    justIcon={true}
-                    onClick={this.handleUserButton}
-                    >
-                    <Icon>person</Icon>
-                </Button>
+            </Grid>
+        )
+    }
+
+    render() {
+        return (
+            <Grid container style={styles.container}>
+                <Grid container xs={11} style={styles.subContainer}>
+
+                    <Grid xs={8}>
+
+                        <Button onClick={this.props.handleDrawer} style={styles.slogan}>
+                            Mushrooms
+                        </Button>
+
+                        <Button onClick={this.props.handleDrawer} style={styles.iconButton}>
+                            Home
+                        </Button>
+
+                        <Button onClick={this.props.handleDrawer} style={styles.iconButton}>
+                            Widgets
+                        </Button>
+
+                    </Grid>
+
+                    {this.renderRight()}
+
+                </Grid>
+                
+
 
                 <Popover
                     open={Boolean(this.state.anchorEl)}
@@ -174,7 +207,7 @@ class Header extends BaseComponent {
                 <Notification/>
 
                 <LoginBox/>
-            </div>
+            </Grid>
         );
     }
 }
@@ -216,7 +249,47 @@ const styles = {
         marginLeft: '1px',
         marginRight:'1px',
         width:"100%",
+    },
+
+    iconButton: {
+
+        color: '#bcb8a8'
+    },
+
+    container: {
+        height: '70px',
+        backgroundColor: '#404040',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    subContainer: {
+        height: '100%',
+        alignItems: 'center'
+    },
+
+    subRightContainer: {
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'flex-end'
+    },
+
+
+    avatar: {
+        backgroundColor: "#66ccff",
+    },
+
+    slogan: {
+        height: '100%',
+        color: '#bcb8a8',
+        fontSize: '25px',
+        fontFamily: 'Righteous'
+    },
+
+    text: {
+        marginLeft: '10px'
     }
+
 
 };
 

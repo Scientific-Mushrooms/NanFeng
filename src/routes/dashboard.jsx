@@ -20,35 +20,35 @@ const mapStateToProps = state => ({
 const dashboardRoutes = [
 
     {
-        path: "/dashboard",
+        path: "/admin/dashboard",
         sidebarName: "Dashboard",
         icon: "dashboard",
         component: connect(mapStateToProps)(Screens.Dashboard)
     },
 
     {
-        path: "/react-learn",
+        path: "/admin/react-learn",
         sidebarName: "React Learn",
         icon: 'code',
         component: connect(mapStateToProps)(Screens.TaskBoard)
     },
 
     {
-        path: "/react-native-learn",
+        path: "/admin/react-native-learn",
         sidebarName: "React Native Learn",
         icon: 'code',
         component: Screens.ReactNativeLearn
     },
 
     {
-        path: "/java-spring-api",
+        path: "/admin/java-spring-api",
         sidebarName: "Java Spring API",
         icon: 'code',
         component: Screens.JavaSpring
     },
 
     {
-        path: "/users",
+        path: "/admin/users",
         sidebarName: "Users",
         icon: 'user',
         component: Screens.UserBoard,

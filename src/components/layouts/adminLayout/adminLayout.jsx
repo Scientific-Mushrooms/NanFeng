@@ -1,18 +1,17 @@
-/* eslint-disable */
 import React, {Component} from "react";
 
 import { Switch, Route, Redirect } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
-// core components
 
 
 
-import dashboardRoutes from "../../routes/dashboard.jsx";
 
-import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
+import dashboardRoutes from "../../../routes/dashboard.jsx";
+
+import dashboardStyle from "../../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import Grid from "@material-ui/core/Grid";
-import Header from './adminHeader';
+import Header from '../Header';
 import Sidebar from "./adminSidebar";
 
 const switchRoutes = (
