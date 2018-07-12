@@ -1,9 +1,7 @@
-import AdminLayout from "../components/layouts/adminLayout/adminLayout";
-import CommonLayout from "../components/layouts/commonLayout/commonLayout";
+import Layout from "../components/layouts/layout";
 
 const indexRoutes = [
-    { path: '/admin', component: AdminLayout }, 
-    { path: '/', component: CommonLayout }
+    { path: '/', component: Layout }, 
 ];
 
 export default indexRoutes;

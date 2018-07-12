@@ -19,8 +19,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 
-
-import dashboardRoutes from "../../routes/dashboard.jsx";
+import mainRoutes from '../../routes/routes';
 
 
 const mapStateToProps = state => ({
@@ -37,9 +36,6 @@ class Header extends BaseComponent {
             register: false,
         };
     }
-
-
-    
 
     handleClick = name => event => {
         this.setState({
@@ -136,6 +132,7 @@ class Header extends BaseComponent {
     routesToList = (prop, key) => {
         return (
             <NavLink to={prop.path} key={key} style={{ textDecoration: "none",}}>
+                <Divider />
                 <ListItem button>
                     <Icon>{prop.icon}</Icon>
                     <Typography>{prop.sidebarName}</Typography>
@@ -155,26 +152,7 @@ class Header extends BaseComponent {
                 transformOrigin={{vertical: 'top', horizontal: 'center'}}
                 >
                 <List component="nav">
-                    <ListItem button>
-                        <Typography>hi</Typography>
-                    </ListItem>
-                    <Divider />
-                    <ListItem button divider>
-                        <Typography>hello</Typography>
-                    </ListItem>
-                    <ListItem button>
-                        <Typography>greetings</Typography>
-                    </ListItem>
-                    <Divider light />
-                    <ListItem button>
-                        <Typography>goodbye</Typography>
-                    </ListItem>
-                    <Divider light />
-                    <ListItem button>
-                        <Typography>bye</Typography>
-                    </ListItem>
-                    {dashboardRoutes.map(this.routesToList)}
-
+                    {mainRoutes.map(this.routesToList)}
                 </List>
             </Popover>
         )

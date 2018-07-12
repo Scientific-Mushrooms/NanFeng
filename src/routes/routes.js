@@ -17,10 +17,17 @@ const mapStateToProps = state => ({
     rankChart: state.chartReducer.rankChart,
 })
 
-const dashboardRoutes = [
+const mainRoutes = [
 
     {
-        path: "/admin/dashboard",
+        path: "/home",
+        sidebarName: "Home",
+        icon: 'home',
+        component: connect(mapStateToProps)(Screens.Home),
+    },
+
+    {
+        path: "/dashboard",
         sidebarName: "Dashboard",
         icon: "dashboard",
         component: connect(mapStateToProps)(Screens.Dashboard)
@@ -34,20 +41,6 @@ const dashboardRoutes = [
     },
 
     {
-        path: "/admin/react-native-learn",
-        sidebarName: "React Native Learn",
-        icon: 'code',
-        component: Screens.ReactNativeLearn
-    },
-
-    {
-        path: "/admin/java-spring-api",
-        sidebarName: "Java Spring API",
-        icon: 'code',
-        component: Screens.JavaSpring
-    },
-
-    {
         path: "/admin/users",
         sidebarName: "Users",
         icon: 'user',
@@ -56,4 +49,4 @@ const dashboardRoutes = [
 
 ];
 
-export default dashboardRoutes;
+export default mainRoutes;

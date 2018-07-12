@@ -6,13 +6,13 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 
 
-import dashboardRoutes from "../../../routes/dashboard.jsx";
+import dashboardRoutes from "../../routes/routes";
 
-import dashboardStyle from "../../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
+import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import Grid from "@material-ui/core/Grid";
-import Header from '../Header';
-import Sidebar from "./adminSidebar";
+import Header from './header';
+
 
 const switchRoutes = (
     <Switch>
@@ -37,13 +37,12 @@ class App extends Component {
     };
 
     render() {
-        const { classes, ...rest } = this.props;
+        const { classes } = this.props;
 
         return (
             <Grid justify="flex-end" container>
-                <Header handleDrawer={this.handleDrawer} routes={dashboardRoutes}  /> 
-
             
+                <Header routes={dashboardRoutes}  /> 
                      
                 <Grid container style={styles.bottomContainer}>
                     <Grid item  xs={11} >
@@ -57,11 +56,6 @@ class App extends Component {
 
 const styles = {
 
-    wrapper: {
-        position: "relative",
-        top: "0",
-        height: "100vh"
-    },
     mainPanel: {
 
         overflow: "auto",
