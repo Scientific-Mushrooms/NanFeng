@@ -48,8 +48,8 @@ class Header extends BaseComponent {
     }
 
 
-    handleUserButton = (event) => {
-        this.setState({ userPopover: event.currentTarget });
+    handleUserButton = () => {
+        this.props.dispatch(loginBoxShow);
     };
 
     handleClose = name => () => {
