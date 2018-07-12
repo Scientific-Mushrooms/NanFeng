@@ -42,16 +42,10 @@ export default class SideBar extends Component {
 };
 
 
-const defaultFont = {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    fontWeight: "300",
-    lineHeight: "1.5em"
-};
-
 const styles = {
 
     drawer: {
-        width: '100%',
+
         height: '100%'
     },
 
@@ -64,7 +58,7 @@ const styles = {
         display: "block",
         padding: "10px 15px",
         backgroundColor: "transparent",
-        ...defaultFont
+
     },
 
     selectedItemLink: {
@@ -76,7 +70,7 @@ const styles = {
         display: "block",
         padding: "10px 15px",
         backgroundColor: "#00acc1",
-        ...defaultFont
+
     },
 
     itemIcon: {
@@ -90,7 +84,7 @@ const styles = {
     },
 
     itemText: {
-        ...defaultFont,
+
         margin: "0",
         lineHeight: "30px",
         fontSize: "18px",

@@ -11,7 +11,10 @@ import { Popover, Icon, Typography, IconButton } from '@material-ui/core';
 import Notification from '../notification';
 import { BaseComponent } from '../BaseComponent';
 import Avatar from '@material-ui/core/Avatar';
+import { NavLink } from "react-router-dom";
 
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -29,9 +32,26 @@ class Header extends BaseComponent {
         super(props);
         this.state = {
             register: false,
-            userPopover: null,
-            notif: null
         };
+    }
+
+    routesToList = (prop, key) => {
+        return (
+            <NavLink to={prop.path} style={styles.item} activeClassName="active" key={key}>
+                <ListItem button style={this.activeRoute(prop.path) ? styles.selectedItemLink : styles.itemLink} >
+                    
+                    <Icon>{prop.icon}</Icon>
+                    
+                    <ListItemText primary={prop.sidebarName} style={styles.itemText} disableTypography={true} />
+                </ListItem>
+            </NavLink>
+        );
+    }
+
+    handleClick = name => event => {
+        this.setState({
+           [name]: event.currentTarget,
+        });
     }
 
     handleNotifClick = event => {
@@ -52,43 +72,96 @@ class Header extends BaseComponent {
             this.props.dispatch(loginBoxShow)
         } else {
             this.setState({
-                anchorEl: event.currentTarget,
+                userPopover: event.currentTarget,
             });
         }
     };
 
-    handleClose = () => {
+    handleClose = name => () => {
         this.setState({
-            anchorEl: null,
+            [name]: null,
         });
     };
 
-    renderUsername=()=>{
-        if(this.props.user!=undefined)
-        return(
-            <Typography style={styles.typography}>
-                <span style={{fontSize:17}}>Acting Like </span>
-                <span style={{fontSize:17,fontWeight:"bold"}}>{this.props.user.email}</span>
-            </Typography>
-        )
-    }
-
     signOut=()=>{
         //need to do something
+    }
+
+    renderUserPopover = () => {
+
+        if (this.props.user === null) {
+            return null;
+        }
+
+        return (
+            <Popover
+                open={Boolean(this.state.userPopover)}
+                anchorEl={this.state.userPopover}
+                onClose={this.handleClose("userPopover")}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'center',}}
+                >
+                <Grid justify="center" >
+                    <Button style={styles.button}>My Upload</Button>
+                    <Button style={styles.button}>Help</Button>
+                    <Button style={styles.button}>Settings</Button>
+              
+                    <Button style={styles.buttonBottom} onClick={this.signOut.bind(this)}>Sign out</Button>
+                </Grid>
+            </Popover>
+        )
+        
+    }
+
+    renderAlertPopover = () => {
+
+        if (this.props.user === null) {
+            return null;
+        }
+
+        return (
+            <Popover
+                open={Boolean(this.state.notificationPopover)}
+                anchorEl={this.state.notificationPopover}
+                onClose={this.handleClose("notificationPopover")}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+            >
+                <List component="nav">
+                    <ListItem button>
+                        <Typography>hi</Typography>
+                    </ListItem>
+                    <Divider />
+                    <ListItem button divider>
+                        <Typography>hello</Typography>
+                    </ListItem>
+                    <ListItem button>
+                        <Typography>greetings</Typography>
+                    </ListItem>
+                    <Divider light />
+                    <ListItem button>
+                        <Typography>goodbye</Typography>
+                    </ListItem>
+                    <Divider light />
+                    <ListItem button>
+                        <Typography>bye</Typography>
+                    </ListItem>
+
+                </List>
+            </Popover>
+        )
     }
 
     renderRight = () => {
         if (this.props.user === null) {
             return (
                 <Grid container xs={4} style={styles.subRightContainer}>
-
-                    {/* <Button onClick={this.props.handleDrawer} style={styles.iconButton}>
-                            <Icon>dashboard</Icon>
-                        </Button>
-
-                        <Button onClick={this.handleUserButton} style={styles.iconButton}>
-                            <Icon>person</Icon>
-                        </Button> */}
 
                     <Button onClick={this.handleUserButton} style={styles.iconButton} >Sign in</Button>
                     <Button onClick={this.handleUserButton} style={styles.iconButton}>Sign up</Button>
@@ -99,7 +172,7 @@ class Header extends BaseComponent {
         return (
             <Grid container xs={4} style={styles.subRightContainer}>
 
-                <IconButton onClick={this.handleNotifClick} style={styles.iconButton} >
+                <IconButton onClick={this.handleClick("notificationPopover")} style={styles.iconButton} >
                     <Icon>notifications</Icon>
                     <span style={styles.notifications}>5</span>
                 </IconButton>
@@ -114,6 +187,8 @@ class Header extends BaseComponent {
             </Grid>
         )
     }
+
+    
 
     render() {
         return (
@@ -140,73 +215,14 @@ class Header extends BaseComponent {
 
                 </Grid>
                 
+                {this.renderUserPopover()}
 
+                {this.renderAlertPopover()}
 
-                <Popover
-                    open={Boolean(this.state.anchorEl)}
-                    anchorEl={this.state.anchorEl}
-                    onClose={this.handleClose}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
-                    }}
-                >
-                    <Grid justify="center" >
-                        <Grid justify="center" container>
-                            {this.renderUsername()}
-                        </Grid>
-                        <hr/>
-                        <Button style={styles.button}>My Upload</Button>
-                        <Button style={styles.button}>Help</Button>
-                        <Button style={styles.button}>Settings</Button>
-                        <hr/>
-                        <Button style={styles.buttonBottom} onClick={this.signOut.bind(this)}>Sign out</Button>
-                    </Grid>
-                </Popover>
-
-                <Popover
-                    open={Boolean(this.state.notif)}
-                    anchorEl={this.state.notif}
-                    onClose={this.handleNotifClose}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
-                    }}
-                >
-                    <List component="nav">
-                        <ListItem button>
-                            <Typography>hi</Typography>
-                        </ListItem>
-                        <Divider />
-                        <ListItem button divider>
-                            <Typography>hello</Typography>
-                        </ListItem>
-                        <ListItem button>
-                            <Typography>greetings</Typography>
-                        </ListItem>
-                        <Divider light />
-                        <ListItem button>
-                            <Typography>goodbye</Typography>
-                        </ListItem>
-                        <Divider light />
-                        <ListItem button>
-                            <Typography>bye</Typography>
-                        </ListItem>
-
-                    </List>
-                </Popover>
-
-                <Notification/>
+                <Notification />
 
                 <LoginBox/>
+
             </Grid>
         );
     }
@@ -236,7 +252,6 @@ const styles = {
     typography: {
         marginTop: '5px',
     },
-
 
     button: {
         marginLeft: '1px',

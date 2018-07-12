@@ -38,14 +38,15 @@ class App extends Component {
 
     render() {
         const { classes, ...rest } = this.props;
-        let marLeft = this.state.openDrawer? "300px": "0px"; 
 
         return (
             <Grid justify="flex-end" container>
-                    <Sidebar open = {this.state.openDrawer}   routes={dashboardRoutes} {...rest}/>
-                     <Header handleDrawer = {this.handleDrawer}  routes={dashboardRoutes}  {...rest}/> 
-                <Grid style= {{marginLeft: marLeft, transition: "margin 0.2s ease-out" }} container>
-                    <Grid item  xs={12} >
+                <Header handleDrawer={this.handleDrawer} routes={dashboardRoutes}  /> 
+
+                <Sidebar open = {this.state.openDrawer}   routes={dashboardRoutes} {...rest}/>
+                     
+                <Grid container style={styles.bottomContainer}>
+                    <Grid item  xs={11} >
                          <div className={classes.container}>{switchRoutes}</div>
                     </Grid>
                 </Grid>
@@ -78,6 +79,10 @@ const styles = {
     },
     map: {
         marginTop: "70px"
+    },
+
+    bottomContainer: {
+        justifyContent: 'center'
     }
 };
 
