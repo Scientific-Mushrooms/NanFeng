@@ -13,12 +13,15 @@ import { BaseComponent } from '../BaseComponent';
 import Avatar from '@material-ui/core/Avatar';
 import { NavLink } from "react-router-dom";
 
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
+
+
+import dashboardRoutes from "../../routes/dashboard.jsx";
+
 
 const mapStateToProps = state => ({
     user: state.userReducer.info,
@@ -35,18 +38,8 @@ class Header extends BaseComponent {
         };
     }
 
-    routesToList = (prop, key) => {
-        return (
-            <NavLink to={prop.path} style={styles.item} activeClassName="active" key={key}>
-                <ListItem button style={this.activeRoute(prop.path) ? styles.selectedItemLink : styles.itemLink} >
-                    
-                    <Icon>{prop.icon}</Icon>
-                    
-                    <ListItemText primary={prop.sidebarName} style={styles.itemText} disableTypography={true} />
-                </ListItem>
-            </NavLink>
-        );
-    }
+
+    
 
     handleClick = name => event => {
         this.setState({
@@ -54,27 +47,9 @@ class Header extends BaseComponent {
         });
     }
 
-    handleNotifClick = event => {
-        this.setState({
-            notif: event.currentTarget,
-        });
-    };
-
-
-    handleNotifClose = () => {
-        this.setState({
-           notif: null,
-        });
-    };
 
     handleUserButton = (event) => {
-        if (this.props.user === null) {
-            this.props.dispatch(loginBoxShow)
-        } else {
-            this.setState({
-                userPopover: event.currentTarget,
-            });
-        }
+        this.setState({ userPopover: event.currentTarget });
     };
 
     handleClose = name => () => {
@@ -158,6 +133,53 @@ class Header extends BaseComponent {
         )
     }
 
+    routesToList = (prop, key) => {
+        return (
+            <NavLink to={prop.path} key={key} style={{ textDecoration: "none",}}>
+                <ListItem button>
+                    <Icon>{prop.icon}</Icon>
+                    <Typography>{prop.sidebarName}</Typography>
+                </ListItem>
+            </NavLink>
+        );
+    }
+
+    renderWidgetsPopover = () => {
+
+        return (
+            <Popover
+                open={Boolean(this.state.widgetsPopover)}
+                anchorEl={this.state.widgetsPopover}
+                onClose={this.handleClose("widgetsPopover")}
+                anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+                transformOrigin={{vertical: 'top', horizontal: 'center'}}
+                >
+                <List component="nav">
+                    <ListItem button>
+                        <Typography>hi</Typography>
+                    </ListItem>
+                    <Divider />
+                    <ListItem button divider>
+                        <Typography>hello</Typography>
+                    </ListItem>
+                    <ListItem button>
+                        <Typography>greetings</Typography>
+                    </ListItem>
+                    <Divider light />
+                    <ListItem button>
+                        <Typography>goodbye</Typography>
+                    </ListItem>
+                    <Divider light />
+                    <ListItem button>
+                        <Typography>bye</Typography>
+                    </ListItem>
+                    {dashboardRoutes.map(this.routesToList)}
+
+                </List>
+            </Popover>
+        )
+    }
+
     renderRight = () => {
         if (this.props.user === null) {
             return (
@@ -177,9 +199,7 @@ class Header extends BaseComponent {
                     <span style={styles.notifications}>5</span>
                 </IconButton>
 
-                
-
-                <Button onClick={this.handleUserButton} style={styles.iconButton} >
+                <Button onClick={this.handleClick("userPopover")} style={styles.iconButton} >
                     <Avatar style={styles.avatar}>猫</Avatar>
                     <div style={styles.text}>{this.props.user.name}</div>
                 </Button>
@@ -205,7 +225,7 @@ class Header extends BaseComponent {
                             Home
                         </Button>
 
-                        <Button onClick={this.props.handleDrawer} style={styles.iconButton}>
+                        <Button onClick={this.handleClick("widgetsPopover")} style={styles.iconButton}>
                             Widgets
                         </Button>
 
@@ -218,6 +238,8 @@ class Header extends BaseComponent {
                 {this.renderUserPopover()}
 
                 {this.renderAlertPopover()}
+
+                {this.renderWidgetsPopover()}
 
                 <Notification />
 

@@ -42,8 +42,6 @@ class App extends Component {
         return (
             <Grid justify="flex-end" container>
                 <Header handleDrawer={this.handleDrawer} routes={dashboardRoutes}  /> 
-
-                <Sidebar open = {this.state.openDrawer}   routes={dashboardRoutes} {...rest}/>
                      
                 <Grid container style={styles.bottomContainer}>
                     <Grid item  xs={11} >
