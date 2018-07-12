@@ -63,13 +63,26 @@ class Header extends BaseComponent {
         });
     };
 
-    renderUsername=()=>{
+    renderUser=()=>{
         if(this.props.user!=undefined)
         return(
-            <Typography style={styles.typography}>
-                <span style={{fontSize:17}}>Acting Like </span>
-                <span style={{fontSize:17,fontWeight:"bold"}}>{this.props.user.email}</span>
-            </Typography>
+            <Grid>
+                <Grid justify='center' container>
+                    <Avatar 
+                        alt={this.props.user.email}
+                        src={require("../../assets/img/avatar_test.jpg")}
+                        style={{margin:5,width:100,height:100}}
+                        />
+                </Grid>
+                <Grid justify='center' container>
+                    <Typography style={styles.typography}>Login In As</Typography>
+                </Grid>
+                <Grid justify='center' container>
+                    <Typography style={styles.typography}>
+                        <span style={{fontWeight:"bold",fontSize:20}}>{this.props.user.email}</span>
+                    </Typography>
+                </Grid>
+            </Grid>
         )
     }
 
@@ -156,9 +169,7 @@ class Header extends BaseComponent {
                     }}
                 >
                     <Grid justify="center" >
-                        <Grid justify="center" container>
-                            {this.renderUsername()}
-                        </Grid>
+                        {this.renderUser()}
                         <hr/>
                         <Button style={styles.button}>My Upload</Button>
                         <Button style={styles.button}>Help</Button>
