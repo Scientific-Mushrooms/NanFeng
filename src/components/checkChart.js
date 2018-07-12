@@ -5,7 +5,7 @@ import CustomTabs from "./CustomTabs/CustomTabs.jsx";
 import Tasks from "./Tasks/Tasks.jsx";
 
 class CheckChart extends Component {
-
+ 
     render() {
         return (
             <CustomTabs

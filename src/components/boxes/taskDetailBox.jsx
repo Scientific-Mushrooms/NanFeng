@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 
-import Card from "./Card/Card.jsx";
-import CardHeader from "./Card/CardHeader.jsx";
-import CardBody from "./Card/CardBody.jsx";
-import Button from './CustomButtons/Button'
+import Card from "../Card/Card.jsx";
+import CardHeader from "../Card/CardHeader.jsx";
+import CardBody from "../Card/CardBody.jsx";
+import Button from '../CustomButtons/Button'
 import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
-import { taskDetailBoxHide, dataForTaskChartSet } from '../redux/actions/action';
+import { taskDetailBoxHide, dataForTaskChartSet } from '../../redux/actions/action';
+import { BaseComponent } from '../BaseComponent';
 
 const mapStateToProps = state => ({
     taskDetailBox: state.modalReducer.taskDetailBox,
@@ -16,14 +17,10 @@ const mapStateToProps = state => ({
     task: state.taskReducer.task,
 })
 
-class TaskDetailBox extends Component {
-
-    componentWillReceiveProps(nextProps) {
-        
-    }
+class TaskDetailBox extends BaseComponent {
 
     onClickTestButton = () => {
-        this.updateType(this.props.task.taskId, "pending")
+        this.updateTaskType(this.props.task.taskId, "pending", this.props.dispatch)
     }
 
     onClickCancelButton = () => {
@@ -31,44 +28,11 @@ class TaskDetailBox extends Component {
     }
 
     onClickAcceptButton = () => {
-        this.updateType(this.props.task.taskId, "progressing")
+        this.updateTaskType(this.props.task.taskId, "progressing", this.props.dispatch)
     }
 
     onClickSubmitButton = () => {
-        this.updateType(this.props.task.taskId, "finished")
-    }
-
-    post = (url, form) => {
-        return fetch(url, { method: 'POST', body: form })
-            .then((response) => (response.json()))
-            .catch((error) => { console.error(error); });
-    }
-
-    updateType = (taskId, type) => {
-        let form = new FormData();
-        form.append("taskId", taskId);
-        form.append("type", type);
-        this.post('/api/task/updateTypeByTaskId', form).then((result) => {
-            if (result.status == 'fail') {
-                alert(result.description);
-            } else {
-                this.fetchDataForTaskChartByType("392988bc-72e1-468f-8679-d6fc9948fe2f")
-                this.props.dispatch(taskDetailBoxHide())
-            }
-        })
-    }
-
-    fetchDataForTaskChartByType = (projectId) => {
-        let form = new FormData();
-        form.append("projectId", projectId);
-
-        this.post('/api/task/dataForTaskChart', form).then((result) => {
-            if (result.status == 'fail') {
-                alert(result.description);
-            } else {
-                this.props.dispatch(dataForTaskChartSet(result.detail))
-            }
-        })
+        this.updateTaskType(this.props.task.taskId, "finished", this.props.dispatch)
     }
 
     renderButton = () => {
@@ -105,12 +69,20 @@ class TaskDetailBox extends Component {
                 <Grid style={styles.container} xs={5}>
                     <Card>
                         <CardHeader color="warning">
-                            <h4 style={styles.cardTitleWhite}>{this.props.task === null ? "" : this.props.task.title}</h4>
+                            <div>title:</div>
+                            <div style={styles.cardTitleWhite}>{this.props.task === null ? "" : this.props.task.title}</div>
                         </CardHeader>
                         <CardBody>
                             <Grid xs={12}>
+                                <div>content:</div>
                                 <div style={styles.contentContainer}>
                                     {this.props.task === null ? "" : this.props.task.content}
+                                </div>
+                            </Grid>
+                            <Grid xs={12}>
+                                <div>level:</div>
+                                <div style={styles.contentContainer}>
+                                    {this.props.task === null ? "" : this.props.task.level}
                                 </div>
                             </Grid>
 
@@ -134,6 +106,8 @@ class TaskDetailBox extends Component {
 const styles = {
 
     container: {
+        height: '400px',
+        width: '400px',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -156,7 +130,7 @@ const styles = {
 
     contentContainer: {
         width: '100%',
-        height: '300px'
+        height: '100px'
     }
 };
 

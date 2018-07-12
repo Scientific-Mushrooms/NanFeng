@@ -1,17 +1,18 @@
-/* eslint-disable */
 import React, {Component} from "react";
 
 import { Switch, Route, Redirect } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
-// core components
 
-import Sidebar from "../../components/Sidebar/Sidebar.jsx";
 
-import dashboardRoutes from "../../routes/dashboard.jsx";
+
+
+import dashboardRoutes from "../../routes/routes";
 
 import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
+
 import Grid from "@material-ui/core/Grid";
-import Header from '../../components/Header/Header';
+import Header from './header';
+
 
 const switchRoutes = (
     <Switch>
@@ -36,15 +37,23 @@ class App extends Component {
     };
 
     render() {
-        const { classes, ...rest } = this.props;
-        let marLeft = this.state.openDrawer? "300px": "0px"; 
+        const { classes } = this.props;
 
         return (
+<<<<<<< HEAD:src/layouts/Dashboard/Dashboard.jsx
             <Grid  justify="flex-end" container>
                     <Sidebar open = {this.state.openDrawer}   routes={dashboardRoutes} {...rest}/>
                      <Header handleDrawer = {this.handleDrawer}  routes={dashboardRoutes}  {...rest}/> 
                 <Grid style= {{marginLeft: marLeft, transition: "margin 0.2s ease-out" }} container>
                     <Grid item  xs={12} >
+=======
+            <Grid justify="flex-end" container>
+            
+                <Header routes={dashboardRoutes}  /> 
+                     
+                <Grid container style={styles.bottomContainer}>
+                    <Grid item  xs={11} >
+>>>>>>> c77c0cb905aa4798afef8dd002ef6868b7a3d8c6:src/components/layouts/layout.js
                          <div className={classes.container}>{switchRoutes}</div>
                     </Grid>
                 </Grid>
@@ -55,11 +64,6 @@ class App extends Component {
 
 const styles = {
 
-    wrapper: {
-        position: "relative",
-        top: "0",
-        height: "100vh"
-    },
     mainPanel: {
 
         overflow: "auto",
@@ -77,6 +81,10 @@ const styles = {
     },
     map: {
         marginTop: "70px"
+    },
+
+    bottomContainer: {
+        justifyContent: 'center'
     }
 };
 

@@ -1,6 +1,7 @@
 import { createStore } from 'redux';
 import rootReducer from './rootReducer';
 
+
 var data1 = [{
     taskKey: 1002,
     title: 'Sign contract for "What are conference organizers afraid of?"',
@@ -44,6 +45,12 @@ const preloadedState = {
 
     chartReducer: {
         rankChart: null,
+    },
+
+    notificationReducer: {
+        open: false,
+        kind: null,
+        reason: null,
     }
 
 }

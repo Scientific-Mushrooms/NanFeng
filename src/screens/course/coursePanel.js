@@ -1,11 +1,11 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 import Grid from "@material-ui/core/Grid";
 
 
-export class ReactNativeLearn extends Component {
+export class CoursePanel extends Component {
 
-    render(){
+    render() {
         return (
             <Grid container>
             </Grid>
