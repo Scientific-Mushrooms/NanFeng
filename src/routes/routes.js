@@ -45,24 +45,40 @@ const mainRoutes = [
     },
 
     {
-        path: "/dashboard",
-        sidebarName: "Dashboard",
-        icon: "dashboard",
-        component: connect(mapStateToProps)(Screens.Dashboard)
-    },
-
-    {
-        path: "/admin/react-learn",
-        sidebarName: "React Learn",
-        icon: 'code',
-        component: connect(mapStateToProps)(Screens.TaskBoard)
-    },
-
-    {
-        path: "/admin/users",
-        sidebarName: "Users",
+        path: "/adminPanel",
+        sidebarName: "admin",
         icon: 'user',
-        component: Screens.UserBoard,
+        component: Screens.AdminPanel,
+        children: [
+            {
+                path: "/userBoard",
+                sidebarName: "User Board",
+                icon: 'code',
+                component: connect(mapStateToProps)(Screens.UserBoard)
+            },
+        ]
+    },
+
+    {
+        path: "/squadPanel",
+        sidebarName: "Squad",
+        icon: "dashboard",
+        component: connect(mapStateToProps)(Screens.SquadPanel),
+        children: [
+            {
+                path: "/taskBoard",
+                sidebarName: "TaskBoard",
+                icon: 'code',
+                component: connect(mapStateToProps)(Screens.TaskBoard)
+            },
+        ]
+    },
+
+    {
+        path: "/coursePanel",
+        sidebarName: "Course",
+        icon: "dashboard",
+        component: connect(mapStateToProps)(Screens.CoursePanel),
     },
 
 ];

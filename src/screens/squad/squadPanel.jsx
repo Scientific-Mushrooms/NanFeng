@@ -13,7 +13,7 @@ import InfoCard from "../../components/infoCard";
 
 
 
-export class Dashboard extends BaseComponent {
+export class SquadPanel extends BaseComponent {
 
     dispatch = (action) => {
         this.props.dispatch(action);

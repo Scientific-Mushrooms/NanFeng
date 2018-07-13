@@ -8,6 +8,7 @@ export class ConfessPanel extends Component {
     render() {
         return (
             <Grid container>
+            this is confess panel
             </Grid>
         );
     }

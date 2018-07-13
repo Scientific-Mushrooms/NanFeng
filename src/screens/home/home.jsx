@@ -8,6 +8,7 @@ export class Home extends Component {
     render(){
         return (
             <Grid container>
+            this is home
             </Grid>
         );
     }

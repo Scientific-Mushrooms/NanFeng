@@ -8,6 +8,7 @@ export class CoursePanel extends Component {
     render() {
         return (
             <Grid container>
+            this is course panel
             </Grid>
         );
     }
