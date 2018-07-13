@@ -76,12 +76,12 @@ class Header extends BaseComponent {
                     <Button style={styles.button}>My Upload</Button>
                     <Button style={styles.button}>Help</Button>
                     <Button style={styles.button}>Settings</Button>
-              
+
                     <Button style={styles.buttonBottom} onClick={this.signOut.bind(this)}>Sign out</Button>
                 </Grid>
             </Popover>
         )
-        
+
     }
 
     renderAlertPopover = () => {
@@ -132,9 +132,8 @@ class Header extends BaseComponent {
     routesToList = (prop, key) => {
         return (
             <NavLink to={prop.path} key={key} style={{ textDecoration: "none",}}>
-                <Divider />
                 <ListItem button>
-                    <Icon>{prop.icon}</Icon>
+                    <Icon style={{paddingRight: 10}}>{prop.icon}</Icon>
                     <Typography>{prop.sidebarName}</Typography>
                 </ListItem>
             </NavLink>
@@ -151,7 +150,7 @@ class Header extends BaseComponent {
                 anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
                 transformOrigin={{vertical: 'top', horizontal: 'center'}}
                 >
-                <List component="nav">
+                <List component="nav" style={{display : "flex"}}>
                     {mainRoutes.map(this.routesToList)}
                 </List>
             </Popover>
@@ -162,10 +161,8 @@ class Header extends BaseComponent {
         if (this.props.user === null) {
             return (
                 <Grid container xs={4} style={styles.subRightContainer}>
-
                     <Button onClick={this.handleUserButton} style={styles.iconButton} >Sign in</Button>
                     <Button onClick={this.handleUserButton} style={styles.iconButton}>Sign up</Button>
-
                 </Grid>
             )
         }
@@ -186,7 +183,7 @@ class Header extends BaseComponent {
         )
     }
 
-    
+
 
     render() {
         return (
@@ -199,10 +196,6 @@ class Header extends BaseComponent {
                             Mushrooms
                         </Button>
 
-                        <Button onClick={this.props.handleDrawer} style={styles.iconButton}>
-                            Home
-                        </Button>
-
                         <Button onClick={this.handleClick("widgetsPopover")} style={styles.iconButton}>
                             Widgets
                         </Button>
@@ -212,7 +205,7 @@ class Header extends BaseComponent {
                     {this.renderRight()}
 
                 </Grid>
-                
+
                 {this.renderUserPopover()}
 
                 {this.renderAlertPopover()}

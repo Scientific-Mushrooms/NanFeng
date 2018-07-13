@@ -3,11 +3,7 @@ import React, {Component} from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-
-
-
 import dashboardRoutes from "../../routes/routes";
-
 import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import Grid from "@material-ui/core/Grid";
@@ -40,20 +36,11 @@ class App extends Component {
         const { classes } = this.props;
 
         return (
-<<<<<<< HEAD:src/layouts/Dashboard/Dashboard.jsx
-            <Grid  justify="flex-end" container>
-                    <Sidebar open = {this.state.openDrawer}   routes={dashboardRoutes} {...rest}/>
-                     <Header handleDrawer = {this.handleDrawer}  routes={dashboardRoutes}  {...rest}/> 
-                <Grid style= {{marginLeft: marLeft, transition: "margin 0.2s ease-out" }} container>
-                    <Grid item  xs={12} >
-=======
             <Grid justify="flex-end" container>
-            
-                <Header routes={dashboardRoutes}  /> 
-                     
+
+                <Header routes={dashboardRoutes}  />
                 <Grid container style={styles.bottomContainer}>
                     <Grid item  xs={11} >
->>>>>>> c77c0cb905aa4798afef8dd002ef6868b7a3d8c6:src/components/layouts/layout.js
                          <div className={classes.container}>{switchRoutes}</div>
                     </Grid>
                 </Grid>
@@ -63,7 +50,6 @@ class App extends Component {
 }
 
 const styles = {
-
     mainPanel: {
 
         overflow: "auto",
