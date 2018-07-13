@@ -35,7 +35,6 @@ class App extends Component {
             routes.map((prop, key) => {
                 return <Route path={prop.path} component={prop.component} key={key} />;
             })
-            
         )
     };
 

@@ -1,5 +1,7 @@
 import * as Screens from "../screens";
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 
 
 const mapStateToProps = state => ({
@@ -30,7 +32,7 @@ const mainRoutes = [
                 path: "/signin",
                 sidebarName: "Dashboard",
                 icon: "dashboard",
-                component: connect(mapStateToProps)(Screens.SignIn)
+                component: withRouter(connect(mapStateToProps)(Screens.SignIn))
             },
 
             {

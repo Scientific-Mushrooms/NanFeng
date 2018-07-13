@@ -11,9 +11,9 @@ import { Popover, Icon, Typography, IconButton } from '@material-ui/core';
 import Notification from '../notification';
 import { BaseComponent } from '../BaseComponent';
 import Avatar from '@material-ui/core/Avatar';
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 
-import ListItemText from "@material-ui/core/ListItemText";
+
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -183,6 +183,10 @@ class Header extends BaseComponent {
         )
     }
 
+    test = () => {
+        this.props.history.push('/home')
+    }
+
 
 
     render() {
@@ -194,6 +198,10 @@ class Header extends BaseComponent {
 
                         <Button onClick={this.props.handleDrawer} style={styles.slogan}>
                             Mushrooms
+                        </Button>
+
+                        <Button onClick={this.test} style={styles.iconButton}>
+                            Home
                         </Button>
 
                         <Button onClick={this.handleClick("widgetsPopover")} style={styles.iconButton}>
@@ -302,4 +310,4 @@ const styles = {
 };
 
 
-export default connect(mapStateToProps)(Header);
+export default withRouter(connect(mapStateToProps)(Header));
