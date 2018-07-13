@@ -9,7 +9,8 @@ import Button from '../../components/CustomButtons/Button'
 import { BaseComponent } from '../../components/BaseComponent';
 
 
-export class SignIn extends BaseComponent {  
+export class SignIn extends BaseComponent {
+    
     constructor(props) {
         super(props);
         this.state = {

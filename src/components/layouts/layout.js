@@ -8,6 +8,7 @@ import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/da
 
 import Grid from "@material-ui/core/Grid";
 import Header from './header';
+import Notification from '../layouts/notification';
 
 
 class App extends Component {
@@ -52,6 +53,8 @@ class App extends Component {
                         </Switch>
                     </Grid>
                 </Grid>
+
+                <Notification/>
 
             </Grid>
         );

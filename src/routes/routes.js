@@ -78,7 +78,15 @@ const mainRoutes = [
         path: "/coursePanel",
         sidebarName: "Course",
         icon: "dashboard",
-        component: connect(mapStateToProps)(Screens.CoursePanel),
+        component: withRouter(connect(mapStateToProps)(Screens.CoursePanel)),
+        children: [
+            {
+                path: "/courseDetail",
+                sidebarName: "Course detail",
+                icon: 'code',
+                component: connect(mapStateToProps)(Screens.CourseDetail)
+            },
+        ]
     },
 
 ];

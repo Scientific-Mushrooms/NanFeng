@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 
-
-import CustomTabs from "./CustomTabs/CustomTabs.jsx";
-import Tasks from "./Tasks/Tasks.jsx";
 import { connect } from 'react-redux';
-import { loginBoxHide, hide_notification } from '../redux/actions/action'
+import { hide_notification } from '../../redux/actions/action'
 import Snackbar from '@material-ui/core/Snackbar';
 
 
@@ -23,13 +20,10 @@ class Notification extends Component {
     render() {
         return (
             <Snackbar
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 open={this.props.open}
                 onClose={this.handleClose}
-                ContentProps={{
-                    'aria-describedby': 'message-id',
-                }}
-                message={<span id="message-id">{this.props.reason}</span>}
+                message={<span>{this.props.reason}</span>}
             />
         );
     }

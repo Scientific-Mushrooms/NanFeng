@@ -8,7 +8,7 @@ import { loginBoxShow, show_notification, hide_notification } from '../../redux/
 
 import { connect } from 'react-redux';
 import { Popover, Icon, Typography, IconButton } from '@material-ui/core';
-import Notification from '../notification';
+import Notification from '../layouts/notification';
 import { BaseComponent } from '../BaseComponent';
 import Avatar from '@material-ui/core/Avatar';
 import { NavLink, withRouter } from "react-router-dom";
@@ -225,7 +225,6 @@ class Header extends BaseComponent {
 
                 {this.renderWidgetsPopover()}
 
-                <Notification />
 
                 <LoginBox/>
 
