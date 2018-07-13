@@ -13,42 +13,47 @@ import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/da
 import Grid from "@material-ui/core/Grid";
 import Header from './header';
 
+var allRoutes = JSON.parse(JSON.stringify(dashboardRoutes))
 
-const switchRoutes = (
-    <Switch>
-        {dashboardRoutes.map((prop, key) => {
-            if (prop.redirect)
-                return <Redirect from={prop.path} to={prop.to} key={key} />;
-            return <Route path={prop.path} component={prop.component} key={key} />;
-        })}
-    </Switch>
-);
+
 
 class App extends Component {
     constructor(props){
         super(props);
-        this.state={openDrawer: false};
-        this.handleDrawer= this.handleDrawer.bind(this);
-
     }
 
-     handleDrawer = () => {
-        this.setState({ openDrawer: !this.state.openDrawer });
+    createRoutes = (routes) => {
+        return (
+            routes.map((prop, key) => {
+                if (prop.children !== undefined) {
+                    return (
+                        <div>
+                            {this.createRoutes(prop.children)}
+                            <Route path={prop.path} component={prop.component} key={key} />
+                        </div>
+                    )
+                }
+                    return <Route path={prop.path} component={prop.component} key={key} />;
+            })
+            
+        )
     };
 
     render() {
-        const { classes } = this.props;
 
         return (
-            <Grid justify="flex-end" container>
+            <Grid container>
             
-                <Header routes={dashboardRoutes}  /> 
+                <Header /> 
                      
                 <Grid container style={styles.bottomContainer}>
-                    <Grid item  xs={11} >
-                         <div className={classes.container}>{switchRoutes}</div>
+                    <Grid  xs={11} >
+                        <Switch>
+                            {this.createRoutes(dashboardRoutes)}
+                        </Switch>
                     </Grid>
                 </Grid>
+
             </Grid>
         );
     }

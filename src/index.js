@@ -9,14 +9,16 @@ import store from './redux/store';
 
 const hist = createBrowserHistory();
 
+var routesToRoutes = (prop, key) => {
+    return <Route path={prop.path} component={prop.component} key={key} />;
+}
+
 
 ReactDOM.render(
     <Provider store={store}>
         <Router history={hist}>
             <Switch>
-                {indexRoutes.map((prop, key) => {
-                    return <Route path={prop.path} component={prop.component} key={key} />;
-                })}
+                {indexRoutes.map(routesToRoutes)}
             </Switch>
         </Router>
     </Provider>,

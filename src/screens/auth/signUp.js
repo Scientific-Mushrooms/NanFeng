@@ -8,6 +8,7 @@ export class SignUp extends Component {
     render() {
         return (
             <Grid container>
+                <div>this is sign up</div>
             </Grid>
         );
     }
