@@ -3,18 +3,11 @@ import React, {Component} from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-
-
-
 import dashboardRoutes from "../../routes/routes";
-
 import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import Grid from "@material-ui/core/Grid";
 import Header from './header';
-
-var allRoutes = JSON.parse(JSON.stringify(dashboardRoutes))
-
 
 
 class App extends Component {
@@ -22,18 +15,25 @@ class App extends Component {
         super(props);
     }
 
+    flatWrapper = (routes) => {
+        var newRoutes = new Array();
+        this.flat(routes, newRoutes);
+        return newRoutes;
+    }
+
+    flat = (routes, newRoutes) => {
+        routes.map((prop, key) => {
+            if (prop.children !== undefined) {
+                this.flat(prop.children, newRoutes)
+            }
+            newRoutes.push(prop);
+        })
+    }
+
     createRoutes = (routes) => {
         return (
             routes.map((prop, key) => {
-                if (prop.children !== undefined) {
-                    return (
-                        <div>
-                            {this.createRoutes(prop.children)}
-                            <Route path={prop.path} component={prop.component} key={key} />
-                        </div>
-                    )
-                }
-                    return <Route path={prop.path} component={prop.component} key={key} />;
+                return <Route path={prop.path} component={prop.component} key={key} />;
             })
             
         )
@@ -49,7 +49,7 @@ class App extends Component {
                 <Grid container style={styles.bottomContainer}>
                     <Grid  xs={11} >
                         <Switch>
-                            {this.createRoutes(dashboardRoutes)}
+                            {this.createRoutes(this.flatWrapper(dashboardRoutes))}
                         </Switch>
                     </Grid>
                 </Grid>
@@ -60,7 +60,6 @@ class App extends Component {
 }
 
 const styles = {
-
     mainPanel: {
 
         overflow: "auto",

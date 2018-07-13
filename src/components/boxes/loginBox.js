@@ -13,6 +13,8 @@ import Modal from '@material-ui/core/Modal';
 import { loginBoxHide } from '../../redux/actions/action'
 import { BaseComponent } from '../BaseComponent';
 
+import Avatar from '@material-ui/core/Avatar';
+
 
 const mapStateToProps = state => ({
     loginbox: state.modalReducer.loginbox,
@@ -93,11 +95,11 @@ class LoginBox extends BaseComponent {
 
     render() {
         if(this.state.register){
-            return (  
-                <Modal 
-                open={this.props.loginbox} 
-                style={styles.modalContainer} 
-                disableAutoFocus={true} 
+            return (
+                <Modal
+                open={this.props.loginbox}
+                style={styles.modalContainer}
+                disableAutoFocus={true}
                 onBackdropClick={() => this.props.dispatch(loginBoxHide)}
                 >
                     {this._renderRegist()}
@@ -106,10 +108,10 @@ class LoginBox extends BaseComponent {
         }
         else
             return(
-                <Modal 
-                open={this.props.loginbox} 
-                style={styles.modalContainer} 
-                disableAutoFocus={true} 
+                <Modal
+                open={this.props.loginbox}
+                style={styles.modalContainer}
+                disableAutoFocus={true}
                 onBackdropClick={() => this.props.dispatch(loginBoxHide)}
                 >
                     {this._renderLogin()}
@@ -121,8 +123,12 @@ class LoginBox extends BaseComponent {
         return(
             <Grid style={styles.container} xs={3}>
             <Card>
-                <CardHeader color="warning">
-                    <h2 style={styles.cardTitleWhite}>Login In</h2>
+                <CardHeader style = {styles.cardHead}>
+                  <Avatar
+                  src={require("./user.png")}
+                  alt="image"
+                  style={styles.avatar}
+                  />
                 </CardHeader>
                 <CardBody>
                     <Grid xs={12}>
@@ -132,7 +138,7 @@ class LoginBox extends BaseComponent {
                             style={styles.textField}
                             value={this.state.name}
                             onChange={this.handleChange('email')}
-                            margin="normal"
+                            margin="none"
                             fullWidth={true}
                         />
                         </Grid>
@@ -149,20 +155,12 @@ class LoginBox extends BaseComponent {
                             />
                         </Grid>
                         <Grid xs={12}>
-                            <Button 
-                                size="large" 
-                                style={styles.button} 
+                            <Button
+                                size="large"
+                                style={styles.button}
                                 color='primary'
                                 onClick={this.login}
                                 >LOGIN</Button>
-                        </Grid>
-                        <Grid xs={12}>
-                            <Button 
-                                size="large" 
-                                style={styles.button} 
-                                onClick={()=>this.setState({register:true})}
-                                color='primary'
-                                >Be A New Member</Button>
                         </Grid>
                 </CardBody>
             </Card>
@@ -214,17 +212,17 @@ class LoginBox extends BaseComponent {
                             />
                         </Grid>
                         <Grid xs={12}>
-                            <Button 
-                                size="large" 
-                                style={styles.button} 
+                            <Button
+                                size="large"
+                                style={styles.button}
                                 color='primary'
                                 onClick={this.signUp}
                                 >Sign Up</Button>
                         </Grid>
                         <Grid xs={12}>
-                            <Button 
-                            size="large" 
-                            style={styles.button} 
+                            <Button
+                            size="large"
+                            style={styles.button}
                             color='primary'
                             onClick={()=>this.setState({register:false})}
                             >Already A Member</Button>
@@ -250,6 +248,7 @@ const styles = {
     textField: {
         marginLeft: '10px',
         marginRight: '10px',
+
     },
 
     button: {
@@ -261,9 +260,21 @@ const styles = {
         textAlign: 'center',
         justifyContent: 'center',
     },
-    
+
     cardTitleWhite:{
+       fontFamily: 'Righteous',
         margin:'0px'
+    },
+
+    avatar:{
+      width: 100,
+      height: 100,
+      border: "5px solid yellow",
+    },
+
+    cardHead:{
+      display: "flex",
+      justifyContent: "center",
     }
 };
 
