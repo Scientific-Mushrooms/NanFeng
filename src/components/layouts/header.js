@@ -43,11 +43,6 @@ class Header extends BaseComponent {
         });
     }
 
-
-    handleUserButton = () => {
-        this.props.dispatch(loginBoxShow);
-    };
-
     handleClose = name => () => {
         this.setState({
             [name]: null,
@@ -157,12 +152,22 @@ class Header extends BaseComponent {
         )
     }
 
+    gotoSignIn = () => {
+        this.props.history.push('./signin')
+    }
+
+    gotoSignUp = () => {
+        this.props.history.push('./signUp')
+    }
+
+    
+
     renderRight = () => {
         if (this.props.user === null) {
             return (
                 <Grid container xs={4} style={styles.subRightContainer}>
-                    <Button onClick={this.handleUserButton} style={styles.iconButton} >Sign in</Button>
-                    <Button onClick={this.handleUserButton} style={styles.iconButton}>Sign up</Button>
+                    <Button onClick={this.gotoSignIn} style={styles.iconButton} >Sign in</Button>
+                    <Button onClick={this.gotoSignUp} style={styles.iconButton}>Sign up</Button>
                 </Grid>
             )
         }

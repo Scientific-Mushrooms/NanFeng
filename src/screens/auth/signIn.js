@@ -76,7 +76,7 @@ export class SignIn extends BaseComponent {
 
     _renderLoginPanel(){
         return(
-            <Grid direction='column' sm={6} justify='center' container>
+            <Grid direction='column' sm={6} justify='center' container style={styles.wrapper}>
                 <Card>
                     <CardBody>
                         <Grid >
@@ -123,6 +123,10 @@ export class SignIn extends BaseComponent {
 
 
 const styles = {
+
+    wrapper: {
+        paddingBottom: '500px'
+    },
 
     container: {
         width: '400px',
