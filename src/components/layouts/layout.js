@@ -79,7 +79,9 @@ const styles = {
     },
 
     bottomContainer: {
-        justifyContent: 'center'
+        justifyContent: 'center',
+        paddingTop: '20px',
+        backgroundColor: '#f3f5f9',
     }
 };
 

@@ -276,7 +276,7 @@ const styles = {
         height: '70px',
         backgroundColor: '#404040',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     subContainer: {
