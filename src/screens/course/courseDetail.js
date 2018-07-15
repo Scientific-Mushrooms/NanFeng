@@ -9,6 +9,7 @@ Avatar} from '@material-ui/core';
 
 
 const courseComments = [
+
     {
         userId: '233sdsgsdg',
         userName: "clavier",
@@ -24,8 +25,18 @@ const courseComments = [
 
 const course = {
     courseId: 'HISHF',
-    courseName: 'CS',
+    courseType: 'CS',
     courseCode: '135',
+    courseCredit: '3',
+    courseFaculty: 'Math',
+    coursePorf: 'Dave',
+    courseTime: 'Wednesday',
+    courseName: 'Introduction',
+    coursLocation: 'Nowhere',
+    courseRatingNum: 135,
+    courseLikeNum: 100,
+    courseUsefulNum: 33,
+    courseEasyNum: 56,
     courseAvatar: './src/test.png',
 }
 
@@ -38,18 +49,57 @@ export class CourseDetail extends Component {
         };
     }
 
-    renderCourseInfo = () => {
+    renderCourseInfo = (course) => {
         return (
             <div style={styles.card}>
                 <Grid container>
-                    <Grid xs={8}>
-                        asdfadsf
+
+                    <Grid xs={8} container>
+                        <Grid xs={12}>
+                                <img src={require('./src/test.png')} style={styles.courseAvatar} />
                         </Grid>
-                    <Grid xs={4}>
-                        asdfads
-                            </Grid>
+                        <Grid xs={12}>
+                            <Typography>{course.courseName}</Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid xs={4} container>
+                        <Grid cs={12}>
+                            <Typography>course intro: afgdasdgda</Typography>
+                        </Grid>
+                        <Grid cs={12}>
+                            <Typography>course intro: afgdasdgda</Typography>
+                        </Grid>
+                    </Grid>
+
                 </Grid>
 
+            </div>
+        )
+    }
+
+    renderCourseIntro = () => {
+        return (
+            <div style={styles.card}>
+                <ExpansionPanel>
+                    <ExpansionPanelSummary expandIcon={<Icon>expand_more_icon</Icon>}>
+                        <Typography>course intro: afgdasdgda</Typography>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                        <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                            sit amet blandit leo lobortis eget.
+                                </Typography>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
+            </div>
+        )
+    }
+
+    renderCourseComments = () => {
+        return (
+            <div style={styles.card}>
+                {courseComments.map(this.courseCommentsToList)}
             </div>
         )
     }
@@ -60,7 +110,7 @@ export class CourseDetail extends Component {
 
                 <Grid xs={2} container>
                     <Grid xs={12}>
-                        <img src={require('./src/test.png')} style={styles.courseAvatar} />
+                        <img src={require('./src/test.png')} style={styles.userAvatar} />
                     </Grid>
                     <Grid xs={12}>
                         <Typography>{comment.userName}</Typography>
@@ -108,6 +158,25 @@ export class CourseDetail extends Component {
         )
     }
 
+    renderProfInfo = () => {
+        return (
+            <div style={styles.card}>
+                professor info
+            </div>
+        )
+    }
+
+    renderCourseRecommendation = () => {
+        return (
+            <div style={styles.card}>
+                <div>Related Course Recommendation</div>
+                <div>list</div>
+            </div>
+        )
+    }
+
+
+
     
 
 
@@ -118,39 +187,21 @@ export class CourseDetail extends Component {
 
                 <Grid xs={7}>
                   
-                    {this.renderCourseInfo()}
+                    {this.renderCourseInfo(course)}
 
-                    <div style={styles.card}>
-                        <ExpansionPanel>
-                            <ExpansionPanelSummary expandIcon={<Icon>expand_more_icon</Icon>}>
-                                <Typography>course intro: afgdasdgda</Typography>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-                                <Typography>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                    sit amet blandit leo lobortis eget.
-                                </Typography>
-                            </ExpansionPanelDetails>
-                        </ExpansionPanel>
-                    </div>
+                    {this.renderCourseIntro()}
 
-                    <div style={styles.card}>
-                        {courseComments.map(this.courseCommentsToList)}
-                    </div>
+                    {this.renderCourseComments()}
 
                 </Grid>
 
                 <Grid xs={1}></Grid>
 
                 <Grid xs={4}>
-                    <div style={styles.card}>
-                        professor info
-                    </div>
+                    
+                    {this.renderProfInfo()}
 
-                    <div style={styles.card}>
-                        <div>Related Course Recommendation</div>
-                        <div>list</div>
-                    </div>
+                    {this.renderCourseRecommendation()}
                 </Grid>
 
             </Grid>
@@ -178,6 +229,11 @@ const styles = {
     },
 
     courseAvatar: {
+        width: '100px',
+        height: '100px',
+    },
+
+    userAvatar: {
         height: '40px',
         width: '40px'
     },
