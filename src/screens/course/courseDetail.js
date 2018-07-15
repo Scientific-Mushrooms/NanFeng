@@ -3,9 +3,9 @@ import {
     Divider, 
     Grid, 
     Button, ExpansionPanel, ExpansionPanelSummary, 
-    ExpansionPanelDetails, Typography, Icon ,
-Avatar} from '@material-ui/core';
-
+    ExpansionPanelDetails, Typography, Icon, Card, LinearProgress} from '@material-ui/core';
+import ProfessorCard from './components/courseCard';
+var moment = require('moment');
 
 
 const courseComments = [
@@ -29,10 +29,11 @@ const course = {
     courseCode: '135',
     courseCredit: '3',
     courseFaculty: 'Math',
+    courseProfId: 'HIHF',
     coursePorf: 'Dave',
     courseTime: 'Wednesday',
     courseName: 'Introduction',
-    coursLocation: 'Nowhere',
+    courseLocation: 'Nowhere',
     courseRatingNum: 135,
     courseLikeNum: 100,
     courseUsefulNum: 33,
@@ -49,40 +50,92 @@ export class CourseDetail extends Component {
         };
     }
 
+    renderCourseItem = (title, value) => {
+        return (
+            <Grid xs={12} style={styles.courseInfoContainer} container>
+                <Grid xs={3}>
+                    <Typography>{title}</Typography>
+                </Grid>
+                <Grid xs={7}>
+                    <Typography>{value}</Typography>
+                </Grid>
+            </Grid>
+        )
+    }
+
     renderCourseInfo = (course) => {
         return (
-            <div style={styles.card}>
-                <Grid container>
+            <Card style={styles.card}>
+                <Grid container style={styles.courseInfoContainer}>
 
                     <Grid xs={8} container>
-                        <Grid xs={12}>
-                                <img src={require('./src/test.png')} style={styles.courseAvatar} />
+
+                        <Grid xs={12} style={styles.courseAvatarContainer} container>
+                            <img src={require('./src/test.png')} style={styles.courseAvatar} />
                         </Grid>
+
                         <Grid xs={12}>
-                            <Typography>{course.courseName}</Typography>
+                            <Typography style={styles.courseName}>{course.courseName}</Typography>
                         </Grid>
+
+                        <Grid xs={12} style={styles.ratingContainer} container>
+                            <Grid xs={2}>
+                                <Typography>Useful</Typography>
+                            </Grid>
+                            <Grid xs={6}>
+                                <LinearProgress color="secondary" variant="buffer" value={10} valueBuffer={100} style={styles.rating}/>
+                            </Grid>
+                        </Grid>
+
+                        <Grid xs={12} style={styles.ratingContainer} container>
+                            <Grid xs={2}>
+                                <Typography>Easy</Typography>
+                            </Grid>
+                            <Grid xs={6}>
+                                <LinearProgress color="secondary" variant="buffer" value={10} valueBuffer={100} style={styles.rating} />
+                            </Grid>
+                        </Grid>
+
+                        <Grid xs={12} style={styles.ratingContainer} container>
+                            <Grid xs={2}>
+                                <Typography>Likes</Typography>
+                            </Grid>
+                            <Grid xs={6}>
+                                <LinearProgress color="secondary" variant="buffer" value={10} valueBuffer={100} style={styles.rating} />
+                            </Grid>
+                        </Grid>
+
                     </Grid>
 
                     <Grid xs={4} container>
-                        <Grid cs={12}>
-                            <Typography>course intro: afgdasdgda</Typography>
-                        </Grid>
-                        <Grid cs={12}>
-                            <Typography>course intro: afgdasdgda</Typography>
-                        </Grid>
+
+                        {this.renderCourseItem("Code:", course.courseCode)}
+
+                        {this.renderCourseItem("Type:", course.courseType)}
+
+                        {this.renderCourseItem("Credit:", course.courseCredit)}
+                        
+                        {this.renderCourseItem("Faculty:", course.courseFaculty)}
+
+                        {this.renderCourseItem("Professor:", course.courseProfessor)}
+
+                        {this.renderCourseItem("Time:", course.courseTime)}
+
+                        {this.renderCourseItem("Location:", course.courseLocation)}
+
                     </Grid>
 
                 </Grid>
 
-            </div>
+            </Card>
         )
     }
 
     renderCourseIntro = () => {
         return (
-            <div style={styles.card}>
-                <ExpansionPanel>
-                    <ExpansionPanelSummary expandIcon={<Icon>expand_more_icon</Icon>}>
+            
+            <ExpansionPanel style={styles.card}>
+                    <ExpansionPanelSummary expandIcon={<Icon>expand_more_icon</Icon>} >
                         <Typography>course intro: afgdasdgda</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
@@ -92,15 +145,15 @@ export class CourseDetail extends Component {
                                 </Typography>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
-            </div>
+            
         )
     }
 
     renderCourseComments = () => {
         return (
-            <div style={styles.card}>
+            <Card>
                 {courseComments.map(this.courseCommentsToList)}
-            </div>
+            </Card>
         )
     }
 
@@ -116,7 +169,7 @@ export class CourseDetail extends Component {
                         <Typography>{comment.userName}</Typography>
                     </Grid>
                     <Grid xs={12}>
-                        <Typography>{JSON.stringify(comment.date)}</Typography>
+                        <Typography>{moment(comment.date).fromNow()}</Typography>
                     </Grid>
                 </Grid>
 
@@ -160,26 +213,20 @@ export class CourseDetail extends Component {
 
     renderProfInfo = () => {
         return (
-            <div style={styles.card}>
+            <Card style={styles.card}>
                 professor info
-            </div>
+            </Card>
         )
     }
 
     renderCourseRecommendation = () => {
         return (
-            <div style={styles.card}>
+            <Card>
                 <div>Related Course Recommendation</div>
                 <div>list</div>
-            </div>
+            </Card>
         )
     }
-
-
-
-    
-
-
 
     render() {
         return (
@@ -199,7 +246,7 @@ export class CourseDetail extends Component {
 
                 <Grid xs={4}>
                     
-                    {this.renderProfInfo()}
+                    <ProfessorCard/>
 
                     {this.renderCourseRecommendation()}
                 </Grid>
@@ -212,13 +259,7 @@ export class CourseDetail extends Component {
 const styles = {
 
     card: {
-        width: '100%',
-        borderWidth: '1.5px',
-        borderColor: '#e8e8e8',
-        borderStyle: 'solid',
-        borderRadius: '4px',
-        backgroundColor: '#fff',
-        marginBottom: '20px'
+        marginBottom: '10px',
     },
 
     courseContainer: {
@@ -228,9 +269,37 @@ const styles = {
         alignItems: 'center',
     },
 
+    courseAvatarContainer: {
+        height: '150px',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    courseName: {
+        fontSize: '30px',
+        textAlign: 'center',
+        marginBottom: '30px',
+    },
+
     courseAvatar: {
         width: '100px',
         height: '100px',
+    },
+
+    ratingContainer: {
+        justifyContent: 'center',
+        height: '20px',
+        marginBottom: '10px'
+    },
+
+    rating: {
+        height: '100%',
+        borderRadius: '3px',
+        marginLeft: '10px'
+    },
+
+    courseInfoContainer: {
+        justifyContent: 'center'
     },
 
     userAvatar: {
@@ -242,8 +311,8 @@ const styles = {
         textAlign: 'center'
     },
 
-    root: {
-        width: '100%',
-    },
+    text: {
+        textAlign: 'center',
+    }
 
 }
