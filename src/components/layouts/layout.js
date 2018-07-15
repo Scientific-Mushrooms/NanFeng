@@ -1,17 +1,16 @@
 import React, {Component} from "react";
 
 import { Switch, Route, Redirect } from "react-router-dom";
-import withStyles from "@material-ui/core/styles/withStyles";
+
 
 import dashboardRoutes from "../../routes/routes";
-import dashboardStyle from "../../assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import Grid from "@material-ui/core/Grid";
 import Header from './header';
 import Notification from '../layouts/notification';
 
 
-class App extends Component {
+class Layout extends Component {
     constructor(props){
         super(props);
     }
@@ -88,4 +87,4 @@ const styles = {
     }
 };
 
-export default withStyles(dashboardStyle)(App);
+export default Layout;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Divider, Grid, Button } from '@material-ui/core';
+import { Divider, Grid, Button, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography, Icon } from '@material-ui/core';
 
 export class CourseDetail extends Component {
 
@@ -10,13 +10,36 @@ export class CourseDetail extends Component {
             <Grid container>
 
                 <Grid xs={7}>
-                  {this.props.location.course}
+                  {this.props.location.courseId}
+                    <div style={styles.card}>
+                        related course
+                    </div>
+
+                    <div style={styles.card}>
+                        <ExpansionPanel>
+                            <ExpansionPanelSummary expandIcon={<Icon>expand_more_icon</Icon>}>
+                                <Typography>course intro: afgdasdgda</Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <Typography>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                                    sit amet blandit leo lobortis eget.
+                                </Typography>
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
+                    </div>
+
+                    <div style={styles.card}>
+                        course comment
+                    </div>
                 </Grid>
 
                 <Grid xs={1}></Grid>
 
                 <Grid xs={4}>
-                    <div style={styles.card}></div>
+                    <div style={styles.card}>
+                    related course
+                    </div>
                     <div style={styles.card}></div>
                 </Grid>
 
@@ -46,5 +69,10 @@ const styles = {
 
     courseItem: {
         textAlign: 'center'
-    }
+    },
+
+    root: {
+        width: '100%',
+    },
+
 }

@@ -27,7 +27,7 @@ const courses = [
 export class CoursePanel extends Component {
 
     onClickCourse = () => {
-        this.props.history.push({ pathname: '/courseDetail', course: 3})  
+        this.props.history.push({ pathname: '/courseDetail', courseId: "KIHISDAF-ASDFIN"})  
     }
 
     coursesToList = (prop, key) => {
