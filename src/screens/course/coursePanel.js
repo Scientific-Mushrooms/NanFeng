@@ -14,20 +14,23 @@ export class CoursePanel extends Component {
             <Grid style={styles.container} container>
                 <GridItem xs={12} sm={6} md={3}>
                     <Button style={styles.button} onClick={this.onClickCourseList}>
-                        <Icon> warning </Icon>
-                        <p>Course List</p>
+                        <div style={styles.title}>
+                            <Icon style={{fontSize:"600%"}}> assignment </Icon>
+                            <p>Course List</p></div>
                     </Button>
                 </GridItem>
                 <GridItem xs={12} sm={6} md={3}>
                     <Button style={styles.button}>
-                        <Icon> warning </Icon>
-                        <p>My Course</p>
+                        <div style={styles.title}>
+                        <Icon style={{fontSize:"600%"}}> assignment_ind </Icon>
+                        <p>My Course</p></div>
                     </Button>
                 </GridItem>
                 <GridItem xs={12} sm={6} md={3}>
                     <Button style={styles.button}>
-                        <Icon> warning </Icon>
-                        <p>asdfdsa</p>
+                        <div style={styles.title}>
+                        <Icon style={{fontSize:"600%"}}> warning </Icon>
+                            <p>asdfdsa</p></div>
                     </Button>
                 </GridItem>
             </Grid>
@@ -38,8 +41,7 @@ export class CoursePanel extends Component {
 const styles = {
 
     container: {
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'center'
     },
     button:{
         border: "0",
@@ -51,6 +53,18 @@ const styles = {
         width:"100%",
         marginRight:"30px",
         marginLeft:"30px",
-        paddingBottom:"80%",
-    }
+        paddingTop:"15%",
+        paddingBottom:"15%"
+
+    },
+    title: {
+        color: "black",
+        fontSize: "19px",
+        alignItems:"center",
+        textAlign: 'center',
+        fontFamily: "'Montserrat', sans-serif",
+        fontWeight:"700",
+        display: "inline-block",
+        alignItems: 'center'
+    },
 }
