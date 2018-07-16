@@ -24,6 +24,7 @@ const course = {
     courseUsefulNum: 33,
     courseEasyNum: 56,
     courseAvatar: './src/test.png',
+    introduction: 'This course provides a systematic approach to empirical problem solving which will enable students to critically assess the sampling protocol and conclusions of an empirical study including the possible sources of error in the study and whether evidence of a causal relationship can be reasonably concluded. The connection between the attributes of a population and the parameters in the named distributions covered in STAT 230 will be emphasized. Numerical and graphical techniques for summarizing data and checking the fit of a statistical model will be discussed. '
 }
 
 export default class CourseCard extends Component {
@@ -42,11 +43,29 @@ export default class CourseCard extends Component {
         )
     }
 
+    renderRating = (title, total, positive) => {
+        return (
+            <Grid xs={12} style={styles.ratingContainer} container>
+                <Grid xs={2}>
+                    <Typography style={styles.ratingText}>{title}</Typography>
+                </Grid>
+                <Grid xs={6}>
+                    <LinearProgress color="secondary" variant="buffer" value={positive} valueBuffer={total} style={styles.rating} />
+                </Grid>
+                <Grid xs={3}>
+                    <Typography style={styles.ratingText}>{positive / total}%  {total} ratings</Typography>
+                </Grid>
+            </Grid>
+        )
+    }
+
 
     render() {
         return (
-            <Card style={styles.card}>
+            <Card style={styles.container}>
                 <Grid container style={styles.courseInfoContainer}>
+
+                    <Grid xs={12} style={styles.padding}/>
 
                     <Grid xs={8} container>
 
@@ -58,32 +77,11 @@ export default class CourseCard extends Component {
                             <Typography style={styles.courseName}>{course.courseName}</Typography>
                         </Grid>
 
-                        <Grid xs={12} style={styles.ratingContainer} container>
-                            <Grid xs={2}>
-                                <Typography>Useful</Typography>
-                            </Grid>
-                            <Grid xs={6}>
-                                <LinearProgress color="secondary" variant="buffer" value={10} valueBuffer={100} style={styles.rating} />
-                            </Grid>
-                        </Grid>
+                        {this.renderRating("Useful", 100, 30)}
 
-                        <Grid xs={12} style={styles.ratingContainer} container>
-                            <Grid xs={2}>
-                                <Typography>Easy</Typography>
-                            </Grid>
-                            <Grid xs={6}>
-                                <LinearProgress color="secondary" variant="buffer" value={10} valueBuffer={100} style={styles.rating} />
-                            </Grid>
-                        </Grid>
+                        {this.renderRating("Easy", 100, 30)}
 
-                        <Grid xs={12} style={styles.ratingContainer} container>
-                            <Grid xs={2}>
-                                <Typography>Likes</Typography>
-                            </Grid>
-                            <Grid xs={6}>
-                                <LinearProgress color="secondary" variant="buffer" value={10} valueBuffer={100} style={styles.rating} />
-                            </Grid>
-                        </Grid>
+                        {this.renderRating("Likes", 100, 30)}
 
                     </Grid>
 
@@ -105,6 +103,8 @@ export default class CourseCard extends Component {
 
                     </Grid>
 
+                    <Grid xs={12} style={styles.padding} />
+
                 </Grid>
 
             </Card>
@@ -114,8 +114,12 @@ export default class CourseCard extends Component {
 
 const styles = {
 
-    card: {
+    container: {
         marginBottom: '10px',
+    },
+
+    padding: {
+        height: '40px'
     },
 
     courseContainer: {
@@ -169,6 +173,10 @@ const styles = {
 
     text: {
         textAlign: 'center',
+    },
+
+    ratingText: {
+        textAlign: 'right'
     }
 
 }

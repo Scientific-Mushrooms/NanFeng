@@ -26,6 +26,8 @@ export class CourseDetail extends Component {
             <Grid container>
 
                 <Grid xs={7}>
+
+                    <div>{this.props.location.courseId}adsfad</div>
                   
                     <CourseCard/>
 
