@@ -95,6 +95,13 @@ const mainRoutes = [
                 component: connect(mapStateToProps)(Screens.CourseList)
             },
 
+            {
+                path: "/courseCreate",
+                sidebarName: "Course Create",
+                icon: 'code',
+                component: connect(mapStateToProps)(Screens.CourseCreate)
+            },
+
         ]
     },
 
