@@ -23,11 +23,11 @@ export class CourseDetail extends Component {
 
     render() {
         return (
-            <Grid container>
+            <Grid container spacing={16}>
 
-                <Grid xs={7}>
+                <Grid xs={8}>
 
-                    <div>{this.props.location.courseId}adsfad</div>
+                    <div>{this.props.location.courseId}</div>
                   
                     <CourseCard/>
 
@@ -39,7 +39,7 @@ export class CourseDetail extends Component {
 
                 <Grid xs={1}></Grid>
 
-                <Grid xs={4}>
+                <Grid xs={3}>
                     
                     <ProfessorCard professorId="FGIHISHIG"/>
 

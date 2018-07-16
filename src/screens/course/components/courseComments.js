@@ -19,6 +19,18 @@ const courseComments = [
         liked: true,
         easy: true,
         date: new Date(),
+    },
+
+    {
+        userId: '233sdsgsdg',
+        userName: "clavier",
+        userProgram: "Computer Science",
+        userAvatar: './src/test.png',
+        content: "really easy",
+        userful: true,
+        liked: true,
+        easy: true,
+        date: new Date(),
     }
 ]
 
@@ -27,25 +39,29 @@ export default class CourseComments extends Component {
 
     courseCommentsToList = (comment, index) => {
         return (
-            <Grid container>
+            <Grid container style={styles.commentContainer}>
 
                 <Grid xs={2} container>
-                    <Grid xs={12}>
+
+                    <Grid xs={12} style={styles.avatarContaienr} container>
                         <img src={require('../src/test.png')} style={styles.userAvatar} />
                     </Grid>
-                    <Grid xs={12}>
-                        <Typography>{comment.userName}</Typography>
+
+                    <Grid xs={12} style={styles.textContainer} container>
+                        <Typography>A {comment.commentFaculty} student</Typography>
                     </Grid>
-                    <Grid xs={12}>
-                        <Typography>{moment(comment.date).fromNow()}</Typography>
+
+                    <Grid xs={12} style={styles.textContainer} container>
+                        <Typography>{moment(comment.date).format("MMM Do YY")}</Typography>
                     </Grid>
+
                 </Grid>
 
-                <Grid xs={6}>
-                    {comment.content}
+                <Grid xs={6} style={styles.contentContainer} container>
+                    <Typography>{comment.content}</Typography>
                 </Grid>
 
-                <Grid xs={4}>
+                <Grid xs={3}>
 
                     <Grid xs={12} container>
                         <Grid xs={6}>
@@ -81,11 +97,20 @@ export default class CourseComments extends Component {
 
     render() {
         return (
-            <Card>
+            <Card  >
 
-                <Typography>Course Comments</Typography>
+                <Grid container style={styles.container}>
+                    <Grid xs={10}>
 
-                {courseComments.map(this.courseCommentsToList)}
+                        <Grid xs={7}>
+                            <Button style={styles.headerContainer}>
+                                <Typography style={styles.header}>Course Comments</Typography>
+                            </Button>
+                        </Grid>
+
+                        {courseComments.map(this.courseCommentsToList)}
+                    </Grid>
+                </Grid>
 
             </Card>
         );
@@ -94,8 +119,8 @@ export default class CourseComments extends Component {
 
 const styles = {
 
-    card: {
-        marginBottom: '10px',
+    container: {
+        justifyContent: 'center',
     },
 
     courseContainer: {
@@ -139,8 +164,9 @@ const styles = {
     },
 
     userAvatar: {
-        height: '40px',
-        width: '40px'
+        height: '60px',
+        width: '60px',
+        borderRadius: '5px'
     },
 
     courseItem: {
@@ -149,6 +175,37 @@ const styles = {
 
     text: {
         textAlign: 'center',
+    },
+
+    headerContainer: {
+        fontSize: '30px',
+        marginTop: '30px',
+        marginBottom: '30px',
+        backgroundColor: '#62d0f1'
+    },
+
+    header: {
+        fontSize: '30px',
+        color: '#fff'
+    },
+
+    commentContainer: {
+        marginBottom: '20px'
+    },
+
+    avatarContaienr: {
+        justifyContent: 'flex-end'
+    },
+
+    textContainer: {
+        marginTop: '5px',
+        justifyContent: 'flex-end',
+    },
+
+    contentContainer: {
+        backgroundColor: '#caf6ff',
+        borderRadius: '5px',
+        marginLeft: '20px'
     }
 
 }
