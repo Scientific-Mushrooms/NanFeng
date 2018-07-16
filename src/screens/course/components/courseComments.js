@@ -82,7 +82,11 @@ export default class CourseComments extends Component {
     render() {
         return (
             <Card>
+
+                <Typography>Course Comments</Typography>
+
                 {courseComments.map(this.courseCommentsToList)}
+
             </Card>
         );
     }
