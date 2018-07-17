@@ -1,8 +1,7 @@
 import * as Screens from "../screens";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-
+import _ from 'lodash';
 
 const mapStateToProps = state => ({
     user: state.userReducer.info,
@@ -82,22 +81,29 @@ const mainRoutes = [
         children: [
 
             {
+                path: "/myCourse",
+                name: "My Course",
+                icon: 'code',
+                component: connect(mapStateToProps)(Screens.MyCourse)
+            },
+
+            {
                 path: "/courseDetail",
-                sidebarName: "Course detail",
+                name: "Course detail",
                 icon: 'code',
                 component: connect(mapStateToProps)(Screens.CourseDetail)
             },
 
             {
                 path: "/courseList",
-                sidebarName: "Course List",
+                name: "Course List",
                 icon: 'code',
                 component: connect(mapStateToProps)(Screens.CourseList)
             },
 
             {
                 path: "/courseCreate",
-                sidebarName: "Course Create",
+                name: "Course Create",
                 icon: 'code',
                 component: connect(mapStateToProps)(Screens.CourseCreate)
             },
@@ -108,3 +114,6 @@ const mainRoutes = [
 ];
 
 export default mainRoutes;
+
+const courseRoutes = _.find(mainRoutes, { path: '/coursePanel'}).children;
+export {courseRoutes};

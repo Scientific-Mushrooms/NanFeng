@@ -1,7 +1,7 @@
 {
   "name": "material-dashboard-react",
   "version": "1.2.0",
-  "description": "Material Dashboard React. Coded by Creative Tim",
+  "description": "",
   "private": false,
   "main": "index.js",
   "dependencies": {
@@ -13,6 +13,7 @@
     "axios": "^0.18.0",
     "chartist": "0.10.1",
     "classnames": "2.2.6",
+    "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "npm": "^6.2.0",
     "npm-run-all": "4.1.3",
