@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import LoginBox from '../boxes/loginBox';
 import Grid from '@material-ui/core/Grid';
 
-import { loginBoxShow, show_notification, hide_notification } from '../../redux/actions/action';
+import { loginBoxShow, logout, show_notification, hide_notification } from '../../redux/actions/action';
 
 import { connect } from 'react-redux';
 import { Popover, Icon, Typography, IconButton } from '@material-ui/core';
@@ -50,7 +50,7 @@ class Header extends BaseComponent {
     };
 
     signOut=()=>{
-        //need to do something
+        this.props.dispatch(logout());
     }
 
     renderUserPopover = () => {
@@ -160,7 +160,7 @@ class Header extends BaseComponent {
         this.props.history.push('./signUp')
     }
 
-    
+
 
     renderRight = () => {
         if (this.props.user === null) {
