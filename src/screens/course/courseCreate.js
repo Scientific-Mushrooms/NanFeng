@@ -5,7 +5,7 @@ import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
 import InfiniteCalendar from 'react-infinite-calendar';
-import { FormControl, FormGroup, ControlLabel, HelpBlock, DropdownButton, MenuItem, InputGroup} from 'react-bootstrap';
+import { FormControl, FormGroup, ControlLabel, HelpBlock, DropdownButton, MenuItem, InputGroup, Textarea} from 'react-bootstrap';
 import 'react-infinite-calendar/styles.css';
 import {moment} from 'moment';
 
@@ -112,6 +112,19 @@ export class CourseCreate extends BaseComponent {
         )
     }
 
+    renderIntroduction = (name, variable) => {
+        return (
+            <Grid style={styles.inputContainer} container>
+                <Grid xs={3} style={styles.textContainer} container>
+                    <Typography style={styles.text}>{name} :</Typography>
+                </Grid>
+                <Grid xs={9} container>
+                    <FormControl componentClass="textarea" onChange={this.handleChange(variable)} multilple style={styles.introContainer} rows={4}/>
+                </Grid>
+            </Grid>
+        )
+    }
+
     render() {
         return (
             <Grid justify='center' container>
@@ -134,7 +147,7 @@ export class CourseCreate extends BaseComponent {
                     {this.renderStartDate()}
                     {this.renderEndDate()}
                     
-                    {this.renderTextInput("Introduction", "introduction")}
+                    {this.renderIntroduction("Introduction", "introduction")}
                    
                
 
@@ -182,6 +195,10 @@ const styles = {
     test: {
         width: '300px',
         height: '400px'
+    },
+
+    introContainer: {
+        height: '80px'
     }
 
 
