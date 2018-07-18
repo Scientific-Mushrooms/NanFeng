@@ -7,35 +7,17 @@ import green from '@material-ui/core/colors/green';
 import InfiniteCalendar from 'react-infinite-calendar';
 import { FormControl, FormGroup, ControlLabel, HelpBlock, DropdownButton, MenuItem, InputGroup} from 'react-bootstrap';
 import 'react-infinite-calendar/styles.css';
+import {moment} from 'moment';
+
+
 export class CourseCreate extends BaseComponent {
 
     constructor(props) {
         super(props);
         this.state = {
-            anchorEl: null,
+
         };
     }
-
-    handleClick = event => {
-        this.setState({
-            anchorEl: event.currentTarget,
-        });
-    };
-
-    handleClose = () => {
-        this.setState({
-            anchorEl: null,
-        });
-    };
-
-    onClickCreate = () => {
-        alert(this.state.startDate);
-    }
-
-    handleDate = (date) => {
-        this.setState({startDate: date})
-    }
-
 
     renderTextInput = (name, variable) => {
         return (
@@ -50,16 +32,81 @@ export class CourseCreate extends BaseComponent {
         )
     }
 
-    
+    renderStartDate = () => {
 
-    renderDateInput = (name, variable) => {
+        var handleStartDate = (date) => {
+            this.setState({ startDate: date })
+        }
+
+        var handleClick = (event) => {
+            this.setState({ parentStart: event.currentTarget });
+        };
+
+        var handleClose = () => {
+            this.setState({ parentStart: null });
+        };
+
         return (
             <Grid style={styles.inputContainer} container>
                 <Grid xs={3} style={styles.textContainer} container>
-                    <Typography style={styles.text}>{name} :</Typography>
+                    <Typography style={styles.text}>Start Date :</Typography>
                 </Grid>
                 <Grid xs={9} style={styles.textContinaer} container>
-                    <FormControl type="text" onChange={this.handleChange(variable)} />
+                    <Button variant="contained" onClick={handleClick}>
+                        {JSON.stringify(this.state.startDate)}
+                    </Button>
+                    <Popover
+                        open={Boolean(this.state.parentStart)}
+                        anchorEl={this.state.parentStart}
+                        onClose={handleClose}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                        >
+                        <InfiniteCalendar
+                            displayOptions={{ showHeader: false, shouldHeaderAnimate: false, showTodayHelper: false }}
+                            onSelect={handleStartDate}
+                            />
+                    </Popover>
+                </Grid>
+            </Grid>
+        )
+    }
+
+    renderEndDate = () => {
+
+        var handleEndDate = (date) => {
+            this.setState({ endDate: date })
+        }
+
+        var handleClick = (event) => {
+            this.setState({ parentEnd: event.currentTarget });
+        };
+
+        var handleClose = () => {
+            this.setState({ parentEnd: null });
+        };
+
+        return (
+            <Grid style={styles.inputContainer} container>
+                <Grid xs={3} style={styles.textContainer} container>
+                    <Typography style={styles.text}>End Date :</Typography>
+                </Grid>
+                <Grid xs={9} style={styles.textContinaer} container>
+                    <Button variant="contained" onClick={handleClick}>
+                        {JSON.stringify(this.state.endDate)}
+                    </Button>
+                    <Popover
+                        open={Boolean(this.state.parentEnd)}
+                        anchorEl={this.state.parentEnd}
+                        onClose={handleClose}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    >
+                        <InfiniteCalendar
+                            displayOptions={{ showHeader: false, shouldHeaderAnimate: false, showTodayHelper: false }}
+                            onSelect={handleEndDate}
+                        />
+                    </Popover>
                 </Grid>
             </Grid>
         )
@@ -83,43 +130,17 @@ export class CourseCreate extends BaseComponent {
                 </Grid>
 
                 <Grid xs={8} contaienr>
-                    <Button variant="contained" onClick={this.handleClick}>
-                        Open Popover
-                    </Button>
-                    <Popover
-                        open={Boolean(this.state.anchorEl)}
-                        anchorEl={this.state.anchorEl}
-                        onClose={this.handleClose}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                        }}
-                    >
-                        <Typography>The content of the Popover.</Typography>
-                        <InfiniteCalendar
-                            displayOptions={{
-                                showHeader: false,
-                                shouldHeaderAnimate: false,
-                                showTodayHelper: false,
-                            }}
-                            onSelect={this.handleDate}
-                        />
-                    </Popover>
-
-                    {this.renderTextInput("Start Date", "avatar")}
-                    {this.renderTextInput("End Date", "avatar")}
+                    
+                    {this.renderStartDate()}
+                    {this.renderEndDate()}
+                    
                     {this.renderTextInput("Introduction", "introduction")}
                    
                
 
 
                     <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon" title="Action">
-                        <MenuItem key="1">Item
-                        </MenuItem>
+                        <MenuItem key="1">Item</MenuItem>
                     </DropdownButton>
 
                     
