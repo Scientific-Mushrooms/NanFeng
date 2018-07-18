@@ -9,7 +9,7 @@ import Button from '../../components/CustomButtons/Button'
 import { BaseComponent } from '../../components/BaseComponent';
 
 
-export class SignUp extends BaseComponent {  
+export class SignUp extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -134,7 +134,7 @@ export class SignUp extends BaseComponent {
                             >Already A Member</Button>
                         </Grid>
                 </CardBody>
-                </Card>  
+                </Card>
                 <Button style={{width:"100%"}} onClick={this.goBack}>Go Back</Button>
             </Grid>
         );

@@ -17,7 +17,6 @@ import { NavLink, withRouter } from "react-router-dom";
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 
 import mainRoutes from '../../routes/routes';
 
@@ -67,13 +66,17 @@ class Header extends BaseComponent {
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'center',}}
                 >
-                <Grid justify="center" >
-                    <Button style={styles.button}>My Upload</Button>
-                    <Button style={styles.button}>Help</Button>
-                    <Button style={styles.button}>Settings</Button>
-
-                    <Button style={styles.buttonBottom} onClick={this.signOut.bind(this)}>Sign out</Button>
-                </Grid>
+                <List component="nav">
+                    <ListItem button >
+                      <Typography>My Uploads</Typography>
+                    </ListItem>
+                    <ListItem button >
+                      <Typography>Help</Typography>
+                    </ListItem>
+                    <ListItem button >
+                      <Typography>Settings</Typography>
+                    </ListItem>
+                </List>
             </Popover>
         )
 
@@ -100,22 +103,19 @@ class Header extends BaseComponent {
                 }}
             >
                 <List component="nav">
-                    <ListItem button>
+                    <ListItem button >
                         <Typography>hi</Typography>
                     </ListItem>
-                    <Divider />
-                    <ListItem button divider>
+                    <ListItem button >
                         <Typography>hello</Typography>
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button >
                         <Typography>greetings</Typography>
-                    </ListItem>
-                    <Divider light />
-                    <ListItem button>
+                    </ListItem >
+                    <ListItem button >
                         <Typography>goodbye</Typography>
                     </ListItem>
-                    <Divider light />
-                    <ListItem button>
+                    <ListItem button >
                         <Typography>bye</Typography>
                     </ListItem>
 
@@ -258,18 +258,6 @@ const styles = {
         marginTop: '5px',
     },
 
-    button: {
-        marginLeft: '1px',
-        marginRight:'1px',
-        width:"100%",
-    },
-
-    buttonBottom:{
-        marginBottom: '10px',
-        marginLeft: '1px',
-        marginRight:'1px',
-        width:"100%",
-    },
 
     iconButton: {
 
@@ -309,7 +297,6 @@ const styles = {
     text: {
         marginLeft: '10px'
     }
-
 
 };
 

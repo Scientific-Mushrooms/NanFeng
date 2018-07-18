@@ -7,7 +7,7 @@ const mapStateToProps = state => ({
     user: state.userReducer.info,
     loginbox: state.modalReducer.loginbox,
     dataForTaskChart: state.projectReducer.dataForTaskChart,
-    
+
     pending: state.projectReducer.pending,
     progressing: state.projectReducer.progressing,
     finished: state.projectReducer.finished,
@@ -45,8 +45,8 @@ const mainRoutes = [
 
     {
         path: "/adminPanel",
-        sidebarName: "admin",
-        icon: 'user',
+        sidebarName: "Admin",
+        icon: 'account_box',
         component: Screens.AdminPanel,
         children: [
             {
@@ -76,7 +76,7 @@ const mainRoutes = [
     {
         path: "/coursePanel",
         sidebarName: "Course",
-        icon: "dashboard",
+        icon: "view_headline",
         component: withRouter(connect(mapStateToProps)(Screens.CoursePanel)),
         children: [
 
