@@ -84,7 +84,15 @@ const mainRoutes = [
                 path: "/myCourse",
                 name: "My Course",
                 icon: 'code',
-                component: connect(mapStateToProps)(Screens.MyCourse)
+                component: connect(mapStateToProps)(Screens.MyCourse),
+                children: [
+                    {
+                        path: "/courseHome",
+                        name: "Course Home",
+                        icon: 'code',
+                        component: connect(mapStateToProps)(Screens.CourseHome)
+                    },
+                ]
             },
 
             {
