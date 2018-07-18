@@ -19,6 +19,26 @@ export class CourseCreate extends BaseComponent {
         };
     }
 
+    onClickCreate = () => {
+        this.createCourse()
+    }
+
+    createCourse = () => {
+        let form = new FormData();
+        form.append("name", this.state.name);
+        form.append("code", this.state.code);
+
+        this.post('/api/course/create', form).then((result) => {
+            if (!result) {
+                this.pushNotification("danger", "Connection error", this.props.dispatch);
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.description, this.props.dispatch);
+            } else {
+                this.pushNotification("success", "233333", this.props.dispatch);
+            }
+        })
+    }
+
     renderTextInput = (name, variable) => {
         return (
             <Grid style={styles.inputContainer} container>
