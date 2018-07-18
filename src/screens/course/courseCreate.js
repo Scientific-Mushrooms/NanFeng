@@ -1,71 +1,68 @@
 import React, { Component } from "react";
 import { BaseComponent } from '../../components/BaseComponent';
-import { FormControl } from '@material-ui/core';
-import { Divider, Grid, Button, Typography, Input, TextField } from '@material-ui/core';
+import { Divider, Grid, Button, Typography, Input, TextField} from '@material-ui/core';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
-
+import { FormControl, FormGroup, ControlLabel, HelpBlock} from 'react-bootstrap';
 
 export class CourseCreate extends BaseComponent {
 
     constructor(props) {
         super(props);
         this.state = {
-            courseName:'',
-            courseId:'',
-            professor:'',
-            campus:'',
-            building:'',
-            room:'',
-            kind:''
         };
     }
 
-    onClickCourseList = () => {
-        this.props.history.push({ pathname: '/courseList' })
-    }
 
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
-    };
-
-    renderInput = (name, variable) => {
+    renderTextInput = (name, variable) => {
         return (
             <Grid style={styles.inputContainer} container>
-                <Typography variant='title'>{name}</Typography>
-                <Input style={styles.input} onChange={this.handleChange(variable)} />
+                <Grid xs={3} style={styles.textContainer} container>
+                    <Typography style={styles.text}>{name} :</Typography>
+                </Grid>
+                <Grid xs={9} style={styles.textContinaer} container>
+                    <FormControl type="text" onChange={this.handleChange(variable)} />
+                </Grid>
             </Grid>
         )
     }
 
     render() {
         return (
-            <Grid justify='center' style={styles.wrapper} container>
+            <Grid justify='center' container>
 
-                <Grid xs={12}>
+                <Grid xs={12} style={styles.headerContainer}>
                     <Typography variant='display2'>New Course</Typography>
                 </Grid>
 
                 <Grid xs={4} container>
-                    {this.renderInput("Code", "courseCode")}
-                    {this.renderInput("Name", "courseName")}
+                    {this.renderTextInput("Code", "code")}
+                    {this.renderTextInput("Name", "name")}
+                    {this.renderTextInput("Location", "location")}
+                    {this.renderTextInput("Professor", "professorName")}
+                    {this.renderTextInput("Introduction", "introduction")}
+                    {this.renderTextInput("Credit", "credit")}
+                    {this.renderTextInput("Avatar", "avatar")}
+                    {this.renderTextInput("Start Date", "avatar")}
+                    {this.renderTextInput("End Date", "avatar")}
                 </Grid>
 
                 <Grid xs={8} contaienr>
 
-                    <Grid style={{ margin: '10px' }} direction='row' alignItems="flex-end" container>
-                        <Typography variant='title'>Course Time</Typography>
-                        <Grid xs={6}>
-                            <Input
-                                style={styles.input}
-                                onChange={this.handleChange('time')}
-                                fullWidth />
-                            {/*should be replace with selector*/}
-                        </Grid>
-                    </Grid>
+                    <TextField
+                        id="time"
+                        label="Alarm clock"
+                        type="datetime-local"
+                        defaultValue="07:30"
+                
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        inputProps={{
+                            step: 300, // 5 min
+                        }}
+                    />
 
                     <TextField
                         defaultValue="react-bootstrap"
@@ -78,12 +75,8 @@ export class CourseCreate extends BaseComponent {
                             },
                         }}
                     />
-                    <FormControl
-                        type="text"
-                        value={this.state.value}
-                        placeholder="Enter text"
-                        onChange={this.handleChange}
-                    />
+
+                            
 
                 </Grid>
 
@@ -131,77 +124,30 @@ export class CourseCreate extends BaseComponent {
     }
 }
 
-const styless = {
 
-    wrapper: {
-        paddingLeft: '200px',
-        paddingRight:'200px'
+const styles = {
+
+    headerContainer: {
+        marginBottom: '20px'
     },
 
-    input:{
-        marginLeft: '10px',
+    inputContainer: {
+        marginBottom: '20px'
+    },
+
+    input: {
+        borderRadius: '6px'
+    },
+
+    textContainer: {
+        justifyContent: 'flex-end'
+    },
+
+    text: {
+        fontSize: '20px',
         marginRight: '10px',
-    },
+    }
 
-}
 
-const styles = theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    margin: {
-        margin: theme.spacing.unit,
-    },
-    cssLabel: {
-        '&$cssFocused': {
-            color: purple[500],
-        },
-    },
-    cssFocused: {},
-    cssUnderline: {
-        '&:after': {
-            borderBottomColor: purple[500],
-        },
-    },
-    bootstrapRoot: {
-        padding: 0,
-        'label + &': {
-            marginTop: theme.spacing.unit * 3,
-        },
-    },
-    bootstrapInput: {
-        borderRadius: 4,
-        backgroundColor: theme.palette.common.white,
-        border: '1px solid #ced4da',
-        fontSize: 16,
-        padding: '10px 12px',
-        width: 'calc(100% - 24px)',
-        transition: theme.transitions.create(['border-color', 'box-shadow']),
-        fontFamily: [
-            '-apple-system',
-            'BlinkMacSystemFont',
-            '"Segoe UI"',
-            'Roboto',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"',
-        ].join(','),
-        '&:focus': {
-            borderColor: '#80bdff',
-            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-        },
-    },
-    bootstrapFormLabel: {
-        fontSize: 18,
-    },
-});
+};
 
-const theme = createMuiTheme({
-    palette: {
-        primary: green,
-    },
-});

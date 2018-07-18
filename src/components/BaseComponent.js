@@ -16,6 +16,12 @@ export class BaseComponent extends Component {
             .catch((error) => { console.error(error); });
     }
 
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
     pushNotification = (kind, reason, dispatch) => {
         dispatch(show_notification(kind, reason))
         setTimeout(
