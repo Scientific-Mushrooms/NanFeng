@@ -40,7 +40,7 @@ const preloadedState = {
     },
 
     userReducer: {
-        info: null
+        user: null
     },
 
     chartReducer: {

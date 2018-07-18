@@ -3,13 +3,10 @@ var userReducer = (state = {}, action) => {
     switch (action.type) {
 
         case 'LOGIN':
-            return { ...state, info: action.info };
+            return { ...state, user: action.info };
 
         case 'LOGOUT':
-            return { ...state, info: null };
-
-        case 'FOLLOW':
-            return { ...state, follow: state.follower + 1};
+            return { ...state, user: null };
 
         default:
             return state;

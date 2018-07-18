@@ -23,7 +23,7 @@ import mainRoutes from '../../routes/routes';
 
 
 const mapStateToProps = state => ({
-    user: state.userReducer.info,
+    user: state.userReducer.user,
     loginbox: state.modalReducer.loginbox,
 })
 

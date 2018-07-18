@@ -6,7 +6,7 @@ import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/
 
 
 const mapStateToProps = state => ({
-    user: state.userReducer.info,
+    user: state.userReducer.user,
     loginbox: state.modalReducer.loginbox,
     dataForTaskChart: state.projectReducer.dataForTaskChart,
     
