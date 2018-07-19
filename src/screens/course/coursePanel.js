@@ -28,14 +28,17 @@ export class CoursePanel extends Component {
 
         if(route.name!='Course Create')//handle course create separately
             return (
-            <Grid style={styles.btnContainer} justify='center' xs={2}>
+            <Grid 
+            style={styles.btnContainer} 
+            alignItems='center' 
+            justify='center' xs={2}>
                 <Button 
                 style={styles.button}
                 size="large"
                 variant="fab"
                 onClick={this.onClick}>
                     <Icon style={styles.icon}> {route.icon} </Icon>
-                    <Typography variant='button'style={{fontSize:'200%'}}>{route.name}</Typography>
+                    <Typography variant='button'style={{fontSize:'150%'}}>{route.name}</Typography>
                 </Button>
             </Grid>
             )
@@ -44,15 +47,18 @@ export class CoursePanel extends Component {
     renderCreateCourse= () => {
         //if(this.props.user.role=='teacher')
         return(
-            <Grid style={styles.btnContainer} justify='center' xs={2}>
+            <Grid 
+            style={styles.btnContainer} 
+            justify='center' 
+            alignItems='center' xs={2}>
                 <Button 
                 style={styles.button}
                 size="large"
                 color="secondary"
                 variant="fab" 
                 onClick={this.onClickCourseCreate}>
-                    <Typography variant='button'style={{fontSize:'200%'}}>Course Create</Typography>
                     <AddIcon  style={styles.icon}/>
+                    <Typography variant='button'style={{fontSize:'150%'}}>Course Create</Typography>
                 </Button>
             </Grid> 
         )
