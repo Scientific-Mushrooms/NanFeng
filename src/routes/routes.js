@@ -85,7 +85,7 @@ const mainRoutes = [
             {
                 path: "/myCourse",
                 name: "My Course",
-                icon: 'code',
+                icon: 'assignment_ind',
                 component: connect(mapStateToProps)(Screens.MyCourse),
                 children: [
 
@@ -116,21 +116,21 @@ const mainRoutes = [
             {
                 path: "/courseDetail",
                 name: "Course detail",
-                icon: 'code',
+                icon: 'assignment',
                 component: connect(mapStateToProps)(Screens.CourseDetail)
             },
 
             {
                 path: "/courseList",
                 name: "Course List",
-                icon: 'code',
+                icon: 'edit_icon',
                 component: connect(mapStateToProps)(Screens.CourseList)
             },
 
             {
                 path: "/courseCreate",
                 name: "Course Create",
-                icon: 'code',
+                icon: 'add',
                 component: connect(mapStateToProps)(Screens.CourseCreate)
             },
 
