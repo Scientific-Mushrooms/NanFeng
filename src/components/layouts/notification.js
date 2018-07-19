@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { hide_notification } from '../../redux/actions/action'
 import {Grid, Snackbar, SnackbarContent, Icon, Typography } from '@material-ui/core';
+import red from '@material-ui/core/colors/red';
 
 
 
@@ -22,11 +23,11 @@ class Notification extends Component {
         if(this.props.kind=='danger'){
             return(
             <SnackbarContent
-                style={{backgroundColor:'red',borderRadius:'10px'}}
+                style={{backgroundColor:'#f50057',borderRadius:'10px'}}
                 message={<span>
                     <Grid direction='row' alignItems='center' container>
-                        <Icon style={{marginRight:5}}>error</Icon>
-                        <Typography variant='display2' style={{fontSize:"200%",color:"white"}}>{this.props.reason}</Typography>
+                        <Icon style={styles.icon}>error</Icon>
+                        <Typography variant='display2' style={styles.typograghy}>{this.props.reason}</Typography>
                     </Grid>
                     </span>}
             />)
@@ -36,8 +37,8 @@ class Notification extends Component {
                 style={{backgroundColor:'grey',borderRadius:'10px'}}
                 message={<span>
                     <Grid direction='row' alignItems='center' container>
-                        <Icon style={{marginRight:5}}>error</Icon>
-                        <Typography variant='display2' style={{fontSize:"200%"}}>{this.props.reason}</Typography>
+                        <Icon style={styles.icon}>error</Icon>
+                        <Typography variant='display2' style={styles.typograghy}>{this.props.reason}</Typography>
                     </Grid>
                     </span>}
             />)
@@ -56,5 +57,14 @@ class Notification extends Component {
     }
 }
 
+const styles ={
+    icon:{
+        marginRight:"5px"
+    },
+    typograghy:{
+        fontSize:"200%",
+        color:"white"
+    }
+}
 
 export default connect(mapStateToProps)(Notification);

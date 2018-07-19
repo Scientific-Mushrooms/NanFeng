@@ -22,67 +22,47 @@ export class CoursePanel extends Component {
     }
 
     renderButton = (route, index) => {
-
         const onClick = () => {
             this.props.history.push({ pathname: route.path })
         }
 
-        return (
-            <Grid style={styles.btnContainer} xs={2}>
-                <Button style={styles.button} onClick={onClick}>
-                    <Icon>{route.icon}</Icon>
-                    <Typography variant='button'style={{fontSize:'150%'}}>{route.name}</Typography>
+        if(route.name!='Course Create')//handle course create separately
+            return (
+            <Grid style={styles.btnContainer} justify='center' xs={2}>
+                <Button 
+                style={styles.button}
+                size="large"
+                variant="fab"
+                onClick={this.onClick}>
+                    <Icon style={styles.icon}> {route.icon} </Icon>
+                    <Typography variant='button'style={{fontSize:'200%'}}>{route.name}</Typography>
                 </Button>
-                
             </Grid>
-        )
+            )
+    }
 
+    renderCreateCourse= () => {
+        //if(this.props.user.role=='teacher')
+        return(
+            <Grid style={styles.btnContainer} justify='center' xs={2}>
+                <Button 
+                style={styles.button}
+                size="large"
+                color="secondary"
+                variant="fab" 
+                onClick={this.onClickCourseCreate}>
+                    <Typography variant='button'style={{fontSize:'200%'}}>Course Create</Typography>
+                    <AddIcon  style={styles.icon}/>
+                </Button>
+            </Grid> 
+        )
     }
 
     render() {
         return (
             <Grid style={styles.container} alignItems='center' container>
-                <Grid style={styles.btnContainer} xs={2}>
-                    <Button 
-                    style={{borderRadius:"10px",width:"100%"}}
-                    size="large"
-                    variant="fab"
-                    onClick={this.onClickMyCourse}>
-                        <Icon style={{fontSize:'250%'}}> assignment_ind </Icon>
-                        <Typography variant='button'style={{fontSize:'200%'}}>My Course</Typography>
-                    </Button>
-                </Grid>
-                <Grid style={styles.btnContainer} xs={2}>
-                    <Button 
-                    style={{borderRadius:"10px",width:"100%"}}
-                    size="large"
-                    variant="fab" 
-                    onClick={this.onClickCourseList}>
-                        <Icon style={{fontSize:'250%'}}> assignment </Icon>
-                        <Typography variant='button'style={{fontSize:'200%'}}>Course List</Typography>
-                    </Button>
-                </Grid>
-                <Grid style={styles.btnContainer} xs={2}>
-                    <Button 
-                    style={{borderRadius:"10px",width:"100%"}}
-                    size="large"
-                    variant="fab" 
-                    onClick={this.onClickCourseDetail}>
-                        <Typography variant='button'style={{fontSize:'200%'}}>Course Detail</Typography>
-                        <Icon style={{fontSize:'250%'}}> edit_icon </Icon>
-                    </Button>
-                </Grid>
-                <Grid style={styles.btnContainer} xs={2}>
-                    <Button 
-                    style={{borderRadius:"10px",width:"100%"}}
-                    size="large"
-                    color="secondary"
-                    variant="fab" 
-                    onClick={this.onClickCourseCreate}>
-                        <Typography variant='button'style={{fontSize:'200%'}}>Course Create</Typography>
-                        <AddIcon  style={{fontSize:'250%'}}/>
-                    </Button>
-                </Grid>
+                {courseRoutes.map(this.renderButton)}
+                {this.renderCreateCourse()}
             </Grid>
         );
     }
@@ -94,6 +74,12 @@ const styles = {
         justifyContent: 'center'
     },
 
+    icon:{
+        fontSize:'300%',
+        marginLeft:"5px",
+        marginRight:"5px"
+    },
+
     btnContainer:{
         marginRight:"30px",
         marginLeft:"30px",
@@ -101,10 +87,7 @@ const styles = {
 
     button:{
         borderRadius: "20px",
-        background: "#fff",
         width:"100%",
-        paddingTop:"15%",
-        paddingBottom:"15%"
     },
 
 }
