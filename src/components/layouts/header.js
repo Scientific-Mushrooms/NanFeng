@@ -197,7 +197,7 @@ class Header extends BaseComponent {
     render() {
         return (
             <Grid container style={styles.container}>
-                <Grid container xs={11} style={styles.subContainer}>
+                <Grid container xs={10} style={styles.subContainer}>
 
                     <Grid xs={8}>
 
