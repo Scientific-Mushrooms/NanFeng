@@ -10,7 +10,7 @@ import { BaseComponent } from '../../components/BaseComponent';
 
 
 export class SignIn extends BaseComponent {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -59,7 +59,7 @@ export class SignIn extends BaseComponent {
 
     render() {
         return (
-            <Grid direction='row' alignItems='center' container>
+            <Grid  direction='row' alignItems='center' container>
                 {this._renderLeftPanel()}
                 {this._renderLoginPanel()}
             </Grid>
@@ -69,7 +69,7 @@ export class SignIn extends BaseComponent {
     _renderLeftPanel(){
         return(
             <Grid sm={6} justify='center'  container>
-                <div>sth here</div>
+                <div >sth here</div>
             </Grid>
         );
 
@@ -112,7 +112,7 @@ export class SignIn extends BaseComponent {
                                 >LOGIN</Button>
                         </Grid>
                     </CardBody>
-                </Card>          
+                </Card>
                 <Button style={{width:"100%"}} onClick={this.goBack}>Go Back</Button>
             </Grid>
         );
@@ -125,9 +125,7 @@ export class SignIn extends BaseComponent {
 
 const styles = {
 
-    wrapper: {
-        paddingBottom: '500px'
-    },
+
 
     container: {
         width: '400px',

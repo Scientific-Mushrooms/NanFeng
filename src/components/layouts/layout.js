@@ -41,11 +41,11 @@ class Layout extends Component {
     render() {
 
         return (
-            <Grid container>
-            
-                <Header /> 
-                     
-                <Grid container style={styles.bottomContainer}>
+            <Grid direction="column" container>
+              <Grid item>
+                  <Header />
+              </Grid>
+                <Grid item>
                     <Grid  xs={11} >
                         <Switch>
                             {this.createRoutes(this.flatWrapper(dashboardRoutes))}
@@ -82,7 +82,6 @@ const styles = {
 
     bottomContainer: {
         justifyContent: 'center',
-        paddingTop: '20px',
         backgroundColor: '#f3f5f9',
     }
 };
