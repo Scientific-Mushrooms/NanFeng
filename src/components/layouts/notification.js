@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { hide_notification } from '../../redux/actions/action'
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
+import {Grid, Snackbar, SnackbarContent, Icon, Typography } from '@material-ui/core';
 
 
 
@@ -23,14 +22,24 @@ class Notification extends Component {
         if(this.props.kind=='danger'){
             return(
             <SnackbarContent
-                style={{backgroundColor:'red'}}
-                message={<span>{this.props.reason}</span>}
+                style={{backgroundColor:'red',borderRadius:'10px'}}
+                message={<span>
+                    <Grid direction='row' alignItems='center' container>
+                        <Icon style={{marginRight:5}}>error</Icon>
+                        <Typography variant='display2' style={{fontSize:"200%",color:"white"}}>{this.props.reason}</Typography>
+                    </Grid>
+                    </span>}
             />)
         }else
             return(
             <SnackbarContent
-                style={{backgroundColor:'black'}}
-                message={<span>{this.props.reason}</span>}
+                style={{backgroundColor:'grey',borderRadius:'10px'}}
+                message={<span>
+                    <Grid direction='row' alignItems='center' container>
+                        <Icon style={{marginRight:5}}>error</Icon>
+                        <Typography variant='display2' style={{fontSize:"200%"}}>{this.props.reason}</Typography>
+                    </Grid>
+                    </span>}
             />)
         //add your type of content here
     }
