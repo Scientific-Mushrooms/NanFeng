@@ -10,8 +10,8 @@ export class CoursePanel extends Component {
             this.props.history.push({ pathname: route.path })
         }
 
-        if(route.name!='Course Create')//handle course create separately
-            return (
+    
+        return (
             <Grid 
             style={styles.btnContainer} 
             alignItems='center' 
@@ -25,7 +25,7 @@ export class CoursePanel extends Component {
                     <Typography variant='button'style={{fontSize:'150%'}}>{route.name}</Typography>
                 </Button>
             </Grid>
-            )
+        )
     }
 
     renderCreateCourse= () => {
@@ -52,7 +52,6 @@ export class CoursePanel extends Component {
         return (
             <Grid style={styles.container} alignItems='center' container>
                 {courseRoutes.map(this.renderButton)}
-                {this.renderCreateCourse()}
             </Grid>
         );
     }

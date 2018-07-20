@@ -41,19 +41,17 @@ class Layout extends Component {
     render() {
 
         return (
-            <Grid direction="column" container>
+            <Grid container>
 
-                <Grid item>
+                <Grid xs={12} style={styles.headerContainer} container>
                     <Header />
                 </Grid>
 
-                <Grid item style={styles.bodyContainer}>
-                    <Grid container style={styles.bodyContainer}>
-                        <Grid xs={10}>
-                            <Switch>
-                                {this.createRoutes(this.flatWrapper(dashboardRoutes))}
-                            </Switch>
-                        </Grid>
+                <Grid  container style={styles.bodyContainer}>
+                    <Grid xs={10}>
+                        <Switch>
+                            {this.createRoutes(this.flatWrapper(dashboardRoutes))}
+                        </Switch>
                     </Grid>
                 </Grid>
 
@@ -66,27 +64,13 @@ class Layout extends Component {
 
 const styles = {
 
-    mainPanel: {
-        overflow: "auto",
-        position: "relative",
-        float: "right",
-        maxHeight: "100%",
-        width: "100%",
-        overflowScrolling: "touch"
-    },
+    headerContainer: {
 
-    content: {
-        marginTop: "70px",
-        padding: "30px 15px",
-        minHeight: "calc(100vh - 123px)"
-    },
-
-    map: {
-        marginTop: "70px"
     },
 
     bodyContainer: {
         justifyContent: 'center',
+        paddingTop: '40px',
         backgroundColor: '#f3f5f9'
     },
 };

@@ -9,6 +9,7 @@ import CourseComments from './components/courseComments';
 import CourseRecommendation from './components/courseRecommendation';
 import CourseIntroduction from './components/courseIntroduction';
 import CourseCard from './components/courseCard';
+import { container } from '../../assets/jss/material-dashboard-react';
 
 
 
@@ -25,21 +26,17 @@ export class CourseDetail extends Component {
         return (
             <Grid container spacing={16}>
 
-                <Grid xs={8}>
+                <Grid xs={9} item>
 
-                    <div>{this.props.location.courseId}</div>
-                  
-                    <CourseCard/>
+                    <CourseCard courseId="2333"/>
 
-                    <CourseIntroduction/>
+                    <CourseIntroduction courseId="2333"/>
 
                     <CourseComments courseId="GIGFI-HFSIHI"/>
 
                 </Grid>
 
-                <Grid xs={1}></Grid>
-
-                <Grid xs={3}>
+                <Grid xs={3} item>
                     
                     <ProfessorCard professorId="FGIHISHIG"/>
 

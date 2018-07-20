@@ -124,7 +124,17 @@ const mainRoutes = [
                 path: "/courseDetail",
                 name: "Course detail",
                 icon: 'assignment',
-                component: connect(mapStateToProps)(Screens.CourseDetail)
+                component: connect(mapStateToProps)(Screens.CourseDetail),
+                children: [
+
+                    {
+                        path: "/sectionCreate",
+                        name: "Course Create",
+                        icon: 'add',
+                        component: connect(mapStateToProps)(Screens.SectionCreate)
+                    },
+
+                ]
             },
 
             {
