@@ -6,7 +6,6 @@ import {
     ExpansionPanelDetails, Typography, Icon, Card, LinearProgress} from '@material-ui/core';
 import ProfessorCard from './components/professorCard';
 import CourseComments from './components/courseComments';
-import CourseRecommendation from './components/courseRecommendation';
 import CourseIntroduction from './components/courseIntroduction';
 import CourseCard from './components/courseCard';
 import { container } from '../../assets/jss/material-dashboard-react';
@@ -39,8 +38,6 @@ export class CourseDetail extends Component {
                 <Grid xs={3} item>
                     
                     <ProfessorCard professorId="FGIHISHIG"/>
-
-                    <CourseRecommendation/>
 
                 </Grid>
 

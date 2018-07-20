@@ -2,20 +2,21 @@ import React, { Component } from "react";
 import { BaseComponent } from '../../components/BaseComponent';
 import { Divider, Grid, Button, Typography, Input, TextField, Popover} from '@material-ui/core';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
-import InfiniteCalendar from 'react-infinite-calendar';
 import { FormControl, FormGroup, ControlLabel, HelpBlock, DropdownButton, MenuItem, InputGroup, Textarea} from 'react-bootstrap';
 import 'react-infinite-calendar/styles.css';
 import {moment} from 'moment';
-
+import ImageUploader from 'react-images-upload';
 
 export class CourseCreate extends BaseComponent {
 
     constructor(props) {
         super(props);
         this.state = {
-
+            name: null,
+            code: null,
+            introduction: null,
+            credit: null,
+            avatar: [],
         };
     }
 
@@ -24,18 +25,33 @@ export class CourseCreate extends BaseComponent {
     }
 
     createCourse = () => {
+
         let form = new FormData();
         form.append("name", this.state.name);
         form.append("code", this.state.code);
+        form.append("introduction", this.state.introduction);
+        form.append("credit", this.state.credit);
+
+        form.append('avatar', this.state.avatar[0]);
 
         this.post('/api/course/create', form).then((result) => {
+
             if (!result) {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
+
             } else if (result.status === 'fail') {
                 this.pushNotification("danger", result.description, this.props.dispatch);
-            } else {
+
+            } else if (result.status === 'success') {
+
                 this.pushNotification("success", "233333", this.props.dispatch);
+                alert(JSON.stringify(result.detail))
+
+            } else {
+                alert(JSON.stringify(result))
+                this.pushNotification("danger", "unknown error", this.props.dispatch);
             }
+
         })
     }
 
@@ -52,85 +68,47 @@ export class CourseCreate extends BaseComponent {
         )
     }
 
-    renderStartDate = () => {
 
-        var handleStartDate = (date) => {
-            this.setState({ startDate: date })
-        }
 
-        var handleClick = (event) => {
-            this.setState({ parentStart: event.currentTarget });
-        };
+    // renderEndDate = () => {
 
-        var handleClose = () => {
-            this.setState({ parentStart: null });
-        };
+    //     var handleEndDate = (date) => {
+    //         this.setState({ endDate: date })
+    //     }
 
-        return (
-            <Grid style={styles.inputContainer} container>
-                <Grid xs={3} style={styles.textContainer} container>
-                    <Typography style={styles.text}>Start Date :</Typography>
-                </Grid>
-                <Grid xs={9} style={styles.textContinaer} container>
-                    <Button variant="contained" onClick={handleClick}>
-                        {JSON.stringify(this.state.startDate)}
-                    </Button>
-                    <Popover
-                        open={Boolean(this.state.parentStart)}
-                        anchorEl={this.state.parentStart}
-                        onClose={handleClose}
-                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                        >
-                        <InfiniteCalendar
-                            displayOptions={{ showHeader: false, shouldHeaderAnimate: false, showTodayHelper: false }}
-                            onSelect={handleStartDate}
-                            />
-                    </Popover>
-                </Grid>
-            </Grid>
-        )
-    }
+    //     var handleClick = (event) => {
+    //         this.setState({ parentEnd: event.currentTarget });
+    //     };
 
-    renderEndDate = () => {
+    //     var handleClose = () => {
+    //         this.setState({ parentEnd: null });
+    //     };
 
-        var handleEndDate = (date) => {
-            this.setState({ endDate: date })
-        }
-
-        var handleClick = (event) => {
-            this.setState({ parentEnd: event.currentTarget });
-        };
-
-        var handleClose = () => {
-            this.setState({ parentEnd: null });
-        };
-
-        return (
-            <Grid style={styles.inputContainer} container>
-                <Grid xs={3} style={styles.textContainer} container>
-                    <Typography style={styles.text}>End Date :</Typography>
-                </Grid>
-                <Grid xs={9} style={styles.textContinaer} container>
-                    <Button variant="contained" onClick={handleClick}>
-                        {JSON.stringify(this.state.endDate)}
-                    </Button>
-                    <Popover
-                        open={Boolean(this.state.parentEnd)}
-                        anchorEl={this.state.parentEnd}
-                        onClose={handleClose}
-                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    >
-                        <InfiniteCalendar
-                            displayOptions={{ showHeader: false, shouldHeaderAnimate: false, showTodayHelper: false }}
-                            onSelect={handleEndDate}
-                        />
-                    </Popover>
-                </Grid>
-            </Grid>
-        )
-    }
+    //     return (
+    //         <Grid style={styles.inputContainer} container>
+    //             <Grid xs={3} style={styles.textContainer} container>
+    //                 <Typography style={styles.text}>End Date :</Typography>
+    //             </Grid>
+    //             <Grid xs={9} style={styles.textContinaer} container>
+    //                 <Button variant="contained" onClick={handleClick}>
+    //                     {JSON.stringify(this.state.endDate)}
+    //                 </Button>
+    //                 <Popover
+    //                     open={Boolean(this.state.parentEnd)}
+    //                     anchorEl={this.state.parentEnd}
+    //                     onClose={handleClose}
+    //                     anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+    //                     transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+    //                 >
+    //                     <InfiniteCalendar
+    //                         displayOptions={{ showHeader: false, shouldHeaderAnimate: false, showTodayHelper: false }}
+    //                         onSelect={handleEndDate}
+    //                     />
+    //                 </Popover>
+    //             </Grid>
+    //         </Grid>
+    //     )
+    // }
 
     renderIntroduction = (name, variable) => {
         return (
@@ -140,6 +118,36 @@ export class CourseCreate extends BaseComponent {
                 </Grid>
                 <Grid xs={9} container>
                     <FormControl componentClass="textarea" onChange={this.handleChange(variable)} multilple style={styles.introContainer} rows={4}/>
+                </Grid>
+            </Grid>
+        )
+    }
+
+    renderChooseAvatar = () => {
+
+        var onChange = (avatar) => {
+            this.setState({
+                avatar: this.state.avatar.concat(avatar)
+            });
+            
+        } 
+
+        return (
+            <Grid style={styles.inputContainer} container>
+                <Grid xs={3} style={styles.textContainer} container>
+                    <Typography style={styles.text}>Avatar: </Typography>
+                </Grid>
+                <Grid xs={9} container>
+                    <ImageUploader
+                        withIcon={false}
+                        withLabel={false}
+                        withPreview={true}
+                        buttonText='Choose images'
+                        onChange={onChange}
+                        imgExtension={['.jpg', '.gif', '.png']}
+                        maxFileSize={5242880}
+                        singleImage={true}
+                    />
                 </Grid>
             </Grid>
         )
@@ -156,25 +164,22 @@ export class CourseCreate extends BaseComponent {
                 <Grid xs={4} container>
                     {this.renderTextInput("Code", "code")}
                     {this.renderTextInput("Name", "name")}
-                    {this.renderTextInput("Location", "location")}
-                    {this.renderTextInput("Professor", "professorName")}
                     {this.renderTextInput("Credit", "credit")}
-                    {this.renderTextInput("Avatar", "avatar")}
+
+                    {this.renderChooseAvatar()}
                 </Grid>
 
                 <Grid xs={8} contaienr>
                     
-                    {this.renderStartDate()}
-                    {this.renderEndDate()}
                     
                     {this.renderIntroduction("Introduction", "introduction")}
                    
                
 
 
-                    <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon" title="Action">
-                        <MenuItem key="1">Item</MenuItem>
-                    </DropdownButton>
+                {/* <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon" title="Action">
+                    <MenuItem key="1">Item</MenuItem>
+                </DropdownButton> */}
 
                     
  
