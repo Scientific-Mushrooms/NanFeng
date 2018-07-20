@@ -20,7 +20,7 @@ export class CoursePanel extends Component {
                 style={styles.button}
                 size="large"
                 variant="fab"
-                onClick={this.onClick}>
+                onClick={onClick}>
                     <Icon style={styles.icon}> {route.icon} </Icon>
                     <Typography variant='button'style={{fontSize:'150%'}}>{route.name}</Typography>
                 </Button>
