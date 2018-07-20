@@ -42,6 +42,13 @@ const mainRoutes = [
                 icon: "dashboard",
                 component: connect(mapStateToProps)(Screens.SignUp)
             },
+
+            {
+                path: "/userprofile",
+                sidebarName: "Dashboard",
+                icon: "dashboard",
+                component: connect(mapStateToProps)(Screens.UserProfile)
+            },
         ]
     },
 

@@ -5,22 +5,6 @@ import AddIcon from '@material-ui/icons/Add';
 
 export class CoursePanel extends Component {
 
-    onClickMyCourse= () =>{
-        this.props.history.push({ pathname: '/myCourse' })
-    }
-
-    onClickCourseDetail= () =>{
-        this.props.history.push({ pathname: '/courseDetail' })
-    }
-
-    onClickCourseList = () => {
-        this.props.history.push({ pathname: '/courseList' })
-    }
-    
-    onClickCourseCreate= () =>{
-        this.props.history.push({ pathname: '/courseCreate' })
-    }
-
     renderButton = (route, index) => {
         const onClick = () => {
             this.props.history.push({ pathname: route.path })
