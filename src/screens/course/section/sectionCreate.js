@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { BaseComponent } from '../../components/BaseComponent';
-import { Divider, Grid, Button, Typography, Input, TextField, Popover} from '@material-ui/core';
+import { BaseComponent } from '../../../components/BaseComponent';
+import { Divider, Grid, Button, Typography, Input, TextField, Popover } from '@material-ui/core';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { FormControl, FormGroup, ControlLabel, HelpBlock, DropdownButton, MenuItem, InputGroup, Textarea} from 'react-bootstrap';
+import { FormControl, FormGroup, ControlLabel, HelpBlock, DropdownButton, MenuItem, InputGroup, Textarea } from 'react-bootstrap';
 import 'react-infinite-calendar/styles.css';
-import {moment} from 'moment';
+import { moment } from 'moment';
 import ImageUploader from 'react-images-upload';
 
-export class CourseCreate extends BaseComponent {
+export class SectionCreate extends BaseComponent {
 
     constructor(props) {
         super(props);
@@ -15,7 +15,6 @@ export class CourseCreate extends BaseComponent {
             name: null,
             code: null,
             introduction: null,
-            credit: null,
             avatar: [],
         };
     }
@@ -68,46 +67,6 @@ export class CourseCreate extends BaseComponent {
 
 
 
-    // renderEndDate = () => {
-
-    //     var handleEndDate = (date) => {
-    //         this.setState({ endDate: date })
-    //     }
-
-    //     var handleClick = (event) => {
-    //         this.setState({ parentEnd: event.currentTarget });
-    //     };
-
-    //     var handleClose = () => {
-    //         this.setState({ parentEnd: null });
-    //     };
-
-    //     return (
-    //         <Grid style={styles.inputContainer} container>
-    //             <Grid xs={3} style={styles.textContainer} container>
-    //                 <Typography style={styles.text}>End Date :</Typography>
-    //             </Grid>
-    //             <Grid xs={9} style={styles.textContinaer} container>
-    //                 <Button variant="contained" onClick={handleClick}>
-    //                     {JSON.stringify(this.state.endDate)}
-    //                 </Button>
-    //                 <Popover
-    //                     open={Boolean(this.state.parentEnd)}
-    //                     anchorEl={this.state.parentEnd}
-    //                     onClose={handleClose}
-    //                     anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-    //                     transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-    //                 >
-    //                     <InfiniteCalendar
-    //                         displayOptions={{ showHeader: false, shouldHeaderAnimate: false, showTodayHelper: false }}
-    //                         onSelect={handleEndDate}
-    //                     />
-    //                 </Popover>
-    //             </Grid>
-    //         </Grid>
-    //     )
-    // }
-
     renderIntroduction = (name, variable) => {
         return (
             <Grid style={styles.inputContainer} container>
@@ -115,7 +74,7 @@ export class CourseCreate extends BaseComponent {
                     <Typography style={styles.text}>{name} :</Typography>
                 </Grid>
                 <Grid xs={9} container>
-                    <FormControl componentClass="textarea" onChange={this.handleChange(variable)} multilple style={styles.introContainer} rows={4}/>
+                    <FormControl componentClass="textarea" onChange={this.handleChange(variable)} multilple style={styles.introContainer} rows={4} />
                 </Grid>
             </Grid>
         )
@@ -127,8 +86,8 @@ export class CourseCreate extends BaseComponent {
             this.setState({
                 avatar: this.state.avatar.concat(avatar)
             });
-            
-        } 
+
+        }
 
         return (
             <Grid style={styles.inputContainer} container>
@@ -168,19 +127,19 @@ export class CourseCreate extends BaseComponent {
                 </Grid>
 
                 <Grid xs={8} contaienr>
-                    
-                    
+
+
                     {this.renderIntroduction("Introduction", "introduction")}
-                   
-               
 
 
-                {/* <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon" title="Action">
+
+
+                    {/* <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon" title="Action">
                     <MenuItem key="1">Item</MenuItem>
                 </DropdownButton> */}
 
-                    
- 
+
+
                 </Grid>
 
                 <Grid xs={12}>
