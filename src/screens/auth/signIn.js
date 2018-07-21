@@ -24,6 +24,10 @@ export class SignIn extends BaseComponent {
         this.props.history.goBack();
     }
 
+    signUp = () => {
+        this.props.history.push({ pathname: "/signup" })
+    }
+
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
@@ -110,6 +114,14 @@ export class SignIn extends BaseComponent {
                                 color='primary'
                                 onClick={this.login}
                                 >LOGIN</Button>
+                        </Grid>
+                        <Grid xs={12}>
+                            <Button
+                            size="large"
+                            style={styles.button}
+                            color='primary'
+                            onClick={this.signUp}
+                            >Be A New Member</Button>
                         </Grid>
                     </CardBody>
                 </Card>
