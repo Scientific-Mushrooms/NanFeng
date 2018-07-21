@@ -1,9 +1,10 @@
 import React, {Component} from "react";
 import { BaseComponent } from '../../components/BaseComponent';
 import ImageUploader from 'react-images-upload';
-import { Divider, Grid, Button, Typography, Input, TextField, Popover} from '@material-ui/core';
+import { Divider, Grid, Button, Typography, Icon, TextField, Popover} from '@material-ui/core';
 
 import { FormControl} from 'react-bootstrap';
+import notification from "../../components/layouts/notification";
 
 export class UserProfile extends BaseComponent {
 
@@ -22,27 +23,30 @@ export class UserProfile extends BaseComponent {
         };
     }
 
-    componentWillMount(){
+    componentDidMount(){
         //get info from server
         //once done
-        this.state.infoLoaded=false
+        this.setState({infoLoaded:true})
     }
 
-    _handleChange = (variable) => {
-        if(this.state.infoLoaded==true)
+    _handleChange = variable => event => {
+        if(this.state.infoLoaded==true){
             if(this.state.infoChange==false&&(variable=='email'||variable=='name'))
                 this.setState({infoChange:true})
-        this.handleChange(variable)
+            if(this.state.passChange==false&&(variable=='oldPass'||variable=='newPass'||variable=='reNewPass'))
+                this.setState({passChange:true})
+        }
+        this.setState({
+            [variable]: event.target.value,
+        });
     }
 
     renderChooseAvatar = () => {
-
         var onChange = (avatar) => {
             this.setState({
                 infoChange:true,
                 avatar: this.state.avatar.concat(avatar)
-            });
-            
+            });     
         } 
 
         return (
@@ -69,6 +73,25 @@ export class UserProfile extends BaseComponent {
                 <FormControl type="text" onChange={this._handleChange(variable)} />
             </Grid>
         )
+    }
+
+    renderPassInput=(name, variable) => {
+        return (
+            <Grid style={styles.inputContainer} xs={8} container>
+                <Typography style={styles.typography}>{name} :</Typography>
+                <FormControl  type="password" onChange={this._handleChange(variable)} />
+            </Grid>
+        )
+    }
+
+    renderPassWarning= () => {
+        if(this.state.passChange==true&&this.state.reNewPass!=this.state.newPass)
+            return(
+                 <Grid direction='row' alignItems='center' xs={4} container>
+                    <Icon style={{color:'red'}}>warning</Icon>
+                    <Typography style={styles.warning}>Repassword Wrong</Typography>
+                </Grid>
+            )
     }
 
     render(){
@@ -98,9 +121,17 @@ export class UserProfile extends BaseComponent {
                 <Grid style={styles.container} direction='column' container xs={8}>
                     <Typography variant='display2'>Security Settings</Typography>
                     <Divider/>
-                    {this.renderTextInput("Old Password","oldPass")}
-                    {this.renderTextInput("New Password","newPass")}
-                    {this.renderTextInput("Confirm New Password","reNewPass")}
+                    {this.renderPassInput("Old Password","oldPass")}
+                    {this.renderPassInput("New Password","newPass")}
+                    <Grid style={styles.inputContainer}direction='row' container xs={12}>
+                        <Typography style={styles.typography}>Confirm New Password :</Typography>
+                        <Grid direction='row' container>
+                            <Grid xs={8}>
+                                <FormControl  type="password" onChange={this._handleChange("reNewPass")} />
+                            </Grid>
+                            {this.renderPassWarning()}
+                        </Grid>
+                    </Grid>
                     <Grid justify='center' container xs={8}>
                         <Button  
                         mini
@@ -116,6 +147,10 @@ export class UserProfile extends BaseComponent {
             </Grid>
         );
     }
+
+    changePass= () => {
+        this.pushNotification("danger", this.state.newPass, this.props.dispatch);
+    }
 }
 
 
@@ -128,6 +163,11 @@ const styles = {
     },
 
     typography:{
+        fontSize:'130%'
+    },
+
+    warning:{
+        color:"red",
         fontSize:'130%'
     },
 
