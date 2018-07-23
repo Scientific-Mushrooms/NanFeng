@@ -36,6 +36,10 @@ export class CourseDetail extends Component {
                 </Grid>
 
                 <Grid xs={3} item>
+
+                    <Card>
+                        <Button>Create Section</Button>
+                    </Card>
                     
                     <ProfessorCard professorId="FGIHISHIG"/>
 

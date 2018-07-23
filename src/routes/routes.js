@@ -2,7 +2,6 @@ import * as Screens from "../screens";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
-import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 
 const mapStateToProps = state => ({
@@ -44,7 +43,7 @@ const mainRoutes = [
             },
 
             {
-                path: "/userprofile",
+                path: "/userProfile",
                 sidebarName: "Dashboard",
                 icon: "dashboard",
                 component: connect(mapStateToProps)(Screens.UserProfile)
@@ -88,37 +87,6 @@ const mainRoutes = [
         icon: "view_headline",
         component: withRouter(connect(mapStateToProps)(Screens.CoursePanel)),
         children: [
-
-            {
-                path: "/myCourse",
-                name: "My Course",
-                icon: 'assignment_ind',
-                component: connect(mapStateToProps)(Screens.MyCourse),
-                children: [
-
-                    {
-                        path: "/courseHome",
-                        name: "Course Home",
-                        icon: 'code',
-                        component: connect(mapStateToProps)(Screens.CourseHome)
-                    },
-
-                    {
-                        path: "/courseDiscussion",
-                        name: "Course Home",
-                        icon: 'code',
-                        component: connect(mapStateToProps)(Screens.CourseHome)
-                    },
-
-                    {
-                        path: "/courseTest",
-                        name: "Course Home",
-                        icon: 'code',
-                        component: connect(mapStateToProps)(Screens.CourseHome)
-                    },
-
-                ]
-            },
 
             {
                 path: "/courseDetail",

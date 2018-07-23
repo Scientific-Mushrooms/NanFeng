@@ -4,11 +4,10 @@ import Button from '@material-ui/core/Button';
 import LoginBox from '../boxes/loginBox';
 import Grid from '@material-ui/core/Grid';
 
-import { loginBoxShow, logout, show_notification, hide_notification } from '../../redux/actions/action';
+import { logout } from '../../redux/actions/action';
 
 import { connect } from 'react-redux';
 import { Popover, Icon, Typography, IconButton } from '@material-ui/core';
-import Notification from '../layouts/notification';
 import { BaseComponent } from '../BaseComponent';
 import Avatar from '@material-ui/core/Avatar';
 import { NavLink, withRouter } from "react-router-dom";
@@ -52,6 +51,10 @@ class Header extends BaseComponent {
         this.props.dispatch(logout());
     }
 
+    goToUserProfile = () => {
+        this.props.history.push("/userProfile")
+    }
+
     renderUserPopover = () => {
 
         if (this.props.user === null) {
@@ -67,14 +70,14 @@ class Header extends BaseComponent {
                 transformOrigin={{ vertical: 'top', horizontal: 'center',}}
                 >
                 <List component="nav">
-                    <ListItem button >
-                      <Typography>My Uploads</Typography>
+                    <ListItem button onClick={this.goToUserProfile}>
+                        <Typography>Profile</Typography>
                     </ListItem>
                     <ListItem button >
-                      <Typography>Help</Typography>
+                        <Typography>Help</Typography>
                     </ListItem>
                     <ListItem button >
-                      <Typography>Settings</Typography>
+                        <Typography>Settings</Typography>
                     </ListItem>
                 </List>
             </Popover>

@@ -13,6 +13,7 @@ export class SignIn extends BaseComponent {
 
     constructor(props) {
         super(props);
+
         this.state = {
             register: false,
             email: '',

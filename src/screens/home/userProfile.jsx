@@ -5,16 +5,22 @@ import { Divider, Grid, Button, Typography, Icon, TextField, Popover} from '@mat
 
 import { FormControl} from 'react-bootstrap';
 import notification from "../../components/layouts/notification";
+import { login } from '../../redux/actions/action';
 
 export class UserProfile extends BaseComponent {
 
     constructor(props) {
         super(props);
+        if (this.props.user === null) {
+            this.props.history.goBack();
+        }
         this.state = {
             infoLoaded:false,
             infoChange:false,
-            email: null,
-            name: null,
+
+            email: this.props.user.nickName,
+            nickName: this.props.user.nickName,
+
             avatar: [],
             passChange:false,
             oldPass:null,
@@ -42,6 +48,7 @@ export class UserProfile extends BaseComponent {
     }
 
     renderChooseAvatar = () => {
+
         var onChange = (avatar) => {
             this.setState({
                 infoChange:true,
@@ -66,11 +73,11 @@ export class UserProfile extends BaseComponent {
         )
     }
 
-    renderTextInput = (name, variable) => {
+    renderTextInput = (name, variable, value) => {
         return (
             <Grid style={styles.inputContainer} xs={8} container>
                 <Typography style={styles.typography}>{name} :</Typography>
-                <FormControl type="text" onChange={this._handleChange(variable)} />
+                <FormControl type="text" value={value} onChange={this.handleChange(variable)} />
             </Grid>
         )
     }
@@ -104,34 +111,65 @@ export class UserProfile extends BaseComponent {
         }
     }
 
-    changeInfo = () => {
-        //post here
+    save = () => {
+
+        let form = new FormData();
+        form.append("userId", this.props.user.userId);
+        form.append("nickName", this.state.nickName);
+
+        this.post('/api/user/updateNickName', form).then((result) => {
+
+            if (!result) {
+                this.pushNotification("danger", "Connection error", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.description, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+                
+                this.props.dispatch(login(result.deatail))
+                this.pushNotification("success", "successfully update info", this.props.dispatch);
+
+            } else {
+                alert(JSON.stringify(result))
+                this.pushNotification("danger", "unknown error", this.props.dispatch);
+            }
+
+        })
     }
 
     render(){
         return (
             <Grid alignItems='center' direction='column' container>
+
                 <Grid container xs={8}>
                     <Typography variant='display3'>Your Profile</Typography>
                 </Grid>
-                <Grid style={styles.container}direction='column' container xs={8}>
+
+                <Grid style={styles.container} direction='column' container xs={8}>
+
                     <Typography variant='display2'>Info Settings</Typography>
-                    <Divider/>
-                    {this.renderTextInput("Nickname","name")}
-                    {this.renderTextInput("Email","email")}
+
+                    <Grid style={styles.inputContainer} xs={8} container>
+                        <Typography style={styles.typography}>NickName :</Typography>
+                        <FormControl type="text" value={this.state.nickName} onChange={this.handleChange("nickName")} />
+                    </Grid>
+
+                    <Grid style={styles.inputContainer} xs={8} container>
+                        <Typography style={styles.typography}>Email :</Typography>
+                        <FormControl type="text" value={this.state.email} onChange={this.handleChange("email")} />
+                    </Grid>
+
                     {this.renderChooseAvatar()}
+
                     <Grid justify='center' container xs={8}>
-                        <Button  
-                        mini
-                        style={styles.button}
-                        variant='fab'
-                        disabled={!this.state.infoChange} 
-                        onClick={this.changeInfo}
-                        >
-                            <Typography variant='button'style={{fontSize:'50%'}}>Save Info</Typography>
+                        <Button style={styles.button} onClick={this.save} >
+                            save
                         </Button>
                     </Grid>
+
                 </Grid>
+
                 <Grid style={styles.container} direction='column' container xs={8}>
                     <Typography variant='display2'>Security Settings</Typography>
                     <Divider/>
@@ -148,12 +186,12 @@ export class UserProfile extends BaseComponent {
                     </Grid>
                     <Grid justify='center' container xs={8}>
                         <Button  
-                        mini
-                        style={styles.button}
-                        variant='fab'
-                        disabled={!this.state.passChange} 
-                        onClick={this.changePass}
-                        >
+                            mini
+                            style={styles.button}
+                            variant='fab'
+                            disabled={!this.state.passChange} 
+                            onClick={this.changePass}
+                            >
                             <Typography variant='button'style={{fontSize:'50%'}}>Change Password</Typography>
                         </Button>
                     </Grid>
