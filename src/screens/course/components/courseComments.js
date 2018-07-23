@@ -61,33 +61,30 @@ export default class CourseComments extends Component {
                     <Typography>{comment.content}</Typography>
                 </Grid>
 
-                <Grid xs={3}>
+                <Grid xs={4}>
 
                     <Grid xs={12} container>
-                        <Grid xs={6}>
-                            <Typography>Useful?</Typography>
+                        <Grid xs={3}>
+                            <Grid style={styles.text}>Useful?</Grid>
                         </Grid>
-                        <Grid xs={6}>
-                            <Typography>No</Typography>
-                        </Grid>
+                        <Button>Yes</Button>
+                        <Button>No</Button>
                     </Grid>
 
                     <Grid xs={12} container>
-                        <Grid xs={6}>
-                            <Typography>Useful?</Typography>
+                        <Grid xs={3}>
+                            <Grid style={styles.text}>Easy?</Grid>
                         </Grid>
-                        <Grid xs={6}>
-                            <Typography>yes</Typography>
-                        </Grid>
+                        <Button>Yes</Button>
+                        <Button>No</Button>
                     </Grid>
 
                     <Grid xs={12} container>
-                        <Grid xs={6}>
-                            <Typography>Easy?</Typography>
+                        <Grid xs={3}>
+                            <Grid style={styles.text}>Like it?</Grid>
                         </Grid>
-                        <Grid xs={6}>
-                            <Typography>Yes</Typography>
-                        </Grid>
+                        <Button>Yes</Button>
+                        <Button>No</Button>
                     </Grid>
 
                 </Grid>
@@ -100,8 +97,7 @@ export default class CourseComments extends Component {
             <Card  >
 
                 <Grid container style={styles.container}>
-                    <Grid xs={10}>
-
+                    <Grid xs={12}>
                         <Grid xs={7}>
                             <Button style={styles.headerContainer}>
                                 <Typography style={styles.header}>Course Comments</Typography>
@@ -175,12 +171,14 @@ const styles = {
 
     text: {
         textAlign: 'center',
+        marginTop: '8px',
     },
 
     headerContainer: {
         fontSize: '30px',
         marginTop: '30px',
         marginBottom: '30px',
+        marginLeft: '20px',
         backgroundColor: '#62d0f1'
     },
 
@@ -190,22 +188,23 @@ const styles = {
     },
 
     commentContainer: {
-        marginBottom: '20px'
+        marginBottom: '20px',
+        width:'100%',
     },
 
     avatarContaienr: {
-        justifyContent: 'flex-end'
+        justifyContent: 'center'
     },
 
     textContainer: {
         marginTop: '5px',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
     },
 
     contentContainer: {
         backgroundColor: '#caf6ff',
         borderRadius: '5px',
-        marginLeft: '20px'
-    }
+    },
+
 
 }
