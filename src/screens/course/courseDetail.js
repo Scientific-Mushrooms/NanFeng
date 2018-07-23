@@ -38,7 +38,10 @@ export class CourseDetail extends Component {
                 <Grid xs={3} item>
 
                     <Card>
-                        <Button>Create Section</Button>
+                        <Button
+                            style={styles.button}
+                            color="primary"
+                        >Create Section</Button>
                     </Card>
                     
                     <ProfessorCard professorId="FGIHISHIG"/>
@@ -51,6 +54,12 @@ export class CourseDetail extends Component {
 }
 
 const styles = {
+
+    button: {
+        width: '100%',
+        color: '#404040',
+        backgroundColor: '#bcb8a8',
+    },
 
 
 }
