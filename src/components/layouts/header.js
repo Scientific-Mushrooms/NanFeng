@@ -184,7 +184,7 @@ class Header extends BaseComponent {
 
                 <Button onClick={this.handleClick("userPopover")} style={styles.iconButton} >
                     <Avatar style={styles.avatar}>猫</Avatar>
-                    <div style={styles.text}>{this.props.user.name}</div>
+                    <div style={styles.text}>{this.props.user.nickName}</div>
                 </Button>
 
             </Grid>

@@ -5,22 +5,15 @@ import { Divider, Grid, Button, Typography, Icon, TextField, Popover} from '@mat
 
 import { FormControl} from 'react-bootstrap';
 import notification from "../../components/layouts/notification";
-import { login } from '../../redux/actions/action';
+import { login, update } from '../../redux/actions/action';
 
 export class UserProfile extends BaseComponent {
 
     constructor(props) {
         super(props);
-        if (this.props.user === null) {
-            this.props.history.goBack();
-        }
         this.state = {
-            infoLoaded:false,
-            infoChange:false,
-
-            email: this.props.user.nickName,
-            nickName: this.props.user.nickName,
-
+            email: null,
+            nickName: null,
             avatar: [],
             passChange:false,
             oldPass:null,
@@ -29,22 +22,16 @@ export class UserProfile extends BaseComponent {
         };
     }
 
-    componentDidMount(){
-        //get info from server
-        //once done
-        this.setState({infoLoaded:true})
-    }
-
-    _handleChange = variable => event => {
-        if(this.state.infoLoaded==true){
-            if(this.state.infoChange==false&&(variable=='email'||variable=='name'))
-                this.setState({infoChange:true})
-            if(this.state.passChange==false&&(variable=='oldPass'||variable=='newPass'||variable=='reNewPass'))
-                this.setState({passChange:true})
+    componentWillMount() {
+        if (this.props.user === null) {
+            this.props.history.push("/home");
+        } else {
+            var {nickName, email} = this.props.user;
+            this.setState({
+                nickName: nickName,
+                email: email,
+            })
         }
-        this.setState({
-            [variable]: event.target.value,
-        });
     }
 
     renderChooseAvatar = () => {
@@ -86,7 +73,7 @@ export class UserProfile extends BaseComponent {
         return (
             <Grid style={styles.inputContainer} xs={8} container>
                 <Typography style={styles.typography}>{name} :</Typography>
-                <FormControl  type="password" onChange={this._handleChange(variable)} />
+                <FormControl  type="password" onChange={this.handleChange(variable)} />
             </Grid>
         )
     }
@@ -117,7 +104,7 @@ export class UserProfile extends BaseComponent {
         form.append("userId", this.props.user.userId);
         form.append("nickName", this.state.nickName);
 
-        this.post('/api/user/updateNickName', form).then((result) => {
+        this.post('/api/user/update', form).then((result) => {
 
             if (!result) {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
@@ -127,11 +114,11 @@ export class UserProfile extends BaseComponent {
 
             } else if (result.status === 'success') {
                 
-                this.props.dispatch(login(result.deatail))
+                this.props.dispatch(update(result.detail))
                 this.pushNotification("success", "successfully update info", this.props.dispatch);
 
             } else {
-                alert(JSON.stringify(result))
+                
                 this.pushNotification("danger", "unknown error", this.props.dispatch);
             }
 
@@ -179,7 +166,7 @@ export class UserProfile extends BaseComponent {
                         <Typography style={styles.typography}>Confirm New Password :</Typography>
                         <Grid direction='row' container>
                             <Grid xs={8}>
-                                <FormControl  type="password" onChange={this._handleChange("reNewPass")} />
+                                <FormControl  type="password" onChange={this.handleChange("reNewPass")} />
                             </Grid>
                             {this.renderPassWarning()}
                         </Grid>

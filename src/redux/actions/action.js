@@ -1,6 +1,8 @@
-export const login = (info) => ({ type: 'LOGIN', info: info });
+export const login = (user) => ({ type: 'LOGIN', user: user });
 
 export const logout = () => ({ type: 'LOGOUT'});
+
+export const update = (user) => ({ type: 'USER_UPDATE', user: user });
 
 export const loginBoxShow = { type: 'LOGINBOX_SHOW' };
 
