@@ -93,7 +93,7 @@ class ProfessorCard extends Component {
                     <LinearProgress color="secondary" variant="buffer" value={positive} valueBuffer={total} style={styles.rating} />
                 </Grid>
                 <Grid xs={3}>
-                    <Typography style={styles.ratingText}>{positive / total}%  {total} ratings</Typography>
+                    <Typography style={styles.ratingText}>{positive / total}%</Typography>
                 </Grid>
             </Grid>
         )
@@ -177,6 +177,7 @@ const styles = {
     courseAvatar: {
         width: '100px',
         height: '100px',
+        borderRadius: '5px',
     },
 
     ratingContainer: {
@@ -206,7 +207,7 @@ const styles = {
     },
 
     ratingText: {
-        textAlign: 'right'
+        textAlign: 'center'
     },
 
     professorCard: {
