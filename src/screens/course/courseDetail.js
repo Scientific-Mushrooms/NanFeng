@@ -21,17 +21,21 @@ export class CourseDetail extends Component {
         };
     }
 
+
     render() {
+
+        const {courseId} = this.state;
+
         return (
             <Grid container spacing={16}>
 
                 <Grid xs={9} item>
 
-                    <CourseCard courseId="2333"/>
+                    <CourseCard courseId={courseId}/>
 
-                    <CourseIntroduction courseId="2333"/>
+                    <CourseIntroduction courseId={courseId}/>
 
-                    <CourseComments courseId="GIGFI-HFSIHI"/>
+                    <CourseComments courseId={courseId}/>
 
                 </Grid>
 
@@ -41,7 +45,7 @@ export class CourseDetail extends Component {
                         <Button>Create Section</Button>
                     </Card>
                     
-                    <ProfessorCard professorId="FGIHISHIG"/>
+                    <ProfessorCard courseId={courseId}/>
 
                 </Grid>
 

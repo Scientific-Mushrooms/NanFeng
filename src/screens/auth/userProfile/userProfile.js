@@ -1,17 +1,19 @@
 import React, {Component} from "react";
-import { BaseComponent } from '../../components/BaseComponent';
+import { BaseComponent } from '../../../components/BaseComponent';
 import ImageUploader from 'react-images-upload';
 import { Divider, Grid, Button, Typography, Icon, TextField, Popover} from '@material-ui/core';
 
 import { FormControl} from 'react-bootstrap';
-import notification from "../../components/layouts/notification";
-import { login, update } from '../../redux/actions/action';
+import { update } from '../../../redux/actions/action';
 
 export class UserProfile extends BaseComponent {
 
     constructor(props) {
         super(props);
         this.state = {
+            
+            verified: false,
+
             email: null,
             nickName: null,
             avatar: [],
@@ -88,6 +90,15 @@ export class UserProfile extends BaseComponent {
         }else {
             //post here
         }
+    }
+
+    renderVarifyIdentity = () => {
+        return (
+            <Grid style={styles.inputContainer} xs={8} container>
+                <Typography style={styles.typography}>NickName :</Typography>
+                <FormControl type="text" value={this.state.nickName} onChange={this.handleChange("nickName")} />
+            </Grid>
+        )
     }
 
     save = () => {

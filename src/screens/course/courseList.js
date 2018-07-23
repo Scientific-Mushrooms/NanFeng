@@ -44,28 +44,31 @@ export class CourseList extends BaseComponent {
         })
     }
 
-    onClickCourse = () => {
-        this.props.history.push({ pathname: '/courseDetail', courseId: "KIHISDAF-ASDFIN" })
-    }
-
+    
     renderCourse = (course, index) => {
-        return (
-            <Button style={styles.card} onClick={this.onClickCourse}>
 
+        let onClick = () => {
+            this.props.history.push({ pathname: '/courseDetail', courseId: course.courseId })
+        }
+
+        return (
+            <Button style={styles.card} onClick={onClick}>
                 <Grid container style={styles.courseContainer}>
+
                     <Grid xs={1} style={styles.courseItem}>
                         {course.code}
                     </Grid>
+
                     <Grid xs={3} style={styles.courseItem}>
                         {course.name}
                     </Grid>
+
                     <Grid xs={6} style={styles.courseItem}>
                         {course.introduction}
                     </Grid>
+
                 </Grid>
-
             </Button>
-
         )
     }
 
