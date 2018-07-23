@@ -71,7 +71,7 @@ const styles = {
     bodyContainer: {
         justifyContent: 'center',
         paddingTop: '40px',
-        backgroundColor: '#f3f5f9'
+        backgroundColor: '#fff'
     },
 };
 
