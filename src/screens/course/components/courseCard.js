@@ -34,10 +34,10 @@ export default class CourseCard extends Component {
         return (
             <Grid xs={12} style={styles.courseInfoContainer} container>
                 <Grid xs={3}>
-                    <Typography>{title}</Typography>
+                    <Typography style={styles.courseInfo}>{title}</Typography>
                 </Grid>
-                <Grid xs={7}>
-                    <Typography>{value}</Typography>
+                <Grid xs={5}>
+                    <Typography style={styles.courseInfo}>{value}</Typography>
                 </Grid>
             </Grid>
         )
@@ -49,11 +49,11 @@ export default class CourseCard extends Component {
                 <Grid xs={2}>
                     <Typography style={styles.ratingText}>{title}</Typography>
                 </Grid>
-                <Grid xs={6}>
+                <Grid xs={8}>
                     <LinearProgress color="secondary" variant="buffer" value={positive} valueBuffer={total} style={styles.rating} />
                 </Grid>
-                <Grid xs={3}>
-                    <Typography style={styles.ratingText}>{positive / total}%  {total} ratings</Typography>
+                <Grid xs={2}>
+                    <Typography style={styles.ratingText}>{positive / total}%</Typography>
                 </Grid>
             </Grid>
         )
@@ -84,9 +84,7 @@ export default class CourseCard extends Component {
                         {this.renderRating("Likes", 100, 30)}
 
                     </Grid>
-
                     <Grid xs={4} container>
-
                         {this.renderCourseItem("Code:", course.courseCode)}
 
                         {this.renderCourseItem("Type:", course.courseType)}
@@ -94,13 +92,6 @@ export default class CourseCard extends Component {
                         {this.renderCourseItem("Credit:", course.courseCredit)}
 
                         {this.renderCourseItem("Faculty:", course.courseFaculty)}
-
-                        {this.renderCourseItem("Professor:", course.courseProfessor)}
-
-                        {this.renderCourseItem("Time:", course.courseTime)}
-
-                        {this.renderCourseItem("Location:", course.courseLocation)}
-
                     </Grid>
 
                     <Grid xs={12} style={styles.padding} />
@@ -132,7 +123,7 @@ const styles = {
     courseAvatarContainer: {
         height: '150px',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     courseName: {
@@ -144,6 +135,7 @@ const styles = {
     courseAvatar: {
         width: '100px',
         height: '100px',
+        borderRadius: '5px',
     },
 
     ratingContainer: {
@@ -159,12 +151,18 @@ const styles = {
     },
 
     courseInfoContainer: {
-        justifyContent: 'center'
+        justifyContent: 'center',
+    },
+
+    courseInfo:{
+        fontSize: '15px',
+        textAlign: 'center',
+        marginTop: '30px',
     },
 
     userAvatar: {
         height: '40px',
-        width: '40px'
+        width: '40px',
     },
 
     courseItem: {
@@ -176,7 +174,7 @@ const styles = {
     },
 
     ratingText: {
-        textAlign: 'right'
+        textAlign: 'center',
     }
 
 }
