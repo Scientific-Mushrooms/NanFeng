@@ -123,6 +123,8 @@ export class SignIn extends BaseComponent {
                             onClick={this.signUp}
                             >Be A New Member</Button>
                         </Grid>
+                        <Grid xs={12} style={styles.temp}>
+                        </Grid>
                     </CardBody>
                 </Card>
                 <Button style={{width:"100%"}} onClick={this.goBack}>Go Back</Button>
@@ -150,11 +152,12 @@ const styles = {
     textField: {
         marginLeft: '10px',
         marginRight: '10px',
+        marginBottom: '10px',
     },
 
     button: {
         width: '100%',
-        marginTop: '10px'
+        marginTop: '30px',
     },
 
     modalContainer: {
@@ -176,5 +179,9 @@ const styles = {
     cardHead:{
       display: "flex",
       justifyContent: "center",
+    },
+
+    temp:{
+        marginTop: '20px',
     }
 };
