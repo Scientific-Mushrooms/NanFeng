@@ -1,52 +1,66 @@
-import React, { Component } from "react";
-import { Divider, Grid, Button } from '@material-ui/core';
+import React from "react";
+import { BaseComponent } from '../../components/BaseComponent';
+import { Divider, Grid, Button, CircularProgress } from '@material-ui/core';
 
 
-const courses = [
 
-    {
-        courseId: 'NDHSGAIKL',
-        courseType: 'CS',
-        courseCode: '136',
-        courseName: 'Data Structure',
-        courseProf: 'Dave',
-        courseIntro: 'you will fail',
-        startDate: new Date(),
-        endDate: new Date(),
-    },
+export class CourseList extends BaseComponent {
 
-    {
-        courseId: 'NDHSGAIKL',
-        courseCode: 'CS136',
-        courseName: 'Data Structure',
-        courseProf: 'Dave',
-        courseIntro: 'you will fail',
-        startDate: new Date(),
-        endDate: new Date(),
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: true,
+            courses: [],
+        };
     }
-]
-export class CourseList extends Component {
+
+    componentWillMount = () => {
+        this.fetchCourses()
+    }
+
+    fetchCourses = () => {
+
+        let form = new FormData();
+
+        this.post('/api/course/all', form).then((result) => {
+
+            if (!result) {
+                this.pushNotification("danger", "Connection error", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.description, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+
+                this.setState({courses: result.detail})
+                this.setState({loading: false})
+                this.pushNotification("success", "successfully fetch courses", this.props.dispatch);
+
+            } else {
+
+                this.pushNotification("danger", "unknown error", this.props.dispatch);
+            }
+
+        })
+    }
 
     onClickCourse = () => {
         this.props.history.push({ pathname: '/courseDetail', courseId: "KIHISDAF-ASDFIN" })
     }
 
-    coursesToList = (prop, key) => {
+    renderCourse = (course, index) => {
         return (
             <Button style={styles.card} onClick={this.onClickCourse}>
 
                 <Grid container style={styles.courseContainer}>
                     <Grid xs={1} style={styles.courseItem}>
-                        {prop.courseCode}
+                        {course.code}
                     </Grid>
                     <Grid xs={3} style={styles.courseItem}>
-                        {prop.courseName}
-                    </Grid>
-                    <Grid xs={2} style={styles.courseItem}>
-                        {prop.courseProf}
+                        {course.name}
                     </Grid>
                     <Grid xs={6} style={styles.courseItem}>
-                        {prop.courseIntro}
+                        {course.introduction}
                     </Grid>
                 </Grid>
 
@@ -56,11 +70,18 @@ export class CourseList extends Component {
     }
 
     render() {
+
+        if (this.state.loading) {
+            return (
+                <CircularProgress />
+            )
+        }
+
         return (
             <Grid container>
 
                 <Grid xs={7}>
-                    {courses.map(this.coursesToList)}
+                    {this.state.courses.map(this.renderCourse)}
                 </Grid>
 
                 <Grid xs={1}></Grid>

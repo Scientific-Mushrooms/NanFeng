@@ -60,14 +60,6 @@ export class UserProfile extends BaseComponent {
         )
     }
 
-    renderTextInput = (name, variable, value) => {
-        return (
-            <Grid style={styles.inputContainer} xs={8} container>
-                <Typography style={styles.typography}>{name} :</Typography>
-                <FormControl type="text" value={value} onChange={this.handleChange(variable)} />
-            </Grid>
-        )
-    }
 
     renderPassInput=(name, variable) => {
         return (

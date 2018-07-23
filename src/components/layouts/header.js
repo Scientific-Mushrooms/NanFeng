@@ -112,16 +112,6 @@ class Header extends BaseComponent {
                     <ListItem button >
                         <Typography>hello</Typography>
                     </ListItem>
-                    <ListItem button >
-                        <Typography>greetings</Typography>
-                    </ListItem >
-                    <ListItem button >
-                        <Typography>goodbye</Typography>
-                    </ListItem>
-                    <ListItem button >
-                        <Typography>bye</Typography>
-                    </ListItem>
-
                 </List>
             </Popover>
         )
@@ -166,6 +156,7 @@ class Header extends BaseComponent {
 
 
     renderRight = () => {
+
         if (this.props.user === null) {
             return (
                 <Grid container xs={4} style={styles.subRightContainer}>
@@ -174,6 +165,7 @@ class Header extends BaseComponent {
                 </Grid>
             )
         }
+        
         return (
             <Grid container xs={4} style={styles.subRightContainer}>
 
