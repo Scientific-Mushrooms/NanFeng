@@ -5,10 +5,10 @@ import { squadSet, rankChartSet, dataForTaskChartSet, taskDetailBoxHide, show_no
 export class BaseComponent extends Component {
 
     // server
-    // ip = "http://www.clavier.moe:8080";
+    ip = "http://www.clavier.moe:8080";
     
     // local
-    ip = "http://localhost:8080"; 
+    //ip = "http://localhost:8080"; 
 
     post = (url, form) => {
         return fetch(this.ip + url, { method: 'POST', body: form, header: { 'content-type': 'multipart/form-data'}})
