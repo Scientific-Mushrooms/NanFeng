@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BaseComponent } from '../../../../components/BaseComponent';
-import { Divider, Grid, Button, Typography, Icon, TextField, Popover } from '@material-ui/core';
+import { Divider, Grid, Button, Typography, Card } from '@material-ui/core';
 import { FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
@@ -74,7 +74,7 @@ class InstructorVerification extends BaseComponent {
             return (
                 <Grid container>
                     <Grid xs={3}>
-                        <Typography style={styles.typography}>Real Name :</Typography>
+                        <Typography >Real Name :</Typography>
                     </Grid>
                     <Grid xs={5}>
                         <FormControl type="text" value={this.state.realName} onChange={this.handleChange("realName")} />
@@ -95,25 +95,34 @@ class InstructorVerification extends BaseComponent {
         )
     }
 
+    renderVerifyButton = () => {
+        return (
+            <Grid justify='center' container xs={8}>
+                <Button style={styles.button} onClick={this.save} >
+                    Verify
+                </Button>
+            </Grid>
+        )
+    }
+
    
     render() {
         return (
-            <Grid direction='column' container>
+            <Card>
+                <Grid justify='center' container>
+                    <Grid xs={6} container>
 
-                <Typography variant='display2'>Identity Verification</Typography>
+                            <Typography variant='display2'>Identity Verification</Typography>
 
-                {this.renderRealName()}
+                            {this.renderRealName()}
 
-                {this.renderIdentity()}
+                            {this.renderIdentity()}
 
+                            {this.renderVerifyButton()}
 
-                <Grid justify='center' container xs={8}>
-                    <Button style={styles.button} onClick={this.save} >
-                        Verify
-                    </Button>
+                    </Grid>
                 </Grid>
-
-            </Grid>
+            </Card>
         );
     }
 }
@@ -137,10 +146,7 @@ const styles = {
         fontSize: '130%'
     },
 
-    container: {
-        marginTop: '20px',
-        marginBottom: '20px'
-    },
+   
 
     inputContainer: {
         marginBottom: '5px'

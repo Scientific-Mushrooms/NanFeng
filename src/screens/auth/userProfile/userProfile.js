@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { BaseComponent } from '../../../components/BaseComponent';
 import ImageUploader from 'react-images-upload';
-import { Divider, Grid, Button, Typography, Icon, TextField, Popover} from '@material-ui/core';
+import { Divider, Grid, Button, Typography, Card} from '@material-ui/core';
 
 
 import { update } from '../../../redux/actions/action';
@@ -11,6 +11,8 @@ import PersonalInformation from './components/personalInformation';
 import InstructorVerification from './components/instructorVerification';
 import { FormControl } from 'react-bootstrap';
 import ChangePassword from './components/changePassword'
+import ChangeAvatar from './components/changeAvatar'
+
 
 export class UserProfile extends BaseComponent {
 
@@ -32,23 +34,29 @@ export class UserProfile extends BaseComponent {
 
     render(){
         return (
-            <Grid container>
+            <Grid container spacing={16}>
 
-                <Grid xs={7}>
+                <Grid xs={7} item>
+                    <Card>
 
 
-                    <Grid container>
-                        <Typography variant='display3'>Your Profile</Typography>
-                    </Grid>
+                        <Grid container >
+                            <Typography variant='display3'>Your Profile</Typography>
+                        </Grid>
 
-                    <PersonalInformation />
+                        <PersonalInformation/>
 
-                    <ChangePassword/>
+                        <ChangePassword/>
 
+                    </Card>
                 </Grid>
 
-                <Grid xs={5}>
+                <Grid xs={5} item>
+
+                    <ChangeAvatar />
+
                     <InstructorVerification />
+
                 </Grid>
 
             </Grid>
