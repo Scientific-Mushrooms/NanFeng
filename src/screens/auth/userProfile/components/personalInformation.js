@@ -4,8 +4,12 @@ import ImageUploader from 'react-images-upload';
 import { Divider, Grid, Button, Typography, Icon, TextField, Popover } from '@material-ui/core';
 import { FormControl } from 'react-bootstrap';
 import { update } from '../../../../redux/actions/action';
+import { connect } from 'react-redux';
 
-export default class PersonalInformation extends BaseComponent {
+
+
+
+class PersonalInformation extends BaseComponent {
 
     constructor(props) {
         super(props);
@@ -17,34 +21,13 @@ export default class PersonalInformation extends BaseComponent {
     }
 
     componentWillMount = () => {
-        this.fetchUser();
-    }
-
-    fetchUser = () => {
-
-        let form = new FormData();
-        form.append("userId", this.props.userId);
-        form.append("nickName", this.state.nickName);
-
-        this.post('/api/user/update', form).then((result) => {
-
-            if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.description, this.props.dispatch);
-
-            } else if (result.status === 'success') {
-
-                this.props.dispatch(update(result.detail))
-                this.pushNotification("success", "successfully update info", this.props.dispatch);
-
-            } else {
-
-                this.pushNotification("danger", "unknown error", this.props.dispatch);
-            }
-
-        })
+        if (this.props.user !== null) {
+            this.setState({
+                userId: this.props.user.userId,
+                email: this.props.user.email,
+                nickName: this.props.user.nickName,
+            })
+        }
     }
 
     renderChooseAvatar = () => {
@@ -76,8 +59,9 @@ export default class PersonalInformation extends BaseComponent {
     save = () => {
 
         let form = new FormData();
-        form.append("userId", this.props.userId);
+        form.append("userId", this.state.userId);
         form.append("nickName", this.state.nickName);
+        form.append("email", this.state.email);
 
         this.post('/api/user/update', form).then((result) => {
 
@@ -112,7 +96,7 @@ export default class PersonalInformation extends BaseComponent {
                         <Typography style={styles.typography}>Nick Name :</Typography>
                     </Grid>
                     <Grid xs={5}>
-                        <FormControl type="text" onChange={this.handleChange("nickName")} />
+                        <FormControl type="text" value={this.state.nickName} onChange={this.handleChange("nickName")} />
                     </Grid>
                 </Grid>
 
@@ -121,7 +105,7 @@ export default class PersonalInformation extends BaseComponent {
                         <Typography style={styles.typography}>Email :</Typography>
                     </Grid>
                     <Grid xs={5}>
-                        <FormControl type="text" onChange={this.handleChange("email")} />
+                        <FormControl type="text" value={this.state.email} onChange={this.handleChange("email")} />
                     </Grid>
                 </Grid>
 
@@ -180,3 +164,9 @@ const styles = {
 
 
 };
+
+const mapStateToProps = state => ({
+    user: state.userReducer.user
+})
+
+export default connect(mapStateToProps)(PersonalInformation);

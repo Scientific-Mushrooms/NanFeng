@@ -3,12 +3,13 @@ import { BaseComponent } from '../../../components/BaseComponent';
 import ImageUploader from 'react-images-upload';
 import { Divider, Grid, Button, Typography, Icon, TextField, Popover} from '@material-ui/core';
 
-import { FormControl} from 'react-bootstrap';
+
 import { update } from '../../../redux/actions/action';
 
 
 import PersonalInformation from './components/personalInformation';
-import IdentityVerification from './components/identityVerification';
+import InstructorVerification from './components/instructorVerification';
+import { FormControl } from 'react-bootstrap';
 
 
 export class UserProfile extends BaseComponent {
@@ -90,9 +91,9 @@ export class UserProfile extends BaseComponent {
                     <Typography variant='display3'>Your Profile</Typography>
                 </Grid>
 
-                <PersonalInformation userId={this.props.user.userId}/>
+                <PersonalInformation />
 
-                <IdentityVerification userId={this.props.user.userId}/>
+                <InstructorVerification />
 
                 <Grid style={styles.container} direction='column' container xs={8}>
                     <Typography variant='display2'>Security Settings</Typography>

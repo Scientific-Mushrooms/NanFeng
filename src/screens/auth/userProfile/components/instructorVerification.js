@@ -1,13 +1,23 @@
 import React, { Component } from "react";
 import { BaseComponent } from '../../../../components/BaseComponent';
-import ImageUploader from 'react-images-upload';
 import { Divider, Grid, Button, Typography, Icon, TextField, Popover } from '@material-ui/core';
 import { FormControl } from 'react-bootstrap';
-import { update } from '../../../../redux/actions/action';
 
-export default class IdentityVerification extends BaseComponent {
 
-    state = {}
+export default class InstructorVerification extends BaseComponent {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: true,
+            instructor: null,
+            student: null,
+            
+            realName: null,
+            instrucotorCode: null,
+            studentCode: null,
+        };
+    }
 
     renderTextInput = (name, variable) => {
         return (
@@ -18,6 +28,46 @@ export default class IdentityVerification extends BaseComponent {
                 <Grid xs={5}>
                     <FormControl type="text" value={this.state.nickName} onChange={this.handleChange(variable)} />
                 </Grid>
+            </Grid>
+        )
+    }
+
+    renderVerifiedInfo = () => {
+        return (
+            <Grid direction='column' container>
+
+                <Typography variant='display2'>Identity Verification</Typography>
+
+                {this.renderTextInput("Real Name", "realName")}
+
+                {this.renderTextInput("Role", "realName")}
+
+                <Grid justify='center' container xs={8}>
+                    <Button style={styles.button} onClick={this.save} >
+                        Verify
+                    </Button>
+                </Grid>
+
+            </Grid>
+        )
+    }
+
+    renderUnVerifiedInfo = () => {
+        return (
+            <Grid direction='column' container>
+
+                <Typography variant='display2'>Identity Verification</Typography>
+
+                {this.renderTextInput("Real Name", "realName")}
+
+                {this.renderTextInput("Role", "realName")}
+
+                <Grid justify='center' container xs={8}>
+                    <Button style={styles.button} onClick={this.save} >
+                        Verify
+                    </Button>
+                </Grid>
+
             </Grid>
         )
     }
