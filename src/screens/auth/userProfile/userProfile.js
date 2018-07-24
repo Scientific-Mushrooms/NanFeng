@@ -6,6 +6,10 @@ import { Divider, Grid, Button, Typography, Icon, TextField, Popover} from '@mat
 import { FormControl} from 'react-bootstrap';
 import { update } from '../../../redux/actions/action';
 
+
+import PersonalInformation from './components/personalInformation';
+
+
 export class UserProfile extends BaseComponent {
 
     constructor(props) {
@@ -36,31 +40,6 @@ export class UserProfile extends BaseComponent {
         }
     }
 
-    renderChooseAvatar = () => {
-
-        var onChange = (avatar) => {
-            this.setState({
-                infoChange:true,
-                avatar: this.state.avatar.concat(avatar)
-            });     
-        } 
-
-        return (
-            <Grid style={styles.inputContainer} xs={8} container>
-                <Typography style={styles.typography}>Avatar: </Typography>
-                <ImageUploader
-                    withIcon={false}
-                    withLabel={false}
-                    withPreview={true}
-                    buttonText='Choose images'
-                    onChange={onChange}
-                    imgExtension={['.jpg', '.gif', '.png']}
-                    maxFileSize={5242880}
-                    singleImage={true}
-                />
-            </Grid>
-        )
-    }
 
 
     renderPassInput=(name, variable) => {
@@ -136,29 +115,7 @@ export class UserProfile extends BaseComponent {
                     <Typography variant='display3'>Your Profile</Typography>
                 </Grid>
 
-                <Grid style={styles.container} direction='column' container xs={8}>
-
-                    <Typography variant='display2'>Info Settings</Typography>
-
-                    <Grid style={styles.inputContainer} xs={8} container>
-                        <Typography style={styles.typography}>NickName :</Typography>
-                        <FormControl type="text" value={this.state.nickName} onChange={this.handleChange("nickName")} />
-                    </Grid>
-
-                    <Grid style={styles.inputContainer} xs={8} container>
-                        <Typography style={styles.typography}>Email :</Typography>
-                        <FormControl type="text" value={this.state.email} onChange={this.handleChange("email")} />
-                    </Grid>
-
-                    {this.renderChooseAvatar()}
-
-                    <Grid justify='center' container xs={8}>
-                        <Button style={styles.button} onClick={this.save} >
-                            save
-                        </Button>
-                    </Grid>
-
-                </Grid>
+                <PersonalInformation/>
 
                 <Grid style={styles.container} direction='column' container xs={8}>
                     <Typography variant='display2'>Security Settings</Typography>
