@@ -14,10 +14,8 @@ class InstructorVerification extends BaseComponent {
             instructor: null,
             userId: null,
 
-            
             realName: null,
             instrucotorCode: null,
-            studentCode: null,
         };
     }
 
@@ -28,6 +26,7 @@ class InstructorVerification extends BaseComponent {
         }
 
         this.fetchInstructor();
+
     }
 
     fetchInstructor = () => {
@@ -55,54 +54,70 @@ class InstructorVerification extends BaseComponent {
         })
     }
 
-    renderIdentity = () => {
+    verify = () => {
+        let form = new FormData();
+        form.append("userId", this.state.userId);
+        form.append("code", this.state.code);
+        form.append("realName", this.state.realName);
 
-        if (this.state.instructor === null) {
-            return null
-        }
+        this.post('/api/instructor/create', form).then((result) => {
 
-        return (
-            <Grid  container>
-                <Typography variant='display2'>Instructor</Typography>
-            </Grid>
-        )
+            alert(JSON.stringify(result))
+            if (!result) {
+                this.pushNotification("danger", "Connection error", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.description, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+
+                this.setState({ instructor: result.detail })
+                this.pushNotification("success", "successfully fetch instructor info", this.props.dispatch);
+
+            } else {
+
+                this.pushNotification("danger", "unknown error", this.props.dispatch);
+            }
+
+        })
     }
 
-    renderRealName = () => {
+
+    renderContent = () => {
 
         if (this.state.instructor === null) {
             return (
-                <Grid container>
-                    <Grid xs={3}>
-                        <Typography >Real Name :</Typography>
+                <div>
+
+                    <Grid container>
+                        <Grid xs={3}>
+                            <Typography >Real Name :</Typography>
+                        </Grid>
+                        <Grid xs={5}>
+                            <FormControl type="text" value={this.state.realName} onChange={this.handleChange("realName")} />
+                        </Grid>
                     </Grid>
-                    <Grid xs={5}>
-                        <FormControl type="text" value={this.state.realName} onChange={this.handleChange("realName")} />
+
+                    <Grid container>
+                        <Grid xs={3}>
+                            <Typography >Code :</Typography>
+                        </Grid>
+                        <Grid xs={5}>
+                            <FormControl type="text" value={this.state.instructorCode} onChange={this.handleChange("code")} />
+                        </Grid>
                     </Grid>
-                </Grid>
+
+                    <Grid justify='center' container xs={8}>
+                        <Button style={styles.button} onClick={this.verify} >
+                            Verify
+                        </Button>
+                    </Grid>
+
+                </div>
             )
         }
 
-        return (
-            <Grid container>
-                <Grid xs={3}>
-                    <Typography style={styles.typography}>Real Name :</Typography>
-                </Grid>
-                <Grid xs={5}>
-                    <FormControl type="text" disabled={true} value={this.state.realName} onChange={this.handleChange("realName")} />
-                </Grid>
-            </Grid>
-        )
-    }
-
-    renderVerifyButton = () => {
-        return (
-            <Grid justify='center' container xs={8}>
-                <Button style={styles.button} onClick={this.save} >
-                    Verify
-                </Button>
-            </Grid>
-        )
+        return null;
     }
 
    
@@ -111,14 +126,8 @@ class InstructorVerification extends BaseComponent {
             <Card>
                 <Grid justify='center' container>
                     <Grid xs={6} container>
-
-                            <Typography variant='display2'>Identity Verification</Typography>
-
-                            {this.renderRealName()}
-
-                            {this.renderIdentity()}
-
-                            {this.renderVerifyButton()}
+                    
+                        {this.renderContent()}
 
                     </Grid>
                 </Grid>
