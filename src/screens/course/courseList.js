@@ -1,6 +1,7 @@
 import React from "react";
 import { BaseComponent } from '../../components/BaseComponent';
 import { Divider, Grid, Button, CircularProgress } from '@material-ui/core';
+import Icon from '@material-ui/core/Icon';
 
 
 
@@ -56,7 +57,7 @@ export class CourseList extends BaseComponent {
                 <Grid container style={styles.courseContainer}>
 					
 					<Grid xs={0} style={styles.courseItem}>
-                        {<i class="material-icons">face</i>}
+                        {<Icon>star</Icon>}
                     </Grid>
 					
                     <Grid xs={2} style={styles.courseItem}>
