@@ -6,8 +6,46 @@ import { FormControl } from 'react-bootstrap';
 import { update } from '../../../../redux/actions/action';
 
 export default class PersonalInformation extends BaseComponent {
-    state = {  }
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: true,
+            email: null,
+            nickName: null,
+        };
+    }
+
+    componentWillMount = () => {
+        this.fetchUser();
+    }
+
+    fetchUser = () => {
+
+        let form = new FormData();
+        form.append("userId", this.props.userId);
+        form.append("nickName", this.state.nickName);
+
+        this.post('/api/user/update', form).then((result) => {
+
+            if (!result) {
+                this.pushNotification("danger", "Connection error", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.description, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+
+                this.props.dispatch(update(result.detail))
+                this.pushNotification("success", "successfully update info", this.props.dispatch);
+
+            } else {
+
+                this.pushNotification("danger", "unknown error", this.props.dispatch);
+            }
+
+        })
+    }
 
     renderChooseAvatar = () => {
 
@@ -19,7 +57,7 @@ export default class PersonalInformation extends BaseComponent {
         }
 
         return (
-            <Grid style={styles.inputContainer} xs={8} container>
+            <Grid container>
                 <Typography style={styles.typography}>Avatar: </Typography>
                 <ImageUploader
                     withIcon={false}
@@ -35,29 +73,64 @@ export default class PersonalInformation extends BaseComponent {
         )
     }
 
+    save = () => {
+
+        let form = new FormData();
+        form.append("userId", this.props.userId);
+        form.append("nickName", this.state.nickName);
+
+        this.post('/api/user/update', form).then((result) => {
+
+            if (!result) {
+                this.pushNotification("danger", "Connection error", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.description, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+
+                this.props.dispatch(update(result.detail))
+                this.pushNotification("success", "successfully update info", this.props.dispatch);
+
+            } else {
+
+                this.pushNotification("danger", "unknown error", this.props.dispatch);
+            }
+
+        })
+    }
+
     
     render() {
         return (
-            <Grid style={styles.container} direction='column' container xs={8}>
+            <Grid direction='column' container>
 
                 <Typography variant='display2'>Personal Information</Typography>
 
-                <Grid style={styles.inputContainer} xs={8} container>
-                    <Typography style={styles.typography}>NickName :</Typography>
-                    <FormControl type="text" value={this.state.nickName} onChange={this.handleChange("nickName")} />
+                <Grid container>
+                    <Grid xs={3}>
+                        <Typography style={styles.typography}>Nick Name :</Typography>
+                    </Grid>
+                    <Grid xs={5}>
+                        <FormControl type="text" onChange={this.handleChange("nickName")} />
+                    </Grid>
                 </Grid>
 
-                <Grid style={styles.inputContainer} xs={8} container>
-                    <Typography style={styles.typography}>Email :</Typography>
-                    <FormControl type="text" value={this.state.email} onChange={this.handleChange("email")} />
+                <Grid container>
+                    <Grid xs={3}>
+                        <Typography style={styles.typography}>Email :</Typography>
+                    </Grid>
+                    <Grid xs={5}>
+                        <FormControl type="text" onChange={this.handleChange("email")} />
+                    </Grid>
                 </Grid>
 
-                {this.renderChooseAvatar()}
+                {/* {this.renderChooseAvatar()} */}
 
                 <Grid justify='center' container xs={8}>
                     <Button style={styles.button} onClick={this.save} >
                         save
-                        </Button>
+                    </Button>
                 </Grid>
 
             </Grid>

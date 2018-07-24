@@ -21,6 +21,7 @@ export class SignIn extends BaseComponent {
         };
     }
 
+
     goBack = () => {
         this.props.history.goBack();
     }
@@ -53,7 +54,7 @@ export class SignIn extends BaseComponent {
                         this.pushNotification("danger",result.description,this.props.dispatch);
                     } else {
                         this.props.dispatch(login(result.detail));
-                        this.goBack();
+                        this.props.history.push("home");
                         //should be redirect to home here
                         this.pushNotification("normal","Login Succeeded",this.props.dispatch);
                     }

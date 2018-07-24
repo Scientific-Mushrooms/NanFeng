@@ -8,24 +8,24 @@ import { update } from '../../../redux/actions/action';
 
 
 import PersonalInformation from './components/personalInformation';
+import IdentityVerification from './components/identityVerification';
 
 
 export class UserProfile extends BaseComponent {
 
     constructor(props) {
         super(props);
-        this.state = {
-            
+        this.state = {       
             verified: false,
 
-            email: null,
-            nickName: null,
-            avatar: [],
             passChange:false,
             oldPass:null,
             newPass: null,
             reNewPass:null,
         };
+        if (this.props.user === null) {
+            this.props.history.push("/home");
+        }
     }
 
     componentWillMount() {
@@ -80,42 +80,19 @@ export class UserProfile extends BaseComponent {
         )
     }
 
-    save = () => {
-
-        let form = new FormData();
-        form.append("userId", this.props.user.userId);
-        form.append("nickName", this.state.nickName);
-
-        this.post('/api/user/update', form).then((result) => {
-
-            if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.description, this.props.dispatch);
-
-            } else if (result.status === 'success') {
-                
-                this.props.dispatch(update(result.detail))
-                this.pushNotification("success", "successfully update info", this.props.dispatch);
-
-            } else {
-                
-                this.pushNotification("danger", "unknown error", this.props.dispatch);
-            }
-
-        })
-    }
+    
 
     render(){
         return (
             <Grid alignItems='center' direction='column' container>
 
-                <Grid container xs={8}>
+                <Grid container>
                     <Typography variant='display3'>Your Profile</Typography>
                 </Grid>
 
-                <PersonalInformation/>
+                <PersonalInformation userId={this.props.user.userId}/>
+
+                <IdentityVerification userId={this.props.user.userId}/>
 
                 <Grid style={styles.container} direction='column' container xs={8}>
                     <Typography variant='display2'>Security Settings</Typography>
