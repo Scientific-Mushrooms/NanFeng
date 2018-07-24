@@ -87,9 +87,18 @@ export class UserProfile extends BaseComponent {
         return (
             <Grid alignItems='center' direction='column' container>
 
-                <Grid container>
-                    <Typography variant='display3'>Your Profile</Typography>
+                <Grid xs={8}>
+                
+                    <Grid container>
+                        <Typography variant='display3'>Your Profile</Typography>
+                    </Grid>
+
                 </Grid>
+
+                <Grid xs={4}>
+                </Grid>
+
+                
 
                 <PersonalInformation />
 
