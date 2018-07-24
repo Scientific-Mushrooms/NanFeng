@@ -54,8 +54,12 @@ export class CourseList extends BaseComponent {
         return (
             <Button style={styles.card} onClick={onClick}>
                 <Grid container style={styles.courseContainer}>
-
-                    <Grid xs={1} style={styles.courseItem}>
+					
+					<Grid xs={0} style={styles.courseItem}>
+                        {<i class="material-icons">face</i>}
+                    </Grid>
+					
+                    <Grid xs={2} style={styles.courseItem}>
                         {course.code}
                     </Grid>
 
@@ -76,7 +80,9 @@ export class CourseList extends BaseComponent {
 
         if (this.state.loading) {
             return (
+			<center>
                 <CircularProgress />
+			</center>
             )
         }
 
