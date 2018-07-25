@@ -7,6 +7,14 @@ import Card from "../../components/Card/Card.jsx";
 import CardBody from "../../components/Card/CardBody.jsx";
 import Button from '../../components/CustomButtons/Button'
 import { BaseComponent } from '../../components/BaseComponent';
+import NjuImg from '../src/nju.png';
+
+const homeImage = {
+    display:'inline-blocks',
+    height:700,
+    width:1200,
+    backgroundImage: 'url('+NjuImg+')'
+}
 
 
 export class SignIn extends BaseComponent {
@@ -21,7 +29,18 @@ export class SignIn extends BaseComponent {
         };
     }
 
-  
+    onMouseEnter(){
+        this.setState({
+            hover: true,
+        });
+    }
+
+    onMouseLeave(){
+        this.setState({
+            hover: false,
+        })
+    }
+
     goBack = () => {
         this.props.history.goBack();
     }
@@ -54,7 +73,7 @@ export class SignIn extends BaseComponent {
                         this.pushNotification("danger",result.description,this.props.dispatch);
                     } else {
                         this.props.dispatch(login(result.detail));
-                        this.props.history.push("home");
+                        this.goBack();
                         //should be redirect to home here
                         this.pushNotification("normal","Login Succeeded",this.props.dispatch);
                     }
@@ -65,17 +84,18 @@ export class SignIn extends BaseComponent {
 
     render() {
         return (
-            <Grid  direction='row' alignItems='center' container>
-                {this._renderLeftPanel()}
-                {this._renderLoginPanel()}
-            </Grid>
+            <div style={homeImage}>
+                <Grid direction='row' alignItems='center' container>
+                    {this._renderLeftPanel()}
+                    {this._renderLoginPanel()}
+                </Grid>
+            </div>
         );
     }
 
     _renderLeftPanel(){
         return(
-            <Grid sm={6} justify='center'  container>
-                <div >sth here</div>
+            <Grid sm={4} justify='center'  container>
             </Grid>
         );
 
@@ -83,7 +103,10 @@ export class SignIn extends BaseComponent {
 
     _renderLoginPanel(){
         return(
-            <Grid direction='column' sm={6} justify='center' container style={styles.wrapper}>
+            <Grid direction='column' sm={4} justify='center'
+                  onMouseEnter = {this.onMouseEnter.bind(this)}
+                  onMouseLeave = {this.onMouseLeave.bind(this)}
+                  style={this.state.hover? styles.wrapper_1:styles.wrapper} container>
                 <Card>
                     <CardBody>
                         <Grid >
@@ -107,7 +130,7 @@ export class SignIn extends BaseComponent {
                                 onChange={this.handleChange('password')}
                                 margin="normal"
                                 fullWidth={true}
-                                />
+                            />
                         </Grid>
                         <Grid >
                             <Button
@@ -115,17 +138,7 @@ export class SignIn extends BaseComponent {
                                 style={styles.button}
                                 color='primary'
                                 onClick={this.login}
-                                >LOGIN</Button>
-                        </Grid>
-                        <Grid xs={12}>
-                            <Button
-                            size="large"
-                            style={styles.button}
-                            color='primary'
-                            onClick={this.signUp}
-                            >Be A New Member</Button>
-                        </Grid>
-                        <Grid xs={12} style={styles.temp}>
+                            >LOGIN</Button>
                         </Grid>
                     </CardBody>
                 </Card>
@@ -141,12 +154,22 @@ export class SignIn extends BaseComponent {
 
 const styles = {
 
+    wrapper: {
+        paddingBottom: '500px',
+        marginTop:'200px',
+        opacity: 0.7,
+    },
 
+    wrapper_1:{
+        paddingBottom: '500px',
+        marginTop:'200px',
+        opacity: 0.93,
+    },
 
     container: {
         width: '400px',
         height: '400px',
-        marginTop: '100px',
+        marginTop: '500px',
         justifyContent: 'center',
         alignItems: 'center',
     },

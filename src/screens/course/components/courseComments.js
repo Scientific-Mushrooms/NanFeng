@@ -15,7 +15,7 @@ const courseComments = [
         userProgram: "Computer Science",
         userAvatar: './src/test.png',
         content: "really easy",
-        userful: true,
+        useful: true,
         liked: true,
         easy: true,
         date: new Date(),
@@ -27,7 +27,7 @@ const courseComments = [
         userProgram: "Computer Science",
         userAvatar: './src/test.png',
         content: "really easy",
-        userful: true,
+        useful: true,
         liked: true,
         easy: true,
         date: new Date(),
@@ -37,10 +37,23 @@ const courseComments = [
 export default class CourseComments extends Component {
     state = {  }
 
+    renderRating=(name,variable)=>{
+        return(
+            <Grid xs={12} container>
+                <Grid xs={3}>
+                    <Grid style={styles.text}>{name}?</Grid>
+                </Grid>
+                <Button
+                    style={variable? styles.leftButton:styles.defaultButton}>Yes</Button>
+                <Button
+                    style={variable? styles.defaultButton:styles.leftButton}>No</Button>
+            </Grid>
+        )
+    }
+
     courseCommentsToList = (comment, index) => {
         return (
             <Grid container style={styles.commentContainer}>
-
                 <Grid xs={2} container>
 
                     <Grid xs={12} style={styles.avatarContaienr} container>
@@ -63,31 +76,14 @@ export default class CourseComments extends Component {
 
                 <Grid xs={4}>
 
-                    <Grid xs={12} container>
-                        <Grid xs={3}>
-                            <Grid style={styles.text}>Useful?</Grid>
-                        </Grid>
-                        <Button>Yes</Button>
-                        <Button>No</Button>
-                    </Grid>
+                    {this.renderRating("Useful",comment.useful)}
 
-                    <Grid xs={12} container>
-                        <Grid xs={3}>
-                            <Grid style={styles.text}>Easy?</Grid>
-                        </Grid>
-                        <Button>Yes</Button>
-                        <Button>No</Button>
-                    </Grid>
+                    {this.renderRating("Easy",comment.easy)}
 
-                    <Grid xs={12} container>
-                        <Grid xs={3}>
-                            <Grid style={styles.text}>Like it?</Grid>
-                        </Grid>
-                        <Button>Yes</Button>
-                        <Button>No</Button>
-                    </Grid>
+                    {this.renderRating("Like it",comment.liked)}
 
                 </Grid>
+
             </Grid>
         )
     }
@@ -105,6 +101,7 @@ export default class CourseComments extends Component {
                         </Grid>
 
                         {courseComments.map(this.courseCommentsToList)}
+
                     </Grid>
                 </Grid>
 
@@ -204,6 +201,20 @@ const styles = {
     contentContainer: {
         backgroundColor: '#caf6ff',
         borderRadius: '5px',
+    },
+
+    defaultButton:{},
+
+    leftButton:{
+        backgroundColor:'#00c31d',
+        color:'#FFF',
+        marginBottom:'5px',
+        marginRight:'5px',
+    },
+
+    rightButton:{
+        backgroundColor:'#d31d27',
+        color:'#FFF',
     },
 
 
