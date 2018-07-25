@@ -87,33 +87,37 @@ class PersonalInformation extends BaseComponent {
     
     render() {
         return (
-            <Grid direction='column' container>
+            <Grid style={styles.container} direction='column' container xs={8}>
 
                 <Typography variant='display2'>Personal Information</Typography>
-
-                <Grid container>
+                <Divider/>
+                <Grid container style={styles.container}>
                     <Grid xs={3}>
                         <Typography style={styles.typography}>Nick Name :</Typography>
                     </Grid>
-                    <Grid xs={5}>
+                    <Grid xs={8}>
                         <FormControl type="text" value={this.state.nickName} onChange={this.handleChange("nickName")} />
                     </Grid>
                 </Grid>
 
-                <Grid container>
+                <Grid container style={styles.container}>
                     <Grid xs={3}>
                         <Typography style={styles.typography}>Email :</Typography>
                     </Grid>
-                    <Grid xs={5}>
+                    <Grid xs={8}>
                         <FormControl type="text" value={this.state.email} onChange={this.handleChange("email")} />
                     </Grid>
                 </Grid>
 
                 {/* {this.renderChooseAvatar()} */}
 
-                <Grid justify='center' container xs={8}>
-                    <Button style={styles.button} onClick={this.save} >
-                        save
+                <Grid justify='center' container xs={12}>
+                    <Button
+                        mini
+                        style={styles.button}
+                        variant="outlined"
+                        onClick={this.save} >
+                        <Typography variant='button' style={styles.buttonText}>Save</Typography>
                     </Button>
                 </Grid>
 
@@ -128,8 +132,16 @@ const styles = {
 
     button: {
         marginTop: '10px',
-        borderRadius: "20px",
-        width: "50%",
+        marginBottom:'20px',
+        borderRadius: "5px",
+        borderWidth:"1.2px",
+        borderColor:"#60CDEE",
+        width: "30%",
+    },
+
+    buttonText:{
+        fontSize:'12px',
+        color:'#60CDEE'
     },
 
     typography: {
@@ -143,7 +155,7 @@ const styles = {
 
     container: {
         marginTop: '20px',
-        marginBottom: '20px'
+        marginLeft:'20px',
     },
 
     inputContainer: {
@@ -160,8 +172,7 @@ const styles = {
 
     introContainer: {
         height: '80px'
-    }
-
+    },
 
 };
 
