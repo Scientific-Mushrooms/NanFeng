@@ -7,7 +7,7 @@ import Card from "../../components/Card/Card.jsx";
 import CardBody from "../../components/Card/CardBody.jsx";
 import Button from '../../components/CustomButtons/Button'
 import { BaseComponent } from '../../components/BaseComponent';
-import NjuImg from '../src/nju.png';
+import NjuImg from './src/nju.png';
 
 const homeImage = {
     display:'inline-blocks',
