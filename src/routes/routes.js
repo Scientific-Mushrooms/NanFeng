@@ -2,7 +2,7 @@ import * as Screens from "../screens";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
-
+import { withTheme } from '@material-ui/core/styles';
 
 const mapStateToProps = state => ({
     user: state.userReducer.user,
@@ -19,34 +19,38 @@ const mapStateToProps = state => ({
     rankChart: state.chartReducer.rankChart,
 })
 
+var wrap = (component) => {
+    return withTheme()(connect(mapStateToProps)(withRouter(component)))
+}
+
 const mainRoutes = [
 
     {
         path: "/home",
         sidebarName: "Home",
         icon: 'home',
-        component: connect(mapStateToProps)(Screens.Home),
+        component: wrap(Screens.Home),
         children: [
 
             {
                 path: "/signin",
                 sidebarName: "Dashboard",
                 icon: "dashboard",
-                component: withRouter(connect(mapStateToProps)(Screens.SignIn))
+                component: wrap(Screens.SignIn)
             },
 
             {
                 path: "/signup",
                 sidebarName: "Dashboard",
                 icon: "dashboard",
-                component: connect(mapStateToProps)(Screens.SignUp)
+                component: wrap(Screens.SignUp)
             },
 
             {
                 path: "/userProfile",
                 sidebarName: "Dashboard",
                 icon: "dashboard",
-                component: connect(mapStateToProps)(Screens.UserProfile)
+                component: wrap(Screens.UserProfile)
             },
         ]
     },
@@ -61,7 +65,7 @@ const mainRoutes = [
                 path: "/userBoard",
                 sidebarName: "User Board",
                 icon: 'code',
-                component: connect(mapStateToProps)(Screens.UserBoard)
+                component: wrap(Screens.UserBoard)
             },
         ]
     },
@@ -70,13 +74,13 @@ const mainRoutes = [
         path: "/squadPanel",
         sidebarName: "Squad",
         icon: "dashboard",
-        component: connect(mapStateToProps)(Screens.SquadPanel),
+        component: wrap(Screens.SquadPanel),
         children: [
             {
                 path: "/taskBoard",
                 sidebarName: "TaskBoard",
                 icon: 'code',
-                component: connect(mapStateToProps)(Screens.TaskBoard)
+                component: wrap(Screens.TaskBoard)
             },
         ]
     },
@@ -85,21 +89,21 @@ const mainRoutes = [
         path: "/coursePanel",
         sidebarName: "Course",
         icon: "view_headline",
-        component: withRouter(connect(mapStateToProps)(Screens.CoursePanel)),
+        component: wrap(Screens.CoursePanel),
         children: [
 
             {
                 path: "/courseDetail",
                 name: "Course detail",
                 icon: 'assignment',
-                component: connect(mapStateToProps)(Screens.CourseDetail),
+                component: wrap(Screens.CourseDetail),
                 children: [
 
                     {
                         path: "/sectionCreate",
                         name: "Course Create",
                         icon: 'add',
-                        component: connect(mapStateToProps)(Screens.SectionCreate)
+                        component: wrap(Screens.SectionCreate)
                     },
 
                 ]
@@ -109,14 +113,14 @@ const mainRoutes = [
                 path: "/courseList",
                 name: "Course List",
                 icon: 'edit_icon',
-                component: connect(mapStateToProps)(Screens.CourseList)
+                component: wrap(Screens.CourseList)
             },
 
             {
                 path: "/courseCreate",
                 name: "Course Create",
                 icon: 'add',
-                component: connect(mapStateToProps)(Screens.CourseCreate)
+                component: wrap(Screens.CourseCreate)
             },
 
         ]
