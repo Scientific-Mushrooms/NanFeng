@@ -22,16 +22,17 @@ class InstructorVerification extends BaseComponent {
     componentWillMount = () => {
 
         if (this.props.user !== null) {
-            this.setState({userId: this.props.user.userId});
+            this.setState({userId: this.props.user.userId})
+            this.fetchInstructor(this.props.user.userId)
         }
 
-        this.fetchInstructor();
+        
 
     }
 
     fetchInstructor = () => {
         let form = new FormData();
-        form.append("userId", this.state.userId);
+        form.append("userId", this.props.user.userId);
 
         this.post('/api/instructor/userIdToInstructor', form).then((result) => {
 
@@ -43,7 +44,7 @@ class InstructorVerification extends BaseComponent {
 
             } else if (result.status === 'success') {
 
-                this.setState({instructor: result.detail})
+                this.setState({instructor: result.detail, loading: false})
                 this.pushNotification("success", "successfully fetch instructor info", this.props.dispatch);
 
             } else {
@@ -62,7 +63,6 @@ class InstructorVerification extends BaseComponent {
 
         this.post('/api/instructor/create', form).then((result) => {
 
-            alert(JSON.stringify(result))
             if (!result) {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
 
@@ -82,12 +82,20 @@ class InstructorVerification extends BaseComponent {
         })
     }
 
+    update = () => {
+        this.setState({instructor: null})
+    }
+
 
     renderContent = () => {
 
+        if (this.state.loading) {
+            return null;
+        }
+
         if (this.state.instructor === null) {
             return (
-                <div>
+                <Grid container>
 
                     <Grid container>
                         <Grid xs={3}>
@@ -113,11 +121,33 @@ class InstructorVerification extends BaseComponent {
                         </Button>
                     </Grid>
 
-                </div>
+                </Grid>
             )
         }
 
-        return null;
+        return (
+            <Grid container>
+
+                <Grid container>
+                    <Typography >{this.state.instructor.realName}</Typography>
+                </Grid>
+
+                <Grid container>
+                    <Typography >{this.state.instructor.code}</Typography>
+                </Grid>
+
+                <Grid container>
+                    <Typography >Verified Instructor</Typography>
+                </Grid>
+
+                <Grid justify='center' container xs={8}>
+                    <Button style={styles.button} onClick={this.update} >
+                        Update
+                    </Button>
+                </Grid>
+
+            </Grid>
+        )
     }
 
    
