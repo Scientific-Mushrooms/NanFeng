@@ -61,6 +61,7 @@ export default class CourseCard extends Component {
 
 
     render() {
+        const {code, name, credit} = this.props.course;
         return (
             <Card style={styles.container}>
                 <Grid container style={styles.courseInfoContainer}>
@@ -74,7 +75,7 @@ export default class CourseCard extends Component {
                         </Grid>
 
                         <Grid xs={12}>
-                            <Typography style={styles.courseName}>{course.courseName}</Typography>
+                            <Typography style={styles.courseName}>{name}</Typography>
                         </Grid>
 
                         {this.renderRating("Useful", 100, 30)}
@@ -85,13 +86,15 @@ export default class CourseCard extends Component {
 
                     </Grid>
                     <Grid xs={4} container>
-                        {this.renderCourseItem("Code:", course.courseCode)}
+
+                        {this.renderCourseItem("Code:", code)}
 
                         {this.renderCourseItem("Type:", course.courseType)}
 
-                        {this.renderCourseItem("Credit:", course.courseCredit)}
+                        {this.renderCourseItem("Credit:", credit)}
 
                         {this.renderCourseItem("Faculty:", course.courseFaculty)}
+                        
                     </Grid>
 
                     <Grid xs={12} style={styles.padding} />
