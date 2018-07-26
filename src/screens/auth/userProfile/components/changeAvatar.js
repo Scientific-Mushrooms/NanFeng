@@ -19,16 +19,23 @@ class ChangeAvatar extends BaseComponent {
 
     render() {
         return (
-            <Card style={styles.container}>
-                <Grid  item xs={8}>
+            <Card style={styles.card}>
 
-                        <Grid justify='center' container xs={8}>
-                            <Button style={styles.button} >
-                                <Typography variant='button' >Change Password</Typography>
-                            </Button>
-                        </Grid>
-
+                <Grid xs={12} style={styles.avatarContainer} container>
+                    <img src={require('../../src/nju.png')} style={styles.avatar} />
                 </Grid>
+
+                <Grid style={styles.container} justify='center' container xs={12}>
+                    <Grid justify='center' container xs={8}>
+                        <Button
+                            mini
+                            style={styles.button}
+                            variant="outlined" >
+                            <Typography variant='button' style={styles.buttonText}>Change Avatar</Typography>
+                        </Button>
+                    </Grid>
+                </Grid>
+
             </Card>
         );
     }
@@ -43,8 +50,35 @@ const styles = {
 
     button: {
         marginTop: '10px',
-        borderRadius: "20px",
+        marginBottom:'10px',
+        borderRadius: "5px",
+        borderWidth:"1.2px",
+        borderColor:"#60CDEE",
         width: "50%",
+    },
+
+    buttonText:{
+        fontSize:'12px',
+        color:'#60CDEE'
+    },
+
+    card:{
+        marginBottom:'20px',
+    },
+
+    avatarContainer: {
+        marginTop:'10px',
+        height: '150px',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    avatar: {
+        marginTop:'10px',
+        marginBottom:'10px',
+        width: '150px',
+        height: '150px',
+        borderRadius: '50%',
     },
 
 };
