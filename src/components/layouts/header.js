@@ -103,6 +103,9 @@ class Header extends BaseComponent {
                     <ListItem button >
                         <Typography>Settings</Typography>
                     </ListItem>
+					<ListItem button onClick={this.signOut}>
+                        <Typography>Logout</Typography>
+                    </ListItem>
                 </List>
             </Popover>
         )
