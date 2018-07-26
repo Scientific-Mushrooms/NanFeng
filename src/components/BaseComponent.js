@@ -10,6 +10,8 @@ export class BaseComponent extends Component {
     // local
     //ip = "http://localhost:8080"; 
 
+    
+
     post = (url, form) => {
         return fetch(this.ip + url, { method: 'POST', body: form, header: { 'content-type': 'multipart/form-data'}})
             .then((response) => (response.json()))
@@ -21,6 +23,10 @@ export class BaseComponent extends Component {
             [name]: event.target.value,
         });
     };
+
+    getImagePath = (imageId) => {
+        return this.ip + "/api/image/" + imageId;
+    }
 
     pushNotification = (kind, reason, dispatch) => {
         dispatch(show_notification(kind, reason))
