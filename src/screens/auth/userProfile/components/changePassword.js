@@ -16,18 +16,16 @@ class ChangePassword extends BaseComponent {
 
 
             realName: null,
-            instructorCode: null,
+            instrucotorCode: null,
             studentCode: null,
         };
     }
 
     renderPassInput = (name, variable) => {
         return (
-            <Grid style={styles.inputContainer} xs={12} container>
+            <Grid style={styles.inputContainer} xs={8} container>
                 <Typography style={styles.typography}>{name} :</Typography>
-                <Grid xs={11}>
-                    <FormControl type="password" onChange={this.handleChange(variable)} />
-                </Grid>
+                <FormControl type="password" onChange={this.handleChange(variable)} />
             </Grid>
         )
     }
@@ -64,27 +62,28 @@ class ChangePassword extends BaseComponent {
     render() {
         return (
             <Grid style={styles.container} direction='column' container xs={8}>
-
                 <Typography variant='display2'>Security Settings</Typography>
-                <Divider/>
+                <Divider />
                 {this.renderPassInput("Old Password", "oldPass")}
                 {this.renderPassInput("New Password", "newPass")}
                 <Grid style={styles.inputContainer} direction='row' container xs={12}>
                     <Typography style={styles.typography}>Confirm New Password :</Typography>
                     <Grid direction='row' container>
-                        <Grid xs={11}>
+                        <Grid xs={8}>
                             <FormControl type="password" onChange={this.handleChange("reNewPass")} />
                         </Grid>
                         {this.renderPassWarning()}
                     </Grid>
                 </Grid>
-                <Grid justify='center' container xs={12}>
+                <Grid justify='center' container xs={8}>
                     <Button
                         mini
-                        variant="outlined"
                         style={styles.button}
-                        onClick={this.changePass}>
-                        <Typography variant='button' style={styles.buttonText}>Change Password</Typography>
+                        variant='fab'
+                        disabled={!this.state.passChange}
+                        onClick={this.changePass}
+                    >
+                        <Typography variant='button' style={{ fontSize: '50%' }}>Change Password</Typography>
                     </Button>
                 </Grid>
             </Grid>
@@ -98,16 +97,8 @@ const styles = {
 
     button: {
         marginTop: '10px',
-        marginBottom:'20px',
-        borderRadius: "5px",
-        borderWidth:"1.2px",
-        borderColor:"#60CDEE",
-        width: "30%",
-    },
-
-    buttonText:{
-        fontSize:'12px',
-        color:'#60CDEE'
+        borderRadius: "20px",
+        width: "50%",
     },
 
     typography: {
@@ -121,12 +112,11 @@ const styles = {
 
     container: {
         marginTop: '20px',
-        marginLeft:'20px',
+        marginBottom: '20px'
     },
 
     inputContainer: {
-        marginTop: '20px',
-        marginLeft:'20px',
+        marginBottom: '5px'
     },
 
     input: {
@@ -138,8 +128,9 @@ const styles = {
     },
 
     introContainer: {
-        height:'80px',
-    },
+        height: '80px'
+    }
+
 
 };
 

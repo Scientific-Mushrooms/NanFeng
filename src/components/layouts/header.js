@@ -1,6 +1,7 @@
 import React from "react";
 
 import Button from '@material-ui/core/Button';
+import LoginBox from '../boxes/loginBox';
 import Grid from '@material-ui/core/Grid';
 
 import { logout } from '../../redux/actions/action';
@@ -21,6 +22,7 @@ import mainRoutes from '../../routes/routes';
 
 const mapStateToProps = state => ({
     user: state.userReducer.user,
+    loginbox: state.modalReducer.loginbox,
 })
 
 
@@ -30,33 +32,7 @@ class Header extends BaseComponent {
         super(props);
         this.state = {
             register: false,
-            avatarPath: null,
         };
-    }
-
-    fetchAvatar = () => {
-        let form = new FormData();
-        form.append("imageId", this.props.user.avatarId);
-        
-        this.post('/api/image/imageIdToImage', form).then((result) => {
-            alert(JSON.stringify(result))
-            if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.description, this.props.dispatch);
-
-            } else if (result.status === 'success') {
-
-                this.setState({avatar: result.detail})
-                this.pushNotification("success", "successfully fetch avatar", this.props.dispatch);
-
-            } else {
-
-                this.pushNotification("danger", "unknown error", this.props.dispatch);
-            }
-
-        })
     }
 
     handleClick = name => event => {
@@ -177,21 +153,6 @@ class Header extends BaseComponent {
         this.props.history.push('./signUp')
     }
 
-    renderAvatar = () => {
-
-        if (this.props.user !==null) {
-            return (
-                <Avatar style={styles.avatar} src={this.getImagePath(this.props.user.avatarId)}/>
-            )
-        }
-
-        // alert(JSON.stringify(this.state.avatar))
-        // return (
-            
-        //     <Avatar style={styles.avatar} src={this.imagePath + this.state.avatar.name} />
-        // )
-    }
-
 
 
     renderRight = () => {
@@ -214,7 +175,7 @@ class Header extends BaseComponent {
                 </IconButton>
 
                 <Button onClick={this.handleClick("userPopover")} style={styles.iconButton} >
-                    {this.renderAvatar()}
+                    <Avatar style={styles.avatar}>猫</Avatar>
                     <div style={styles.text}>{this.props.user.nickName}</div>
                 </Button>
 
@@ -258,6 +219,9 @@ class Header extends BaseComponent {
                 {this.renderAlertPopover()}
 
                 {this.renderWidgetsPopover()}
+
+
+                <LoginBox/>
 
             </Grid>
         );

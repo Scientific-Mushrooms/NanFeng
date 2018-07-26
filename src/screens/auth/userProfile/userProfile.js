@@ -41,7 +41,7 @@ export class UserProfile extends BaseComponent {
 
 
                         <Grid container >
-                            <Typography variant='display3' style={styles.header}>Your Profile</Typography>
+                            <Typography variant='display3'>Your Profile</Typography>
                         </Grid>
 
                         <PersonalInformation/>
@@ -103,11 +103,7 @@ const styles = {
 
     introContainer: {
         height: '80px'
-    },
+    }
 
-    header:{
-      marginLeft:'20px',
-        color:'#57bad8',
-    },
 
 };

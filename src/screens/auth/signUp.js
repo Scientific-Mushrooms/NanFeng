@@ -35,39 +35,30 @@ export class SignUp extends BaseComponent {
     };
 
     signUp = () =>{
-
         if (this.state.email === '' ) {
             this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
-
         } else if(this.state.password === ''){
             this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
-
         }else if (this.state.password !== this.state.repassword) {
             this.pushNotification("danger","Wrong Repassword",this.props.dispatch);
-
         } else {
             let form = new FormData();
             form.append("email", this.state.email);
             form.append("password", this.state.password);
 
-            this.post('/api/user/create', form).then((result) => {
-
+            this.post('/api/security/signup', form).then((result) => {
                 if (!result) {
                     this.pushNotification("danger","Connection To Server Failed",this.props.dispatch);
-
-                } else if (result.status === 'fail') {
-                        this.pushNotification("danger",result.description,this.props.dispatch);
-
-                } else if (result.status === 'success') {
-
-                    this.props.dispatch(login(result.detail));
-                    this.props.history.push('home')
-                    this.pushNotification("normal","Regist Succeeded",this.props.dispatch);
-                    
                 } else {
-                    this.pushNotification("danger", "unknown error", this.props.dispatch);
+                    if (result.status === 'fail') {
+                        this.pushNotification("danger",result.description,this.props.dispatch);
+                    } else {
+                        this.props.dispatch(login(result.detail));
+                        this.goBack();
+                        //should be redirect to home here
+                        this.pushNotification("normal","Regist Succeeded",this.props.dispatch);
+                    }
                 }
-                
             })
         }
     }

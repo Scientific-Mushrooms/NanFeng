@@ -8,7 +8,7 @@ import ProfessorCard from './components/professorCard';
 import CourseComments from './components/courseComments';
 import CourseIntroduction from './components/courseIntroduction';
 import CourseCard from './components/courseCard';
-
+import { container } from '../../assets/jss/material-dashboard-react';
 
 
 
