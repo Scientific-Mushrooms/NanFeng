@@ -95,29 +95,33 @@ class InstructorVerification extends BaseComponent {
 
         if (this.state.instructor === null) {
             return (
-                <Grid container>
+                <Grid justify='center' container>
 
-                    <Grid container>
-                        <Grid xs={3}>
-                            <Typography >Real Name :</Typography>
+                    <Grid style={styles.container} container>
+                        <Grid xs={4}>
+                            <Typography style={styles.typography}>Real Name :</Typography>
                         </Grid>
-                        <Grid xs={5}>
+                        <Grid xs={8}>
                             <FormControl type="text" value={this.state.realName} onChange={this.handleChange("realName")} />
                         </Grid>
                     </Grid>
 
-                    <Grid container>
-                        <Grid xs={3}>
-                            <Typography >Code :</Typography>
+                    <Grid style={styles.container} container>
+                        <Grid xs={4}>
+                            <Typography style={styles.typography}>Code :</Typography>
                         </Grid>
-                        <Grid xs={5}>
+                        <Grid xs={8}>
                             <FormControl type="text" value={this.state.instructorCode} onChange={this.handleChange("code")} />
                         </Grid>
                     </Grid>
 
                     <Grid justify='center' container xs={8}>
-                        <Button style={styles.button} onClick={this.verify} >
-                            Verify
+                        <Button
+                            mini
+                            style={styles.button}
+                            variant="outlined"
+                            onClick={this.verify} >
+                            <Typography variant='button' style={styles.buttonText}>Verify</Typography>
                         </Button>
                     </Grid>
 
@@ -126,23 +130,27 @@ class InstructorVerification extends BaseComponent {
         }
 
         return (
-            <Grid container>
+            <Grid  justify='center' container>
 
-                <Grid container>
-                    <Typography >{this.state.instructor.realName}</Typography>
+                <Grid justify='center' container>
+                    <Typography style={styles.name}>{this.state.instructor.realName}</Typography>
                 </Grid>
 
-                <Grid container>
-                    <Typography >{this.state.instructor.code}</Typography>
+                <Grid justify='center' container>
+                    <Typography style={styles.code}>{this.state.instructor.code}</Typography>
                 </Grid>
 
-                <Grid container>
-                    <Typography >Verified Instructor</Typography>
+                <Grid justify='center' container>
+                    <Typography style={styles.instructor}>Verified Instructor</Typography>
                 </Grid>
 
                 <Grid justify='center' container xs={8}>
-                    <Button style={styles.button} onClick={this.update} >
-                        Update
+                    <Button
+                        mini
+                        style={styles.button}
+                        variant="outlined"
+                        onClick={this.update} >
+                        <Typography variant='button' style={styles.buttonText}>Update</Typography>
                     </Button>
                 </Grid>
 
@@ -154,8 +162,8 @@ class InstructorVerification extends BaseComponent {
     render() {
         return (
             <Card>
-                <Grid justify='center' container>
-                    <Grid xs={6} container>
+                <Grid style={styles.container} justify='center' container xs={12}>
+                    <Grid justify='center' container xs={8}>
                     
                         {this.renderContent()}
 
@@ -170,10 +178,41 @@ class InstructorVerification extends BaseComponent {
 const styles = {
 
     button: {
-        marginTop: '10px',
-        borderRadius: "20px",
+        marginTop:'10px',
+        marginBottom:'10px',
+        borderRadius: "5px",
+        borderWidth:"1.2px",
+        borderColor:"#60CDEE",
         width: "50%",
     },
+
+    buttonText:{
+        fontSize:'12px',
+        color:'#60CDEE'
+    },
+
+    container: {
+        marginTop:'10px',
+        marginBottom: '10px',
+    },
+
+    typography: {
+        fontSize: '130%'
+    },
+
+    name:{
+        fontSize:'130%',
+        color:'#404040',
+    },
+
+    code:{
+        fontSize:'130%',
+    },
+
+    instructor:{
+        fontSize:'130%',
+        color:'#5DB95D',
+    }
 
 };
 

@@ -2,8 +2,11 @@ import React from "react";
 import { BaseComponent } from '../../components/BaseComponent';
 import { Divider, Grid, Button, CircularProgress } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
-
-
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import SearchBar from '../../../node_modules/material-ui-search-bar'
 
 export class CourseList extends BaseComponent {
 
@@ -76,6 +79,7 @@ export class CourseList extends BaseComponent {
             </Button>
         )
     }
+	
 
     render() {
 
@@ -91,6 +95,46 @@ export class CourseList extends BaseComponent {
             <Grid container>
 
                 <Grid xs={7}>
+					<Grid container style={styles.courseItem}>
+						<Grid xs={1}>
+			<FormControl className={this.props.formControl}>
+          <InputLabel htmlFor="age-simple">Class</InputLabel>
+          <Select
+            value={this.state.age}
+            onChange={this.handleChange}
+            inputProps={{
+              name: 'age',
+              id: 'age-simple',
+            }}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Cs</MenuItem>
+            <MenuItem value={20}>Math</MenuItem>
+            <MenuItem value={30}>Engineering</MenuItem>
+          </Select>
+        </FormControl>
+						</Grid>
+						
+						<Grid xs={1}>
+						</Grid>
+						<Grid xs={5}>
+							<SearchBar
+							onChange={() => console.log('onChange')}
+							onRequestSearch={() => console.log('onRequestSearch')}
+							style={{
+							margin: '0 auto',
+							maxWidth: 800
+							}}
+							/>
+						</Grid>
+					</Grid>
+					<Grid xs={1}>
+					<p>
+					</p>
+					</Grid>
+					<Grid xs={10}></Grid>
                     {this.state.courses.map(this.renderCourse)}
                 </Grid>
 
@@ -127,5 +171,5 @@ const styles = {
 
     courseItem: {
         textAlign: 'center'
-    }
+    },
 }
