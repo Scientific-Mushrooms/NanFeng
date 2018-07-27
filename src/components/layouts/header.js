@@ -171,6 +171,45 @@ class Header extends BaseComponent {
             </Popover>
         )
     }
+	
+	renderLanguageChoose = () => {
+	
+		return(
+			<Grid container xs={2} style={styles.subRightContainer}>
+			<Button onClick={this.handleClick("LanguagePopover")} style={styles.iconButton} >
+                Language
+            </Button>
+			</Grid>
+		)
+	}
+	
+	renderLanguagePopover=()=>{
+		
+		return (
+            <Popover
+                open={Boolean(this.state.LanguagePopover)}
+                anchorEl={this.state.LanguagePopover}
+                onClose={this.handleClose("LanguagePopover")}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+            >
+                <List component="nav">
+                    <ListItem button >
+                        <Typography>中文</Typography>
+                    </ListItem>
+                    <ListItem button >
+                        <Typography>English</Typography>
+                    </ListItem>
+                </List>
+            </Popover>
+        )
+	}
 
     gotoSignIn = () => {
         this.props.history.push('./signin')
@@ -204,6 +243,7 @@ class Header extends BaseComponent {
                 <Grid container xs={4} style={styles.subRightContainer}>
                     <Button onClick={this.gotoSignIn} style={styles.iconButton} >Sign in</Button>
                     <Button onClick={this.gotoSignUp} style={styles.iconButton}>Sign up</Button>
+					{this.renderLanguageChoose()}
                 </Grid>
             )
         }
@@ -220,6 +260,7 @@ class Header extends BaseComponent {
                     {this.renderAvatar()}
                     <div style={styles.text}>{this.props.user.nickName}</div>
                 </Button>
+				{this.renderLanguageChoose()}
 
             </Grid>
         )
@@ -253,6 +294,7 @@ class Header extends BaseComponent {
                     </Grid>
 
                     {this.renderRight()}
+					
 
                 </Grid>
 
@@ -261,6 +303,10 @@ class Header extends BaseComponent {
                 {this.renderAlertPopover()}
 
                 {this.renderWidgetsPopover()}
+				
+				{this.renderLanguagePopover()}
+				
+				
 
             </Grid>
         );
