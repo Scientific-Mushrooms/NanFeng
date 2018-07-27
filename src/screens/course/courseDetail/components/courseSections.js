@@ -51,9 +51,9 @@ class CourseSections extends BaseComponent {
     }
 
     fetchSections = () => {
+        
         var form = new FormData();
         form.append('courseId', this.state.courseId);
-        alert(this.state.courseId)
 
         this.post('/api/section/courseIdToSections', form).then((result) => {
 

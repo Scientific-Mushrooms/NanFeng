@@ -4,7 +4,7 @@ import {
     Grid, 
     Button, ExpansionPanel, ExpansionPanelSummary, 
     ExpansionPanelDetails, Typography, Icon, Card, CircularProgress} from '@material-ui/core';
-import ProfessorCard from './components/professorCard';
+import CourseInstructors from './components/courseInstructors';
 import CourseComments from './components/courseComments';
 import CourseIntroduction from './components/courseIntroduction';
 import CourseCard from './components/courseCard';
@@ -98,7 +98,7 @@ export class CourseDetail extends BaseComponent {
                         >Create Section</Button>
                     </Card>
                     
-                    <ProfessorCard courseId={courseId}/>
+                    <CourseInstructors courseId={courseId}/>
 
                 </Grid>
 

@@ -7,11 +7,6 @@ import {
     ExpansionPanelDetails, Typography, Icon, Card, LinearProgress
 } from '@material-ui/core';
 
-
-var moment = require('moment');
-
-
-
 const course = {
     courseId: 'HISHF',
     courseType: 'CS',
@@ -44,26 +39,8 @@ const courses = [
     }
 ]
 
-const professor = {
-    professorId: 'HISHF',
-    courseType: 'CS',
-    courseCode: '135',
-    courseCredit: '3',
-    courseFaculty: 'Math',
-    courseProfId: 'HIHF',
-    coursePorf: 'Dave',
-    courseTime: 'Wednesday',
-    courseName: 'Introduction',
-    courseLocation: 'Nowhere',
-    professorRatingNum: 135,
-    professorLikeNum: 100,
-    professorMarkNum: 33,
-    professorEasyNum: 56,
-    courseAvatar: './src/test.png',
-    introduction: 'This course provides a systematic approach to empirical problem solving which will enable students to critically assess the sampling protocol and conclusions of an empirical study including the possible sources of error in the study and whether evidence of a causal relationship can be reasonably concluded. The connection between the attributes of a population and the parameters in the named distributions covered in STAT 230 will be emphasized. Numerical and graphical techniques for summarizing data and checking the fit of a statistical model will be discussed. '
-}
 
-class ProfessorCard extends Component {
+class CourseInstructors extends Component {
     state = {}
 
     goToCourseDetail = (courseId) => {
@@ -216,4 +193,4 @@ const styles = {
 
 }
 
-export default withRouter(ProfessorCard);
+export default withRouter(CourseInstructors);
