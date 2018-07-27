@@ -12,27 +12,28 @@ export class SectionCreate extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
-            name: null,
+            time: null,
             code: null,
-            introduction: null,
-            avatar: [],
+            term: null,
+            location: null,
+            maxStudentNum:null,
         };
     }
 
     onClickCreate = () => {
-        this.createCourse()
+        this.createSection()
     }
 
-    createCourse = () => {
+    createSection = () => {
 
         let form = new FormData();
-        form.append("name", this.state.name);
+        form.append("time", this.state.time);
         form.append("code", this.state.code);
-        form.append("introduction", this.state.introduction);
-        form.append("credit", this.state.credit);
-        form.append('avatar', this.state.avatar[0]);
+        form.append("term", this.state.term);
+        form.append("location", this.state.location);
+        form.append("maxStudentNum", this.state.maxStudentNum);
 
-        this.post('/api/course/create', form).then((result) => {
+        this.post('/api/section/create', form).then((result) => {
 
             if (!result) {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
@@ -42,7 +43,7 @@ export class SectionCreate extends BaseComponent {
 
             } else if (result.status === 'success') {
 
-                this.pushNotification("success", "successfully create the course", this.props.dispatch);
+                this.pushNotification("success", "successfully create the section", this.props.dispatch);
 
             } else {
                 alert(JSON.stringify(result))
@@ -50,6 +51,8 @@ export class SectionCreate extends BaseComponent {
             }
 
         })
+
+        alert(this.state.code+"\n"+this.state.time+"\n"+this.state.term+"\n"+this.state.location+"\n"+this.state.maxStudentNum);
     }
 
     renderTextInput = (name, variable) => {
@@ -65,85 +68,25 @@ export class SectionCreate extends BaseComponent {
         )
     }
 
-
-
-    renderIntroduction = (name, variable) => {
-        return (
-            <Grid style={styles.inputContainer} container>
-                <Grid xs={3} style={styles.textContainer} container>
-                    <Typography style={styles.text}>{name} :</Typography>
-                </Grid>
-                <Grid xs={9} container>
-                    <FormControl componentClass="textarea" onChange={this.handleChange(variable)} multilple style={styles.introContainer} rows={4} />
-                </Grid>
-            </Grid>
-        )
-    }
-
-    renderChooseAvatar = () => {
-
-        var onChange = (avatar) => {
-            this.setState({
-                avatar: this.state.avatar.concat(avatar)
-            });
-
-        }
-
-        return (
-            <Grid style={styles.inputContainer} container>
-                <Grid xs={3} style={styles.textContainer} container>
-                    <Typography style={styles.text}>Avatar: </Typography>
-                </Grid>
-                <Grid xs={9} container>
-                    <ImageUploader
-                        withIcon={false}
-                        withLabel={false}
-                        withPreview={true}
-                        buttonText='Choose images'
-                        onChange={onChange}
-                        imgExtension={['.jpg', '.gif', '.png']}
-                        maxFileSize={5242880}
-                        singleImage={true}
-                    />
-                </Grid>
-            </Grid>
-        )
-    }
-
     render() {
         return (
             <Grid justify='center' container>
 
                 <Grid xs={12} style={styles.headerContainer}>
-                    <Typography variant='display2'>New Course</Typography>
+                    <Typography variant='display2'>New Section</Typography>
                 </Grid>
 
                 <Grid xs={4} container>
                     {this.renderTextInput("Code", "code")}
-                    {this.renderTextInput("Name", "name")}
-                    {this.renderTextInput("Credit", "credit")}
-
-                    {this.renderChooseAvatar()}
-                </Grid>
-
-                <Grid xs={8} contaienr>
-
-
-                    {this.renderIntroduction("Introduction", "introduction")}
-
-
-
-
-                    {/* <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon" title="Action">
-                    <MenuItem key="1">Item</MenuItem>
-                </DropdownButton> */}
-
-
+                    {this.renderTextInput("Time", "time")}
+                    {this.renderTextInput("Term", "term")}
+                    {this.renderTextInput("Location", "location")}
+                    {this.renderTextInput("Max Student Number", "maxStudentNum")}
 
                 </Grid>
 
                 <Grid xs={12}>
-                    <Button onClick={this.onClickCreate}>Create Class</Button>
+                    <Button onClick={this.onClickCreate}>Create Section</Button>
                 </Grid>
             </Grid>
         );
