@@ -102,7 +102,7 @@ export class SignUp extends BaseComponent {
                             style={styles.textField}
                             value={this.state.name}
                             onChange={this.handleChange('email')}
-                            margin="small"
+                            margin="normal"
                             fullWidth={true}
                         />
                         </Grid>
@@ -114,7 +114,7 @@ export class SignUp extends BaseComponent {
                                 type="password"
                                 autoComplete="current-password"
                                 onChange={this.handleChange('password')}
-                                margin="small"
+                                margin="normal"
                                 fullWidth={true}
                             />
                         </Grid>
@@ -126,7 +126,7 @@ export class SignUp extends BaseComponent {
                                 type="password"
                                 autoComplete="current-password"
                                 onChange={this.handleChange('repassword')}
-                                margin="small"
+                                margin="normal"
                                 fullWidth={true}
                             />
                         </Grid>
@@ -160,7 +160,7 @@ const styles = {
 
     container: {
         width: '400px',
-        height: '400px',
+        height: '1000px',
         marginTop: '100px',
         justifyContent: 'center',
         alignItems: 'center',
@@ -174,7 +174,7 @@ const styles = {
 
     button: {
         width: '100%',
-        marginTop: '10px'
+        marginTop: '30px'
     },
 
     modalContainer: {
