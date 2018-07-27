@@ -83,7 +83,7 @@ export class CourseDetail extends BaseComponent {
 
                     <CourseIntroduction course={this.state.course}/>
 
-                    <CourseSections course={this.state.course}/>
+                    <CourseSections courseId={courseId}/>
 
                     <CourseComments courseId={courseId} userId={userId}/>
 

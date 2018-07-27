@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import { BaseComponent } from '../../../../components/BaseComponent';
+import { connect } from 'react-redux';
 import {
     Divider,
     Grid,
     Button, ExpansionPanel, ExpansionPanelSummary,
     ExpansionPanelDetails, Typography, Icon, Card, LinearProgress
 } from '@material-ui/core';
+
 var moment = require('moment');
 
 const sections = [
@@ -32,9 +35,46 @@ const sections = [
         time: '11am'
     }
 ]
-export default class CourseSections extends Component {
+class CourseSections extends BaseComponent {
 
-    state = {}
+    constructor(props) {
+        super(props);
+        this.state = {
+            courseId: this.props.courseId,
+
+            sections: [],
+        };
+    }
+
+    componentWillMount = () => {
+        this.fetchSections();
+    }
+
+    fetchSections = () => {
+        var form = new FormData();
+        form.append('courseId', this.state.courseId);
+        alert(this.state.courseId)
+
+        this.post('/api/section/courseIdToSections', form).then((result) => {
+
+            if (!result) {
+                this.pushNotification("danger", "Connection error", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.description, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+
+                this.setState({sections: result.detail})
+                this.pushNotification("success", "successfully fetch sections", this.props.dispatch);
+
+            } else {
+
+                this.pushNotification("danger", "unknown error", this.props.dispatch);
+            }
+
+        })
+    }
 
     renderSection = (section, index) => {
         return (
@@ -89,7 +129,7 @@ export default class CourseSections extends Component {
                             </Button>
                         </Grid>
 
-                        {sections.map(this.renderSection)}
+                        {this.state.sections.map(this.renderSection)}
 
                     <Grid xs={12} style={styles.padding} />
 
@@ -175,3 +215,5 @@ const styles = {
     }
 
 }
+
+export default connect()(CourseSections)
