@@ -16,7 +16,6 @@ const homeImage = {
     backgroundImage: 'url('+NjuImg+')'
 }
 
-
 export class SignIn extends BaseComponent {
 
     constructor(props) {
