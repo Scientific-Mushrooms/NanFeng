@@ -9,7 +9,7 @@ import CourseComments from './components/courseComments';
 import CourseIntroduction from './components/courseIntroduction';
 import CourseCard from './components/courseCard';
 import { BaseComponent } from '../../../components/BaseComponent';
-
+import CourseSections from './components/courseSections';
 
 
 
@@ -82,6 +82,8 @@ export class CourseDetail extends BaseComponent {
                     <CourseCard course={this.state.course}/>
 
                     <CourseIntroduction course={this.state.course}/>
+
+                    <CourseSections course={this.state.course}/>
 
                     <CourseComments courseId={courseId} userId={userId}/>
 
