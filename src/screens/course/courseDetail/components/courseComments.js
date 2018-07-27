@@ -93,7 +93,7 @@ class CourseComments extends BaseComponent {
                 this.pushNotification("success", "successfully create the course", this.props.dispatch);
 
             } else {
-                alert(JSON.stringify(result))
+
                 this.pushNotification("danger", "unknown error", this.props.dispatch);
             }
 

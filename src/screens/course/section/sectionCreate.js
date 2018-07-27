@@ -12,10 +12,11 @@ export class SectionCreate extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
-            name: null,
             code: null,
-            introduction: null,
-            avatar: [],
+            maxStudentNum: null,
+            location: null,
+            term: null,
+            time: null,
         };
     }
 
@@ -66,49 +67,7 @@ export class SectionCreate extends BaseComponent {
     }
 
 
-
-    renderIntroduction = (name, variable) => {
-        return (
-            <Grid style={styles.inputContainer} container>
-                <Grid xs={3} style={styles.textContainer} container>
-                    <Typography style={styles.text}>{name} :</Typography>
-                </Grid>
-                <Grid xs={9} container>
-                    <FormControl componentClass="textarea" onChange={this.handleChange(variable)} multilple style={styles.introContainer} rows={4} />
-                </Grid>
-            </Grid>
-        )
-    }
-
-    renderChooseAvatar = () => {
-
-        var onChange = (avatar) => {
-            this.setState({
-                avatar: this.state.avatar.concat(avatar)
-            });
-
-        }
-
-        return (
-            <Grid style={styles.inputContainer} container>
-                <Grid xs={3} style={styles.textContainer} container>
-                    <Typography style={styles.text}>Avatar: </Typography>
-                </Grid>
-                <Grid xs={9} container>
-                    <ImageUploader
-                        withIcon={false}
-                        withLabel={false}
-                        withPreview={true}
-                        buttonText='Choose images'
-                        onChange={onChange}
-                        imgExtension={['.jpg', '.gif', '.png']}
-                        maxFileSize={5242880}
-                        singleImage={true}
-                    />
-                </Grid>
-            </Grid>
-        )
-    }
+   
 
     render() {
         return (
@@ -118,27 +77,10 @@ export class SectionCreate extends BaseComponent {
                     <Typography variant='display2'>New Course</Typography>
                 </Grid>
 
-                <Grid xs={4} container>
+                <Grid xs={8} container>
                     {this.renderTextInput("Code", "code")}
                     {this.renderTextInput("Name", "name")}
                     {this.renderTextInput("Credit", "credit")}
-
-                    {this.renderChooseAvatar()}
-                </Grid>
-
-                <Grid xs={8} contaienr>
-
-
-                    {this.renderIntroduction("Introduction", "introduction")}
-
-
-
-
-                    {/* <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon" title="Action">
-                    <MenuItem key="1">Item</MenuItem>
-                </DropdownButton> */}
-
-
 
                 </Grid>
 

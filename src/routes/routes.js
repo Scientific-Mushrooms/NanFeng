@@ -71,21 +71,6 @@ const mainRoutes = [
     },
 
     {
-        path: "/squadPanel",
-        sidebarName: "Squad",
-        icon: "dashboard",
-        component: wrap(Screens.SquadPanel),
-        children: [
-            {
-                path: "/taskBoard",
-                sidebarName: "TaskBoard",
-                icon: 'code',
-                component: wrap(Screens.TaskBoard)
-            },
-        ]
-    },
-
-    {
         path: "/coursePanel",
         sidebarName: "Course",
         icon: "view_headline",
