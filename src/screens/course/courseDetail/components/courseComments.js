@@ -5,37 +5,102 @@ import {
     Button, ExpansionPanel, ExpansionPanelSummary,
     ExpansionPanelDetails, Typography, Icon, Card, LinearProgress
 } from '@material-ui/core';
+import { FormControl, FormGroup, ControlLabel, HelpBlock, DropdownButton, MenuItem, InputGroup, Textarea } from 'react-bootstrap';
+import { BaseComponent } from '../../../../components/BaseComponent';
+import { connect } from 'react-redux';
+
+
 var moment = require('moment');
 
-const courseComments = [
+class CourseComments extends BaseComponent {
 
-    {
-        userId: '233sdsgsdg',
-        userName: "clavier",
-        userProgram: "Computer Science",
-        userAvatar: './src/test.png',
-        content: "really easy",
-        useful: true,
-        liked: true,
-        easy: true,
-        date: new Date(),
-    },
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: true,
 
-    {
-        userId: '233sdsgsdg',
-        userName: "clavier",
-        userProgram: "Computer Science",
-        userAvatar: './src/test.png',
-        content: "really easy",
-        useful: true,
-        liked: true,
-        easy: true,
-        date: new Date(),
+            courseId: this.props.courseId,
+            userId: this.props.user === null ? null : this.props.user.userId,
+            enjoy: true,
+            easy: true,
+            useful: true,
+            comment: null,
+
+
+
+            courseComments: null,
+        };
     }
-]
 
-export default class CourseComments extends Component {
-    state = {  }
+    componentWillMount = () => {
+        this.fetchCourseComments();
+    }
+
+    fetchCourseComments = () => {
+
+        let form = new FormData();
+        form.append('courseId', this.state.courseId);
+
+        this.post('/api/courseComment/courseIdToCourseComments', form).then((result) => {
+
+            if (!result) {
+                this.pushNotification("danger", "Connection error", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.description, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+
+                this.setState({ courseComments: result.detail, commentAuthors: result.more })
+                
+                this.pushNotification("success", "successfully fetch courses", this.props.dispatch);
+
+            } else {
+
+                this.pushNotification("danger", "unknown error", this.props.dispatch);
+            }
+
+        })
+    }
+
+    createComment = () => {
+
+        let form = new FormData();
+        var {courseId, userId, enjoy, easy, useful, comment} = this.state;
+        if (userId === null) {
+            alert("sign in first")
+            return;
+        }
+
+        form.append("courseId", courseId);
+        form.append("userId", userId);
+        form.append("enjoy", enjoy);
+        form.append("easy", easy);
+        form.append('useful', useful);
+        form.append('comment', comment);
+
+        this.post('/api/courseComment/create', form).then((result) => {
+
+            if (!result) {
+                this.pushNotification("danger", "Connection error", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.description, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+
+                this.fetchCourseComments();
+                this.pushNotification("success", "successfully create the course", this.props.dispatch);
+
+            } else {
+                alert(JSON.stringify(result))
+                this.pushNotification("danger", "unknown error", this.props.dispatch);
+            }
+
+        })
+    }
+
+
 
     renderRating=(name,variable)=>{
         return(
@@ -61,17 +126,17 @@ export default class CourseComments extends Component {
                     </Grid>
 
                     <Grid xs={12} style={styles.textContainer} container>
-                        <Typography>A {comment.commentFaculty} student</Typography>
+                        <Typography>A  student</Typography>
                     </Grid>
 
                     <Grid xs={12} style={styles.textContainer} container>
-                        <Typography>{moment(comment.date).format("MMM Do YY")}</Typography>
+                        <Typography>233</Typography>
                     </Grid>
 
                 </Grid>
 
                 <Grid xs={6} style={styles.contentContainer} container>
-                    <Typography>{comment.content}</Typography>
+                    <Typography>{comment.comment}</Typography>
                 </Grid>
 
                 <Grid xs={4}>
@@ -88,21 +153,121 @@ export default class CourseComments extends Component {
         )
     }
 
+    renderUseful = () => {
+
+        var onClickYes = () => {
+            this.setState({ useful: true })
+        }
+
+        var onClickNo = () => {
+            this.setState({ useful: false })
+        }
+
+        return (
+            <Grid xs={12} container>
+                <Grid xs={3}>
+                    <Grid style={styles.text}>Useful?</Grid>
+                </Grid>
+                <Button style={this.state.useful ? styles.leftButton : styles.defaultButton} onClick={onClickYes}>Yes</Button>
+                <Button style={this.state.useful ? styles.defaultButton : styles.leftButton} onClick={onClickNo}>No</Button>
+            </Grid>
+        )
+    }
+
+    renderEnjoy = () => {
+
+        var onClickYes = () => {
+            this.setState({ enjoy: true })
+        }
+
+        var onClickNo = () => {
+            this.setState({ enjoy: false })
+        }
+
+        return (
+            <Grid xs={12} container>
+                <Grid xs={3}>
+                    <Grid style={styles.text}>Enjoy?</Grid>
+                </Grid>
+                <Button style={this.state.enjoy ? styles.leftButton : styles.defaultButton} onClick={onClickYes}>Yes</Button>
+                <Button style={this.state.enjoy ? styles.defaultButton : styles.leftButton} onClick={onClickNo}>No</Button>
+            </Grid>
+        )
+    }
+
+    renderEasy = () => {
+
+        var onClickYes = () => {
+            this.setState({ easy: true })
+        }
+
+        var onClickNo = () => {
+            this.setState({ easy: false })
+        }
+
+        return (
+            <Grid xs={12} container>
+                <Grid xs={3}>
+                    <Grid style={styles.text}>Easy?</Grid>
+                </Grid>
+                <Button style={this.state.easy ? styles.leftButton : styles.defaultButton} onClick={onClickYes}>Yes</Button>
+                <Button style={this.state.easy ? styles.defaultButton : styles.leftButton} onClick={onClickNo}>No</Button>
+            </Grid>
+        )
+    }
+
+
+    renderCreateComment = () => {
+        return (
+            <Grid xs={12} container>
+
+                <Grid xs={4}>
+                    {this.renderUseful()}
+                    {this.renderEnjoy()}
+                    {this.renderEasy()}
+                </Grid>
+
+                <Grid xs={8} container>
+                    <FormControl componentClass="textarea" onChange={this.handleChange('comment')} multilple style={styles.introContainer} rows={3} />
+                </Grid>
+
+            </Grid>
+        )
+    }
+
+    renderComments = () => {
+        if (this.state.courseComments !== null ) {
+            return (
+                <Grid xs={12}>
+                    {this.state.courseComments.map(this.courseCommentsToList)}
+                </Grid>
+            )
+        }
+    }
+
     render() {
         return (
             <Card  >
-
                 <Grid container style={styles.container}>
+
                     <Grid xs={12}>
-                        <Grid xs={7}>
-                            <Button style={styles.headerContainer}>
-                                <Typography style={styles.header}>Course Comments</Typography>
-                            </Button>
-                        </Grid>
-
-                        {courseComments.map(this.courseCommentsToList)}
-
+                        <Button style={styles.headerContainer}>
+                            <Typography style={styles.header}>Course Comments</Typography>
+                        </Button>
                     </Grid>
+
+                    <Grid xs={12}>
+                        {this.renderCreateComment()}
+                    </Grid>
+
+                    <Grid xs={12}>
+                        <Button onClick={this.createComment}>
+                            <Typography>submit</Typography>
+                        </Button>
+                    </Grid>
+
+                    {this.renderComments()}
+
                 </Grid>
 
             </Card>
@@ -116,54 +281,10 @@ const styles = {
         justifyContent: 'center',
     },
 
-    courseContainer: {
-        width: '100%',
-        height: '80px',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    courseAvatarContainer: {
-        height: '150px',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    courseName: {
-        fontSize: '30px',
-        textAlign: 'center',
-        marginBottom: '30px',
-    },
-
-    courseAvatar: {
-        width: '100px',
-        height: '100px',
-    },
-
-    ratingContainer: {
-        justifyContent: 'center',
-        height: '20px',
-        marginBottom: '10px'
-    },
-
-    rating: {
-        height: '100%',
-        borderRadius: '3px',
-        marginLeft: '10px'
-    },
-
-    courseInfoContainer: {
-        justifyContent: 'center'
-    },
-
     userAvatar: {
         height: '60px',
         width: '60px',
         borderRadius: '5px'
-    },
-
-    courseItem: {
-        textAlign: 'center'
     },
 
     text: {
@@ -219,3 +340,9 @@ const styles = {
 
 
 }
+
+const mapStateToProps = state => ({
+    user: state.userReducer.user,
+})
+
+export default connect(mapStateToProps)(CourseComments);

@@ -19,6 +19,7 @@ export class CourseDetail extends BaseComponent {
         super(props);
         this.state = {
             courseId: this.props.location.courseId,
+            userId: this.props.user === null ? null : this.props.user.userId,
             course: null,
             loading: true,
         };
@@ -63,7 +64,7 @@ export class CourseDetail extends BaseComponent {
 
     render() {
 
-        const {courseId} = this.state;
+        const {courseId, userId} = this.state;
 
         if (this.state.loading) {
             return (
@@ -82,7 +83,7 @@ export class CourseDetail extends BaseComponent {
 
                     <CourseIntroduction course={this.state.course}/>
 
-                    <CourseComments courseId={courseId}/>
+                    <CourseComments courseId={courseId} userId={userId}/>
 
                 </Grid>
 

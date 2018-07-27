@@ -6,7 +6,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import SearchBar from '../../../node_modules/material-ui-search-bar'
+import SearchBar from 'material-ui-search-bar';
 
 export class CourseList extends BaseComponent {
 
