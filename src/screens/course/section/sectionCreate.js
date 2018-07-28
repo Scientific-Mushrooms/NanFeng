@@ -4,8 +4,7 @@ import { Divider, Grid, Button, Typography, Input, TextField, Popover } from '@m
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { FormControl, FormGroup, ControlLabel, HelpBlock, DropdownButton, MenuItem, InputGroup, Textarea } from 'react-bootstrap';
 import 'react-infinite-calendar/styles.css';
-import { moment } from 'moment';
-import ImageUploader from 'react-images-upload';
+
 
 export class SectionCreate extends BaseComponent {
 
@@ -21,24 +20,26 @@ export class SectionCreate extends BaseComponent {
     }
 
     onClickCreate = () => {
-        this.createCourse()
+        this.createSection()
     }
 
-    createCourse = () => {
+    createSection = () => {
 
         let form = new FormData();
         form.append("name", this.state.name);
         form.append("code", this.state.code);
-        form.append("introduction", this.state.introduction);
-        form.append("credit", this.state.credit);
-        form.append('avatar', this.state.avatar[0]);
+        form.append("maxStudentNum", this.state.maxStudentNum);
+        form.append("location", this.state.location);
+        form.append("time", this.state.time);
 
-        this.post('/api/course/create', form).then((result) => {
+        this.post('/api/section/create', form).then((result) => {
 
             if (!result) {
+
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
 
             } else if (result.status === 'fail') {
+
                 this.pushNotification("danger", result.description, this.props.dispatch);
 
             } else if (result.status === 'success') {
@@ -46,7 +47,7 @@ export class SectionCreate extends BaseComponent {
                 this.pushNotification("success", "successfully create the course", this.props.dispatch);
 
             } else {
-                alert(JSON.stringify(result))
+
                 this.pushNotification("danger", "unknown error", this.props.dispatch);
             }
 
@@ -79,8 +80,8 @@ export class SectionCreate extends BaseComponent {
 
                 <Grid xs={8} container>
                     {this.renderTextInput("Code", "code")}
-                    {this.renderTextInput("Name", "name")}
-                    {this.renderTextInput("Credit", "credit")}
+                    {this.renderTextInput("Max student number", "maxStudentNum")}
+                    {this.renderTextInput("Location", "time")}
 
                 </Grid>
 

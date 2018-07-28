@@ -20,7 +20,7 @@ import mainRoutes from '../../routes/routes';
 
 
 const mapStateToProps = state => ({
-    user: state.userReducer.user,
+    user: state.identityReducer.user,
 })
 
 

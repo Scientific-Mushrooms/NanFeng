@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { withTheme } from '@material-ui/core/styles';
 
 const mapStateToProps = state => ({
-    user: state.userReducer.user,
+    user: state.identityReducer.user,
     loginbox: state.modalReducer.loginbox,
     dataForTaskChart: state.projectReducer.dataForTaskChart,
 

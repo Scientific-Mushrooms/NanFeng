@@ -365,7 +365,7 @@ const styles = {
 }
 
 const mapStateToProps = state => ({
-    user: state.userReducer.user,
+    user: state.identityReducer.user,
 })
 
 export default connect(mapStateToProps)(CourseComments);

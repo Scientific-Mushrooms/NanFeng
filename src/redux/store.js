@@ -39,7 +39,7 @@ const preloadedState = {
         squad: null,
     },
 
-    userReducer: {
+    identityReducer: {
         user: null
     },
 

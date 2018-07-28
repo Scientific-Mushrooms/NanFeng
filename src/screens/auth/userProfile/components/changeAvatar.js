@@ -85,7 +85,7 @@ const styles = {
 
 
 const mapStateToProps = state => ({
-    user: state.userReducer.user
+    user: state.identityReducer.user
 })
 
 

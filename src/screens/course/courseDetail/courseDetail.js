@@ -61,6 +61,10 @@ export class CourseDetail extends BaseComponent {
         })
     }
 
+    goToSectionCreate = () => {
+        this.props.history.push('/sectionCreate')
+    }
+
 
     render() {
 
@@ -92,10 +96,9 @@ export class CourseDetail extends BaseComponent {
                 <Grid xs={3} item>
 
                     <Card>
-                        <Button
-                            style={styles.button}
-                            color="primary"
-                        >Create Section</Button>
+                        <Button style={styles.button} color="primary" onClick={this.goToSectionCreate}>
+                            Create Section
+                        </Button>
                     </Card>
                     
                     <CourseInstructors courseId={courseId}/>

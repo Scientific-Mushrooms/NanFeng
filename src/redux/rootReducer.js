@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import modalReducer from './reducers/modalReducer'
-import userReducer from './reducers/userReducer'
+import identityReducer from './reducers/identityReducer'
 import projectReducer from './reducers/projectReducer';
 import squadReducer from './reducers/squadReducer';
 import chartReducer from './reducers/chartReducer';
@@ -11,7 +11,7 @@ import notificationReducer from './reducers/notificationReducer';
 
 export default combineReducers({
     modalReducer,
-    userReducer,
+    identityReducer,
     projectReducer,
     squadReducer,
     chartReducer,
