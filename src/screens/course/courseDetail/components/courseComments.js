@@ -111,7 +111,7 @@ class CourseComments extends BaseComponent {
                 <Button
                     style={variable? styles.leftButton:styles.defaultButton}>Yes</Button>
                 <Button
-                    style={variable? styles.defaultButton:styles.leftButton}>No</Button>
+                    style={variable? styles.defaultButton:styles.rightButton}>No</Button>
             </Grid>
         )
     }
@@ -164,12 +164,12 @@ class CourseComments extends BaseComponent {
         }
 
         return (
-            <Grid xs={12} container>
+            <Grid xs={4} container>
                 <Grid xs={3}>
                     <Grid style={styles.text}>Useful?</Grid>
                 </Grid>
                 <Button style={this.state.useful ? styles.leftButton : styles.defaultButton} onClick={onClickYes}>Yes</Button>
-                <Button style={this.state.useful ? styles.defaultButton : styles.leftButton} onClick={onClickNo}>No</Button>
+                <Button style={this.state.useful ? styles.defaultButton : styles.rightButton} onClick={onClickNo}>No</Button>
             </Grid>
         )
     }
@@ -185,12 +185,12 @@ class CourseComments extends BaseComponent {
         }
 
         return (
-            <Grid xs={12} container>
+            <Grid xs={4} container>
                 <Grid xs={3}>
                     <Grid style={styles.text}>Enjoy?</Grid>
                 </Grid>
                 <Button style={this.state.enjoy ? styles.leftButton : styles.defaultButton} onClick={onClickYes}>Yes</Button>
-                <Button style={this.state.enjoy ? styles.defaultButton : styles.leftButton} onClick={onClickNo}>No</Button>
+                <Button style={this.state.enjoy ? styles.defaultButton : styles.rightButton} onClick={onClickNo}>No</Button>
             </Grid>
         )
     }
@@ -206,12 +206,12 @@ class CourseComments extends BaseComponent {
         }
 
         return (
-            <Grid xs={12} container>
+            <Grid xs={4} container>
                 <Grid xs={3}>
                     <Grid style={styles.text}>Easy?</Grid>
                 </Grid>
                 <Button style={this.state.easy ? styles.leftButton : styles.defaultButton} onClick={onClickYes}>Yes</Button>
-                <Button style={this.state.easy ? styles.defaultButton : styles.leftButton} onClick={onClickNo}>No</Button>
+                <Button style={this.state.easy ? styles.defaultButton : styles.rightButton} onClick={onClickNo}>No</Button>
             </Grid>
         )
     }
@@ -219,16 +219,16 @@ class CourseComments extends BaseComponent {
 
     renderCreateComment = () => {
         return (
-            <Grid xs={12} container>
+            <Grid xs={12} style={styles.createComment} container>
 
-                <Grid xs={4}>
+                <Grid xs={12} container>
+                    <FormControl componentClass="textarea" onChange={this.handleChange('comment')} multilple style={styles.introContainer} rows={3} />
+                </Grid>
+
+                <Grid xs={12} direction="flex" container>
                     {this.renderUseful()}
                     {this.renderEnjoy()}
                     {this.renderEasy()}
-                </Grid>
-
-                <Grid xs={8} container>
-                    <FormControl componentClass="textarea" onChange={this.handleChange('comment')} multilple style={styles.introContainer} rows={3} />
                 </Grid>
 
             </Grid>
@@ -250,21 +250,22 @@ class CourseComments extends BaseComponent {
             <Card  >
                 <Grid container style={styles.container}>
 
-                    <Grid xs={12}>
+                    <Grid xs={12} container>
                         <Button style={styles.headerContainer}>
                             <Typography style={styles.header}>Course Comments</Typography>
                         </Button>
                     </Grid>
+                    <Grid xs={12} style={styles.border} container>
+                        <Grid xs={10} container>
+                            {this.renderCreateComment()}
+                        </Grid>
 
-                    <Grid xs={12}>
-                        {this.renderCreateComment()}
+                        <Grid xs={2} container>
+                            <Button onClick={this.createComment} style={styles.submitButton}>submit</Button>
+                        </Grid>
                     </Grid>
 
-                    <Grid xs={12}>
-                        <Button onClick={this.createComment}>
-                            <Typography>submit</Typography>
-                        </Button>
-                    </Grid>
+                    <Divider/>
 
                     {this.renderComments()}
 
@@ -289,7 +290,7 @@ const styles = {
 
     text: {
         textAlign: 'center',
-        marginTop: '8px',
+        marginTop: '12px',
     },
 
     headerContainer: {
@@ -310,6 +311,10 @@ const styles = {
         width:'100%',
     },
 
+    createComment:{
+      marginLeft:'20px',
+    },
+
     avatarContaienr: {
         justifyContent: 'center'
     },
@@ -324,20 +329,38 @@ const styles = {
         borderRadius: '5px',
     },
 
-    defaultButton:{},
+    introContainer:{
+      height:"200px",
+    },
+
+    defaultButton:{
+    },
 
     leftButton:{
-        backgroundColor:'#00c31d',
+        backgroundColor:'#86be0c',//#00c31d
         color:'#FFF',
-        marginBottom:'5px',
-        marginRight:'5px',
+        marginTop:'5px',
     },
 
     rightButton:{
-        backgroundColor:'#d31d27',
+        backgroundColor:'#fd9d9e',//#d31d27
         color:'#FFF',
+        marginTop:'5px',
     },
 
+    submitButton:{
+        height:'25%',
+        width:'80%',
+        backgroundColor:'#62d0f1',
+        color:'#FFF',
+        fontSize: '15px',
+        marginLeft:'10px',
+        marginTop:'180px',
+    },
+
+    border:{
+        marginBottom:'50px'
+    }
 
 }
 
