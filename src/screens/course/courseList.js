@@ -55,28 +55,29 @@ export class CourseList extends BaseComponent {
         }
 
         return (
-            <Grid container style={styles.courseContainer} xs={12}>
-                <Button style={styles.card} onClick={onClick} style={styles.button}>
-            
-					
-					<Grid xs={1} style={styles.courseItem}>
-                        <Icon>star</Icon>
-                    </Grid>
-					
-                    <Grid xs={2} style={styles.courseItem}>
-                        {course.code}
-                    </Grid>
+            <Grid justify='center' container>
+            <Card xs={12} style={styles.courseContainer}>
+                    <Button onClick={onClick} style={styles.button}>
 
-                    <Grid xs={3} style={styles.courseItem}>
-                        {course.name}
-                    </Grid>
+                        <Grid xs={1} style={styles.courseItem}>
+                            <Icon>star</Icon>
+                        </Grid>
 
-                    <Grid xs={6} style={styles.courseItem}>
-                        {course.introduction}
-                    </Grid>
+                        <Grid xs={2} style={styles.courseItem}>
+                            {course.code}
+                        </Grid>
 
-                
-                </Button>
+                        <Grid xs={3} style={styles.courseItem}>
+                            {course.name}
+                        </Grid>
+
+                        <Grid xs={6} style={styles.courseItem}>
+                            {course.introduction}
+                        </Grid>
+
+                    </Button>
+            </Card>
+            <Grid xs={12} style={styles.padding} />
             </Grid>
         )
     }
@@ -84,6 +85,8 @@ export class CourseList extends BaseComponent {
     renderSearchBar = () => {
         return (
             <Grid container style={styles.searchBarContainer}>
+                <Grid xs={2}>
+                </Grid>
                 <Grid xs={1}>
                     <FormControl className={this.props.formControl}>
                         <InputLabel htmlFor="age-simple">Class</InputLabel>
@@ -126,11 +129,10 @@ export class CourseList extends BaseComponent {
         return (
             <Grid container justify='center'>
 
-                <Grid xs={9}>
+                <Grid xs={10}>
                     <Card>
                         
                         {this.renderSearchBar()}
-
                         {this.state.courses.map(this.renderCourses)}
 
                     </Card>
@@ -143,8 +145,12 @@ export class CourseList extends BaseComponent {
 
 const styles = {
 
+    padding: {
+        height: '20px'
+    },
+
     courseContainer: {
-        height: '80px',
+        width:'80%',
     },
 
     courseItem: {
@@ -152,7 +158,8 @@ const styles = {
     },
 
     button: {
-        width: '100%'
+        width: '100%',
+        height: '80px',
     },
 
     searchBarContainer: {
