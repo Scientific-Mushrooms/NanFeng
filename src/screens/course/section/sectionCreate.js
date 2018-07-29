@@ -10,11 +10,11 @@ export class SectionCreate extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
-            code: null,
-            maxStudentNum: null,
-            location: null,
-            term: null,
             time: null,
+            code: null,
+            term: null,
+            location: null,
+            maxStudentNum:null,
         };
     }
 
@@ -25,11 +25,11 @@ export class SectionCreate extends BaseComponent {
     createSection = () => {
 
         let form = new FormData();
-        form.append("name", this.state.name);
-        form.append("code", this.state.code);
-        form.append("maxStudentNum", this.state.maxStudentNum);
-        form.append("location", this.state.location);
         form.append("time", this.state.time);
+        form.append("code", this.state.code);
+        form.append("term", this.state.term);
+        form.append("location", this.state.location);
+        form.append("maxStudentNum", this.state.maxStudentNum);
 
         this.post('/api/section/create', form).then((result) => {
 
@@ -43,7 +43,7 @@ export class SectionCreate extends BaseComponent {
 
             } else if (result.status === 'success') {
 
-                this.pushNotification("success", "successfully create the course", this.props.dispatch);
+                this.pushNotification("success", "successfully create the section", this.props.dispatch);
 
             } else {
 
@@ -51,6 +51,8 @@ export class SectionCreate extends BaseComponent {
             }
 
         })
+
+        alert(this.state.code+"\n"+this.state.time+"\n"+this.state.term+"\n"+this.state.location+"\n"+this.state.maxStudentNum);
     }
 
     renderTextInput = (name, variable) => {
@@ -66,26 +68,25 @@ export class SectionCreate extends BaseComponent {
         )
     }
 
-
-   
-
     render() {
         return (
             <Grid justify='center' container>
 
                 <Grid xs={12} style={styles.headerContainer}>
-                    <Typography variant='display2'>New Course</Typography>
+                    <Typography variant='display2'>New Section</Typography>
                 </Grid>
 
                 <Grid xs={8} container>
                     {this.renderTextInput("Code", "code")}
-                    {this.renderTextInput("Max student number", "maxStudentNum")}
-                    {this.renderTextInput("Location", "time")}
+                    {this.renderTextInput("Time", "time")}
+                    {this.renderTextInput("Term", "term")}
+                    {this.renderTextInput("Location", "location")}
+                    {this.renderTextInput("Max Student Number", "maxStudentNum")}
 
                 </Grid>
 
                 <Grid xs={12}>
-                    <Button onClick={this.onClickCreate}>Create Class</Button>
+                    <Button onClick={this.onClickCreate}>Create Section</Button>
                 </Grid>
             </Grid>
         );
