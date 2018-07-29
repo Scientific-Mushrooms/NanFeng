@@ -198,7 +198,7 @@ class Header extends BaseComponent {
                     vertical: 'top',
                     horizontal: 'center',
                 }}
-            >
+                >
                 <List component="nav">
                     <ListItem button >
                         <Typography>中文</Typography>
@@ -221,17 +221,14 @@ class Header extends BaseComponent {
 
     renderAvatar = () => {
 
-        if (this.props.user !==null) {
-            return (
-                <Avatar style={styles.avatar} src={this.getImagePath(this.props.user.avatarId)}/>
-            )
+        if (this.props.user === null) {
+            return null;
         }
 
-        // alert(JSON.stringify(this.state.avatar))
-        // return (
-            
-        //     <Avatar style={styles.avatar} src={this.imagePath + this.state.avatar.name} />
-        // )
+        return (
+            <Avatar style={styles.avatar} src={this.getImagePath(this.props.user.avatarId)}/>
+        )
+    
     }
 
 

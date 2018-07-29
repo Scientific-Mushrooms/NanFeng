@@ -1,14 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import { BaseComponent } from '../../../components/BaseComponent';
-import { Divider, Grid, Button, Typography, Input, TextField, Popover } from '@material-ui/core';
-import { FormControl, FormGroup, ControlLabel, HelpBlock, DropdownButton, MenuItem, InputGroup, Textarea } from 'react-bootstrap';
-import 'react-infinite-calendar/styles.css';
+import { Grid, Button, Typography } from '@material-ui/core';
+import { FormControl } from 'react-bootstrap';
 
 
 export class SectionCreate extends BaseComponent {
 
     constructor(props) {
         super(props);
+        if (this.props.instructor === null) {
+            this.props.history.push('home');
+        }
         this.state = {
             time: null,
             code: null,
@@ -42,17 +44,16 @@ export class SectionCreate extends BaseComponent {
                 this.pushNotification("danger", result.description, this.props.dispatch);
 
             } else if (result.status === 'success') {
-
+                
+                this.props.history.goBack();
                 this.pushNotification("success", "successfully create the section", this.props.dispatch);
 
             } else {
 
                 this.pushNotification("danger", "unknown error", this.props.dispatch);
+
             }
-
         })
-
-        alert(this.state.code+"\n"+this.state.time+"\n"+this.state.term+"\n"+this.state.location+"\n"+this.state.maxStudentNum);
     }
 
     renderTextInput = (name, variable) => {
@@ -104,10 +105,6 @@ const styles = {
         marginBottom: '20px'
     },
 
-    input: {
-        borderRadius: '6px'
-    },
-
     textContainer: {
         justifyContent: 'flex-end'
     },
@@ -116,16 +113,6 @@ const styles = {
         fontSize: '20px',
         marginRight: '10px',
     },
-
-    test: {
-        width: '300px',
-        height: '400px'
-    },
-
-    introContainer: {
-        height: '80px'
-    }
-
 
 };
 

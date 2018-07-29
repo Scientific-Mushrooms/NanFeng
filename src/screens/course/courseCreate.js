@@ -66,48 +66,6 @@ export class CourseCreate extends BaseComponent {
         )
     }
 
-
-
-    // renderEndDate = () => {
-
-    //     var handleEndDate = (date) => {
-    //         this.setState({ endDate: date })
-    //     }
-
-    //     var handleClick = (event) => {
-    //         this.setState({ parentEnd: event.currentTarget });
-    //     };
-
-    //     var handleClose = () => {
-    //         this.setState({ parentEnd: null });
-    //     };
-
-    //     return (
-    //         <Grid style={styles.inputContainer} container>
-    //             <Grid xs={3} style={styles.textContainer} container>
-    //                 <Typography style={styles.text}>End Date :</Typography>
-    //             </Grid>
-    //             <Grid xs={9} style={styles.textContinaer} container>
-    //                 <Button variant="contained" onClick={handleClick}>
-    //                     {JSON.stringify(this.state.endDate)}
-    //                 </Button>
-    //                 <Popover
-    //                     open={Boolean(this.state.parentEnd)}
-    //                     anchorEl={this.state.parentEnd}
-    //                     onClose={handleClose}
-    //                     anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-    //                     transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-    //                 >
-    //                     <InfiniteCalendar
-    //                         displayOptions={{ showHeader: false, shouldHeaderAnimate: false, showTodayHelper: false }}
-    //                         onSelect={handleEndDate}
-    //                     />
-    //                 </Popover>
-    //             </Grid>
-    //         </Grid>
-    //     )
-    // }
-
     renderIntroduction = (name, variable) => {
         return (
             <Grid style={styles.inputContainer} container>
@@ -159,33 +117,26 @@ export class CourseCreate extends BaseComponent {
                     <Typography variant='display2'>New Course</Typography>
                 </Grid>
 
-                <Grid xs={4} container>
+                <Grid xs={12} container>
+
                     {this.renderTextInput("Code", "code")}
+
                     {this.renderTextInput("Name", "name")}
+
                     {this.renderTextInput("Credit", "credit")}
 
                     {this.renderChooseAvatar()}
-                </Grid>
 
-                <Grid xs={8} contaienr>
-                    
-                    
                     {this.renderIntroduction("Introduction", "introduction")}
-                   
-               
 
-
-                {/* <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon" title="Action">
-                    <MenuItem key="1">Item</MenuItem>
-                </DropdownButton> */}
-
-                    
- 
                 </Grid>
+
+     
 
                 <Grid xs={12}>
                     <Button onClick={this.onClickCreate}>Create Class</Button>
                 </Grid>
+                
             </Grid>
         );
     }

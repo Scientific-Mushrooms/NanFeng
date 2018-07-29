@@ -1,34 +1,42 @@
-import React, { Component } from "react";
+import React from "react";
+import { BaseComponent } from '../../../../components/BaseComponent';
 import { 
     Divider, 
     Grid, 
     Button, ExpansionPanel, ExpansionPanelSummary, 
     ExpansionPanelDetails, Typography, Icon, Card, LinearProgress} from '@material-ui/core';
-var moment = require('moment');
+import _ from 'lodash';
 
 
 
-const course = {
-    courseId: 'HISHF',
-    courseType: 'CS',
-    courseCode: '135',
-    courseCredit: '3',
-    courseFaculty: 'Math',
-    courseProfId: 'HIHF',
-    coursePorf: 'Dave',
-    courseTime: 'Wednesday',
-    courseName: 'Introduction',
-    courseLocation: 'Nowhere',
-    courseRatingNum: 135,
-    courseLikeNum: 100,
-    courseUsefulNum: 33,
-    courseEasyNum: 56,
-    courseAvatar: './src/test.png',
-    introduction: 'This course provides a systematic approach to empirical problem solving which will enable students to critically assess the sampling protocol and conclusions of an empirical study including the possible sources of error in the study and whether evidence of a causal relationship can be reasonably concluded. The connection between the attributes of a population and the parameters in the named distributions covered in STAT 230 will be emphasized. Numerical and graphical techniques for summarizing data and checking the fit of a statistical model will be discussed. '
-}
+export default class CourseCard extends BaseComponent {
 
-export default class CourseCard extends Component {
-    state = {  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            courseComments: [],
+            totalCommentNum: 0,
+            usefulNum: 0,
+            easyNum: 0,
+            enjoy: 0,
+        };
+
+    }
+
+    componentWillMount = () => {
+        var {courseComments} = this.props;
+        var totalCommentNum = this.props.courseComments.length;
+        var usefulNum = _.filter(courseComments, { useful: true }).length;
+        var easyNum = _.filter(courseComments, { easy: true }).length;
+        var enjoyNum = _.filter(courseComments, { enjoy: true }).length;
+        this.setState({
+            totalCommentNum: totalCommentNum, 
+            usefulNum: usefulNum, 
+            easyNum: easyNum, 
+            enjoyNum: enjoyNum
+        })
+  
+    }
 
     renderCourseItem = (title, value) => {
         return (
@@ -61,7 +69,8 @@ export default class CourseCard extends Component {
 
 
     render() {
-        const {code, name, credit} = this.props.course;
+        const {code, name, credit, avatarId} = this.props.course;
+        const {totalCommentNum, usefulNum, easyNum, enjoyNum} = this.state;
         return (
             <Card style={styles.container}>
                 <Grid container style={styles.courseInfoContainer}>
@@ -71,29 +80,29 @@ export default class CourseCard extends Component {
                     <Grid xs={8} container>
 
                         <Grid xs={12} style={styles.courseAvatarContainer} container>
-                            <img src={require('../src/test.png')} style={styles.courseAvatar} />
+                            <img src={this.getImagePath(avatarId)} style={styles.courseAvatar} />
                         </Grid>
 
                         <Grid xs={12}>
                             <Typography style={styles.courseName}>{name}</Typography>
                         </Grid>
 
-                        {this.renderRating("Useful", 100, 30)}
+                        {this.renderRating("Useful", totalCommentNum * 100, usefulNum * 100)}
 
-                        {this.renderRating("Easy", 100, 30)}
+                        {this.renderRating("Easy", totalCommentNum * 100, easyNum * 100)}
 
-                        {this.renderRating("Likes", 100, 30)}
+                        {this.renderRating("Enjoy", totalCommentNum * 100, enjoyNum * 100)}
 
                     </Grid>
                     <Grid xs={4} container>
 
                         {this.renderCourseItem("Code:", code)}
 
-                        {this.renderCourseItem("Type:", course.courseType)}
+                        {this.renderCourseItem("Type:", "math")}
 
                         {this.renderCourseItem("Credit:", credit)}
 
-                        {this.renderCourseItem("Faculty:", course.courseFaculty)}
+                        {this.renderCourseItem("Faculty:", "faculty")}
                         
                     </Grid>
 

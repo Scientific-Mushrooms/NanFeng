@@ -6,11 +6,11 @@ import AddIcon from '@material-ui/icons/Add';
 export class CoursePanel extends Component {
 
     renderButton = (route, index) => {
+
         const onClick = () => {
             this.props.history.push({ pathname: route.path })
         }
 
-    
         return (
             <Grid 
             style={styles.btnContainer} 
@@ -29,7 +29,7 @@ export class CoursePanel extends Component {
     }
 
     renderCreateCourse= () => {
-        //if(this.props.user.role=='teacher')
+
         return(
             <Grid 
             style={styles.btnContainer} 

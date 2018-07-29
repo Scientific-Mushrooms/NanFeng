@@ -145,7 +145,7 @@ class CourseComments extends BaseComponent {
 
                     {this.renderRating("Easy",comment.easy)}
 
-                    {this.renderRating("Like it",comment.liked)}
+                    {this.renderRating("Like it",comment.enjoy)}
 
                 </Grid>
 
@@ -333,8 +333,6 @@ const styles = {
       height:"200px",
     },
 
-    defaultButton:{
-    },
 
     leftButton:{
         backgroundColor:'#86be0c',//#00c31d

@@ -18,9 +18,13 @@ export class CourseDetail extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
+
             courseId: this.props.location.courseId,
             userId: this.props.user === null ? null : this.props.user.userId,
+
             course: null,
+            courseComments: null,
+
             loading: true,
         };
     }
@@ -29,9 +33,11 @@ export class CourseDetail extends BaseComponent {
 
         if (this.state.courseId === undefined) {
             this.props.history.push("/courseList");
+            return
         }
 
         this.fetchCourse();
+        this.fetchCourseComments();
 
     }
 
@@ -61,8 +67,47 @@ export class CourseDetail extends BaseComponent {
         })
     }
 
+    fetchCourseComments = () => {
+
+        let form = new FormData();
+        form.append('courseId', this.state.courseId);
+
+        this.post('/api/courseComment/courseIdToCourseComments', form).then((result) => {
+
+            if (!result) {
+                this.pushNotification("danger", "Connection error", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.description, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+
+                this.setState({ courseComments: result.detail })
+
+                this.pushNotification("success", "successfully fetch courses", this.props.dispatch);
+
+            } else {
+
+                this.pushNotification("danger", "unknown error", this.props.dispatch);
+            }
+
+        })
+    }
+
     goToSectionCreate = () => {
         this.props.history.push('/sectionCreate')
+    }
+
+    renderCourseCard = () => {
+
+        if (this.state.courseComments === null || this.state.course === null) {
+            return null;
+        }
+
+        return (
+            <CourseCard course={this.state.course} courseComments={this.state.courseComments} />
+        )
+
     }
 
 
@@ -83,7 +128,7 @@ export class CourseDetail extends BaseComponent {
 
                 <Grid xs={9} item>
 
-                    <CourseCard course={this.state.course}/>
+                    {this.renderCourseCard()}
 
                     <CourseIntroduction course={this.state.course}/>
 

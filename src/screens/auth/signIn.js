@@ -65,7 +65,7 @@ export class SignIn extends BaseComponent {
                         this.pushNotification("danger",result.description,this.props.dispatch);
                     } else {
                         this.props.dispatch(login(result.detail));
-                        // this.props.dispatch(set_instructor(result.more))
+                        this.props.dispatch(set_instructor(result.more))
                         this.goBack();
                         this.pushNotification("normal","Login Succeeded",this.props.dispatch);
                     }
