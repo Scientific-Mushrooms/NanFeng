@@ -6,9 +6,9 @@ import { withTheme } from '@material-ui/core/styles';
 
 const mapStateToProps = state => ({
     user: state.identityReducer.user,
-    loginbox: state.modalReducer.loginbox,
-    dataForTaskChart: state.projectReducer.dataForTaskChart,
+    instructor: state.identityReducer.instructor,
 
+    dataForTaskChart: state.projectReducer.dataForTaskChart,
     pending: state.projectReducer.pending,
     progressing: state.projectReducer.progressing,
     finished: state.projectReducer.finished,

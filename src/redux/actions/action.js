@@ -4,10 +4,6 @@ export const logout = () => ({ type: 'LOGOUT'});
 
 export const update = (user) => ({ type: 'USER_UPDATE', user: user });
 
-export const loginBoxShow = { type: 'LOGINBOX_SHOW' };
-
-export const loginBoxHide = { type: 'LOGINBOX_HIDE' };
-
 export const taskDetailBoxShow = () => ({ type: 'TASK_DETAIL_BOX_SHOW', taskDetailBox: true});
 
 export const taskDetailBoxHide = () => ({ type: 'TASK_DETAIL_BOX_HIDE', taskDetailBox: false });
@@ -37,3 +33,8 @@ export const taskSet = (task) => ({ type: 'TASK_SET', task: task });
 export const show_notification = (kind, reason) => ({ type: 'SHOW_NOTIFICATION', kind: kind, reason: reason});
 
 export const hide_notification = () => ({ type: 'HIDE_NOTIFICATION'});
+
+
+export const set_instructor = (instructor) => ({type: 'SET_INSTRUCTOR', instructor: instructor})
+
+export const remove_instructor = () => ({ type: 'REMOVE_INSTRUCTOR' })

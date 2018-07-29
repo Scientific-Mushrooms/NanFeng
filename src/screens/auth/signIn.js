@@ -2,7 +2,7 @@ import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import { login } from '../../redux/actions/action';
+import { login, set_instructor } from '../../redux/actions/action';
 import Card from "../../components/Card/Card.jsx";
 import CardBody from "../../components/Card/CardBody.jsx";
 import Button from '../../components/CustomButtons/Button'
@@ -20,9 +20,7 @@ export class SignIn extends BaseComponent {
 
     constructor(props) {
         super(props);
-
         this.state = {
-            register: false,
             email: '',
             password: '',
         };
@@ -48,11 +46,6 @@ export class SignIn extends BaseComponent {
         this.props.history.push({ pathname: "/signup" })
     }
 
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
-    };
 
     login = () => {
         if (this.state.email === '' ) {
@@ -64,7 +57,7 @@ export class SignIn extends BaseComponent {
             form.append("email", this.state.email);
             form.append("password", this.state.password);
 
-            this.post('/api/security/login', form).then((result) => {
+            this.post('/api/security/signIn', form).then((result) => {
                 if (!result){
                     this.pushNotification("danger","Connection To Server Failed",this.props.dispatch);
                 }else{
@@ -72,8 +65,8 @@ export class SignIn extends BaseComponent {
                         this.pushNotification("danger",result.description,this.props.dispatch);
                     } else {
                         this.props.dispatch(login(result.detail));
+                        // this.props.dispatch(set_instructor(result.more))
                         this.goBack();
-                        //should be redirect to home here
                         this.pushNotification("normal","Login Succeeded",this.props.dispatch);
                     }
                 }

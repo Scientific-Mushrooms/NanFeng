@@ -40,7 +40,8 @@ const preloadedState = {
     },
 
     identityReducer: {
-        user: null
+        user: null,
+        instructor: null,
     },
 
     chartReducer: {
