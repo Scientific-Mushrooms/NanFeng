@@ -78,25 +78,26 @@ class CourseSections extends BaseComponent {
 
     renderSection = (section, index) => {
         return (
-            <Grid xs={12}>
+            <Grid xs={12} style={styles.sectionContainer}>
                 <Button fullWidth>
-                    <Grid xs={3}>
+                    <Grid xs={2}container>
                         <Typography>{section.code}}</Typography>
                     </Grid>
-                    <Grid xs={2}>
+                    <Grid xs={3}container>
                         <Typography>{section.enrolledStudentNum}</Typography>
                     </Grid>
-                    <Grid xs={2}>
+                    <Grid xs={3}container>
                         <Typography>{section.location}</Typography>
                     </Grid>
-                    <Grid xs={3}>
+                    <Grid xs={2}container>
                         <Typography>{section.time}</Typography>
                     </Grid>
-                    <Grid xs={2}>
+                    <Grid xs={2}container>
                         <Typography>{section.instructorId}</Typography>
                     </Grid>
 
                 </Button>
+                <Divider/>
             </Grid>
         )
     }
@@ -108,28 +109,29 @@ class CourseSections extends BaseComponent {
 
                     <Grid xs={12} style={styles.padding} />
 
-                        <Grid xs={12}>
-                            <Button fullWidth>
-                                <Grid xs={3}>
-                                    <Typography>code</Typography>
+                        <Grid xs={12} style={styles.sectionContainer}>
+                            <Button fullWidth divider>
+                                <Grid xs={2} container>
+                                    <Typography style={styles.text}>code</Typography>
                                 </Grid>
-                                <Grid xs={2}>
-                                    <Typography>enrolledStudentNum</Typography>
+                                <Grid xs={3} container>
+                                    <Typography style={styles.text}>Enrolled Student Number</Typography>
                                 </Grid>
-                                <Grid xs={2}>
-                                    <Typography>location</Typography>
+                                <Grid xs={3} container>
+                                    <Typography style={styles.text}>location</Typography>
                                 </Grid>
-                                <Grid xs={3}>
-                                    <Typography>time</Typography>
+                                <Grid xs={2} container>
+                                    <Typography style={styles.text}>time</Typography>
                                 </Grid>
-                                <Grid xs={2}>
-                                    <Typography>instructorId</Typography>
+                                <Grid xs={2} container>
+                                    <Typography style={styles.text}>instructor Id</Typography>
                                 </Grid>
 
                             </Button>
+                            <Divider/>
                         </Grid>
 
-                        {this.state.sections.map(this.renderSection)}
+                    {this.state.sections.map(this.renderSection)}
 
                     <Grid xs={12} style={styles.padding} />
 
@@ -148,6 +150,10 @@ const styles = {
 
     padding: {
         height: '40px'
+    },
+
+    sectionContainer:{
+      backgroundColor:'#FFF',
     },
 
     courseContainer: {
@@ -207,7 +213,8 @@ const styles = {
     },
 
     text: {
-        textAlign: 'center',
+        fontSize:'13px',
+        fontWeight:'600',
     },
 
     ratingText: {
