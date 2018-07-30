@@ -37,7 +37,7 @@ export class CourseDetail extends BaseComponent {
         }
 
         this.fetchCourse();
-        this.fetchCourseComments();
+        
 
     }
 
@@ -56,35 +56,8 @@ export class CourseDetail extends BaseComponent {
 
             } else if (result.status === 'success') {
 
-                this.setState({ course: result.detail, loading: false })
+                this.setState({ course: result.detail, loading: false, courseComments: result.more })
                 this.pushNotification("success", "successfully fetch the course", this.props.dispatch);
-
-            } else {
-
-                this.pushNotification("danger", "unknown error", this.props.dispatch);
-            }
-
-        })
-    }
-
-    fetchCourseComments = () => {
-
-        let form = new FormData();
-        form.append('courseId', this.state.courseId);
-
-        this.post('/api/courseComment/courseIdToCourseComments', form).then((result) => {
-
-            if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.description, this.props.dispatch);
-
-            } else if (result.status === 'success') {
-
-                this.setState({ courseComments: result.detail })
-
-                this.pushNotification("success", "successfully fetch courses", this.props.dispatch);
 
             } else {
 

@@ -4,7 +4,7 @@ import {
     Divider, 
     Grid, 
     Button, ExpansionPanel, ExpansionPanelSummary, 
-    ExpansionPanelDetails, Typography, Icon, Card, LinearProgress} from '@material-ui/core';
+    ExpansionPanelDetails, Typography, Icon, Card, LinearProgress, withStyles} from '@material-ui/core';
 import _ from 'lodash';
 
 
@@ -42,26 +42,38 @@ export default class CourseCard extends BaseComponent {
         return (
             <Grid xs={12} style={styles.courseInfoContainer} container>
                 <Grid xs={3}>
-                    <Typography style={styles.courseInfo}>{title}</Typography>
+                    <Typography style={styles.item}>{title}</Typography>
                 </Grid>
                 <Grid xs={5}>
-                    <Typography style={styles.courseInfo}>{value}</Typography>
+                    <Typography style={styles.value}>{value}</Typography>
                 </Grid>
             </Grid>
         )
     }
 
     renderRating = (title, total, positive) => {
+
+        var num = (positive / total).toFixed(2) * 100;
+
+        if (total === 0) {
+            positive = 100;
+            total = 100;
+            num = 100
+        }
+
         return (
             <Grid xs={12} style={styles.ratingContainer} container>
-                <Grid xs={2}>
-                    <Typography style={styles.ratingText}>{title}</Typography>
+                <Grid xs={2} container justify='center'>
+                    <Typography style={styles.ratingTitle}>{title}</Typography>
                 </Grid>
-                <Grid xs={8}>
-                    <LinearProgress color="secondary" variant="buffer" value={positive} valueBuffer={total} style={styles.rating} />
+                <Grid xs={6}>
+                    <LinearProgress color="primary" variant="buffer" value={positive} valueBuffer={total} style={styles.rating} />
                 </Grid>
-                <Grid xs={2}>
-                    <Typography style={styles.ratingText}>{positive / total}%</Typography>
+                <Grid xs={2} alignItems='center' container>
+                    <Typography style={styles.ratingNum}>{num} %</Typography>
+                </Grid>
+                <Grid xs={2} alignItems='center' container>
+                    <Typography style={styles.ratingTotalNum}>{total} ratings</Typography>
                 </Grid>
             </Grid>
         )
@@ -69,47 +81,40 @@ export default class CourseCard extends BaseComponent {
 
 
     render() {
-        const {code, name, credit, avatarId} = this.props.course;
+
+        const {code, name, credit, avatarId, faculty, type} = this.props.course;
         const {totalCommentNum, usefulNum, easyNum, enjoyNum} = this.state;
+
         return (
             <Card style={styles.container}>
                 <Grid container style={styles.courseInfoContainer}>
 
-                    <Grid xs={12} style={styles.padding}/>
-
-                    <Grid xs={8} container>
-
-                        <Grid xs={12} style={styles.courseAvatarContainer} container>
-                            <img src={this.getImagePath(avatarId)} style={styles.courseAvatar} />
+                    <Grid xs={8} container style={styles.leftContainer} justify='center'>
+                        <Grid xs={11} container>
+                            <Grid xs={12} style={styles.padding}/>
+                            <Grid xs={12} style={styles.courseAvatarContainer} container>
+                                <img src={this.getImagePath(avatarId)} style={styles.courseAvatar} />
+                            </Grid>
+                            <Grid xs={12} style={styles.titleContainer} container>
+                                <Typography style={styles.title}>{name}</Typography>
+                            </Grid>
+                            {this.renderRating("Useful", totalCommentNum * 100, usefulNum * 100)}
+                            {this.renderRating("Easy", totalCommentNum * 100, easyNum * 100)}
+                            {this.renderRating("Enjoy", totalCommentNum * 100, enjoyNum * 100)}
+                            <Grid xs={12} style={styles.padding} />
                         </Grid>
-
-                        <Grid xs={12}>
-                            <Typography style={styles.courseName}>{name}</Typography>
-                        </Grid>
-
-                        {this.renderRating("Useful", totalCommentNum * 100, usefulNum * 100)}
-
-                        {this.renderRating("Easy", totalCommentNum * 100, easyNum * 100)}
-
-                        {this.renderRating("Enjoy", totalCommentNum * 100, enjoyNum * 100)}
-
                     </Grid>
-                    <Grid xs={4} container>
 
+                    <Grid xs={4} container style={styles.rightContainer}>
+                        <Grid xs={12} style={styles.padding} />
                         {this.renderCourseItem("Code:", code)}
-
-                        {this.renderCourseItem("Type:", "math")}
-
+                        {this.renderCourseItem("Type:", type)}
                         {this.renderCourseItem("Credit:", credit)}
-
-                        {this.renderCourseItem("Faculty:", "faculty")}
-                        
+                        {this.renderCourseItem("Faculty:", faculty)}
+                        <Grid xs={12} style={styles.padding} /> 
                     </Grid>
-
-                    <Grid xs={12} style={styles.padding} />
 
                 </Grid>
-
             </Card>
         );
     }
@@ -119,6 +124,10 @@ const styles = {
 
     container: {
         marginBottom: '10px',
+    },
+
+    leftContainer: {
+        backgroundColor: '#f5f5f5',
     },
 
     padding: {
@@ -145,8 +154,8 @@ const styles = {
     },
 
     courseAvatar: {
-        width: '100px',
-        height: '100px',
+        width: '130px',
+        height: '130px',
         borderRadius: '5px',
     },
 
@@ -181,12 +190,47 @@ const styles = {
         textAlign: 'center'
     },
 
-    text: {
-        textAlign: 'center',
+    title: {
+        color: '#666666',
+        fontSize: '30px'
     },
 
-    ratingText: {
-        textAlign: 'center',
-    }
+    titleContainer: {
+        marginTop: '20px',
+        marginBottom: '20px',
+        justifyContent: 'center'
+    },
+
+    textContainer: {
+        alignItems: 'center'
+    },
+
+    ratingTitle: {
+        color: '#666666',
+        fontSize: '12px'
+    },
+
+    ratingNum: {
+        color: '#666666',
+        fontSize: '15px',
+        marginLeft: '10px'
+    },
+
+    ratingTotalNum: {
+        color: '#999999',
+        fontSize: '12px',
+    },
+
+    item: {
+        color: '#999999',
+        fontSize: '20px',
+        textAlign: 'right',
+        marginRight: '15px',
+    },
+
+    value: {
+        color: '#666666',
+        fontSize: '20px'
+    },
 
 }

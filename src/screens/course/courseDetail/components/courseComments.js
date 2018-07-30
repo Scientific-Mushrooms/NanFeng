@@ -164,12 +164,16 @@ class CourseComments extends BaseComponent {
         }
 
         return (
-            <Grid xs={4} container>
-                <Grid xs={3}>
-                    <Grid style={styles.text}>Useful?</Grid>
+            <Grid xs={3} container>
+                <Grid xs={4}>
+                    <Grid style={styles.text}>Useful ?</Grid>
                 </Grid>
-                <Button style={this.state.useful ? styles.leftButton : styles.defaultButton} onClick={onClickYes}>Yes</Button>
-                <Button style={this.state.useful ? styles.defaultButton : styles.rightButton} onClick={onClickNo}>No</Button>
+                <Grid xs={4}>
+                    <Button style={this.state.useful ? styles.leftButton : styles.defaultButton} onClick={onClickYes}>Yes</Button>
+                </Grid>
+                <Grid xs={4}>
+                    <Button style={this.state.useful ? styles.defaultButton : styles.rightButton} onClick={onClickNo}>No</Button>
+                </Grid>
             </Grid>
         )
     }
@@ -185,12 +189,16 @@ class CourseComments extends BaseComponent {
         }
 
         return (
-            <Grid xs={4} container>
-                <Grid xs={3}>
-                    <Grid style={styles.text}>Enjoy?</Grid>
+            <Grid xs={3} container>
+                <Grid xs={4}>
+                    <Grid style={styles.text}>Enjoy ?</Grid>
                 </Grid>
-                <Button style={this.state.enjoy ? styles.leftButton : styles.defaultButton} onClick={onClickYes}>Yes</Button>
-                <Button style={this.state.enjoy ? styles.defaultButton : styles.rightButton} onClick={onClickNo}>No</Button>
+                <Grid xs={4}>
+                    <Button style={this.state.enjoy ? styles.leftButton : styles.defaultButton} onClick={onClickYes}>Yes</Button>
+                </Grid>
+                <Grid xs={4}>
+                    <Button style={this.state.enjoy ? styles.defaultButton : styles.rightButton} onClick={onClickNo}>No</Button>
+                </Grid>
             </Grid>
         )
     }
@@ -206,12 +214,16 @@ class CourseComments extends BaseComponent {
         }
 
         return (
-            <Grid xs={4} container>
-                <Grid xs={3}>
-                    <Grid style={styles.text}>Easy?</Grid>
+            <Grid container xs={12}>
+                <Grid xs={4}>
+                    <Grid style={styles.text}>Easy ?</Grid>
                 </Grid>
-                <Button style={this.state.easy ? styles.leftButton : styles.defaultButton} onClick={onClickYes}>Yes</Button>
-                <Button style={this.state.easy ? styles.defaultButton : styles.rightButton} onClick={onClickNo}>No</Button>
+                <Grid xs={4}>
+                    <Button style={this.state.easy ? styles.leftButton : styles.defaultButton} onClick={onClickYes}>Yes</Button>
+                </Grid>
+                <Grid xs={4}>
+                    <Button style={this.state.easy ? styles.defaultButton : styles.rightButton} onClick={onClickNo}>No</Button>
+                </Grid >
             </Grid>
         )
     }
@@ -221,14 +233,23 @@ class CourseComments extends BaseComponent {
         return (
             <Grid xs={12} style={styles.createComment} container>
 
-                <Grid xs={12} container>
-                    <FormControl componentClass="textarea" onChange={this.handleChange('comment')} multilple style={styles.introContainer} rows={3} />
+                <Grid xs={12} container style={styles.textInputContainer}>
+                    <FormControl componentClass="textarea" onChange={this.handleChange('comment')} multilple style={styles.textInput} rows={3} />
                 </Grid>
 
                 <Grid xs={12} direction="flex" container>
-                    {this.renderUseful()}
-                    {this.renderEnjoy()}
-                    {this.renderEasy()}
+                    <Grid xs={3} container>
+                        {this.renderUseful()}
+                    </Grid>
+                    <Grid xs={3} container>
+                        {this.renderEnjoy()}
+                    </Grid>
+                    <Grid xs={3} container>
+                        {this.renderEasy()}
+                    </Grid>
+                    <Grid xs={3} container>
+                        <Button onClick={this.createComment} style={styles.submitButton}>submit</Button>
+                    </Grid>
                 </Grid>
 
             </Grid>
@@ -251,17 +272,14 @@ class CourseComments extends BaseComponent {
                 <Grid container style={styles.container}>
 
                     <Grid xs={12} container>
-                        <Button style={styles.headerContainer}>
-                            <Typography style={styles.header}>Course Comments</Typography>
-                        </Button>
+                        <Grid style={styles.headerContainer}>
+                            <Typography style={styles.title}>Course Comments</Typography>
+                        </Grid>
                     </Grid>
+
                     <Grid xs={12} style={styles.border} container>
                         <Grid xs={10} container>
                             {this.renderCreateComment()}
-                        </Grid>
-
-                        <Grid xs={2} container>
-                            <Button onClick={this.createComment} style={styles.submitButton}>submit</Button>
                         </Grid>
                     </Grid>
 
@@ -293,14 +311,6 @@ const styles = {
         marginTop: '12px',
     },
 
-    headerContainer: {
-        fontSize: '30px',
-        marginTop: '30px',
-        marginBottom: '30px',
-        marginLeft: '20px',
-        backgroundColor: '#62d0f1'
-    },
-
     header: {
         fontSize: '30px',
         color: '#fff'
@@ -329,35 +339,47 @@ const styles = {
         borderRadius: '5px',
     },
 
-    introContainer:{
-      height:"200px",
+    textInput:{
+      height:"100px",
     },
-
 
     leftButton:{
         backgroundColor:'#86be0c',//#00c31d
         color:'#FFF',
-        marginTop:'5px',
     },
 
     rightButton:{
         backgroundColor:'#fd9d9e',//#d31d27
         color:'#FFF',
-        marginTop:'5px',
     },
 
     submitButton:{
-        height:'25%',
-        width:'80%',
         backgroundColor:'#62d0f1',
         color:'#FFF',
         fontSize: '15px',
-        marginLeft:'10px',
-        marginTop:'180px',
     },
 
     border:{
         marginBottom:'50px'
+    },
+
+    headerContainer: {
+        marginTop: '30px',
+        marginBottom: '30px',
+        marginLeft: '20px',
+        borderLeftWidth: '3px',
+        borderLeftColor: '#66ccff',
+        borderLeftStyle: 'solid'
+    },
+
+    title: {
+        color: '#666666',
+        fontSize: '35px',
+        marginLeft: '10px'
+    },
+
+    textInputContainer: {
+        marginBottom: '20px'
     }
 
 }

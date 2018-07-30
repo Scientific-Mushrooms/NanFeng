@@ -8,6 +8,7 @@ import dashboardRoutes from "../../routes/routes";
 import Grid from "@material-ui/core/Grid";
 import Header from './header';
 import Notification from '../layouts/notification';
+import { withTheme, withStyles } from '@material-ui/core/styles';
 
 
 class Layout extends Component {
@@ -39,15 +40,16 @@ class Layout extends Component {
     };
 
     render() {
+        const { classes } = this.props;
 
         return (
             <Grid container>
 
-                <Grid xs={12} style={styles.headerContainer} container>
+                <Grid xs={12} className={classes.headerContainer} container>
                     <Header />
                 </Grid>
 
-                <Grid  container style={styles.bodyContainer}>
+                <Grid  container className={classes.bodyContainer}>
                     <Grid xs={10}>
                         <Switch>
                             {this.createRoutes(this.flatWrapper(dashboardRoutes))}
@@ -62,7 +64,7 @@ class Layout extends Component {
     }
 }
 
-const styles = {
+const styles = theme => ({
 
     headerContainer: {
 
@@ -71,8 +73,8 @@ const styles = {
     bodyContainer: {
         justifyContent: 'center',
         paddingTop: '40px',
-        backgroundColor: '#fff'
+        backgroundColor: theme.palette.base
     },
-};
+});
 
-export default Layout;
+export default withStyles(styles)(Layout);

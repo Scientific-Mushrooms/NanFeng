@@ -28,6 +28,8 @@ export class CourseCreate extends BaseComponent {
 
         let form = new FormData();
         form.append("name", this.state.name);
+        form.append("type", this.state.type);
+        form.append("faculty", this.state.faculty);
         form.append("code", this.state.code);
         form.append("introduction", this.state.introduction);
         form.append("credit", this.state.credit);
@@ -122,6 +124,10 @@ export class CourseCreate extends BaseComponent {
                     {this.renderTextInput("Code", "code")}
 
                     {this.renderTextInput("Name", "name")}
+
+                    {this.renderTextInput("Type", "type")}
+
+                    {this.renderTextInput("Faculty", "faculty")}
 
                     {this.renderTextInput("Credit", "credit")}
 
