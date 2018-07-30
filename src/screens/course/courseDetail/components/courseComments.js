@@ -2,13 +2,11 @@ import React, { Component } from "react";
 import {
     Divider,
     Grid,
-    Button, ExpansionPanel, ExpansionPanelSummary,
-    ExpansionPanelDetails, Typography, Icon, Card, LinearProgress
+    Button, Typography, Icon, Card, LinearProgress
 } from '@material-ui/core';
-import { FormControl, FormGroup, ControlLabel, HelpBlock, DropdownButton, MenuItem, InputGroup, Textarea } from 'react-bootstrap';
+import { FormControl } from 'react-bootstrap';
 import { BaseComponent } from '../../../../components/BaseComponent';
 import { connect } from 'react-redux';
-
 
 var moment = require('moment');
 
@@ -25,9 +23,8 @@ class CourseComments extends BaseComponent {
             easy: true,
             useful: true,
             comment: null,
-
-
-
+            
+            commentAuthors: null,
             courseComments: null,
         };
     }
@@ -100,55 +97,65 @@ class CourseComments extends BaseComponent {
         })
     }
 
-
-
-    renderRating=(name,variable)=>{
-        return(
-            <Grid xs={12} container>
-                <Grid xs={3}>
-                    <Grid style={styles.text}>{name}?</Grid>
-                </Grid>
-                <Button
-                    style={variable? styles.leftButton:styles.defaultButton}>Yes</Button>
-                <Button
-                    style={variable? styles.defaultButton:styles.rightButton}>No</Button>
-            </Grid>
-        )
-    }
-
     courseCommentsToList = (comment, index) => {
+
+        var {avatarId, nickName} = this.state.commentAuthors[index];
+
         return (
             <Grid container style={styles.commentContainer}>
                 <Grid xs={2} container>
 
                     <Grid xs={12} style={styles.avatarContaienr} container>
-                        <img src={require('../src/test.png')} style={styles.userAvatar} />
+                        <img src={this.getImagePath(avatarId)} style={styles.userAvatar} />
                     </Grid>
 
                     <Grid xs={12} style={styles.textContainer} container>
-                        <Typography>A  student</Typography>
+                        <Typography>{nickName}</Typography>
                     </Grid>
 
                     <Grid xs={12} style={styles.textContainer} container>
-                        <Typography>233</Typography>
+                        <Typography>{moment(comment.date).fromNow()}</Typography>
                     </Grid>
 
                 </Grid>
 
-                <Grid xs={6} style={styles.contentContainer} container>
-                    <Typography>{comment.comment}</Typography>
+                <Grid xs={6} style={styles.commentContainer} container>
+                    <Typography style={styles.comment}>{comment.comment}</Typography>
                 </Grid>
 
                 <Grid xs={4}>
 
-                    {this.renderRating("Useful",comment.useful)}
+                    <Grid xs={12} container style={styles.commentOptionContainer}>
+                        <Grid xs={3} alignItems='center' justify='center' container>
+                            <Typography style={styles.optionTitle}>Useful ?</Typography>
+                        </Grid>
+                        <Grid xs={9}>
+                            <Button style={comment.useful ? styles.leftButton : styles.defaultButton}>Yes</Button>
+                            <Button style={comment.useful ? styles.defaultButton : styles.rightButton}>No</Button>
+                        </Grid>
+                    </Grid>
 
-                    {this.renderRating("Easy",comment.easy)}
+                    <Grid xs={12} container style={styles.commentOptionContainer}>
+                        <Grid xs={3} alignItems='center' justify='center' container>
+                            <Typography style={styles.optionTitle}>Easy ?</Typography>
+                        </Grid>
+                        <Grid xs={9}>
+                            <Button style={comment.easy ? styles.leftButton : styles.defaultButton}>Yes</Button>
+                            <Button style={comment.easy ? styles.defaultButton : styles.rightButton}>No</Button>
+                        </Grid>
+                    </Grid>
 
-                    {this.renderRating("Like it",comment.enjoy)}
+                    <Grid xs={12} container>
+                        <Grid xs={3} alignItems='center' justify='center' container>
+                            <Typography style={styles.optionTitle}>Enjoy ?</Typography>
+                        </Grid>
+                        <Grid xs={9}>
+                            <Button style={comment.enjoy ? styles.leftButton : styles.defaultButton}>Yes</Button>
+                            <Button style={comment.enjoy ? styles.defaultButton : styles.rightButton}>No</Button>
+                        </Grid>
+                    </Grid>
 
                 </Grid>
-
             </Grid>
         )
     }
@@ -190,7 +197,7 @@ class CourseComments extends BaseComponent {
 
                 <Grid xs={12} container>
 
-                    <Grid xs={1} container alignItems='center'>
+                    <Grid xs={1} container alignItems='center' justify='center'>
                         <Typography style={styles.optionTitle}>Useful ?</Typography>
                     </Grid>
                     <Grid xs={3}>
@@ -198,7 +205,7 @@ class CourseComments extends BaseComponent {
                         <Button onClick={onClickUsefulNo} style={useful ? styles.defaultButton : styles.rightButton}>No</Button>
                     </Grid>
 
-                    <Grid xs={1} container alignItems='center'>
+                    <Grid xs={1} container alignItems='center' justify='center'>
                         <Typography style={styles.optionTitle}>Enjoy ?</Typography>
                     </Grid>
                     <Grid xs={3}>
@@ -206,7 +213,7 @@ class CourseComments extends BaseComponent {
                         <Button onClick={onClickEnjoyNo} style={enjoy ? styles.defaultButton : styles.rightButton}>No</Button>
                     </Grid>
            
-                    <Grid xs={1} container alignItems='center'>
+                    <Grid xs={1} container alignItems='center' justify='center'>
                         <Typography style={styles.optionTitle}>Easy ?</Typography>
                     </Grid>
                     <Grid xs={3}>
@@ -254,7 +261,7 @@ class CourseComments extends BaseComponent {
                     <Divider/>
 
                     <Grid xs={11} style={styles.border} container>
-                    {this.renderComments()}
+                        {this.renderComments()}
                     </Grid>
 
                 </Grid>
@@ -302,11 +309,6 @@ const styles = {
     textContainer: {
         marginTop: '5px',
         justifyContent: 'center',
-    },
-
-    contentContainer: {
-        backgroundColor: '#caf6ff',
-        borderRadius: '5px',
     },
 
     textInput:{
@@ -358,12 +360,13 @@ const styles = {
     },
 
     optionContainer: {
-        width: '100%'
+        width: '100%',
     },
 
     optionTitle: {
         color: '#666666',
-        fontSize: '15px'
+        fontSize: '15px',
+        textAlign: 'center'
     },
 
     defaultButton: {
@@ -381,6 +384,15 @@ const styles = {
         backgroundColor: '#66ccff',
         fontSize: '20px',
         color: '#fff'
+    },
+
+    commentOptionContainer: {
+        marginBottom: '5px'
+    },
+
+    comment: {
+        color: '#666666',
+        fontSize: '15px'
     }
 
 }
