@@ -78,26 +78,25 @@ class CourseSections extends BaseComponent {
 
     renderSection = (section, index) => {
         return (
-            <Grid xs={12} style={styles.sectionContainer}>
-                <Button fullWidth>
+            <Grid xs={11} style={styles.sectionContainer}>
+                <Button fullWidth style={styles.button}>
                     <Grid xs={2}container>
-                        <Typography>{section.code}}</Typography>
+                        <Typography style={styles.sectionText}>{section.code}}</Typography>
                     </Grid>
-                    <Grid xs={3}container>
-                        <Typography>{section.enrolledStudentNum}</Typography>
-                    </Grid>
-                    <Grid xs={3}container>
-                        <Typography>{section.location}</Typography>
+                    <Grid xs={4}container>
+                        <Typography style={styles.sectionText}>{section.enrolledStudentNum}</Typography>
                     </Grid>
                     <Grid xs={2}container>
-                        <Typography>{section.time}</Typography>
+                        <Typography style={styles.sectionText}>{section.location}</Typography>
                     </Grid>
                     <Grid xs={2}container>
-                        <Typography>{section.instructorId}</Typography>
+                        <Typography style={styles.sectionText}>{section.time}</Typography>
                     </Grid>
-
+                    <Grid xs={2}container>
+                        <Typography style={styles.sectionText}>{section.instructorId}</Typography>
+                    </Grid>
                 </Button>
-                <Divider/>
+                <Divider middle/>
             </Grid>
         )
     }
@@ -107,29 +106,33 @@ class CourseSections extends BaseComponent {
             <Card style={styles.container}>
                 <Grid container style={styles.courseInfoContainer}>
 
-                    <Grid xs={12} style={styles.padding} />
-
-                        <Grid xs={12} style={styles.sectionContainer}>
-                            <Button fullWidth divider>
-                                <Grid xs={2} container>
-                                    <Typography style={styles.text}>code</Typography>
-                                </Grid>
-                                <Grid xs={3} container>
-                                    <Typography style={styles.text}>Enrolled Student Number</Typography>
-                                </Grid>
-                                <Grid xs={3} container>
-                                    <Typography style={styles.text}>location</Typography>
-                                </Grid>
-                                <Grid xs={2} container>
-                                    <Typography style={styles.text}>time</Typography>
-                                </Grid>
-                                <Grid xs={2} container>
-                                    <Typography style={styles.text}>instructor Id</Typography>
-                                </Grid>
-
-                            </Button>
-                            <Divider/>
+                    <Grid xs={11} container>
+                        <Grid style={styles.headerContainer}>
+                            <Typography style={styles.title}>Course Sections</Typography>
                         </Grid>
+                    </Grid>
+
+                    <Grid xs={11} style={styles.sectionContainer}>
+                        <Button fullWidth style={styles.button}>
+                            <Grid xs={2} container>
+                                <Typography style={styles.text}>code</Typography>
+                            </Grid>
+                            <Grid xs={4} container>
+                                <Typography style={styles.text}>Enrolled Student Number</Typography>
+                            </Grid>
+                            <Grid xs={2} container>
+                                <Typography style={styles.text}>location</Typography>
+                            </Grid>
+                            <Grid xs={2} container>
+                                <Typography style={styles.text}>time</Typography>
+                            </Grid>
+                            <Grid xs={2} container>
+                                <Typography style={styles.text}>instructor Id</Typography>
+                            </Grid>
+
+                        </Button>
+                        <Divider middle/>
+                    </Grid>
 
                     {this.state.sections.map(this.renderSection)}
 
@@ -153,7 +156,23 @@ const styles = {
     },
 
     sectionContainer:{
-      backgroundColor:'#FFF',
+        backgroundColor:'#FFF',
+        height:'60px',
+    },
+
+    headerContainer: {
+        marginTop: '30px',
+        marginBottom: '30px',
+        marginLeft: '20px',
+        borderLeftWidth: '3px',
+        borderLeftColor: '#66ccff',
+        borderLeftStyle: 'solid'
+    },
+
+    title: {
+        color: '#666666',
+        fontSize: '35px',
+        marginLeft: '10px'
     },
 
     courseContainer: {
@@ -213,12 +232,17 @@ const styles = {
     },
 
     text: {
-        fontSize:'13px',
-        fontWeight:'600',
+        fontSize:'14px',
+        fontWeight:'500',
+        color:'#666666',
     },
 
-    ratingText: {
-        textAlign: 'center',
+    sectionText:{
+        fontSize:'13px',
+    },
+
+    button:{
+        height:'59px',
     }
 
 }
