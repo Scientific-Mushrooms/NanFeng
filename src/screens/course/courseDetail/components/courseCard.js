@@ -60,6 +60,7 @@ export default class CourseCard extends BaseComponent {
             total = 100;
             num = 100
         }
+        positive = 100 * positive / total;
 
         return (
             <Grid xs={12} style={styles.ratingContainer} container>
@@ -67,13 +68,13 @@ export default class CourseCard extends BaseComponent {
                     <Typography style={styles.ratingTitle}>{title}</Typography>
                 </Grid>
                 <Grid xs={6}>
-                    <LinearProgress color="primary" variant="buffer" value={positive} valueBuffer={total} style={styles.rating} />
+                    <LinearProgress color="primary" variant="buffer" value={positive} valueBuffer={100} style={styles.rating} />
                 </Grid>
                 <Grid xs={2} alignItems='center' container>
                     <Typography style={styles.ratingNum}>{num} %</Typography>
                 </Grid>
                 <Grid xs={2} alignItems='center' container>
-                    <Typography style={styles.ratingTotalNum}>{total} ratings</Typography>
+                    <Typography style={styles.ratingTotalNum}>{total / 100} ratings</Typography>
                 </Grid>
             </Grid>
         )
@@ -221,15 +222,13 @@ const styles = {
         fontSize: '12px',
     },
 
-    item: {
-        color: '#999999',
-        fontSize: '20px',
-        textAlign: 'right',
-        marginRight: '15px',
-    },
-
     value: {
         color: '#666666',
+        fontSize: '20px'
+    },
+
+    item: {
+        color: '#999999',
         fontSize: '20px'
     },
 
