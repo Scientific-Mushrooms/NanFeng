@@ -191,39 +191,38 @@ class CourseComments extends BaseComponent {
         return (
             <Grid xs={12} style={styles.createComment} container>
 
-                <Grid xs={12} container style={styles.textInputContainer}>
+                <Grid xs={11} container style={styles.textInputContainer}>
                     <FormControl componentClass="textarea" onChange={this.handleChange('comment')} multilple style={styles.textInput} rows={3} />
                 </Grid>
 
                 <Grid xs={12} container>
-
-                    <Grid xs={1} container alignItems='center' justify='center'>
+                    <Grid xs={1} container alignItems='center'>
                         <Typography style={styles.optionTitle}>Useful ?</Typography>
                     </Grid>
-                    <Grid xs={3}>
-                        <Button onClick={onClickUsefulYes} style={useful? styles.leftButton : styles.defaultButton}>Yes</Button>
+                    <Grid xs={3} container>
+                        <Button onClick={onClickUsefulYes} style={useful ? styles.leftButton : styles.defaultButton}>Yes</Button>
                         <Button onClick={onClickUsefulNo} style={useful ? styles.defaultButton : styles.rightButton}>No</Button>
                     </Grid>
 
-                    <Grid xs={1} container alignItems='center' justify='center'>
+                    <Grid xs={1} container alignItems='center'>
                         <Typography style={styles.optionTitle}>Enjoy ?</Typography>
                     </Grid>
-                    <Grid xs={3}>
+                    <Grid xs={3} container>
                         <Button onClick={onClickEnjoyYes} style={enjoy ? styles.leftButton : styles.defaultButton}>Yes</Button>
                         <Button onClick={onClickEnjoyNo} style={enjoy ? styles.defaultButton : styles.rightButton}>No</Button>
                     </Grid>
-           
-                    <Grid xs={1} container alignItems='center' justify='center'>
+
+                    <Grid xs={1} container alignItems='center'>
                         <Typography style={styles.optionTitle}>Easy ?</Typography>
                     </Grid>
-                    <Grid xs={3}>
+                    <Grid xs={3} fullwidth container>
                         <Button onClick={onClickEasyYes} style={easy ? styles.leftButton : styles.defaultButton}>Yes</Button>
                         <Button onClick={onClickEasyNo} style={easy ? styles.defaultButton : styles.rightButton}>No</Button>
                     </Grid>
                     
                 </Grid>
 
-                <Grid xs={12} container style={styles.submitContainer} justify='flex-end'>
+                <Grid xs={11} container style={styles.submitContainer} justify='flex-end'>
                     <Grid xs={3}>
                         <Button onClick={this.createComment} style={styles.submit} fullWidth>submit</Button>
                     </Grid>
@@ -254,11 +253,9 @@ class CourseComments extends BaseComponent {
                         </Grid>
                     </Grid>
 
-                    <Grid xs={11} style={styles.border} container>
+                    <Grid xs={12} style={styles.border} container>
                         {this.renderCreateComment()}
                     </Grid>
-
-                    <Divider/>
 
                     <Grid xs={11} style={styles.border} container>
                         {this.renderComments()}
@@ -320,14 +317,14 @@ const styles = {
         fontSize: '15px',
         backgroundColor:'#86be0c',
         color:'#FFF',
-        width: '50%'
+        width:'10px',
     },
 
     rightButton:{
         fontSize: '15px',
         backgroundColor:'#fd9d9e',
         color:'#FFF',
-        width: '50%'
+        width:'10px',
     },
 
     submitButton:{
@@ -337,7 +334,7 @@ const styles = {
     },
 
     border:{
-        marginBottom:'50px'
+        marginBottom:'50px',
     },
 
     headerContainer: {
@@ -356,7 +353,8 @@ const styles = {
     },
 
     textInputContainer: {
-        marginBottom: '20px'
+        marginBottom: '20px',
+        marginLeft:'20px',
     },
 
     optionContainer: {
@@ -366,24 +364,24 @@ const styles = {
     optionTitle: {
         color: '#666666',
         fontSize: '15px',
-        textAlign: 'center'
+        textAlign: 'center',
     },
 
     defaultButton: {
         color: '#666666',
         fontSize: '10px',
-        width: '50%'
+        width: '10px'
     },
 
     submitContainer: {
         marginTop: '20px',
-        marginBottom: '20px'
+        marginBottom: '20px',
     },
 
     submit: {
         backgroundColor: '#66ccff',
         fontSize: '20px',
-        color: '#fff'
+        color: '#fff',
     },
 
     commentOptionContainer: {
@@ -393,7 +391,7 @@ const styles = {
     comment: {
         color: '#666666',
         fontSize: '15px'
-    }
+    },
 
 }
 
