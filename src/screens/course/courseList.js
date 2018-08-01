@@ -1,12 +1,22 @@
 import React from "react";
 import { BaseComponent } from '../../components/BaseComponent';
-import { Grid, Button, CircularProgress, Card } from '@material-ui/core';
+import { Grid, Button, CircularProgress, Card,Popover, Typography } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import SearchBar from 'material-ui-search-bar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import AutoComplete from 'material-ui/AutoComplete';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+const courses = [
+    'Math',
+    'Cs',
+    'Engineering',
+];
 
 export class CourseList extends BaseComponent {
 
@@ -20,6 +30,46 @@ export class CourseList extends BaseComponent {
 
     componentWillMount = () => {
         this.fetchCourses()
+    }
+
+    handleClick = name => event => {
+        this.setState({
+            [name]: event.currentTarget,
+        });
+    }
+
+    handleClose = name => () => {
+        this.setState({
+            [name]: null,
+        });
+    };
+
+    renderSelectPopover=()=>{
+
+        return (
+            <Popover
+                open={Boolean(this.state.SelectPopover)}
+                anchorEl={this.state.SelectPopover}
+                onClose={this.handleClose("SelectPopover")}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+            >
+                <List component="nav">
+                    <ListItem button >
+                        <Typography>Cs</Typography>
+                    </ListItem>
+                    <ListItem button >
+                        <Typography>Math</Typography>
+                    </ListItem>
+                </List>
+            </Popover>
+        )
     }
 
     fetchCourses = () => {
@@ -47,7 +97,19 @@ export class CourseList extends BaseComponent {
         })
     }
 
-    
+    autoComplete = () => (
+        <div>
+            <MuiThemeProvider>
+                <AutoComplete
+                    floatingLabelText="Search"
+                    filter={AutoComplete.caseInsensitiveFilter}
+                    dataSource={courses}
+                />
+            </MuiThemeProvider>
+        </div>
+    );
+
+
     renderCourses = (course, index) => {
 
         let onClick = () => {
@@ -56,7 +118,7 @@ export class CourseList extends BaseComponent {
 
         return (
             <Grid justify='center' container>
-            <Card xs={12} style={styles.courseContainer}>
+                <Card xs={12} style={styles.courseContainer}>
                     <Button onClick={onClick} style={styles.button}>
 
                         <Grid xs={1} style={styles.courseItem}>
@@ -76,8 +138,8 @@ export class CourseList extends BaseComponent {
                         </Grid>
 
                     </Button>
-            </Card>
-            <Grid xs={12} style={styles.padding} />
+                </Card>
+                <Grid xs={12} style={styles.padding} />
             </Grid>
         )
     }
@@ -87,42 +149,30 @@ export class CourseList extends BaseComponent {
             <Grid container style={styles.searchBarContainer}>
                 <Grid xs={2}>
                 </Grid>
-                <Grid xs={1}>
-                    <FormControl className={this.props.formControl}>
-                        <InputLabel htmlFor="age-simple">Class</InputLabel>
-                        <Select value={this.state.age} onChange={this.handleChange}>
-                            <MenuItem value="">None</MenuItem>
-                            <MenuItem value={10}>Cs</MenuItem>
-                            <MenuItem value={20}>Math</MenuItem>
-                            <MenuItem value={30}>Engineering</MenuItem>
-                        </Select>
-                    </FormControl>
+                <Grid xs={1} style={styles.selectContainer} justify="center" container>
+                    <Button onClick={this.handleClick("SelectPopover")} style={styles.selectButton}>
+                        Class
+                    </Button>
                 </Grid>
 
                 <Grid xs={1}>
                 </Grid>
                 <Grid xs={5}>
-                    <SearchBar
-                        onChange={() => console.log('onChange')}
-                        onRequestSearch={() => console.log('onRequestSearch')}
-                        style={{
-                            margin: '0 auto',
-                            maxWidth: 800
-                        }}
-                    />
+                    {/* {this.autoComplete()}*/}
                 </Grid>
+                {this.renderSelectPopover()}
             </Grid>
         )
     }
-	
+
 
     render() {
 
         if (this.state.loading) {
             return (
-			<center>
-                <CircularProgress />
-			</center>
+                <center>
+                    <CircularProgress />
+                </center>
             )
         }
 
@@ -131,7 +181,7 @@ export class CourseList extends BaseComponent {
 
                 <Grid xs={10}>
                     <Card>
-                        
+
                         {this.renderSearchBar()}
                         {this.state.courses.map(this.renderCourses)}
 
@@ -165,5 +215,16 @@ const styles = {
     searchBarContainer: {
         marginTop: '30px',
         marginBottom: '30px',
+    },
+
+    selectButton:{
+        color:'#666666',
+        fontSize:'14px',
+    },
+
+    selectContainer:{
+        borderBottomWidth: '2px',
+        borderBottomColor: '#666666',
+        borderBottomStyle: 'solid'
     }
 }
