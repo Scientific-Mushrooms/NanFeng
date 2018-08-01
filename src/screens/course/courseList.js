@@ -158,7 +158,7 @@ export class CourseList extends BaseComponent {
                 <Grid xs={1}>
                 </Grid>
                 <Grid xs={5}>
-                    {this.autoComplete()}
+                    {/* {this.autoComplete()}*/}
                 </Grid>
                 {this.renderSelectPopover()}
             </Grid>
