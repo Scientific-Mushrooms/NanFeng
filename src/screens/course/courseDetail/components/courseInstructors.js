@@ -91,38 +91,43 @@ class CourseInstructors extends Component {
         )
     }
 
+    renderInstructor = () => {
+        return (
+            <Grid container style={styles.professorCard}>
+
+                <Grid xs={12} style={styles.padding} />
+
+                <Grid xs={12} style={styles.courseAvatarContainer} container>
+                    <img src={require('../src/test.png')} style={styles.courseAvatar} />
+                </Grid>
+
+                <Grid xs={12}>
+                    <Typography style={styles.courseName}>{course.courseName}</Typography>
+                </Grid>
+
+                {this.renderRating("Mark", 100, 30)}
+
+                {this.renderRating("Easy", 100, 30)}
+
+                {this.renderRating("Likes", 100, 30)}
+
+                <Grid xs={12}>
+                    <Typography style={styles.courseName}>other courses</Typography>
+                </Grid>
+
+                {this.renderOtherCourses(courses)}
+
+                <Grid xs={12} style={styles.padding} />
+
+            </Grid>
+        )
+    }
+
 
     render() {
         return (
             <Card style={styles.container}>
-                <Grid container style={styles.professorCard}>
-
-                    <Grid xs={12} style={styles.padding} />
-
-                        <Grid xs={12} style={styles.courseAvatarContainer} container>
-                            <img src={require('../src/test.png')} style={styles.courseAvatar} />
-                        </Grid>
-
-                        <Grid xs={12}>
-                            <Typography style={styles.courseName}>{course.courseName}</Typography>
-                        </Grid>
-
-                        {this.renderRating("Mark", 100, 30)}
-
-                        {this.renderRating("Easy", 100, 30)}
-
-                        {this.renderRating("Likes", 100, 30)}
-
-                    <Grid xs={12}>
-                        <Typography style={styles.courseName}>other courses</Typography>
-                    </Grid>
-
-                    {this.renderOtherCourses(courses)}
-
-                    <Grid xs={12} style={styles.padding} />
-
-                </Grid>
-
+                {this.renderInstructor()}
             </Card>
         );
     }

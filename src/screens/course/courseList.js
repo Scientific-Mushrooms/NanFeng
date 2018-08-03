@@ -9,8 +9,6 @@ import FormControl from '@material-ui/core/FormControl';
 import SearchBar from 'material-ui-search-bar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import AutoComplete from 'material-ui/AutoComplete';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const courses = [
     'Math',
@@ -97,17 +95,7 @@ export class CourseList extends BaseComponent {
         })
     }
 
-    autoComplete = () => (
-        <div>
-            <MuiThemeProvider>
-                <AutoComplete
-                    floatingLabelText="Search"
-                    filter={AutoComplete.caseInsensitiveFilter}
-                    dataSource={courses}
-                />
-            </MuiThemeProvider>
-        </div>
-    );
+
 
 
     renderCourses = (course, index) => {
@@ -158,7 +146,7 @@ export class CourseList extends BaseComponent {
                 <Grid xs={1}>
                 </Grid>
                 <Grid xs={5}>
-                    {/* {this.autoComplete()}*/}
+              
                 </Grid>
                 {this.renderSelectPopover()}
             </Grid>

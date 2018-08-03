@@ -64,6 +64,7 @@ export class SignIn extends BaseComponent {
                     if (result.status === 'fail') {
                         this.pushNotification("danger",result.description,this.props.dispatch);
                     } else {
+                        sessionStorage.setItem("userId", result.detail.userId);
                         this.props.dispatch(login(result.detail));
                         this.props.dispatch(set_instructor(result.more))
                         this.goBack();

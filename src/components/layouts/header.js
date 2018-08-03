@@ -3,7 +3,7 @@ import React from "react";
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
-import { logout } from '../../redux/actions/action';
+import { logout, update } from '../../redux/actions/action';
 
 import { connect } from 'react-redux';
 import { Popover, Icon, Typography, IconButton } from '@material-ui/core';
@@ -31,15 +31,49 @@ class Header extends BaseComponent {
         this.state = {
             register: false,
             avatarPath: null,
+            userId: sessionStorage.getItem("userId")
         };
     }
+    
+    componentWillMount = () => {
+        if (this.props.user == null && sessionStorage.getItem("userId") !== null) {
+            this.fetchUser();
+        }
+    }
+
+    fetchUser = () => {
+        let form = new FormData();
+        form.append("userId", this.state.userId);
+
+        this.post('/api/user/userIdToUser', form).then((result) => {
+
+            if (!result) {
+                this.pushNotification("danger", "Connection error", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.description, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+
+                this.props.dispatch(update(result.detail))
+                this.pushNotification("success", "successfully update user", this.props.dispatch);
+
+            } else {
+
+                this.pushNotification("danger", "unknown error", this.props.dispatch);
+            }
+
+        })
+    }
+
+
 
     fetchAvatar = () => {
         let form = new FormData();
         form.append("imageId", this.props.user.avatarId);
         
         this.post('/api/image/imageIdToImage', form).then((result) => {
-            alert(JSON.stringify(result))
+            
             if (!result) {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
 
@@ -72,6 +106,7 @@ class Header extends BaseComponent {
     };
 
     signOut=()=>{
+        sessionStorage.clear();
         this.props.dispatch(logout());
     }
 
@@ -236,6 +271,7 @@ class Header extends BaseComponent {
     renderRight = () => {
 
         if (this.props.user === null) {
+            
             return (
                 <Grid container xs={4} style={styles.subRightContainer}>
                     <Button onClick={this.gotoSignIn} style={styles.iconButton} >Sign in</Button>
@@ -246,6 +282,7 @@ class Header extends BaseComponent {
         }
         
         return (
+            
             <Grid container xs={4} style={styles.subRightContainer}>
 
                 <IconButton onClick={this.handleClick("notificationPopover")} style={styles.iconButton} >
