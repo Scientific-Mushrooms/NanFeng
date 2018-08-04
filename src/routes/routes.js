@@ -95,10 +95,10 @@ const mainRoutes = [
             },
 
             {
-                path: "/courseList",
-                name: "Course List",
+                path: "/courseSearch",
+                name: "Course Search",
                 icon: 'edit_icon',
-                component: wrap(Screens.CourseList)
+                component: wrap(Screens.CourseSearch)
             },
 
             {
@@ -109,6 +109,13 @@ const mainRoutes = [
             },
 
         ]
+    },
+
+    {
+        path: "/instructorSearch",
+        name: "Instructor Search",
+        icon: 'add',
+        component: wrap(Screens.InstructorSearch)
     },
 
 ];

@@ -294,7 +294,7 @@ class Header extends BaseComponent {
                     {this.renderAvatar()}
                     <div style={styles.text}>{this.props.user.nickName}</div>
                 </Button>
-				{this.renderLanguageChoose()}
+				
 
             </Grid>
         )
@@ -303,6 +303,16 @@ class Header extends BaseComponent {
     test = () => {
         this.props.history.push('/home')
     }
+
+    goToCourseSearch = () => {
+        this.props.history.push('/courseSearch')
+    }
+
+    onClickInstructor = () => {
+        this.props.history.push('./instructorSearch')
+    }
+
+    
 
 
 
@@ -317,8 +327,16 @@ class Header extends BaseComponent {
                             Mushrooms
                         </Button>
 
+                        <Button onClick={this.goToCourseSearch} style={styles.iconButton}>
+                            Course
+                        </Button>
+
+                        <Button onClick={this.onClickInstructor} style={styles.iconButton}>
+                            Instructor
+                        </Button>
+
                         <Button onClick={this.test} style={styles.iconButton}>
-                            Home
+                            Classroom
                         </Button>
 
                         <Button onClick={this.handleClick("widgetsPopover")} style={styles.iconButton}>

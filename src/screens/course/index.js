@@ -1,7 +1,7 @@
 export * from './coursePanel';
 
 export * from './courseDetail';
-export * from './courseList';
+export * from './courseSearch';
 export * from './courseCreate';
 
 

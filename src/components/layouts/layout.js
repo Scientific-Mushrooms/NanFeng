@@ -49,12 +49,10 @@ class Layout extends Component {
                     <Header />
                 </Row>
 
-                <Row className={classes.bodyContainer} justify='center' type='flex'>
-                    <Col span={20} justify='center'>
-                        <Switch>
-                            {this.createRoutes(this.flatWrapper(dashboardRoutes))}
-                        </Switch>
-                    </Col>
+                <Row className={classes.bodyContainer}>
+                    <Switch>
+                        {this.createRoutes(this.flatWrapper(dashboardRoutes))}
+                    </Switch>
                 </Row>
 
                 <Notification/>
@@ -66,13 +64,7 @@ class Layout extends Component {
 
 const styles = theme => ({
 
-    headerContainer: {
-
-    },
-
     bodyContainer: {
-        justifyContent: 'center',
-        paddingTop: '40px',
         backgroundColor: theme.palette.base
     },
 });

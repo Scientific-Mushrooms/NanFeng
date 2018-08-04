@@ -1,18 +1,12 @@
 import React from "react";
 import { BaseComponent } from '../../components/BaseComponent';
-import { Grid, CircularProgress, Popover, Typography } from '@material-ui/core';
+import { Grid, CircularProgress } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import { AutoComplete, Row, Col, Card, Select, Button} from 'antd';
-const courses = [
-    'Math',
-    'Cs',
-    'Engineering',
-];
+import { AutoComplete, Row, Col, Card, Select, Button } from 'antd';
 
-export class CourseList extends BaseComponent {
+
+export class InstructorSearch extends BaseComponent {
 
     constructor(props) {
         super(props);
@@ -20,11 +14,12 @@ export class CourseList extends BaseComponent {
             loading: true,
             courses: [],
             name: "",
+            hint: [],
         };
     }
 
     componentWillMount = () => {
-        this.fetchCourses()
+        this.search()
     }
 
     handleClick = name => event => {
@@ -39,8 +34,12 @@ export class CourseList extends BaseComponent {
         });
     };
 
+    handleChange = name => (value) => {
+        this.setState({ [name]: value })
+    }
 
-    fetchCourses = () => {
+
+    search = () => {
 
         let form = new FormData();
         form.append('name', this.state.name);
@@ -100,7 +99,8 @@ export class CourseList extends BaseComponent {
         )
     }
 
-   
+
+
 
     renderSearchBar = () => {
 
@@ -123,9 +123,9 @@ export class CourseList extends BaseComponent {
                     <Option value="Yiminghe">yiminghe</Option>
                 </Select>
 
-                <AutoComplete/>
+                <AutoComplete onChange={this.handleChange("name")} />
 
-                <Button type="primary">Search</Button>
+                <Button type="primary" onClick={this.search}>Search</Button>
 
             </Row>
         )
@@ -162,7 +162,7 @@ const styles = {
     },
 
     courseContainer: {
-        width:'80%',
+        width: '80%',
     },
 
     courseItem: {
@@ -179,12 +179,12 @@ const styles = {
         marginBottom: '30px',
     },
 
-    selectButton:{
-        color:'#666666',
-        fontSize:'14px',
+    selectButton: {
+        color: '#666666',
+        fontSize: '14px',
     },
 
-    selectContainer:{
+    selectContainer: {
         borderBottomWidth: '2px',
         borderBottomColor: '#666666',
         borderBottomStyle: 'solid'
