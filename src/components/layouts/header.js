@@ -66,33 +66,6 @@ class Header extends BaseComponent {
         })
     }
 
-
-
-    fetchAvatar = () => {
-        let form = new FormData();
-        form.append("imageId", this.props.user.avatarId);
-        
-        this.post('/api/image/imageIdToImage', form).then((result) => {
-            
-            if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.description, this.props.dispatch);
-
-            } else if (result.status === 'success') {
-
-                this.setState({avatar: result.detail})
-                this.pushNotification("success", "successfully fetch avatar", this.props.dispatch);
-
-            } else {
-
-                this.pushNotification("danger", "unknown error", this.props.dispatch);
-            }
-
-        })
-    }
-
     handleClick = name => event => {
         this.setState({
            [name]: event.currentTarget,
@@ -312,6 +285,25 @@ class Header extends BaseComponent {
         this.props.history.push('./instructorSearch')
     }
 
+    onClickClassroom = () => {
+        if (this.props.user == null) {
+            this.pushNotification("danger", "sign in first", this.props.dispatch)
+            return;
+        }
+
+        if (this.props.instructor !== null) {
+            alert("instructor")
+            return;
+        }
+
+        if (this.props.student !== null) {
+            alert("student");
+            return;
+        }
+
+        alert("you need to verify first")
+    }
+
     
 
 
@@ -335,7 +327,7 @@ class Header extends BaseComponent {
                             Instructor
                         </Button>
 
-                        <Button onClick={this.test} style={styles.iconButton}>
+                        <Button onClick={this.onClickClassroom} style={styles.iconButton}>
                             Classroom
                         </Button>
 

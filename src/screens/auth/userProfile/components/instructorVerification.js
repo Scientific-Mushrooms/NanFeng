@@ -11,11 +11,13 @@ class InstructorVerification extends BaseComponent {
         super(props);
         this.state = {
             loading: true,
+            update: false,
+
             instructor: null,
             userId: null,
 
             realName: null,
-            instrucotorCode: null,
+            code: null,
         };
     }
 
@@ -55,7 +57,7 @@ class InstructorVerification extends BaseComponent {
         })
     }
 
-    verify = () => {
+    create = () => {
         let form = new FormData();
         form.append("userId", this.state.userId);
         form.append("code", this.state.code);
@@ -82,8 +84,35 @@ class InstructorVerification extends BaseComponent {
         })
     }
 
+    submit = () => {
+        let form = new FormData();
+        form.append("instructorId", this.state.instructor.instructorId);
+        form.append("code", this.state.code);
+        form.append("realName", this.state.realName);
+
+        this.post('/api/instructor/updateByInstructorId', form).then((result) => {
+
+            if (!result) {
+                this.pushNotification("danger", "Connection error", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.description, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+
+                this.setState({ instructor: result.detail, update: false })
+                this.pushNotification("success", "successfully fetch instructor info", this.props.dispatch);
+
+            } else {
+
+                this.pushNotification("danger", "unknown error", this.props.dispatch);
+            }
+
+        })
+    }
+
     update = () => {
-        this.setState({instructor: null})
+        this.setState({update: true})
     }
 
 
@@ -111,17 +140,45 @@ class InstructorVerification extends BaseComponent {
                             <Typography style={styles.typography}>Code :</Typography>
                         </Grid>
                         <Grid xs={8}>
-                            <FormControl type="text" value={this.state.instructorCode} onChange={this.handleChange("code")} />
+                            <FormControl type="text" value={this.state.code} onChange={this.handleChange("code")} />
                         </Grid>
                     </Grid>
 
                     <Grid justify='center' container xs={8}>
-                        <Button
-                            mini
-                            style={styles.button}
-                            variant="outlined"
-                            onClick={this.verify} >
-                            <Typography variant='button' style={styles.buttonText}>Verify</Typography>
+                        <Button mini style={styles.button} variant="outlined" onClick={this.create} >
+                            <Typography variant='button' style={styles.buttonText}>Create</Typography>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+            )
+        }
+
+        if (this.state.update) {
+            return (
+                <Grid justify='center' container>
+
+                    <Grid style={styles.container} container>
+                        <Grid xs={4}>
+                            <Typography style={styles.typography}>Real Name ::</Typography>
+                        </Grid>
+                        <Grid xs={8}>
+                            <FormControl type="text" value={this.state.realName} onChange={this.handleChange("realName")} />
+                        </Grid>
+                    </Grid>
+
+                    <Grid style={styles.container} container>
+                        <Grid xs={4}>
+                            <Typography style={styles.typography}>Code :</Typography>
+                        </Grid>
+                        <Grid xs={8}>
+                            <FormControl type="text" value={this.state.code} onChange={this.handleChange("code")} />
+                        </Grid>
+                    </Grid>
+
+                    <Grid justify='center' container xs={8}>
+                        <Button mini style={styles.button} variant="outlined" onClick={this.submit} >
+                            <Typography variant='button' style={styles.buttonText}>Submit</Typography>
                         </Button>
                     </Grid>
 
@@ -218,7 +275,7 @@ const styles = {
 
 
 const mapStateToProps = state => ({
-    user: state.identityReducer.user
+    user: state.identityReducer.user,
 })
 
 
