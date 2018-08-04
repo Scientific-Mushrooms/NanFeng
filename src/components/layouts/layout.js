@@ -5,13 +5,13 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import dashboardRoutes from "../../routes/routes";
 
-import Grid from "@material-ui/core/Grid";
 import Header from './header';
 import Notification from '../layouts/notification';
 import { withTheme, withStyles } from '@material-ui/core/styles';
-
+import { Row, Col} from 'antd';
 
 class Layout extends Component {
+    
     constructor(props){
         super(props);
     }
@@ -43,23 +43,23 @@ class Layout extends Component {
         const { classes } = this.props;
 
         return (
-            <Grid container>
+            <Row>
 
-                <Grid xs={12} className={classes.headerContainer} container>
+                <Row className={classes.headerContainer}>
                     <Header />
-                </Grid>
+                </Row>
 
-                <Grid  container className={classes.bodyContainer}>
-                    <Grid xs={10}>
+                <Row className={classes.bodyContainer} justify='center' type='flex'>
+                    <Col span={20} justify='center'>
                         <Switch>
                             {this.createRoutes(this.flatWrapper(dashboardRoutes))}
                         </Switch>
-                    </Grid>
-                </Grid>
+                    </Col>
+                </Row>
 
                 <Notification/>
 
-            </Grid>
+            </Row>
         );
     }
 }

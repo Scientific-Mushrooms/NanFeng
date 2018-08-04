@@ -10,7 +10,7 @@ import store from './redux/store';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { theme } from './config/theme';
-
+import 'antd/dist/antd.css';
 const hist = createBrowserHistory();
 
 var routesToRoutes = (prop, key) => {

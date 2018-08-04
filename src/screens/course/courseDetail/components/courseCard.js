@@ -4,9 +4,9 @@ import {
     Divider, 
     Grid, 
     Button, ExpansionPanel, ExpansionPanelSummary, 
-    ExpansionPanelDetails, Typography, Icon, Card, LinearProgress, withStyles} from '@material-ui/core';
+    ExpansionPanelDetails, Typography, Icon,LinearProgress, withStyles} from '@material-ui/core';
 import _ from 'lodash';
-
+import { Card } from 'antd';
 
 
 export default class CourseCard extends BaseComponent {
