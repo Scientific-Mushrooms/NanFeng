@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BaseComponent } from '../../../../components/BaseComponent';
-import { Divider, Grid, Button, Typography, Card } from '@material-ui/core';
+import { Grid, Button, Typography, Card } from '@material-ui/core';
 import { FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
@@ -46,7 +46,7 @@ class StudentVerification extends BaseComponent {
 
             } else if (result.status === 'success') {
 
-                this.setState({ instructor: result.detail, loading: false })
+                this.setState({ student: result.detail, loading: false })
                 this.pushNotification("success", "successfully fetch instructor info", this.props.dispatch);
 
             } else {
@@ -73,8 +73,8 @@ class StudentVerification extends BaseComponent {
 
             } else if (result.status === 'success') {
 
-                this.setState({ instructor: result.detail })
-                this.pushNotification("success", "successfully fetch instructor info", this.props.dispatch);
+                this.setState({ student: result.detail })
+                this.pushNotification("success", "successfully fetch student info", this.props.dispatch);
 
             } else {
 
@@ -86,11 +86,11 @@ class StudentVerification extends BaseComponent {
 
     submit = () => {
         let form = new FormData();
-        form.append("instructorId", this.state.instructor.instructorId);
+        form.append("instructorId", this.state.student.studentId);
         form.append("code", this.state.code);
         form.append("realName", this.state.realName);
 
-        this.post('/api/instructor/updateByInstructorId', form).then((result) => {
+        this.post('/api/student/updateByStudentId', form).then((result) => {
 
             if (!result) {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
@@ -100,7 +100,7 @@ class StudentVerification extends BaseComponent {
 
             } else if (result.status === 'success') {
 
-                this.setState({ instructor: result.detail, update: false })
+                this.setState({ student: result.detail, update: false })
                 this.pushNotification("success", "successfully fetch student", this.props.dispatch);
 
             } else {
@@ -190,11 +190,11 @@ class StudentVerification extends BaseComponent {
             <Grid justify='center' container>
 
                 <Grid justify='center' container>
-                    <Typography style={styles.name}>{this.state.instructor.realName}</Typography>
+                    <Typography style={styles.name}>{this.state.student.realName}</Typography>
                 </Grid>
 
                 <Grid justify='center' container>
-                    <Typography style={styles.code}>{this.state.instructor.code}</Typography>
+                    <Typography style={styles.code}>{this.state.student.code}</Typography>
                 </Grid>
 
                 <Grid justify='center' container>
