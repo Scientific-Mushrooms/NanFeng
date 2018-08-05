@@ -3,7 +3,7 @@ import React from "react";
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
-import { logout, update } from '../../redux/actions/action';
+import { logout, update, login } from '../../redux/actions/action';
 
 import { connect } from 'react-redux';
 import { Popover, Icon, Typography, IconButton } from '@material-ui/core';
@@ -21,6 +21,8 @@ import mainRoutes from '../../routes/routes';
 
 const mapStateToProps = state => ({
     user: state.identityReducer.user,
+    instructor: state.identityReducer.instructor,
+    student: state.identityReducer.student,
 })
 
 
@@ -30,7 +32,6 @@ class Header extends BaseComponent {
         super(props);
         this.state = {
             register: false,
-            avatarPath: null,
             userId: sessionStorage.getItem("userId")
         };
     }
@@ -49,13 +50,17 @@ class Header extends BaseComponent {
 
             if (!result) {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
+                return;
+            } 
+            
+            if (result.status === 'fail') {
                 this.pushNotification("danger", result.status, this.props.dispatch);
+                return;
+            } 
 
-            } else if (result.status === 'success') {
+            if (result.status === 'success') {
 
-                this.props.dispatch(update(result.detail))
+                this.props.dispatch(login(result.detail, result.more, result.extra))
                 this.pushNotification("success", "successfully update user", this.props.dispatch);
 
             } else {

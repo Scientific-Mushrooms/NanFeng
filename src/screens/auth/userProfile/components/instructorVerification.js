@@ -3,6 +3,7 @@ import { BaseComponent } from '../../../../components/BaseComponent';
 import { Divider, Grid, Button, Typography, Card } from '@material-ui/core';
 import { FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { set_instructor } from '../../../../redux/actions/action';
 
 
 class InstructorVerification extends BaseComponent {
@@ -13,9 +14,6 @@ class InstructorVerification extends BaseComponent {
             loading: true,
             update: false,
 
-            instructor: null,
-            userId: null,
-
             realName: null,
             code: null,
         };
@@ -23,12 +21,9 @@ class InstructorVerification extends BaseComponent {
 
     componentWillMount = () => {
 
-        if (this.props.user !== null) {
-            this.setState({userId: this.props.user.userId})
+        if (this.props.instructor !== null) {
             this.fetchInstructor(this.props.user.userId)
         }
-
-        
 
     }
 
@@ -45,7 +40,7 @@ class InstructorVerification extends BaseComponent {
                 this.pushNotification("danger", result.status, this.props.dispatch);
 
             } else if (result.status === 'success') {
-
+                
                 this.setState({instructor: result.detail, loading: false})
                 this.pushNotification("success", "successfully fetch instructor info", this.props.dispatch);
 
@@ -58,8 +53,9 @@ class InstructorVerification extends BaseComponent {
     }
 
     create = () => {
+
         let form = new FormData();
-        form.append("userId", this.state.userId);
+        form.append("userId", this.props.user.userId);
         form.append("code", this.state.code);
         form.append("realName", this.state.realName);
 
@@ -67,14 +63,18 @@ class InstructorVerification extends BaseComponent {
 
             if (!result) {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
+                return;
+            } 
+            
+            if (result.status === 'fail') {
                 this.pushNotification("danger", result.status, this.props.dispatch);
+                return;
+            } 
+            
+            if (result.status === 'success') {
 
-            } else if (result.status === 'success') {
-
-                this.setState({ instructor: result.detail })
-                this.pushNotification("success", "successfully fetch instructor info", this.props.dispatch);
+                this.props.dispatch(set_instructor(result.detail));
+                this.pushNotification("success", "successfully create instructor", this.props.dispatch);
 
             } else {
 
@@ -86,7 +86,7 @@ class InstructorVerification extends BaseComponent {
 
     submit = () => {
         let form = new FormData();
-        form.append("instructorId", this.state.instructor.instructorId);
+        form.append("instructorId", this.props.instructor.instructorId);
         form.append("code", this.state.code);
         form.append("realName", this.state.realName);
 
@@ -100,7 +100,8 @@ class InstructorVerification extends BaseComponent {
 
             } else if (result.status === 'success') {
 
-                this.setState({ instructor: result.detail, update: false })
+                this.props.dispatch(set_instructor(result.detail))
+                this.setState({ update: false })
                 this.pushNotification("success", "successfully fetch instructor info", this.props.dispatch);
 
             } else {
@@ -115,15 +116,18 @@ class InstructorVerification extends BaseComponent {
         this.setState({update: true})
     }
 
-
-    renderContent = () => {
+   
+    render() {
 
         if (this.state.loading) {
             return null;
         }
 
-        if (this.state.instructor === null) {
+        if (this.props.instructor === null) {
             return (
+                <Card>
+                    <Grid style={styles.container} justify='center' container xs={12}>
+                        <Grid justify='center' container xs={8}>
                 <Grid justify='center' container>
 
                     <Grid style={styles.container} container>
@@ -151,11 +155,17 @@ class InstructorVerification extends BaseComponent {
                     </Grid>
 
                 </Grid>
+                        </Grid>
+                    </Grid>
+                </Card>
             )
         }
 
         if (this.state.update) {
             return (
+                <Card>
+                    <Grid style={styles.container} justify='center' container xs={12}>
+                        <Grid justify='center' container xs={8}>
                 <Grid justify='center' container>
 
                     <Grid style={styles.container} container>
@@ -183,46 +193,43 @@ class InstructorVerification extends BaseComponent {
                     </Grid>
 
                 </Grid>
+                        </Grid>
+                    </Grid>
+                </Card>
+                
             )
         }
 
-        return (
-            <Grid  justify='center' container>
-
-                <Grid justify='center' container>
-                    <Typography style={styles.name}>{this.state.instructor.realName}</Typography>
-                </Grid>
-
-                <Grid justify='center' container>
-                    <Typography style={styles.code}>{this.state.instructor.code}</Typography>
-                </Grid>
-
-                <Grid justify='center' container>
-                    <Typography style={styles.instructor}>Verified Instructor</Typography>
-                </Grid>
-
-                <Grid justify='center' container xs={8}>
-                    <Button
-                        mini
-                        style={styles.button}
-                        variant="outlined"
-                        onClick={this.update} >
-                        <Typography variant='button' style={styles.buttonText}>Update</Typography>
-                    </Button>
-                </Grid>
-
-            </Grid>
-        )
-    }
-
-   
-    render() {
         return (
             <Card>
                 <Grid style={styles.container} justify='center' container xs={12}>
                     <Grid justify='center' container xs={8}>
                     
-                        {this.renderContent()}
+                        <Grid justify='center' container>
+
+                            <Grid justify='center' container>
+                                <Typography style={styles.name}>{this.props.instructor.realName}</Typography>
+                            </Grid>
+
+                            <Grid justify='center' container>
+                                <Typography style={styles.code}>{this.props.instructor.code}</Typography>
+                            </Grid>
+
+                            <Grid justify='center' container>
+                                <Typography style={styles.instructor}>Verified Instructor</Typography>
+                            </Grid>
+
+                            <Grid justify='center' container xs={8}>
+                                <Button
+                                    mini
+                                    style={styles.button}
+                                    variant="outlined"
+                                    onClick={this.update} >
+                                    <Typography variant='button' style={styles.buttonText}>Update</Typography>
+                                </Button>
+                            </Grid>
+
+                        </Grid>
 
                     </Grid>
                 </Grid>
@@ -276,6 +283,8 @@ const styles = {
 
 const mapStateToProps = state => ({
     user: state.identityReducer.user,
+    instructor: state.identityReducer.instructor,
+    student: state.identityReducer.student,
 })
 
 
