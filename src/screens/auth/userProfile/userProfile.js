@@ -10,9 +10,9 @@ import { update } from '../../../redux/actions/action';
 import PersonalInformation from './components/personalInformation';
 import InstructorVerification from './components/instructorVerification';
 import { FormControl } from 'react-bootstrap';
-import ChangePassword from './components/changePassword'
-import ChangeAvatar from './components/changeAvatar'
-
+import ChangePassword from './components/changePassword';
+import ChangeAvatar from './components/changeAvatar';
+import StudentVerification from './components/studentVerification';
 
 export class UserProfile extends BaseComponent {
 
@@ -56,6 +56,8 @@ export class UserProfile extends BaseComponent {
                     <ChangeAvatar />
 
                     <InstructorVerification />
+
+                    <StudentVerification/>
 
                 </Grid>
 

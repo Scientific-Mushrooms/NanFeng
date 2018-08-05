@@ -20,6 +20,9 @@ var identityReducer = (state = {}, action) => {
         case 'UPDATE_INSTRUCTOR':
             return { ...state, instructor: action.instructor };
 
+        case 'SET_STUDENT':
+            return { ...state, student: action.student };
+
         default:
             return state;
     }
