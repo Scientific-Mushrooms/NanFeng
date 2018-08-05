@@ -42,7 +42,7 @@ class StudentVerification extends BaseComponent {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
 
             } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.description, this.props.dispatch);
+                this.pushNotification("danger", result.status, this.props.dispatch);
 
             } else if (result.status === 'success') {
 
@@ -51,7 +51,7 @@ class StudentVerification extends BaseComponent {
 
             } else {
 
-                this.pushNotification("danger", "unknown error", this.props.dispatch);
+                this.pushNotification("danger", result.status, this.props.dispatch);
             }
 
         })
@@ -69,7 +69,7 @@ class StudentVerification extends BaseComponent {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
 
             } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.description, this.props.dispatch);
+                this.pushNotification("danger", result.status, this.props.dispatch);
 
             } else if (result.status === 'success') {
 
@@ -78,7 +78,7 @@ class StudentVerification extends BaseComponent {
 
             } else {
 
-                this.pushNotification("danger", "unknown error", this.props.dispatch);
+                this.pushNotification("danger", result.status, this.props.dispatch);
             }
 
         })
@@ -96,7 +96,7 @@ class StudentVerification extends BaseComponent {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
 
             } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.description, this.props.dispatch);
+                this.pushNotification("danger", result.status, this.props.dispatch);
 
             } else if (result.status === 'success') {
 
@@ -105,7 +105,7 @@ class StudentVerification extends BaseComponent {
 
             } else {
 
-                this.pushNotification("danger", "unknown error", this.props.dispatch);
+                this.pushNotification("danger", result.status, this.props.dispatch);
             }
 
         })
