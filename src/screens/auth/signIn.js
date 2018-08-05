@@ -3,12 +3,9 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { login, set_instructor } from '../../redux/actions/action';
-import Card from "../../components/Card/Card.jsx";
-import CardBody from "../../components/Card/CardBody.jsx";
-import Button from '../../components/CustomButtons/Button'
 import { BaseComponent } from '../../components/BaseComponent';
 import NjuImg from './src/nju.png';
-
+import {Card, Button} from 'antd';
 const homeImage = {
     display:'inline-blocks',
     height:700,
@@ -101,7 +98,7 @@ export class SignIn extends BaseComponent {
                   onMouseLeave = {this.onMouseLeave.bind(this)}
                   style={this.state.hover? styles.wrapper_1:styles.wrapper} container>
                 <Card>
-                    <CardBody>
+
                         <Grid >
                             <TextField
                                 id="name"
@@ -133,7 +130,7 @@ export class SignIn extends BaseComponent {
                                 onClick={this.login}
                             >LOGIN</Button>
                         </Grid>
-                    </CardBody>
+    
                 </Card>
                 <Button style={{width:"100%"}} onClick={this.goBack}>Go Back</Button>
             </Grid>
