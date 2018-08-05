@@ -112,13 +112,9 @@ export class CourseDetail extends BaseComponent {
                 </Grid>
 
                 <Grid xs={3} item>
-
-                    <Card>
-                        <Button style={styles.button} color="primary" onClick={this.goToSectionCreate}>
-                            Create Section
-                        </Button>
+                    <Card style={{marginBottom:'5px'}}>
+                        <Typography style={styles.teacher}>Instructors</Typography>
                     </Card>
-                    
                     <CourseInstructors courseId={courseId}/>
 
                 </Grid>
@@ -135,6 +131,10 @@ const styles = {
         color: '#404040',
         backgroundColor: '#bcb8a8',
     },
-
-
+    teacher: {
+        fontSize: '30px',
+        textAlign: 'center',
+        marginBottom: '3px',
+    },
 }
+
