@@ -10,31 +10,6 @@ import {
 
 var moment = require('moment');
 
-const sections = [
-    {
-        sectionId: '2333',
-        courseId: '2333',
-        instructorId: '2333',
-        code: '101',
-        enrolledStudentNum: 20,
-        maxStudentNum: 30,
-        location: 'MC4018',
-        term: '2018 Spring',
-        time: '11am'
-    },
-
-    {
-        sectionId: '2333',
-        courseId: '2333',
-        instructorId: '2333',
-        code: '101',
-        enrolledStudentNum: 20,
-        maxStudentNum: 30,
-        location: 'MC4018',
-        term: '2018 Spring',
-        time: '11am'
-    }
-]
 class CourseSections extends BaseComponent {
 
     constructor(props) {

@@ -102,13 +102,6 @@ const mainRoutes = [
         ]
     },
 
-    {
-        path: "/instructorSearch",
-        name: "Instructor Search",
-        icon: 'add',
-        component: wrap(Screens.InstructorSearch)
-    },
-
 ];
 
 export default mainRoutes;
