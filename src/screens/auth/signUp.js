@@ -83,7 +83,7 @@ export class SignUp extends BaseComponent {
                     this.pushNotification("normal","Regist Succeeded",this.props.dispatch);
                     
                 } else {
-                    this.pushNotification("danger", "unknown error", this.props.dispatch);
+                    this.pushNotification("danger", result.status, this.props.dispatch);
                 }
                 
             })
