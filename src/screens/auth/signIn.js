@@ -118,12 +118,12 @@ export class SignIn extends BaseComponent {
                   onMouseLeave = {this.onMouseLeave.bind(this)}
                   style={this.state.hover? styles.wrapper_1:styles.wrapper} container>
                 <Card>
-                        <Typography style={styles.welcome}>WELCOME TO MUSHROOMS!</Typography>
-                        <Typography style={styles.welcome2}>PLEASE SIGN IN</Typography>
+                        <Typography style={styles.welcome}>欢迎使用南风！</Typography>
+                        <Typography style={styles.welcome2}>登录</Typography>
                         <Grid >
                             <TextField
                                 id="name"
-                                label="Name"
+                                label="用户名"
                                 style={styles.textField}
                                 value={this.state.name}
                                 onChange={this.handleChange('email')}
@@ -134,7 +134,7 @@ export class SignIn extends BaseComponent {
                         <Grid >
                             <TextField
                                 id="password-input"
-                                label="Password"
+                                label="密码"
                                 style={styles.textField}
                                 type="password"
                                 autoComplete="current-password"
@@ -149,12 +149,12 @@ export class SignIn extends BaseComponent {
                                 style={styles.button}
                                 color='primary'
                                 onClick={this.login}
-                            >LOGIN</Button>
-                            <Button style={styles.button2} onClick={this.goBack}>Go Back</Button>
+                            >登录</Button>
+                            <Button style={styles.button2} onClick={this.goBack}>返回</Button>
                         </Grid>
                         <Grid alignItems='center' direction='column' container>
-                            <Typography style={styles.policy}>By signing in. I agree to Explain Everything's.</Typography>
-                            <Button style={styles.policy_button}>Terms of Service and Pravicy Policy.</Button>
+                            <Typography style={styles.policy}>我已阅读并接受.</Typography>
+                            <Button style={styles.policy_button}>服务与隐私条款</Button>
                         </Grid>
                 </Card>
             </Grid>
