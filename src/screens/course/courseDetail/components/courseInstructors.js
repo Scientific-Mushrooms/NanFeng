@@ -7,35 +7,24 @@ import {
     ExpansionPanelDetails, Typography, Icon, Card, LinearProgress
 } from '@material-ui/core';
 
-const course = {
-    courseId: 'HISHF',
-    courseType: 'CS',
-    courseCode: '135',
-    courseCredit: '3',
-    courseFaculty: 'Math',
-    courseProfId: 'HIHF',
-    coursePorf: 'Dave',
-    courseTime: 'Wednesday',
-    courseName: 'Introduction',
-    courseLocation: 'Nowhere',
-    courseRatingNum: 135,
-    courseLikeNum: 100,
-    courseUsefulNum: 33,
-    courseEasyNum: 56,
-    courseAvatar: './src/test.png',
-    introduction: 'This course provides a systematic approach to empirical problem solving which will enable students to critically assess the sampling protocol and conclusions of an empirical study including the possible sources of error in the study and whether evidence of a causal relationship can be reasonably concluded. The connection between the attributes of a population and the parameters in the named distributions covered in STAT 230 will be emphasized. Numerical and graphical techniques for summarizing data and checking the fit of a statistical model will be discussed. '
-}
-
-const courses = [
+const teachers = [
 
     {
-        courseId: 'FHIHIS_NSIFNI',
-        courseName: 'MATH239',
+        realName:'Clef',
+        faculty:'SE',
+        courses:[
+            {courseName:"Course1",courseId:"1"},
+            {courseName:"Course2",courseId:"2"}
+        ]
     },
 
     {
-        courseId: 'FHdsfsdf',
-        courseName: 'MATH239',
+        realName: 'Bright',
+        faculty: 'CS',
+        courses:[
+            {courseName:"Course3",courseId:"3"},
+            {courseName:"Course4",courseId:"4"}
+        ]
     }
 ]
 
@@ -45,35 +34,6 @@ class CourseInstructors extends Component {
 
     goToCourseDetail = (courseId) => {
         this.props.history.replace({ pathname: '/courseDetail', courseId: courseId })
-    }
-
-    renderCourseItem = (title, value) => {
-        return (
-            <Grid xs={12} style={styles.courseInfoContainer} container>
-                <Grid xs={3}>
-                    <Typography>{title}</Typography>
-                </Grid>
-                <Grid xs={7}>
-                    <Typography>{value}</Typography>
-                </Grid>
-            </Grid>
-        )
-    }
-
-    renderRating = (title, total, positive) => {
-        return (
-            <Grid xs={12} style={styles.ratingContainer} container>
-                <Grid xs={2}>
-                    <Typography style={styles.ratingText}>{title}</Typography>
-                </Grid>
-                <Grid xs={6}>
-                    <LinearProgress color="secondary" variant="buffer" value={positive} valueBuffer={total} style={styles.rating} />
-                </Grid>
-                <Grid xs={3}>
-                    <Typography style={styles.ratingText}>{positive / total}%</Typography>
-                </Grid>
-            </Grid>
-        )
     }
 
     renderOtherCourses = (courses) => {
@@ -91,44 +51,35 @@ class CourseInstructors extends Component {
         )
     }
 
-    renderInstructor = () => {
+    renderInstructor = (teacher) => {
         return (
-            <Grid container style={styles.professorCard}>
-
-                <Grid xs={12} style={styles.padding} />
-
-                <Grid xs={12} style={styles.courseAvatarContainer} container>
-                    <img src={require('../src/test.png')} style={styles.courseAvatar} />
+            <Card style={styles.container}>
+                <Grid container style={styles.professorCard}>
+                    <Grid xs={12} style={styles.padding} />
+                    <Grid xs={12} direction='row' container>
+                        <Grid xs={6} style={styles.courseAvatarContainer} container>
+                            <img src={require('../src/test.png')} style={styles.teacherAvatar} />
+                        </Grid>
+                
+                        <Grid xs={6} direction='column' style={{marginTop:'10px'}} container>
+                            <Typography style={styles.teacherName}>{teacher.realName}</Typography>
+                            <Typography style={styles.facultyName}>{teacher.faculty}</Typography>
+                        </Grid>
+                    </Grid>
+                    <Typography style={styles.courseName}>Also teaches</Typography>
+                    {this.renderOtherCourses(teacher.courses)}              
+                    <Grid xs={12} style={styles.padding} />
                 </Grid>
-
-                <Grid xs={12}>
-                    <Typography style={styles.courseName}>{course.courseName}</Typography>
-                </Grid>
-
-                {this.renderRating("Mark", 100, 30)}
-
-                {this.renderRating("Easy", 100, 30)}
-
-                {this.renderRating("Likes", 100, 30)}
-
-                <Grid xs={12}>
-                    <Typography style={styles.courseName}>other courses</Typography>
-                </Grid>
-
-                {this.renderOtherCourses(courses)}
-
-                <Grid xs={12} style={styles.padding} />
-
-            </Grid>
+            </Card>
         )
     }
 
 
     render() {
         return (
-            <Card style={styles.container}>
-                {this.renderInstructor()}
-            </Card>
+            <Grid style={styles.container}>
+                {teachers.map(this.renderInstructor)}
+            </Grid>
         );
     }
 }
@@ -144,19 +95,29 @@ const styles = {
     },
 
 
-    courseAvatarContainer: {
-        height: '150px',
+    courseAvatarContainer: {    
         justifyContent: 'center',
         alignItems: 'center'
     },
 
-    courseName: {
+    teacherName: {
         fontSize: '30px',
-        textAlign: 'center',
-        marginBottom: '30px',
+        textAlign: 'flex-start',
+        marginBottom: '3px',
     },
 
-    courseAvatar: {
+    facultyName: {
+        fontSize: '15px',
+        textAlign: 'flex-start',
+        marginBottom: '5px',
+    },
+
+    courseName:{
+        fontSize: '15px',
+        textAlign: 'flex-start',
+    },
+
+    teacherAvatar: {
         width: '100px',
         height: '100px',
         borderRadius: '5px',
@@ -193,7 +154,8 @@ const styles = {
     },
 
     professorCard: {
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom:'5px'
     }
 
 }
