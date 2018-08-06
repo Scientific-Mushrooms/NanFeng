@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextField from '@material-ui/core/TextField';
+import {TextField,Typography} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { login, set_instructor } from '../../redux/actions/action';
 import { BaseComponent } from '../../components/BaseComponent';
@@ -118,6 +118,8 @@ export class SignIn extends BaseComponent {
                   onMouseLeave = {this.onMouseLeave.bind(this)}
                   style={this.state.hover? styles.wrapper_1:styles.wrapper} container>
                 <Card>
+                        <Typography style={styles.welcome}>WELCOME TO MUSHROOMS!</Typography>
+                        <Typography style={styles.welcome2}>PLEASE SIGN IN</Typography>
                         <Grid >
                             <TextField
                                 id="name"
@@ -148,10 +150,13 @@ export class SignIn extends BaseComponent {
                                 color='primary'
                                 onClick={this.login}
                             >LOGIN</Button>
+                            <Button style={styles.button2} onClick={this.goBack}>Go Back</Button>
                         </Grid>
-    
+                        <Grid alignItems='center' direction='column' container>
+                            <Typography style={styles.policy}>By signing in. I agree to Explain Everything's.</Typography>
+                            <Button style={styles.policy_button}>Terms of Service and Pravicy Policy.</Button>
+                        </Grid>
                 </Card>
-                <Button style={{width:"100%"}} onClick={this.goBack}>Go Back</Button>
             </Grid>
         );
     }
@@ -163,9 +168,53 @@ export class SignIn extends BaseComponent {
 
 
 const styles = {
-
+    policy:{
+        fontsize:15,
+        color:'#AAAAAA',
+        marginTop:'10px',
+    },
+    policy_button:{
+        fontsize:15,
+        color:'#6A005F',
+        borderColor:'#6A005F',
+        marginTop:'10px',
+    },
+    welcome:{
+        fontSize:25,
+        marginLeft: '10px',
+        marginRight: '10px',
+        marginBottom: '10px',
+    },
+    welcome2:{
+        fontSize:17,
+        color:'#AAAAAA',
+        marginLeft: '10px',
+        marginRight: '10px',
+        marginBottom: '10px',
+    },
+    button: {
+        color:'white',
+        width: '100%',
+        marginTop: '30px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50,
+        backgroundColor: '#6A005F',    
+        marginBottom: 30,
+    },
+    button2:{
+        color:'white',
+        width: '100%',
+        marginTop: '10px',
+        marginBottom:'0px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50,
+        backgroundColor: '#CCCCCC',    
+        marginBottom: 30,
+    },
     wrapper: {
-        opacity: 0.7,
+        opacity: 0.85,
     },
 
     wrapper_1:{
@@ -186,10 +235,6 @@ const styles = {
         marginBottom: '10px',
     },
 
-    button: {
-        width: '100%',
-        marginTop: '30px',
-    },
 
     modalContainer: {
         textAlign: 'center',

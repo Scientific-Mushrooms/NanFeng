@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextField from '@material-ui/core/TextField';
+import {TextField,Typography} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { login } from '../../redux/actions/action';
 import { BaseComponent } from '../../components/BaseComponent';
@@ -8,10 +8,12 @@ import NjuImg from './src/nju.png';
 import {Button, Card} from 'antd'
 
 const homeImage = {
+    marginTop:40,
     display:'inline-blocks',
     height:700,
     width:1200,
-    backgroundImage: 'url('+NjuImg+')'
+    backgroundImage: 'url('+NjuImg+')',
+    borderRadius:20,
 }
 
 export class SignUp extends BaseComponent {
@@ -92,12 +94,19 @@ export class SignUp extends BaseComponent {
 
     render() {
         return (
-			<div style={homeImage}>
-				<Grid direction='row' alignItems='center' container>
-					{this._renderLeftPanel()}
-					{this._renderLoginPanel()}
-				</Grid>
-			</div>
+            <Grid 
+            alignItems='center' 
+            justify='center' 
+            xs={12} container>
+            
+                <Grid style={homeImage} 
+                justify='center' 
+                direction='row' 
+                alignItems='center' container>
+                    {/*this._renderLeftPanel()*/}
+                    {this._renderLoginPanel()}
+                </Grid>
+            </Grid>
         );
     }
 
@@ -111,12 +120,13 @@ export class SignUp extends BaseComponent {
 
     _renderLoginPanel(){
         return(
-            <Grid direction='column' sm={4} justify='center'
+            <Grid direction='column' sm={6} justify='center'
                   onMouseEnter = {this.onMouseEnter.bind(this)}
                   onMouseLeave = {this.onMouseLeave.bind(this)}
                   style={this.state.hover? styles.wrapper_1:styles.wrapper} container>
                 <Card>
-
+                        <Typography style={styles.welcome}>WELCOME TO MUSHROOMS!</Typography>
+                        <Typography style={styles.welcome2}>JOIN US!</Typography>
                     <Grid>
                         <TextField
                             id="name"
@@ -163,14 +173,17 @@ export class SignUp extends BaseComponent {
                         <Grid xs={12}>
                             <Button
                             size="large"
-                            style={styles.button}
+                            style={styles.button2}
                             color='primary'
                             onClick={this.signIn}
                             >Already A Member</Button>
+                            <Button style={styles.button3} onClick={this.goBack}>Go Back</Button>
                         </Grid>
-
+                        <Grid alignItems='center' direction='column' container>
+                            <Typography style={styles.policy}>By signing up. I agree to Explain Everything's.</Typography>
+                            <Button style={styles.policy_button}>Terms of Service and Pravicy Policy.</Button>
+                        </Grid>
                 </Card>
-                <Button style={{width:"100%"}} onClick={this.goBack}>Go Back</Button>
             </Grid>
         );
     }
@@ -179,16 +192,66 @@ export class SignUp extends BaseComponent {
 
 
 const styles = {
+    policy:{
+        fontsize:15,
+        color:'#AAAAAA',
+        marginTop:'0px',
+    },
+    policy_button:{
+        fontsize:15,
+        color:'#6A005F',
+        borderColor:'#6A005F',
+        marginTop:'10px',
+    },
+    welcome:{
+        fontSize:25,
+        marginLeft: '10px',
+        marginRight: '10px',
+        marginBottom: '10px',
+    },
+    welcome2:{
+        fontSize:17,
+        color:'#AAAAAA',
+        marginLeft: '10px',
+        marginRight: '10px',
+    },
+    button: {
+        color:'white',
+        width: '100%',
+        marginTop: '20px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50,
+        backgroundColor: '#6A005F',    
+        marginBottom: 30,
+    },
+    button2: {
+        color:'white',
+        width: '100%',
+        marginTop: '10px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50,
+        backgroundColor: '#6A005F',    
+        marginBottom: 30,
+    },
+    button3:{
+        color:'white',
+        width: '100%',
+        marginTop: '10px',
+        marginBottom:'0px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50,
+        backgroundColor: '#CCCCCC',    
+        marginBottom: 30,
+    },
     wrapper: {
-        paddingBottom: '500px',
-        marginTop:'100px',
-        opacity: 0.7,
+        opacity: 0.85,
     },
 
     wrapper_1:{
-        paddingBottom: '500px',
-        marginTop:'100px',
-        opacity: 0.93,
+        opacity: 1,
     },
 	
     container: {
@@ -203,11 +266,6 @@ const styles = {
         marginLeft: '10px',
         marginRight: '10px',
 
-    },
-
-    button: {
-        width: '100%',
-        marginTop: '30px'
     },
 
     modalContainer: {
