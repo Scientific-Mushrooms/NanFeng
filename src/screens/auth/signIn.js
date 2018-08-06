@@ -7,10 +7,12 @@ import { BaseComponent } from '../../components/BaseComponent';
 import NjuImg from './src/nju.png';
 import {Card, Button} from 'antd';
 const homeImage = {
+    marginTop:40,
     display:'inline-blocks',
     height:700,
     width:1200,
-    backgroundImage: 'url('+NjuImg+')'
+    backgroundImage: 'url('+NjuImg+')',
+    borderRadius:20,
 }
 
 export class SignIn extends BaseComponent {
@@ -74,18 +76,24 @@ export class SignIn extends BaseComponent {
 
     render() {
         return (
-            <div style={homeImage}>
-                <Grid direction='row' alignItems='center' container>
-                    {this._renderLeftPanel()}
+            <Grid 
+            alignItems='center' 
+            justify='center' 
+            xs={12} container>
+                <Grid style={homeImage} 
+                justify='center' 
+                direction='row' 
+                alignItems='center' container>
+                    {/*this._renderLeftPanel()*/}
                     {this._renderLoginPanel()}
                 </Grid>
-            </div>
+            </Grid>
         );
     }
 
     _renderLeftPanel(){
         return(
-            <Grid sm={4} justify='center'  container>
+            <Grid xs={6} justify='center' container>
             </Grid>
         );
 
@@ -93,12 +101,11 @@ export class SignIn extends BaseComponent {
 
     _renderLoginPanel(){
         return(
-            <Grid direction='column' sm={4} justify='center'
+            <Grid sm={6} direction='column' justify='center' 
                   onMouseEnter = {this.onMouseEnter.bind(this)}
                   onMouseLeave = {this.onMouseLeave.bind(this)}
                   style={this.state.hover? styles.wrapper_1:styles.wrapper} container>
                 <Card>
-
                         <Grid >
                             <TextField
                                 id="name"
