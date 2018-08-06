@@ -91,6 +91,7 @@ export class SignIn extends BaseComponent {
             alignItems='center' 
             justify='center' 
             xs={12} container>
+            
                 <Grid style={homeImage} 
                 justify='center' 
                 direction='row' 
@@ -155,18 +156,6 @@ export class SignIn extends BaseComponent {
         );
     }
 
-    render() {
-        return (
-            <div style={homeImage}>
-                <Grid direction='row' alignItems='center' container>
-                    <Grid sm={4} justify='center' container>
-                    </Grid>
-                    {this._renderLoginPanel()}
-                </Grid>
-            </div>
-        );
-    }
-
 }
 
 
@@ -176,15 +165,11 @@ export class SignIn extends BaseComponent {
 const styles = {
 
     wrapper: {
-        paddingBottom: '500px',
-        marginTop:'200px',
         opacity: 0.7,
     },
 
     wrapper_1:{
-        paddingBottom: '500px',
-        marginTop:'200px',
-        opacity: 0.93,
+        opacity: 1,
     },
 
     container: {
