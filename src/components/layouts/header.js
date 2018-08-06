@@ -209,7 +209,8 @@ class Header extends BaseComponent {
             return (
                 <Grid container xs={4} style={styles.subRightContainer}>
                 <Menu
-                    onClick={this.handleClick}
+                    onClick={this.handleClick}           
+                    selectedKeys={[this.state.current]}
                     mode="horizontal"
                 >
                     <Menu.Item key="/signin">
@@ -327,56 +328,8 @@ class Header extends BaseComponent {
         {this.renderWidgetsPopover()}
     </Grid>
         )
-    }
+    }      
 
-
-    _render() {
-        return (
-            <Grid container style={styles.container}>
-                <Grid container xs={10} style={styles.subContainer}>
-
-                    <Grid xs={8}>
-
-                        <Button onClick={this.props.handleDrawer} style={styles.slogan}>
-                            <img style={styles.logo} src={require("./src/logo-wide.png")}/>
-                        </Button>
-
-                        {/*<Button onClick={this.goToCourseSearch} style={styles.iconButton}>
-                            Course
-                        </Button>
-
-                        <Button onClick={this.onClickInstructor} style={styles.iconButton}>
-                            Instructor
-                        </Button>
-
-                        <Button onClick={this.onClickClassroom} style={styles.iconButton}>
-                            Classroom
-                        </Button>
-
-                        <Button onClick={this.handleClick("widgetsPopover")} style={styles.iconButton}>
-                            Widgets
-                        </Button>*/}
-
-                        
-                        
-                        
-
-                    </Grid>
-
-                    {this.renderRight()}
-					
-
-                </Grid>
-
-                {this.renderUserPopover()}
-
-                {this.renderAlertPopover()}
-
-                {this.renderWidgetsPopover()}
-				
-            </Grid>
-        );
-    }
 }
 
 
