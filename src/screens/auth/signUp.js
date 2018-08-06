@@ -125,12 +125,12 @@ export class SignUp extends BaseComponent {
                   onMouseLeave = {this.onMouseLeave.bind(this)}
                   style={this.state.hover? styles.wrapper_1:styles.wrapper} container>
                 <Card>
-                        <Typography style={styles.welcome}>WELCOME TO MUSHROOMS!</Typography>
-                        <Typography style={styles.welcome2}>JOIN US!</Typography>
+                        <Typography style={styles.welcome}>欢迎来到南风！</Typography>
+                        <Typography style={styles.welcome2}>加入我们</Typography>
                     <Grid>
                         <TextField
                             id="name"
-                            label="Name"
+                            label="用户名"
                             style={styles.textField}
                             value={this.state.name}
                             onChange={this.handleChange('email')}
@@ -141,7 +141,7 @@ export class SignUp extends BaseComponent {
                         <Grid>
                             <TextField
                                 id="password-input"
-                                label="Password"
+                                label="密码"
                                 style={styles.textField}
                                 type="password"
                                 autoComplete="current-password"
@@ -153,7 +153,7 @@ export class SignUp extends BaseComponent {
                         <Grid>
                             <TextField
                                 id="password-verify"
-                                label="Password Verification"
+                                label="确认密码"
                                 style={styles.textField}
                                 type="password"
                                 autoComplete="current-password"
@@ -168,7 +168,7 @@ export class SignUp extends BaseComponent {
                                 style={styles.button}
                                 color='primary'
                                 onClick={this.signUp}
-                                >Sign Up</Button>
+                                >注册</Button>
                         </Grid>
                         <Grid xs={12}>
                             <Button
@@ -176,12 +176,12 @@ export class SignUp extends BaseComponent {
                             style={styles.button2}
                             color='primary'
                             onClick={this.signIn}
-                            >Already A Member</Button>
-                            <Button style={styles.button3} onClick={this.goBack}>Go Back</Button>
+                            >已有账号，去登录</Button>
+                            <Button style={styles.button3} onClick={this.goBack}>返回</Button>
                         </Grid>
                         <Grid alignItems='center' direction='column' container>
-                            <Typography style={styles.policy}>By signing up. I agree to Explain Everything's.</Typography>
-                            <Button style={styles.policy_button}>Terms of Service and Pravicy Policy.</Button>
+                            <Typography style={styles.policy}>我已阅读并接受</Typography>
+                            <Button style={styles.policy_button}>服务与隐私条款</Button>
                         </Grid>
                 </Card>
             </Grid>
