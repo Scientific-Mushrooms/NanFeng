@@ -4,9 +4,9 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import { logout, update, login } from '../../redux/actions/action';
-
+import { Menu, Icon } from 'antd';
 import { connect } from 'react-redux';
-import { Popover, Icon, Typography, IconButton } from '@material-ui/core';
+import { Popover, Typography, IconButton } from '@material-ui/core';
 import { BaseComponent } from '../BaseComponent';
 import Avatar from '@material-ui/core/Avatar';
 import { NavLink, withRouter } from "react-router-dom";
@@ -15,9 +15,10 @@ import { NavLink, withRouter } from "react-router-dom";
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-
 import mainRoutes from '../../routes/routes';
 
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 
 const mapStateToProps = state => ({
     user: state.identityReducer.user,
@@ -31,6 +32,7 @@ class Header extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
+            current:'/courseSearch',
             register: false,
             userId: sessionStorage.getItem("userId")
         };
@@ -71,11 +73,6 @@ class Header extends BaseComponent {
         })
     }
 
-    handleClick = name => event => {
-        this.setState({
-           [name]: event.currentTarget,
-        });
-    }
 
     handleClose = name => () => {
         this.setState({
@@ -186,14 +183,6 @@ class Header extends BaseComponent {
     }
 	
 
-    gotoSignIn = () => {
-        this.props.history.push('./signin')
-    }
-
-    gotoSignUp = () => {
-        this.props.history.push('./signUp')
-    }
-
     renderAvatar = () => {
 
         if (this.props.user === null) {
@@ -206,7 +195,12 @@ class Header extends BaseComponent {
     
     }
 
-
+    
+    handleRightClick = name => event => {
+        this.setState({
+           [name]: event.currentTarget,
+        });
+    }
 
     renderRight = () => {
 
@@ -214,8 +208,19 @@ class Header extends BaseComponent {
             
             return (
                 <Grid container xs={4} style={styles.subRightContainer}>
-                    <Button onClick={this.gotoSignIn} style={styles.iconButton} >Sign in</Button>
-                    <Button onClick={this.gotoSignUp} style={styles.iconButton}>Sign up</Button>
+                <Menu
+                    onClick={this.handleClick}
+                    mode="horizontal"
+                >
+                    <Menu.Item key="/signin">
+                        <Icon style={{ fontSize: 27, color: 'black' }} type="user"/>
+                        <span style={{fontSize:27}}>登录</span>
+                    </Menu.Item>
+                    <Menu.Item key="/signUp">
+                        <Icon style={{ fontSize: 27, color: 'black' }} type="user-add"/>
+                        <span style={{fontSize:27}}>注册</span>
+                    </Menu.Item>
+                </Menu>
                 </Grid>
             )
         }
@@ -224,12 +229,12 @@ class Header extends BaseComponent {
             
             <Grid container xs={4} style={styles.subRightContainer}>
 
-                <IconButton onClick={this.handleClick("notificationPopover")} style={styles.iconButton} >
+                <IconButton onClick={this.handleRightClick("notificationPopover")} style={styles.iconButton} >
                     <Icon>notifications</Icon>
                     <span style={styles.notifications}>5</span>
                 </IconButton>
 
-                <Button onClick={this.handleClick("userPopover")} style={styles.iconButton} >
+                <Button onClick={this.handleRightClick("userPopover")} style={styles.iconButton} >
                     {this.renderAvatar()}
                     <div style={styles.text}>{this.props.user.nickName}</div>
                 </Button>
@@ -239,24 +244,16 @@ class Header extends BaseComponent {
         )
     }
 
-    test = () => {
-        this.props.history.push('/home')
-    }
-
-    goToCourseSearch = () => {
-        this.props.history.push('/courseSearch')
-    }
-
-    onClickInstructor = () => {
-        this.props.history.push('./instructorSearch')
-    }
-
-    onClickClassroom = () => {
+    onClickClassroom = (e) => {
 
         if (this.props.user == null) {
             this.pushNotification("danger", "sign in first", this.props.dispatch)
             return;
         }
+             
+        this.setState({
+            current:e.key
+        })
 
         if (this.props.instructor !== null) {
             this.props.history.push('/instructorPanel')
@@ -271,11 +268,69 @@ class Header extends BaseComponent {
         this.pushNotification("danger", "you need to verify first", this.props.dispatch)
     }
 
+    handleClick = (e) => {
+        if(e.key!='/classroom'){     
+            this.setState({
+                current:e.key
+            })
+            this.props.history.push(e.key+'')
+        }
+        else
+            this.onClickClassroom(e)
+    }
     
-
-
-
     render() {
+        return(
+    <Grid container style={styles.container}>
+        <Grid xs={10} container>
+        <Grid xs={8} container>
+            <Button onClick={this.props.handleDrawer} style={styles.slogan}>
+                <img style={styles.logo} src={require("./src/logo-color.png")}/>
+            </Button>
+        <Menu
+        onClick={this.handleClick}
+        selectedKeys={[this.state.current]}
+        mode="horizontal"
+        >
+            <Menu.Item key="/courseSearch">
+                <Icon style={{ fontSize: 27, color: '#0078d7' }} type="book"/>
+                <span style={{fontSize:27}}>课程查询</span>
+            </Menu.Item>
+            <Menu.Item key="/classroom">
+                <Icon style={{ fontSize: 27, color: '#0078d7' }} type="edit"/>
+                <span style={{fontSize:27}}>我的课堂</span>
+            </Menu.Item>
+            <SubMenu 
+            title={<span>
+                <Icon style={{ fontSize: 27, color: '#0078d7' }} type="smile-o"/>
+                <span style={{fontSize:27}}>南大助手</span>
+                </span>}>
+                <Menu.Item key="/confess1"><span style={{fontSize:20}}>失物招领</span></Menu.Item>
+                <Menu.Item key="/confess2"><span style={{fontSize:20}}>寻人招人</span></Menu.Item>
+                <Menu.Item key="/confess3"><span style={{fontSize:20}}>一吐为快</span></Menu.Item>
+            </SubMenu>
+            <SubMenu 
+            title={<span>
+                <Icon style={{ fontSize: 25, color: '#0078d7' }} type="camera-o"/>
+                <span style={{fontSize:25}}>南大生活</span>
+                </span>}>
+                <Menu.Item key="/school1"><span style={{fontSize:20}}>自习研讨组队</span></Menu.Item>
+                <Menu.Item key="/school2"><span style={{fontSize:20}}>最近的校园活动</span></Menu.Item>
+                <Menu.Item key="/school3"><span style={{fontSize:20}}>TA的校园见闻</span></Menu.Item>
+            </SubMenu>
+        </Menu>
+        </Grid>
+        {this.renderRight()}
+        </Grid>
+        {this.renderUserPopover()}
+        {this.renderAlertPopover()}
+        {this.renderWidgetsPopover()}
+    </Grid>
+        )
+    }
+
+
+    _render() {
         return (
             <Grid container style={styles.container}>
                 <Grid container xs={10} style={styles.subContainer}>
@@ -283,10 +338,10 @@ class Header extends BaseComponent {
                     <Grid xs={8}>
 
                         <Button onClick={this.props.handleDrawer} style={styles.slogan}>
-                            Mushrooms
+                            <img style={styles.logo} src={require("./src/logo-wide.png")}/>
                         </Button>
 
-                        <Button onClick={this.goToCourseSearch} style={styles.iconButton}>
+                        {/*<Button onClick={this.goToCourseSearch} style={styles.iconButton}>
                             Course
                         </Button>
 
@@ -300,7 +355,11 @@ class Header extends BaseComponent {
 
                         <Button onClick={this.handleClick("widgetsPopover")} style={styles.iconButton}>
                             Widgets
-                        </Button>
+                        </Button>*/}
+
+                        
+                        
+                        
 
                     </Grid>
 
@@ -323,39 +382,27 @@ class Header extends BaseComponent {
 
 const styles = {
 
-    notifications: {
-        zIndex: "4",
-        position: "absolute",
-        top: "2px",
-        border: "1px solid #FFF",
-        right: "4px",
-        fontSize: "9px",
-        background: "#f44336",
-        color: "#FFFFFF",
-        minWidth: "16px",
-        height: "16px",
-        borderRadius: "10px",
-        textAlign: "center",
-        lineHeight: "16px",
-        verticalAlign: "middle",
-        display: "block"
-    },
-
     typography: {
         marginTop: '5px',
     },
 
 
     iconButton: {
-
         color: '#bcb8a8'
     },
 
     container: {
+        shadowColor: 'black',
+        shadowRadius:'3px',
         height: '70px',
-        backgroundColor: '#404040',
+        backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+
+    logo: {
+        height:'40px',
+        width:'75px'
     },
 
     subContainer: {
@@ -376,9 +423,6 @@ const styles = {
 
     slogan: {
         height: '100%',
-        color: '#bcb8a8',
-        fontSize: '25px',
-        fontFamily: 'Righteous'
     },
 
     text: {

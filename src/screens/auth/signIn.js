@@ -77,7 +77,7 @@ export class SignIn extends BaseComponent {
 
             sessionStorage.setItem("userId", result.detail.userId);
             this.props.dispatch(login(result.detail, result.more, result.extra));
-            this.props.history.push("/home");
+            this.props.history.push("/courseSearch");
             this.pushNotification("normal","Login Succeeded",this.props.dispatch);
                       
         })
