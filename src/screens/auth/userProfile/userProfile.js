@@ -70,43 +70,6 @@ export class UserProfile extends BaseComponent {
 
 const styles = {
 
-    
-    button:{
-        marginTop:'10px',
-        borderRadius: "20px",
-        width:"50%",
-    },
-
-    typography:{
-        fontSize:'130%'
-    },
-
-    warning:{
-        color:"red",
-        fontSize:'130%'
-    },
-
-    container:{
-        marginTop:'20px',
-        marginBottom:'20px'
-    },
-
-    inputContainer: {
-        marginBottom: '5px'
-    },
-
-    input: {
-        borderRadius: '6px'
-    },
-
-    textContainer: {
-        justifyContent: 'flex-end'
-    },
-
-    introContainer: {
-        height: '80px'
-    },
-
     header:{
       marginLeft:'20px',
         color:'#57bad8',

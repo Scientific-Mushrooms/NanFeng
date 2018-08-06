@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { BaseComponent } from '../../../../components/BaseComponent';
 import { Grid, Button, Typography, Card } from '@material-ui/core';
 import { FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { set_student } from '../../../../redux/actions/action';
 
 
 class StudentVerification extends BaseComponent {
@@ -10,56 +11,16 @@ class StudentVerification extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true,
             update: false,
-
-            student: null,
-            userId: null,
-
             realName: null,
             code: null,
         };
     }
 
-    componentWillMount = () => {
+    create = () => {
 
-        if (this.props.user !== null) {
-            this.setState({ userId: this.props.user.userId })
-            this.fetchStudent(this.props.user.userId)
-        }
-
-
-
-    }
-
-    fetchStudent = () => {
         let form = new FormData();
         form.append("userId", this.props.user.userId);
-
-        this.post('/api/student/userIdToStudent', form).then((result) => {
-
-            if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.status, this.props.dispatch);
-
-            } else if (result.status === 'success') {
-
-                this.setState({ student: result.detail, loading: false })
-                this.pushNotification("success", "successfully fetch instructor info", this.props.dispatch);
-
-            } else {
-
-                this.pushNotification("danger", result.status, this.props.dispatch);
-            }
-
-        })
-    }
-
-    create = () => {
-        let form = new FormData();
-        form.append("userId", this.state.userId);
         form.append("code", this.state.code);
         form.append("realName", this.state.realName);
 
@@ -67,15 +28,17 @@ class StudentVerification extends BaseComponent {
 
             if (!result) {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
+                return;
+            } 
+            
+            if (result.status === 'fail') {
                 this.pushNotification("danger", result.status, this.props.dispatch);
-
-            } else if (result.status === 'success') {
-
+                return;
+            } 
+            
+            if (result.status === 'success') {
                 this.setState({ student: result.detail })
-                this.pushNotification("success", "successfully fetch student info", this.props.dispatch);
-
+                this.pushNotification("success", "successfully create student", this.props.dispatch);
             } else {
 
                 this.pushNotification("danger", result.status, this.props.dispatch);
@@ -85,8 +48,9 @@ class StudentVerification extends BaseComponent {
     }
 
     submit = () => {
+        
         let form = new FormData();
-        form.append("instructorId", this.state.student.studentId);
+        form.append("studentId", this.props.student.studentId);
         form.append("code", this.state.code);
         form.append("realName", this.state.realName);
 
@@ -94,14 +58,19 @@ class StudentVerification extends BaseComponent {
 
             if (!result) {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
+                return;
+            } 
+            
+            if (result.status === 'fail') {
                 this.pushNotification("danger", result.status, this.props.dispatch);
+                return;
+            } 
+            
+            if (result.status === 'success') {
 
-            } else if (result.status === 'success') {
-
-                this.setState({ student: result.detail, update: false })
-                this.pushNotification("success", "successfully fetch student", this.props.dispatch);
+                this.props.dispatch(set_student(result.detail))
+                this.setState({ update: false })
+                this.pushNotification("success", "successfully update student", this.props.dispatch);
 
             } else {
 
@@ -118,11 +87,7 @@ class StudentVerification extends BaseComponent {
 
     renderContent = () => {
 
-        if (this.state.loading) {
-            return null;
-        }
-
-        if (this.state.student === null) {
+        if (this.props.student === null) {
             return (
                 <Grid justify='center' container>
 
@@ -190,11 +155,11 @@ class StudentVerification extends BaseComponent {
             <Grid justify='center' container>
 
                 <Grid justify='center' container>
-                    <Typography style={styles.name}>{this.state.student.realName}</Typography>
+                    <Typography style={styles.name}>{this.props.student.realName}</Typography>
                 </Grid>
 
                 <Grid justify='center' container>
-                    <Typography style={styles.code}>{this.state.student.code}</Typography>
+                    <Typography style={styles.code}>{this.props.student.code}</Typography>
                 </Grid>
 
                 <Grid justify='center' container>
@@ -272,6 +237,8 @@ const styles = {
 
 const mapStateToProps = state => ({
     user: state.identityReducer.user,
+    instructor: state.identityReducer.instructor,
+    student: state.identityReducer.student,
 })
 
 

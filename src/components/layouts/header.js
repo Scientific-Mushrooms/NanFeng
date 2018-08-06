@@ -185,44 +185,6 @@ class Header extends BaseComponent {
         )
     }
 	
-	renderLanguageChoose = () => {
-	
-		return(
-			<Grid container xs={2} style={styles.subRightContainer}>
-			<Button onClick={this.handleClick("LanguagePopover")} style={styles.iconButton} >
-                Language
-            </Button>
-			</Grid>
-		)
-	}
-	
-	renderLanguagePopover=()=>{
-		
-		return (
-            <Popover
-                open={Boolean(this.state.LanguagePopover)}
-                anchorEl={this.state.LanguagePopover}
-                onClose={this.handleClose("LanguagePopover")}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                }}
-                >
-                <List component="nav">
-                    <ListItem button >
-                        <Typography>中文</Typography>
-                    </ListItem>
-                    <ListItem button >
-                        <Typography>English</Typography>
-                    </ListItem>
-                </List>
-            </Popover>
-        )
-	}
 
     gotoSignIn = () => {
         this.props.history.push('./signin')
@@ -254,7 +216,6 @@ class Header extends BaseComponent {
                 <Grid container xs={4} style={styles.subRightContainer}>
                     <Button onClick={this.gotoSignIn} style={styles.iconButton} >Sign in</Button>
                     <Button onClick={this.gotoSignUp} style={styles.iconButton}>Sign up</Button>
-					{this.renderLanguageChoose()}
                 </Grid>
             )
         }
@@ -291,13 +252,14 @@ class Header extends BaseComponent {
     }
 
     onClickClassroom = () => {
+
         if (this.props.user == null) {
             this.pushNotification("danger", "sign in first", this.props.dispatch)
             return;
         }
 
         if (this.props.instructor !== null) {
-            alert("instructor")
+            this.props.history.push('/instructorPanel')
             return;
         }
 
@@ -306,7 +268,7 @@ class Header extends BaseComponent {
             return;
         }
 
-        alert("you need to verify first")
+        this.pushNotification("danger", "you need to verify first", this.props.dispatch)
     }
 
     
@@ -353,10 +315,6 @@ class Header extends BaseComponent {
 
                 {this.renderWidgetsPopover()}
 				
-				{this.renderLanguagePopover()}
-				
-				
-
             </Grid>
         );
     }

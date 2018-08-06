@@ -102,6 +102,20 @@ const mainRoutes = [
         ]
     },
 
+    {
+        path: "/instructorPanel",
+        name: "instructor Panel",
+        icon: 'add',
+        component: wrap(Screens.InsturctorPanel)
+    },
+
+    {
+        path: "/classroomCreate",
+        name: "classroomCreate",
+        icon: 'add',
+        component: wrap(Screens.ClassroomCreate)
+    },
+
 ];
 
 export default mainRoutes;

@@ -11,45 +11,10 @@ class InstructorVerification extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true,
             update: false,
-
             realName: null,
             code: null,
         };
-    }
-
-    componentWillMount = () => {
-
-        if (this.props.instructor !== null) {
-            this.fetchInstructor(this.props.user.userId)
-        }
-
-    }
-
-    fetchInstructor = () => {
-        let form = new FormData();
-        form.append("userId", this.props.user.userId);
-
-        this.post('/api/instructor/userIdToInstructor', form).then((result) => {
-
-            if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.status, this.props.dispatch);
-
-            } else if (result.status === 'success') {
-                
-                this.setState({instructor: result.detail, loading: false})
-                this.pushNotification("success", "successfully fetch instructor info", this.props.dispatch);
-
-            } else {
-
-                this.pushNotification("danger", result.status, this.props.dispatch);
-            }
-
-        })
     }
 
     create = () => {
@@ -118,10 +83,6 @@ class InstructorVerification extends BaseComponent {
 
    
     render() {
-
-        if (this.state.loading) {
-            return null;
-        }
 
         if (this.props.instructor === null) {
             return (
