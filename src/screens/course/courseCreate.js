@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { BaseComponent } from '../../components/BaseComponent';
 import { Divider, Grid, Button, Typography, Input, TextField, Popover} from '@material-ui/core';
-import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { FormControl, FormGroup, ControlLabel, HelpBlock, DropdownButton, MenuItem, InputGroup, Textarea} from 'react-bootstrap';
 import 'react-infinite-calendar/styles.css';
-import {moment} from 'moment';
 import ImageUploader from 'react-images-upload';
 
 export class CourseCreate extends BaseComponent {
@@ -34,7 +32,7 @@ export class CourseCreate extends BaseComponent {
         form.append("introduction", this.state.introduction);
         form.append("credit", this.state.credit);
         form.append('avatar', this.state.avatar[0]);
-
+        console.log(this.state.avatar)
         this.post('/api/course/create', form).then((result) => {
 
             if (!result) {
@@ -84,8 +82,12 @@ export class CourseCreate extends BaseComponent {
     renderChooseAvatar = () => {
 
         var onChange = (avatar) => {
+     
+                console.log(avatar);
+        
+     
             this.setState({
-                avatar: this.state.avatar.concat(avatar)
+                avatar: avatar
             });
             
         } 
@@ -101,6 +103,7 @@ export class CourseCreate extends BaseComponent {
                         withLabel={false}
                         withPreview={true}
                         buttonText='Choose images'
+                        buttonStyle={styles.uploadButton}
                         onChange={onChange}
                         imgExtension={['.jpg', '.gif', '.png']}
                         maxFileSize={5242880}
@@ -179,6 +182,10 @@ const styles = {
 
     introContainer: {
         height: '80px'
+    },
+
+    uploadButton: {
+        height: '200px'
     }
 
 

@@ -4,12 +4,9 @@ import ImageUploader from 'react-images-upload';
 import { Divider, Grid, Button, Typography, Card} from '@material-ui/core';
 
 
-import { update } from '../../../redux/actions/action';
-
 
 import PersonalInformation from './components/personalInformation';
 import InstructorVerification from './components/instructorVerification';
-import { FormControl } from 'react-bootstrap';
 import ChangePassword from './components/changePassword';
 import ChangeAvatar from './components/changeAvatar';
 import StudentVerification from './components/studentVerification';

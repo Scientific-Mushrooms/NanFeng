@@ -27,16 +27,18 @@ class ClassroomList extends Component {
     render() {
         return (
             <Row>
-                <Row align='bottom' type='flex'>
-                    <Col span={8} align='bottom'>Name</Col>
-                    <Col span={8}></Col>
-                    <Col span={8} align='bottom'>
-                        <Button type='primary' icon='plus-square' size={20} onClick={() => {this.props.history.push('/classroomCreate')}}>Create</Button>
-                    </Col>
-                </Row>
-                <Row>
-                    {this.renderCard(classroom)}
-                </Row>
+                <Card>
+                    <Row align='bottom' type='flex'>
+                        <Col span={8} align='bottom'>Name</Col>
+                        <Col span={8}></Col>
+                        <Col span={8} align='bottom'>
+                            <Button type='primary' icon='plus-square' size={20} onClick={() => {this.props.history.push('/classroomCreate')}}>Create</Button>
+                        </Col>
+                    </Row>
+                    <Row>
+                        {this.renderCard(classroom)}
+                    </Row>
+                </Card>
             </Row>
         );
     }
