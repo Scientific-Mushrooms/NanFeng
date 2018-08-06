@@ -6,6 +6,7 @@ import { login, set_instructor } from '../../redux/actions/action';
 import { BaseComponent } from '../../components/BaseComponent';
 import NjuImg from './src/nju.png';
 import {Card, Button} from 'antd';
+
 const homeImage = {
     marginTop:40,
     display:'inline-blocks',
@@ -47,32 +48,42 @@ export class SignIn extends BaseComponent {
 
 
     login = () => {
+
         if (this.state.email === '' ) {
             this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
-        } else if(this.state.password === ''){
-            this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
-        } else {
-            let form = new FormData();
-            form.append("email", this.state.email);
-            form.append("password", this.state.password);
-
-            this.post('/api/security/signIn', form).then((result) => {
-                if (!result){
-                    this.pushNotification("danger","Connection To Server Failed",this.props.dispatch);
-                }else{
-                    if (result.status === 'fail') {
-                        this.pushNotification("danger",result.description,this.props.dispatch);
-                    } else {
-                        sessionStorage.setItem("userId", result.detail.userId);
-                        this.props.dispatch(login(result.detail));
-                        this.props.dispatch(set_instructor(result.more))
-                        this.goBack();
-                        this.pushNotification("normal","Login Succeeded",this.props.dispatch);
-                    }
-                }
-            })
+            return;
         }
+        
+        if(this.state.password === ''){
+            this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
+            return;
+        } 
+
+        let form = new FormData();
+        form.append("email", this.state.email);
+        form.append("password", this.state.password);
+
+        this.post('/api/security/signIn', form).then((result) => {
+
+            if (!result){
+                this.pushNotification("danger","Connection To Server Failed",this.props.dispatch);
+                return;
+            } 
+
+            if (result.status === 'fail') {
+                this.pushNotification("danger",result.description,this.props.dispatch);
+                return;
+            }
+
+            sessionStorage.setItem("userId", result.detail.userId);
+            this.props.dispatch(login(result.detail, result.more, result.extra));
+            this.props.history.push("/home");
+            this.pushNotification("normal","Login Succeeded",this.props.dispatch);
+                      
+        })
+        
     };
+
 
     render() {
         return (
@@ -143,6 +154,19 @@ export class SignIn extends BaseComponent {
             </Grid>
         );
     }
+
+    render() {
+        return (
+            <div style={homeImage}>
+                <Grid direction='row' alignItems='center' container>
+                    <Grid sm={4} justify='center' container>
+                    </Grid>
+                    {this._renderLoginPanel()}
+                </Grid>
+            </div>
+        );
+    }
+
 }
 
 

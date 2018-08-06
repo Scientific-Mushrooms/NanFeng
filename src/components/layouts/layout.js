@@ -7,7 +7,7 @@ import dashboardRoutes from "../../routes/routes";
 
 import Header from './header';
 import Notification from '../layouts/notification';
-import { withTheme, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Row, Col} from 'antd';
 
 class Layout extends Component {

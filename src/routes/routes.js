@@ -103,10 +103,17 @@ const mainRoutes = [
     },
 
     {
-        path: "/instructorSearch",
-        name: "Instructor Search",
+        path: "/instructorPanel",
+        name: "instructor Panel",
         icon: 'add',
-        component: wrap(Screens.InstructorSearch)
+        component: wrap(Screens.InsturctorPanel)
+    },
+
+    {
+        path: "/classroomCreate",
+        name: "classroomCreate",
+        icon: 'add',
+        component: wrap(Screens.ClassroomCreate)
     },
 
 ];

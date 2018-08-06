@@ -3,7 +3,7 @@ import React from "react";
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
-import { logout, update } from '../../redux/actions/action';
+import { logout, update, login } from '../../redux/actions/action';
 
 import { connect } from 'react-redux';
 import { Popover, Icon, Typography, IconButton } from '@material-ui/core';
@@ -21,6 +21,8 @@ import mainRoutes from '../../routes/routes';
 
 const mapStateToProps = state => ({
     user: state.identityReducer.user,
+    instructor: state.identityReducer.instructor,
+    student: state.identityReducer.student,
 })
 
 
@@ -30,7 +32,6 @@ class Header extends BaseComponent {
         super(props);
         this.state = {
             register: false,
-            avatarPath: null,
             userId: sessionStorage.getItem("userId")
         };
     }
@@ -49,13 +50,17 @@ class Header extends BaseComponent {
 
             if (!result) {
                 this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
+                return;
+            } 
+            
+            if (result.status === 'fail') {
                 this.pushNotification("danger", result.status, this.props.dispatch);
+                return;
+            } 
 
-            } else if (result.status === 'success') {
+            if (result.status === 'success') {
 
-                this.props.dispatch(update(result.detail))
+                this.props.dispatch(login(result.detail, result.more, result.extra))
                 this.pushNotification("success", "successfully update user", this.props.dispatch);
 
             } else {
@@ -180,44 +185,6 @@ class Header extends BaseComponent {
         )
     }
 	
-	renderLanguageChoose = () => {
-	
-		return(
-			<Grid container xs={2} style={styles.subRightContainer}>
-			<Button onClick={this.handleClick("LanguagePopover")} style={styles.iconButton} >
-                Language
-            </Button>
-			</Grid>
-		)
-	}
-	
-	renderLanguagePopover=()=>{
-		
-		return (
-            <Popover
-                open={Boolean(this.state.LanguagePopover)}
-                anchorEl={this.state.LanguagePopover}
-                onClose={this.handleClose("LanguagePopover")}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                }}
-                >
-                <List component="nav">
-                    <ListItem button >
-                        <Typography>中文</Typography>
-                    </ListItem>
-                    <ListItem button >
-                        <Typography>English</Typography>
-                    </ListItem>
-                </List>
-            </Popover>
-        )
-	}
 
     gotoSignIn = () => {
         this.props.history.push('./signin')
@@ -249,7 +216,6 @@ class Header extends BaseComponent {
                 <Grid container xs={4} style={styles.subRightContainer}>
                     <Button onClick={this.gotoSignIn} style={styles.iconButton} >Sign in</Button>
                     <Button onClick={this.gotoSignUp} style={styles.iconButton}>Sign up</Button>
-					{this.renderLanguageChoose()}
                 </Grid>
             )
         }
@@ -286,13 +252,14 @@ class Header extends BaseComponent {
     }
 
     onClickClassroom = () => {
+
         if (this.props.user == null) {
             this.pushNotification("danger", "sign in first", this.props.dispatch)
             return;
         }
 
         if (this.props.instructor !== null) {
-            alert("instructor")
+            this.props.history.push('/instructorPanel')
             return;
         }
 
@@ -301,7 +268,7 @@ class Header extends BaseComponent {
             return;
         }
 
-        alert("you need to verify first")
+        this.pushNotification("danger", "you need to verify first", this.props.dispatch)
     }
 
     
@@ -348,10 +315,6 @@ class Header extends BaseComponent {
 
                 {this.renderWidgetsPopover()}
 				
-				{this.renderLanguagePopover()}
-				
-				
-
             </Grid>
         );
     }
