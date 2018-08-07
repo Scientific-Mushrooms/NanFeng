@@ -283,8 +283,8 @@ class Header extends BaseComponent {
     render() {
         return(
     <Grid container style={styles.container}>
-        <Grid xs={10} container>
-        <Grid xs={8} container>
+        <Grid xs={10} direction='row' container>
+        <Grid xs={8}  direction='row' container>
             <Button onClick={this.props.handleDrawer} style={styles.slogan}>
                 <img style={styles.logo} src={require("./src/logo-color.png")}/>
             </Button>
