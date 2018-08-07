@@ -175,8 +175,8 @@ const styles = {
     },
     policy_button:{
         fontsize:15,
-        color:'#6A005F',
-        borderColor:'#6A005F',
+        color:'#3D91F7',
+        borderColor:'#3D91F7',
         marginTop:'10px',
     },
     welcome:{
@@ -199,7 +199,7 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 50,
-        backgroundColor: '#6A005F',    
+        backgroundColor: '#3D91F7',    
         marginBottom: 30,
     },
     button2:{
