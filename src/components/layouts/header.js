@@ -283,8 +283,8 @@ class Header extends BaseComponent {
     render() {
         return(
     <Grid container style={styles.container}>
-        <Grid xs={10} container>
-        <Grid xs={8} container>
+        <Grid xs={10} direction='row' container>
+        <Grid xs={8}  direction='row' container>
             <Button onClick={this.props.handleDrawer} style={styles.slogan}>
                 <img style={styles.logo} src={require("./src/logo-color.png")}/>
             </Button>
@@ -312,8 +312,8 @@ class Header extends BaseComponent {
             </SubMenu>
             <SubMenu 
             title={<span>
-                <Icon style={{ fontSize: 25, color: '#0078d7' }} type="camera-o"/>
-                <span style={{fontSize:25}}>南大生活</span>
+                <Icon style={{ fontSize: 27, color: '#0078d7' }} type="camera-o"/>
+                <span style={{fontSize:27}}>南大生活</span>
                 </span>}>
                 <Menu.Item key="/school1"><span style={{fontSize:20}}>自习研讨组队</span></Menu.Item>
                 <Menu.Item key="/school2"><span style={{fontSize:20}}>最近的校园活动</span></Menu.Item>
