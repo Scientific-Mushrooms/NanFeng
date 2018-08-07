@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextField from '@material-ui/core/TextField';
+import {TextField,Typography} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { login, set_instructor } from '../../redux/actions/action';
 import { BaseComponent } from '../../components/BaseComponent';
@@ -8,10 +8,12 @@ import NjuImg from './src/nju.png';
 import {Card, Button} from 'antd';
 
 const homeImage = {
+    marginTop:40,
     display:'inline-blocks',
     height:700,
     width:1200,
-    backgroundImage: 'url('+NjuImg+')'
+    backgroundImage: 'url('+NjuImg+')',
+    borderRadius:20,
 }
 
 export class SignIn extends BaseComponent {
@@ -75,25 +77,53 @@ export class SignIn extends BaseComponent {
 
             sessionStorage.setItem("userId", result.detail.userId);
             this.props.dispatch(login(result.detail, result.more, result.extra));
-            this.props.history.push("/home");
+            this.props.history.push("/courseSearch");
             this.pushNotification("normal","Login Succeeded",this.props.dispatch);
                       
         })
         
     };
 
+
+    render() {
+        return (
+            <Grid 
+            alignItems='center' 
+            justify='center' 
+            xs={12} container>
+            
+                <Grid style={homeImage} 
+                justify='center' 
+                direction='row' 
+                alignItems='center' container>
+                    {/*this._renderLeftPanel()*/}
+                    {this._renderLoginPanel()}
+                </Grid>
+            </Grid>
+        );
+    }
+
+    _renderLeftPanel(){
+        return(
+            <Grid xs={6} justify='center' container>
+            </Grid>
+        );
+
+    }
+
     _renderLoginPanel(){
         return(
-            <Grid direction='column' sm={4} justify='center'
+            <Grid sm={6} direction='column' justify='center' 
                   onMouseEnter = {this.onMouseEnter.bind(this)}
                   onMouseLeave = {this.onMouseLeave.bind(this)}
                   style={this.state.hover? styles.wrapper_1:styles.wrapper} container>
                 <Card>
-
+                        <Typography style={styles.welcome}>欢迎使用南风！</Typography>
+                        <Typography style={styles.welcome2}>登录</Typography>
                         <Grid >
                             <TextField
                                 id="name"
-                                label="Name"
+                                label="用户名"
                                 style={styles.textField}
                                 value={this.state.name}
                                 onChange={this.handleChange('email')}
@@ -104,7 +134,7 @@ export class SignIn extends BaseComponent {
                         <Grid >
                             <TextField
                                 id="password-input"
-                                label="Password"
+                                label="密码"
                                 style={styles.textField}
                                 type="password"
                                 autoComplete="current-password"
@@ -119,24 +149,15 @@ export class SignIn extends BaseComponent {
                                 style={styles.button}
                                 color='primary'
                                 onClick={this.login}
-                            >LOGIN</Button>
+                            >登录</Button>
+                            <Button style={styles.button2} onClick={this.goBack}>返回</Button>
                         </Grid>
-    
+                        <Grid alignItems='center' direction='column' container>
+                            <Typography style={styles.policy}>我已阅读并接受.</Typography>
+                            <Button style={styles.policy_button}>服务与隐私条款</Button>
+                        </Grid>
                 </Card>
-                <Button style={{width:"100%"}} onClick={this.goBack}>Go Back</Button>
             </Grid>
-        );
-    }
-
-    render() {
-        return (
-            <div style={homeImage}>
-                <Grid direction='row' alignItems='center' container>
-                    <Grid sm={4} justify='center' container>
-                    </Grid>
-                    {this._renderLoginPanel()}
-                </Grid>
-            </div>
         );
     }
 
@@ -147,17 +168,57 @@ export class SignIn extends BaseComponent {
 
 
 const styles = {
-
+    policy:{
+        fontsize:15,
+        color:'#AAAAAA',
+        marginTop:'10px',
+    },
+    policy_button:{
+        fontsize:15,
+        color:'#6A005F',
+        borderColor:'#6A005F',
+        marginTop:'10px',
+    },
+    welcome:{
+        fontSize:25,
+        marginLeft: '10px',
+        marginRight: '10px',
+        marginBottom: '10px',
+    },
+    welcome2:{
+        fontSize:17,
+        color:'#AAAAAA',
+        marginLeft: '10px',
+        marginRight: '10px',
+        marginBottom: '10px',
+    },
+    button: {
+        color:'white',
+        width: '100%',
+        marginTop: '30px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50,
+        backgroundColor: '#6A005F',    
+        marginBottom: 30,
+    },
+    button2:{
+        color:'white',
+        width: '100%',
+        marginTop: '10px',
+        marginBottom:'0px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50,
+        backgroundColor: '#CCCCCC',    
+        marginBottom: 30,
+    },
     wrapper: {
-        paddingBottom: '500px',
-        marginTop:'200px',
-        opacity: 0.7,
+        opacity: 0.85,
     },
 
     wrapper_1:{
-        paddingBottom: '500px',
-        marginTop:'200px',
-        opacity: 0.93,
+        opacity: 1,
     },
 
     container: {
@@ -174,10 +235,6 @@ const styles = {
         marginBottom: '10px',
     },
 
-    button: {
-        width: '100%',
-        marginTop: '30px',
-    },
 
     modalContainer: {
         textAlign: 'center',
