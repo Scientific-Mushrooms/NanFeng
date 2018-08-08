@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import "antd/dist/antd.css";
-import ListItem from './ListItem';
-import HorizontalListItem from './HorizontalListItem';
+import ListItem from '../../components/ListItem';
+import HorizontalListItem from '../../components/HorizontalListItem';
 import {Typography,Grid} from '@material-ui/core';
 
-export default class ItemPage extends Component {
+export class SchoolPanel extends Component {
 
   render() {
     return (
@@ -34,4 +34,5 @@ const styles={
     justifyContent:'space-around',
   },
 };
-  
+
+
