@@ -1,32 +1,40 @@
 import React, {Component} from 'react';
 import "antd/dist/antd.css";
-import {Typography,Grid} from '@material-ui/core';
+import {Typography,Grid,Paper} from '@material-ui/core';
 
 export default class HorizontalListItem extends Component {
 
     render() {
       return (
-        <Grid style={styles.container} container>
+        <Paper elevation={24} style={styles.paper}>
+          <Grid style={styles.container} container>
             <Grid style={styles.imageContainer} direction='column' container>
                 <Typography style={styles.text_on_image} align='center'>标签</Typography>
                 <Typography style={styles.title}>标题</Typography>
                 <Typography style={styles.description}>副标题</Typography>
             </Grid>
-        </Grid>
+          </Grid>
+        </Paper>
       );
     }
   }
   
   const styles={
+    paper:{
+      margin:10,
+      width:'45%',
+      borderRadius:15,
+      backgroundColor: '#FFFFFF',
+    },
     container: {
-      elevation:15,
-      marginVertical:5,
-      marginLeft:10,
-      width:"50%",
-      borderRadius:5,
+      width:null,
+      borderRadius:15,
       backgroundColor: '#FFFFFF',
     },
     imageContainer:{
+      width:null,
+      height:300,
+      borderRadius:15,
       backgroundImage: "url("+require("./resource/Back_login.png")+")",
       alignItems:"flex-start",
       justifyContent:"flex-end"

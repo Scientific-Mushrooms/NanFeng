@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import "antd/dist/antd.css";
-import {Typography,Grid} from '@material-ui/core';
+import {Typography,Grid,Paper} from '@material-ui/core';
 import {Button} from 'antd';
 
 export default class ListItem extends Component {
-  state = {
-    size: 'large',
-  };
 
   handleText(str){
     if(str.length>20){
@@ -17,20 +14,21 @@ export default class ListItem extends Component {
   }
 
   render() {
-    const size = this.state.size;
     return (
-      <Grid style={styles.container} direction='column' container>
-        <Grid style={styles.imageContainer} container>
-          <Typography style={styles.text_on_image} align='center'>分享</Typography>
+      <Paper elevation={24} style={styles.paper}>
+        <Grid style={styles.container} direction='column' container>
+          <Grid style={styles.imageContainer} container>
+            <Typography style={styles.text_on_image} align='center'>分享</Typography>
+          </Grid>
+          <Typography style={styles.description}>{this.handleText(text)}</Typography>
+          <Grid style={styles.buttonContainer} container>
+            <Button icon="like"  style={{borderWidth:0,marginLeft:10}} size='large'/>
+            <Typography style={styles.num}>11</Typography>
+            <Button icon="upload" style={{borderWidth:0,}} size='large'/>
+            <Typography style={styles.num}>8</Typography>
+          </Grid>
         </Grid>
-        <Typography style={styles.description}>{this.handleText(text)}</Typography>
-        <Grid style={styles.buttonContainer} container>
-          <Button icon="like"  style={{borderWidth:0,}} size='large'/>
-          <Typography style={styles.num}>11</Typography>
-          <Button icon="upload" style={{borderWidth:0,}} size='large'/>
-          <Typography style={styles.num}>8</Typography>
-        </Grid>
-      </Grid>
+      </Paper>
     );
   }
 }
@@ -38,19 +36,23 @@ export default class ListItem extends Component {
 const text="此处为一段描述文字此处为一段描述文字此处为一段描述文字此处为一段描述文字";
 
 const styles = {
-  container: {
-    elevation:10,
-    marginVertical:5,
-    marginLeft:8,
+  paper:{
+    margin:10,
     width:'45%',
-    borderRadius:8,
+    borderRadius:15,
+    backgroundColor: '#FFFFFF',
+  },
+  container: {
+    width:null,
+    borderRadius:15,
     backgroundColor: '#FFFFFF',
   },
   imageContainer: {
     backgroundImage: "url("+require("./resource/Back_login.png")+")",
     width:null,
     height:300,
-    borderRadius:10,
+    borderTopLeftRadius:15,
+    borderTopRightRadius:15,
     alignItems:'flex-end',
     justifyContent: 'flex-end',
     backgroundColor: '#FFF',
@@ -72,7 +74,8 @@ const styles = {
   description:{
     width:null,
     fontSize: 25,
-    marginHorizontal: 5,
+    marginLeft: 10,
+    marginTop:20,
   },
   num:{
     fontSize: 20,
