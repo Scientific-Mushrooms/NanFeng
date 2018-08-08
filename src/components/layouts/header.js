@@ -1,10 +1,12 @@
 import React from "react";
+
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import { logout, update, login } from '../../redux/actions/action';
 import { Menu, Icon, Row, Col} from 'antd';
 import { connect } from 'react-redux';
-import { Popover, Typography, IconButton, Button } from '@material-ui/core';
+import { Popover, Typography, IconButton } from '@material-ui/core';
 import { BaseComponent } from '../BaseComponent';
 import Avatar from '@material-ui/core/Avatar';
 import { NavLink, withRouter } from "react-router-dom";
@@ -16,6 +18,7 @@ import ListItem from '@material-ui/core/ListItem';
 import mainRoutes from '../../routes/routes';
 
 const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 
 const mapStateToProps = state => ({
     user: state.identityReducer.user,
@@ -36,7 +39,6 @@ class Header extends BaseComponent {
     }
     
     componentWillMount = () => {
-        console.log(sessionStorage.getItem("userId"))
         if (this.props.user == null && sessionStorage.getItem("userId") !== null) {
             this.fetchUser();
         }
@@ -59,7 +61,6 @@ class Header extends BaseComponent {
             } 
 
             if (result.status === 'success') {
-                console.log(result)
 
                 this.props.dispatch(login(result.detail, result.more, result.extra))
                 this.pushNotification("success", "successfully update user", this.props.dispatch);
@@ -206,28 +207,35 @@ class Header extends BaseComponent {
         if (this.props.user === null) {
             
             return (
-                <Grid container xs={4} style={styles.subRightContainer}>
-                <Menu
-                    onClick={this.handleClick}           
-                    selectedKeys={[this.state.current]}
-                    mode="horizontal"
-                >
-                    <Menu.Item key="/signin">
-                        <Icon style={{ fontSize: 27, color: 'black' }} type="user"/>
-                        <span style={{fontSize:27}}>登录</span>
-                    </Menu.Item>
-                    <Menu.Item key="/signUp">
-                        <Icon style={{ fontSize: 27, color: 'black' }} type="user-add"/>
-                        <span style={{fontSize:27}}>注册</span>
-                    </Menu.Item>
-                </Menu>
-                </Grid>
+                <Col span={6}>
+                    <Grid justify='center' container>
+                        <Menu
+                        onClick={this.handleClick}           
+                        selectedKeys={[this.state.current]}
+                        mode="horizontal"
+                        >
+                            <Menu.Item key="/signin">
+                                <Icon style={{ fontSize: 27, color: 'black' }} type="user"/>
+                                <span style={styles.title}>登录</span>
+                            </Menu.Item>
+                            <Menu.Item key="/signUp">
+                                <Icon style={{ fontSize: 27, color: 'black' }} type="user-add"/>
+                                <span style={styles.title}>注册</span>
+                            </Menu.Item>
+                        </Menu>
+                    </Grid>
+                </Col>
             )
         }
         
         return (
             
             <Grid container xs={4} style={styles.subRightContainer}>
+
+                <IconButton onClick={this.handleRightClick("notificationPopover")} style={styles.iconButton} >
+                    <Icon>notifications</Icon>
+                    <span style={styles.notifications}>5</span>
+                </IconButton>
 
                 <Button onClick={this.handleRightClick("userPopover")} style={styles.iconButton} >
                     {this.renderAvatar()}
@@ -264,11 +272,16 @@ class Header extends BaseComponent {
     }
 
     handleClick = (e) => {
-        if(e.key!='/classroom'){     
+        if(e.key!='/classroom'){ 
             this.setState({
                 current:e.key
             })
-            this.props.history.push(e.key+'')
+            if(e.key.indexOf('school')!=-1)  { 
+                this.props.history.push('/school')//未写完所有页面，先修改跳转
+            }
+            else{
+                this.props.history.push(e.key+'')
+            }
         }
         else
             this.onClickClassroom(e)
@@ -276,42 +289,51 @@ class Header extends BaseComponent {
     
     render() {
         return(
-            <Row type='flex' justify='center'>
-                <Col span={20} type='flex' justify='center' align="bottom">
-    
+            <Row type='flex' justify="space-around">
+                <Col span={20} type='flex'>
 
-                    <Col span={4} type='flex' justify='center'>
+                    <Col span={3}>
                         <Button onClick={this.props.handleDrawer} style={styles.slogan}>
                             <img style={styles.logo} src={require("./src/logo-color.png")} />
                         </Button>
                     </Col>
-
-                    <Col span={9} type='flex' justify='center'>
+            
+                    <Col span={15}>
+                    <Grid container justify='center' alignItems='center'>
                         <Menu
-                            selectedKeys={[this.state.current]}
-                            mode="horizontal"
+                        onClick={this.handleClick}
+                        selectedKeys={[this.state.current]}
+                        mode="horizontal"
                         >
                             <Menu.Item key="/courseSearch">
-                                <Icon style={{ fontSize: 27, color: '#0078d7' }} type="edit" />
-                                <span style={{ fontSize: 27 }}>课堂</span>
+                                <Icon style={styles.icon} type="book"/>
+                                <span style={styles.title}>课程查询</span>
                             </Menu.Item>
-                    
-                            <Menu.Item onClick={this.onClickClassroom}>
-                                <Icon style={{ fontSize: 27, color: '#0078d7' }} type="edit" />
-                                <span style={{ fontSize: 27 }}>课堂</span>
+                            <Menu.Item key="/classroom">
+                                <Icon style={styles.icon} type="edit"/>
+                                <span style={styles.title}>我的课堂</span>
                             </Menu.Item>
-                            <SubMenu
-                                title={<span>
-                                    <Icon style={{ fontSize: 27, color: '#0078d7' }} type="smile-o" />
-                                    <span style={{ fontSize: 27 }}>南大助手</span>
-                                </span>}>
-                                <Menu.Item key="/confess1"><span style={{ fontSize: 20 }}>失物招领</span></Menu.Item>
-                                <Menu.Item key="/confess2"><span style={{ fontSize: 20 }}>寻人招人</span></Menu.Item>
-                                <Menu.Item key="/confess3"><span style={{ fontSize: 20 }}>一吐为快</span></Menu.Item>
+                            <SubMenu 
+                            title={<span>
+                            <Icon style={styles.icon} type="smile-o"/>
+                            <span style={styles.title}>南大助手</span>
+                            </span>}>
+                                <Menu.Item key="/confess1"><span style={{fontSize:20}}>失物招领</span></Menu.Item>
+                                <Menu.Item key="/confess2"><span style={{fontSize:20}}>寻人招人</span></Menu.Item>
+                                <Menu.Item key="/confess3"><span style={{fontSize:20}}>一吐为快</span></Menu.Item>
                             </SubMenu>
-                        </Menu>
+                            <SubMenu 
+                            title={<span>
+                            <Icon style={styles.icon} type="camera-o"/>
+                            <span style={styles.title}>南大生活</span>
+                            </span>}>
+                                <Menu.Item key="/school1"><span style={{fontSize:20}}>自习研讨组队</span></Menu.Item>
+                                <Menu.Item key="/school2"><span style={{fontSize:20}}>最近的校园活动</span></Menu.Item>
+                                <Menu.Item key="/school3"><span style={{fontSize:20}}>TA的校园见闻</span></Menu.Item>
+                            </SubMenu>
+                         </Menu>
+                         </Grid>
                     </Col>
-
                     {this.renderRight()}
                 
                     {this.renderUserPopover()}
@@ -331,18 +353,37 @@ const styles = {
         marginTop: '5px',
     },
 
+    title:{
+        fontSize: '20px',
+        margin:'5px',
+    },
+
+    icon:{
+        fontSize: 27, 
+        color: '#0078d7' 
+    },
+
+    iconBlack:{
+        fontSize: 27, 
+        color: 'black' 
+    },
+
     iconButton: {
         color: '#bcb8a8'
     },
 
     container: {
-        height: '90px',
+        shadowColor: 'black',
+        shadowRadius:'3px',
+        height: '70px',
         backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
     logo: {
-        height:'60px',
-        width:'110px'
+        height:'40px',
+        width:'75px'
     },
 
     subContainer: {
@@ -367,10 +408,6 @@ const styles = {
 
     text: {
         marginLeft: '10px'
-    },
-
-    subContainer: {
-        height: '100%'
     }
 
 };
