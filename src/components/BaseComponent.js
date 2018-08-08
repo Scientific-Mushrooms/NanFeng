@@ -6,10 +6,10 @@ import {notification} from 'antd'
 export class BaseComponent extends Component {
 
     // server
-    ip = "http://www.clavier.moe:8080";
+    // ip = "http://www.clavier.moe:8080";
     
     // local
-    //ip = "http://localhost:8080";  
+    ip = "http://localhost:8080";  
 
 
     post = (url, form) => {
@@ -26,6 +26,10 @@ export class BaseComponent extends Component {
 
     getImagePath = (imageId) => {
         return this.ip + "/api/image/" + imageId;
+    }
+
+    hasErrors(fieldsError) {
+        return Object.keys(fieldsError).some(field => fieldsError[field]);
     }
 
     pushNotification = (kind, reason, dispatch) => {

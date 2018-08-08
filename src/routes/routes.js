@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { withTheme } from '@material-ui/core/styles';
+import { Form, Icon, Input, Button } from 'antd';
+
 
 const mapStateToProps = state => ({
     user: state.identityReducer.user,
@@ -11,7 +13,7 @@ const mapStateToProps = state => ({
 })
 
 var wrap = (component) => {
-    return withTheme()(connect(mapStateToProps)(withRouter(component)))
+    return Form.create()(withTheme()(connect(mapStateToProps)(withRouter(component))))
 }
 
 const mainRoutes = [

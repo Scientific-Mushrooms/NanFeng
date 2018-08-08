@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Row, Col, Input, Button, Upload, Icon, message } from 'antd';
+import { Row, Col, Input, Button, Upload, Icon, message, Form } from 'antd';
+const FormItem = Form.Item;
+
 
 export default class AvatarUploader extends Component {
 
@@ -7,9 +9,14 @@ export default class AvatarUploader extends Component {
         super(props);
         this.state = {
             loading: false,
-            avatar: null,
             avatarUrl: null,
         };
+    }
+
+    normFile = (e) => {
+
+        console.log(e.file.originFileObj);
+        return e.file.originFileObj;
     }
 
     handleUploadChange = (info) => {
@@ -19,15 +26,13 @@ export default class AvatarUploader extends Component {
         }
 
         var objecturl = window.URL.createObjectURL(info.file.originFileObj)
-        this.props.setAvatar(info.file.originFileObj)
-        this.setState({ avatar: info.file.originFileObj });
         this.setState({ avatarUrl: objecturl, loading: false })
 
     }
 
     beforeUpload(file) {
 
-        const isJPG = file.type === 'image/jpeg';
+        const isJPG = file.type === 'image/jpeg' || file.type === 'image/png';
         if (!isJPG) {
             message.error('You can only upload JPG file!');
         }
@@ -43,6 +48,14 @@ export default class AvatarUploader extends Component {
 
     render() {
 
+        const formItemLayout = {
+            labelCol: { span: 6 },
+            wrapperCol: { span: 14 },
+        };
+
+
+        const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
+
         const uploadButton = (
             <div>
                 <Icon type={this.state.loading ? 'loading' : 'plus'} />
@@ -51,14 +64,31 @@ export default class AvatarUploader extends Component {
         );
 
         return (
-            <Upload
-                listType="picture-card"
-                showUploadList={false}
-                beforeUpload={this.beforeUpload}
-                onChange={this.handleUploadChange}
-                >
-                {this.state.avatarUrl ? <img src={this.state.avatarUrl} alt="avatar" /> : uploadButton}
-            </Upload>
+            <FormItem {...formItemLayout} label="Upload">
+                {getFieldDecorator('avatar', {
+                    valuePropName: 'file',
+                    getValueFromEvent: this.normFile,
+                })(
+                <Upload
+                    listType="picture-card"
+                    showUploadList={false}
+                    beforeUpload={this.beforeUpload}
+                    onChange={this.handleUploadChange}
+                    style={styles.container}
+                    >
+                    {this.state.avatarUrl ? <img src={this.state.avatarUrl} alt="avatar" /> : uploadButton}
+                </Upload>
+                )}
+            </FormItem>
         );
     }
+}
+
+const styles = {
+
+    container: {
+        width: '128px',
+        height: '128px',
+    }
+
 }

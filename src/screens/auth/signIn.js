@@ -74,10 +74,13 @@ export class SignIn extends BaseComponent {
                 this.pushNotification("danger",result.description,this.props.dispatch);
                 return;
             }
+            console.log(result)
 
-            sessionStorage.setItem("userId", result.detail.userId);
+            sessionStorage.setItem('userId', result.detail.userId);
+            sessionStorage.setItem("instructorId", result.more.instructorId);
+            sessionStorage.setItem("studentId", result.extra.studentId);
             this.props.dispatch(login(result.detail, result.more, result.extra));
-            this.props.history.push("/courseSearch");
+            this.props.history.push("/home");
             this.pushNotification("normal","Login Succeeded",this.props.dispatch);
                       
         })
@@ -96,7 +99,6 @@ export class SignIn extends BaseComponent {
                 justify='center' 
                 direction='row' 
                 alignItems='center' container>
-                    {/*this._renderLeftPanel()*/}
                     {this._renderLoginPanel()}
                 </Grid>
             </Grid>
@@ -151,10 +153,6 @@ export class SignIn extends BaseComponent {
                                 onClick={this.login}
                             >登录</Button>
                             <Button style={styles.button2} onClick={this.goBack}>返回</Button>
-                        </Grid>
-                        <Grid alignItems='center' direction='column' container>
-                            <Typography style={styles.policy}>我已阅读并接受.</Typography>
-                            <Button style={styles.policy_button}>服务与隐私条款</Button>
                         </Grid>
                 </Card>
             </Grid>
