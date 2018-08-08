@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class ClassroomPanel extends Component {
+export class ClassroomPanel extends Component {
     state = {  }
     render() {
         return (
