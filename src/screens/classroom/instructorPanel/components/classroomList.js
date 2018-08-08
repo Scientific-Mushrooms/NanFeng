@@ -4,12 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { BaseComponent } from '../../../../components/BaseComponent';
 
-const classrooms = [{
-    name: 'Starcraft',
-    code: 'GTX1080',
-    maxStudentNum: 50,
-    currentStudentNum: 30,
-}]
 
 class ClassroomList extends BaseComponent {
 
