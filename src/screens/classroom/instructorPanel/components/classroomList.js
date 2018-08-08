@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import { Row, Col, Button, Card, Avatar} from 'antd';
+import { Row, Col, Card} from 'antd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { BaseComponent } from '../../../../components/BaseComponent';
-
+import {Avatar} from '../../../../components'
+import { Button } from '@material-ui/core';
 
 class ClassroomList extends BaseComponent {
 
@@ -60,15 +61,19 @@ class ClassroomList extends BaseComponent {
     }
 
     renderCard = (classroom, index) => {
-        console.log(classroom)
         return (
+           
             <Col span={4}>
-                <Card style={styles.cardContainer}>
-                    <Avatar shape="square" size={200} icon="user" />
-                    <Row >{classroom.name}</Row>
-                    <Row >{classroom.code}</Row>
-                    <Row >{classroom.currentStudentNum}/{classroom.currentStudentNum}</Row>
-                </Card>
+                <Button  style={styles.test}>
+                    <Card style={styles.cardContainer} bordered={false}>
+                     
+                        <Avatar shape="square" size={100} src={this.getImagePath(classroom.avatarId)} />
+                        <Row style={styles.classroomTitle}>{classroom.name}</Row>
+                        <Row style={styles.text}>{classroom.code}</Row>
+                        <Row style={styles.text}>{classroom.currentStudentNum}/{classroom.currentStudentNum}</Row>
+                    
+                    </Card>
+                </Button>
             </Col>
         )
     }
@@ -76,18 +81,7 @@ class ClassroomList extends BaseComponent {
     render() {
         return (
             <Row>
-                <Card>
-                    <Row align='bottom' type='flex'>
-                        <Col span={8} align='bottom'>Name</Col>
-                        <Col span={8}></Col>
-                        <Col span={8} align='bottom'>
-                            <Button type='primary' icon='plus-square' size={20} onClick={() => {this.props.history.push('/classroomCreate')}}>Create</Button>
-                        </Col>
-                    </Row>
-                    <Row>
-                        {this.state.classrooms.map(this.renderCard)}
-                    </Row>
-                </Card>
+                {this.state.classrooms.map(this.renderCard)}
             </Row>
         );
     }
@@ -97,6 +91,21 @@ const styles = {
 
     cardContainer: {
         borderRadius: '5px',
+    },
+
+    text: {
+        textAlign: 'center'
+    },
+
+    classroomTitle: {
+        textAlign: 'center',
+        fontSize: '20px'
+    },
+
+    test: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'transparent'
     }
 }
 

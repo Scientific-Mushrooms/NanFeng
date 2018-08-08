@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { withTheme } from '@material-ui/core/styles';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form } from 'antd';
 
 
 const mapStateToProps = state => ({
@@ -116,6 +116,13 @@ const mainRoutes = [
         name: "classroomCreate",
         icon: 'add',
         component: wrap(Screens.ClassroomCreate)
+    },
+
+    {
+        path: "/classroomPanel",
+        name: "classroomPanel",
+        icon: 'add',
+        component: wrap(Screens.ClassroomPanel)
     },
 
 ];
