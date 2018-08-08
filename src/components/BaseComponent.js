@@ -9,13 +9,39 @@ export class BaseComponent extends Component {
     // ip = "http://www.clavier.moe:8080";
     
     // local
-    ip = "http://localhost:8080";  
+    ip = "http://localhost:8080";
 
 
     post = (url, form) => {
         return fetch(this.ip + url, { method: 'POST', body: form, header: { 'content-type': 'multipart/form-data'}})
             .then((response) => (response.json()))
             .catch((error) => { console.error(error); });
+    }
+
+    newPost = (url, form, successAction) => {
+        return fetch(this.ip + url, { method: 'POST', body: form, header: { 'content-type': 'multipart/form-data' } })
+            .then((response) => (response.json()))
+            .catch((error) => { console.error(error); })
+            .then((result) => {
+
+                if (!result) {
+                    this.pushNotification("danger", "Connection error", this.props.dispatch);
+                    return;
+                }
+
+                if (result.status === 'fail') {
+                    this.pushNotification("danger", result.detail, this.props.dispatch);
+                    return;
+                }
+
+                if (result.status === 'success') {
+                    successAction();
+                    return;
+                } 
+
+                alert(JSON.stringify(result))
+                this.pushNotification("danger", result.status, this.props.dispatch);
+            });
     }
 
     handleChange = name => event => {
@@ -32,7 +58,7 @@ export class BaseComponent extends Component {
         return Object.keys(fieldsError).some(field => fieldsError[field]);
     }
 
-    pushNotification = (kind, reason, dispatch) => {
+    pushNotification = ( kind, reason ) => {
         notification.config({
             placement: 'topRight',
             top: 80,
