@@ -1,9 +1,7 @@
 import React from 'react';
 import { Row, Col, Input, Button, Icon, Form, Upload, Avatar } from 'antd';
 import { BaseComponent } from '../../components/BaseComponent';
-import TextInput from '../../components/TextInput'
-import AvatarUploader from '../../components/AvatarUploader'
-import FormButton from '../../components/FormButton';
+import {FormButton, FormText, FormAvatar, FormSelector} from '../../components';
 
 
 export class ClassroomCreate extends BaseComponent {
@@ -12,10 +10,7 @@ export class ClassroomCreate extends BaseComponent {
         super(props);
         this.state = {
             loading: false,
-            avatar: null,
             avatarUrl: null,
-            name: null,
-            code: null,
         };
 
     }
@@ -61,7 +56,6 @@ export class ClassroomCreate extends BaseComponent {
 
             })
 
-            console.log(values)
         });
     }
 
@@ -72,13 +66,15 @@ export class ClassroomCreate extends BaseComponent {
                 <Col span={20}>
                     <Form onSubmit={this.handleSubmit}>
 
-                        <TextInput form={this.props.form} label='E-mail' name='email' type='email' required='true'/>
+                        <FormText form={this.props.form} label='E-mail' name='email' type='email' required={true}/>
 
-                        <TextInput form={this.props.form} label='Username' name='username' required='true' />
+                        <FormText form={this.props.form} label='Username' name='username' required={true} />
 
-                        <AvatarUploader form={this.props.form}/>
+                        <FormAvatar form={this.props.form}/>
 
                         <FormButton form={this.props.form} label="submit" />
+
+                        <FormSelector form={this.props.form} options={[1, 2, 3]} label='time' name='time'/>
 
                     </Form>
                 </Col>

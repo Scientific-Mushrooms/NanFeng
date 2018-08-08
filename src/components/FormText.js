@@ -3,7 +3,7 @@ import { Input, Form } from 'antd';
 const FormItem = Form.Item;
 
 
-class TextInput extends Component {
+export class FormText extends Component {
 
     render() {
 
@@ -40,8 +40,7 @@ class TextInput extends Component {
     }
 }
 
-TextInput.defaultProps = {
+FormText.defaultProps = {
     required: false,
 }
 
-export default Form.create()(TextInput);

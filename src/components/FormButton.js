@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Row, Col, Input, Button, Icon, Form, Upload, Avatar } from 'antd';
+import {Button, Form } from 'antd';
 const FormItem = Form.Item;
 
 
-export default class FormButton extends Component {
+export class FormButton extends Component {
     state = {  }
 
     hasErrors(fieldsError) {
@@ -12,7 +12,7 @@ export default class FormButton extends Component {
 
     render() {
 
-        const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
+        const { getFieldsError } = this.props.form;
 
         return (
             <FormItem>

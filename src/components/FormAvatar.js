@@ -3,7 +3,7 @@ import { Row, Col, Input, Button, Upload, Icon, message, Form } from 'antd';
 const FormItem = Form.Item;
 
 
-export default class AvatarUploader extends Component {
+export class FormAvatar extends Component {
 
     constructor(props) {
         super(props);
@@ -14,8 +14,6 @@ export default class AvatarUploader extends Component {
     }
 
     normFile = (e) => {
-
-        console.log(e.file.originFileObj);
         return e.file.originFileObj;
     }
 
