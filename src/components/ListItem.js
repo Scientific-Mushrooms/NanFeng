@@ -24,7 +24,7 @@ export default class ListItem extends Component {
           <Grid style={styles.buttonContainer} container>
             <Button icon="like"  style={{borderWidth:0,marginLeft:10}} size='large'/>
             <Typography style={styles.num}>11</Typography>
-            <Button icon="upload" style={{borderWidth:0,}} size='large'/>
+            <Button icon="upload" style={{borderWidth:0}} size='large'/>
             <Typography style={styles.num}>8</Typography>
           </Grid>
         </Grid>
@@ -38,7 +38,7 @@ const text="此处为一段描述文字此处为一段描述文字此处为一�
 const styles = {
   paper:{
     margin:10,
-    width:'45%',
+    width:'30%',
     borderRadius:15,
     backgroundColor: '#FFFFFF',
   },
