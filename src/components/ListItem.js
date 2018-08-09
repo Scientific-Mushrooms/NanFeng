@@ -38,7 +38,7 @@ const text="此处为一段描述文字此处为一段描述文字此处为一�
 const styles = {
   paper:{
     margin:10,
-    width:'45%',
+    width:'30%',
     borderRadius:15,
     backgroundColor: '#FFFFFF',
   },
