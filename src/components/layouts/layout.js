@@ -47,12 +47,11 @@ class Layout extends Component {
 
                 <BackTop visibilityHeight={200}/>
 
-        <Anchor>
-                <Row className={classes.headerContainer}>
-                    <Header />
-                </Row>
-                
-         </Anchor>
+                <Anchor>
+                    <Row className={classes.headerContainer}>
+                        <Header />
+                    </Row>
+                </Anchor>
 
                 <Row className={classes.bodyContainer}>
                     <Switch>
