@@ -119,8 +119,8 @@ const mainRoutes = [
     },
 
     {
-        path: "/classroomPanel",
-        name: "classroomPanel",
+        path: "/classroomPanel/:classroomId",
+        name: "classroom",
         icon: 'add',
         component: wrap(Screens.ClassroomPanel)
     },

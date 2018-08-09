@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
-export default class ClassroomPanel extends Component {
+export class ClassroomPanel extends Component {
     state = {  }
     render() {
+        console.log(this.props.match.params.classroomId)
         return (
-            <div>this is class room panel</div>
+            <div>{this.props.match.params.classroomId}</div>
         );
     }
 }
