@@ -35,7 +35,7 @@ export default class HorizontalListItem extends Component {
       width:null,
       height:300,
       borderRadius:15,
-      backgroundImage: "url("+require("./resource/Back_login.png")+")",
+      backgroundImage: "url("+require("./src/upload1.jpg")+")",
       alignItems:"flex-start",
       justifyContent:"flex-end"
     },

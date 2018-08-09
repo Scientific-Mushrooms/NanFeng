@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { logout, update, login } from '../../redux/actions/action';
 import { Menu, Icon, Row, Col} from 'antd';
 import { connect } from 'react-redux';
-import { Popover, Typography, IconButton } from '@material-ui/core';
+import { Popover, Typography, IconButton, Paper } from '@material-ui/core';
 import { BaseComponent } from '../BaseComponent';
 import Avatar from '@material-ui/core/Avatar';
 import { NavLink, withRouter } from "react-router-dom";
@@ -34,7 +34,7 @@ class Header extends BaseComponent {
         this.state = {
             current:'/courseSearch',
             register: false,
-            userId: sessionStorage.getItem("userId")
+            userId: sessionStorage.getItem("userId"),
         };
     }
     
@@ -105,16 +105,16 @@ class Header extends BaseComponent {
                 >
                 <List component="nav">
                     <ListItem button onClick={this.goToUserProfile}>
-                        <Typography>Profile</Typography>
+                        <Typography>个人信息</Typography>
                     </ListItem>
                     <ListItem button >
-                        <Typography>Help</Typography>
+                        <Typography>查看帮助</Typography>
                     </ListItem>
                     <ListItem button >
-                        <Typography>Settings</Typography>
+                        <Typography>设置</Typography>
                     </ListItem>
 					<ListItem button onClick={this.signOut}>
-                        <Typography>Logout</Typography>
+                        <Typography>登出</Typography>
                     </ListItem>
                 </List>
             </Popover>
@@ -184,15 +184,12 @@ class Header extends BaseComponent {
 	
 
     renderAvatar = () => {
-
         if (this.props.user === null) {
             return null;
         }
-
         return (
             <Avatar style={styles.avatar} src={this.getImagePath(this.props.user.avatarId)}/>
         )
-    
     }
 
     
@@ -203,9 +200,7 @@ class Header extends BaseComponent {
     }
 
     renderRight = () => {
-
-        if (this.props.user === null) {
-            
+        if (this.props.user === null) { 
             return (
                 <Col span={6}>
                     <Grid justify='center' container>
@@ -215,12 +210,16 @@ class Header extends BaseComponent {
                         mode="horizontal"
                         >
                             <Menu.Item key="/signin">
-                                <Icon style={{ fontSize: 27, color: 'black' }} type="user"/>
-                                <span style={styles.title}>登录</span>
+                                <Grid alignItems='center' style={styles.itemContainer} container>
+                                    <Icon style={styles.iconBlack} type="user"/>
+                                    <span style={styles.title}>登录</span>
+                                </Grid>
                             </Menu.Item>
                             <Menu.Item key="/signUp">
-                                <Icon style={{ fontSize: 27, color: 'black' }} type="user-add"/>
-                                <span style={styles.title}>注册</span>
+                                <Grid alignItems='center' style={styles.itemContainer} container>
+                                    <Icon style={styles.iconBlack} type="user-add"/>
+                                    <span style={styles.title}>注册</span>
+                                </Grid>
                             </Menu.Item>
                         </Menu>
                     </Grid>
@@ -229,21 +228,24 @@ class Header extends BaseComponent {
         }
         
         return (
-            
-            <Grid container xs={4} style={styles.subRightContainer}>
-
-                <IconButton onClick={this.handleRightClick("notificationPopover")} style={styles.iconButton} >
-                    <Icon>notifications</Icon>
-                    <span style={styles.notifications}>5</span>
-                </IconButton>
-
-                <Button onClick={this.handleRightClick("userPopover")} style={styles.iconButton} >
-                    {this.renderAvatar()}
-                    <div style={styles.text}>{this.props.user.nickName}</div>
+        <Col span={6}>
+            <Grid justify='center' container>
+                <Menu mode="horizontal">
+                <Button onClick={this.handleRightClick("notificationPopover")}>
+                    <Grid alignItems='center' justify='center' container>
+                        <Icon style={styles.iconBlack} type='notification'/>
+                    </Grid>
                 </Button>
-				
 
+                <Button variant='flat' onClick={this.handleRightClick("userPopover")}>
+                    <Grid alignItems='center' justify='center' container>
+                        {this.renderAvatar()}
+                        <span style={styles.title}>{this.props.user.nickName}</span>
+                    </Grid>
+                </Button>
+				</Menu>
             </Grid>
+        </Col>
         )
     }
 
@@ -252,17 +254,14 @@ class Header extends BaseComponent {
         if (this.props.user == null) {
             this.pushNotification("danger", "sign in first", this.props.dispatch)
             return;
-        }
-             
+        }      
         this.setState({
             current:e.key
         })
-
         if (this.props.instructor !== null) {
             this.props.history.push('/instructorPanel')
             return;
         }
-
         if (this.props.student !== null) {
             alert("student");
             return;
@@ -289,9 +288,9 @@ class Header extends BaseComponent {
     
     render() {
         return(
+        <Paper elevation={4} style={{marginBottom:8}}>
             <Row type='flex' justify="space-around">
                 <Col span={20} type='flex'>
-
                     <Col span={3}>
                         <Button onClick={this.props.handleDrawer} style={styles.slogan}>
                             <img style={styles.logo} src={require("./src/logo-color.png")} />
@@ -306,27 +305,31 @@ class Header extends BaseComponent {
                         mode="horizontal"
                         >
                             <Menu.Item key="/courseSearch">
-                                <Icon style={styles.icon} type="book"/>
-                                <span style={styles.title}>课程查询</span>
+                                <Grid alignItems='center' style={styles.itemContainer} container>
+                                    <Icon style={styles.icon} type="book"/>
+                                    <span style={styles.title}>课程查询</span>
+                                </Grid>
                             </Menu.Item>
                             <Menu.Item key="/classroom">
-                                <Icon style={styles.icon} type="edit"/>
-                                <span style={styles.title}>我的课堂</span>
+                                <Grid alignItems='center' style={styles.itemContainer} container>
+                                    <Icon style={styles.icon} type="edit"/>
+                                    <span style={styles.title}>我的课堂</span>
+                                </Grid>
                             </Menu.Item>
                             <SubMenu 
-                            title={<span>
+                            title={<Grid alignItems='center' style={styles.itemContainer} container>
                             <Icon style={styles.icon} type="smile-o"/>
                             <span style={styles.title}>南大助手</span>
-                            </span>}>
+                            </Grid>}>
                                 <Menu.Item key="/confess1"><span style={{fontSize:20}}>失物招领</span></Menu.Item>
                                 <Menu.Item key="/confess2"><span style={{fontSize:20}}>寻人招人</span></Menu.Item>
                                 <Menu.Item key="/confess3"><span style={{fontSize:20}}>一吐为快</span></Menu.Item>
                             </SubMenu>
                             <SubMenu 
-                            title={<span>
+                            title={<Grid alignItems='center' style={styles.itemContainer} container>
                             <Icon style={styles.icon} type="camera-o"/>
                             <span style={styles.title}>南大生活</span>
-                            </span>}>
+                            </Grid>}>
                                 <Menu.Item key="/school1"><span style={{fontSize:20}}>自习研讨组队</span></Menu.Item>
                                 <Menu.Item key="/school2"><span style={{fontSize:20}}>最近的校园活动</span></Menu.Item>
                                 <Menu.Item key="/school3"><span style={{fontSize:20}}>TA的校园见闻</span></Menu.Item>
@@ -335,12 +338,14 @@ class Header extends BaseComponent {
                          </Grid>
                     </Col>
                     {this.renderRight()}
-                
+
+                    {this.renderAlertPopover()}
                     {this.renderUserPopover()}
                     {this.renderWidgetsPopover()}
  
                 </Col>
             </Row>
+        </Paper>
         )
     }      
 
@@ -355,7 +360,6 @@ const styles = {
 
     title:{
         fontSize: '20px',
-        margin:'5px',
     },
 
     icon:{
@@ -382,13 +386,18 @@ const styles = {
     },
 
     logo: {
-        height:'40px',
-        width:'75px'
+        height:'43px',
+        width:'80px'
     },
 
     subContainer: {
         height: '100%',
         alignItems: 'center'
+    },
+
+    itemContainer: {
+        marginTop:'7px',
+        marginBottom:"5px"
     },
 
     subRightContainer: {
@@ -399,7 +408,7 @@ const styles = {
 
 
     avatar: {
-        backgroundColor: "#66ccff",
+        height:'40px'
     },
 
     slogan: {

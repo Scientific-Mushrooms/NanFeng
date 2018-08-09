@@ -48,7 +48,7 @@ const styles = {
     backgroundColor: '#FFFFFF',
   },
   imageContainer: {
-    backgroundImage: "url("+require("./resource/Back_login.png")+")",
+    backgroundImage: "url("+require("./src/upload1.jpg")+")",
     width:null,
     height:300,
     borderTopLeftRadius:15,

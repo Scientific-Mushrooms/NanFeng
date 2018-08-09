@@ -124,6 +124,20 @@ const mainRoutes = [
         icon: 'add',
         component: wrap(Screens.ClassroomPanel)
     },
+    
+    {
+        path: "/confess",
+        name: "confessPanel",
+        icon: 'add',
+        component: wrap(Screens.ConfessPanel)
+    },
+
+    {
+        path: "/school",
+        name: "schoolPanel",
+        icon: 'add',
+        component: wrap(Screens.SchoolPanel)
+    },
 
 ];
 

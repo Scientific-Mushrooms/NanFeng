@@ -8,7 +8,7 @@ import dashboardRoutes from "../../routes/routes";
 import Header from './header';
 import Notification from '../layouts/notification';
 import { withStyles } from '@material-ui/core/styles';
-import { Row, Col} from 'antd';
+import { BackTop, Row, Col} from 'antd';
 
 class Layout extends Component {
     
@@ -44,6 +44,8 @@ class Layout extends Component {
 
         return (
             <Row>
+
+                <BackTop visibilityHeight={200}/>
 
                 <Row className={classes.headerContainer}>
                     <Header />
