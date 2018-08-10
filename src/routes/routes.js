@@ -71,7 +71,7 @@ const mainRoutes = [
         children: [
 
             {
-                path: "/courseDetail",
+                path: "/courseDetail/:courseId",
                 name: "Course detail",
                 icon: 'assignment',
                 component: wrap(Screens.CourseDetail),

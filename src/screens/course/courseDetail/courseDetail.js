@@ -18,8 +18,9 @@ export class CourseDetail extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
+            temp: this.props.match.params.courseId,
 
-            courseId: this.props.location.courseId,
+            courseId: this.props.match.params.courseId,
             userId: this.props.user === null ? null : this.props.user.userId,
 
             course: null,
@@ -32,7 +33,7 @@ export class CourseDetail extends BaseComponent {
     componentWillMount = () => {
 
         if (this.state.courseId === undefined) {
-            this.props.history.push("/courseList");
+            this.props.history.push("/courseSearch");
             return
         }
 

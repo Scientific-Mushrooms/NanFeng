@@ -61,7 +61,7 @@ export class CourseSearch extends BaseComponent {
 
         let form = new FormData();
         form.append('name', this.state.name);
-        console.log(new Date())
+
         this.post('/api/course/search', form).then((result) => {
 
             if (!result) {
@@ -71,7 +71,6 @@ export class CourseSearch extends BaseComponent {
                 this.pushNotification("danger", result.status, this.props.dispatch);
 
             } else if (result.status === 'success') {
-                console.log(new Date())
 
                 this.setState({ courses: result.detail, loading: false })
                 this.pushNotification("success", "successfully fetch courses", this.props.dispatch);
@@ -90,7 +89,7 @@ export class CourseSearch extends BaseComponent {
     renderCourses = (course, index) => {
 
         let onClick = () => {
-            this.props.history.push({ pathname: '/courseDetail', courseId: course.courseId })
+            this.props.history.push({ pathname: '/courseDetail/' + course.courseId, courseId: course.courseId })
         }
 
         return (

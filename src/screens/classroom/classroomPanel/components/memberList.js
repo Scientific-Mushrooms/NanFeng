@@ -15,16 +15,11 @@ class MemberList extends BaseComponent {
         };
     }
 
-
-
-
     render() {
 
         if (this.props.classroom === null) {
             return null;
         }
-
-        var classroom = this.props.classroom;
 
         return (
             <Row>
