@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Input, Button, Icon, Form, Upload, Avatar } from 'antd';
+import { Row, Col, Form, Upload, Avatar } from 'antd';
 import { BaseComponent } from '../../components/BaseComponent';
 import {FormButton, FormText, FormAvatar, FormSelector} from '../../components';
 

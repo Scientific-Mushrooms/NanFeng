@@ -61,10 +61,15 @@ class ClassroomList extends BaseComponent {
     }
 
     renderCard = (classroom, index) => {
+
+        var goToClassroom = (classroomId) => () => {
+            this.props.history.push('/classroomPanel/' + classroomId);
+        }
+
         return (
            
             <Col span={4}>
-                <Button  style={styles.test} onClick={this.onClick}>
+                <Button  style={styles.test} onClick={goToClassroom(classroom.classroomId)}>
                     <Card style={styles.cardContainer} bordered={false}>
                      
                         <Avatar shape="square" size={100} src={this.getImagePath(classroom.avatarId)} />
@@ -76,10 +81,6 @@ class ClassroomList extends BaseComponent {
                 </Button>
             </Col>
         )
-    }
-
-    onClick = () => {
-        this.props.history.push('/classroomPanel/asdaksnkn')
     }
 
     render() {

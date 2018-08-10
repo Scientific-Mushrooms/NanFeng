@@ -14,7 +14,7 @@ export class CourseSearch extends BaseComponent {
             loading: true,
             courses: [],
             name: "",
-            hint: [],
+            dataSource: [],
         };
     }
 
@@ -36,6 +36,24 @@ export class CourseSearch extends BaseComponent {
 
     handleChange = name => (value) => {
         this.setState({ [name]: value })
+    }
+
+    autoOnChange = (value) => {
+
+        this.fetchAutoComplete(value);
+
+    }
+
+    fetchAutoComplete = (value) => {
+        var form = new FormData();
+        form.append('name', value);
+
+        var successAction = (result) => {
+            this.setState({dataSource: result.detail});
+            console.log("success")
+        }
+
+        this.newPost('/api/course/autoComplete', form, successAction)
     }
 
 
@@ -123,7 +141,7 @@ export class CourseSearch extends BaseComponent {
                     <Option value="Yiminghe">yiminghe</Option>
                 </Select>
 
-                <AutoComplete onChange={this.handleChange("name")}/>
+                <AutoComplete onChange={this.handleChange("name")} dataSource={this.state.dataSource} onChange={this.autoOnChange}/>
 
                 <Button type="primary" onClick={this.search}>Search</Button>
 

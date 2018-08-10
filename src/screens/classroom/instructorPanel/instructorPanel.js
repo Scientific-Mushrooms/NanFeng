@@ -10,8 +10,7 @@ export class InsturctorPanel extends Component {
             <Row type='flex' justify='center' style={styles.container}>
                 <Col span={20} type='flex' justify='center'>
                     <Row align='bottom' type='flex'>
-                        <Col span={8} align='bottom'>Name</Col>
-                        <Col span={8}></Col>
+                        <Col span={8} align='bottom' style={styles.title}>我的课堂</Col>
                         <Col span={8} align='bottom'>
                             <Button type='primary' icon='plus-square' size={20} onClick={() => { this.props.history.push('/classroomCreate') }}>Create</Button>
                         </Col>
@@ -30,6 +29,10 @@ const styles = {
     container: {
         marginTop: '20px',
     },
+
+    title: {
+        fontSize: '20px'
+    }
 
 
 }
