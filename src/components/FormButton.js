@@ -16,7 +16,7 @@ export class FormButton extends Component {
 
         return (
             <FormItem>
-                <Button type="primary" htmlType="submit" disabled={this.hasErrors(getFieldsError())}>
+                <Button type="primary" htmlType="submit" disabled={this.hasErrors(getFieldsError())} style={this.props.style}>
                     {this.props.label}
                 </Button>
             </FormItem>
