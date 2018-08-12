@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import {notification} from 'antd'
-//import { show_notification, hide_notification, set_instructor } from '../redux/actions/action';
 
 
 export class BaseComponent extends Component {
@@ -54,6 +53,10 @@ export class BaseComponent extends Component {
 
     getImagePath = (imageId) => {
         return this.ip + "/api/image/" + imageId;
+    }
+
+    studentIdToImage = (studentId) => {
+        return this.ip + "/api/image/studentIdToAvatar/" + studentId;
     }
 
     hasErrors(fieldsError) {

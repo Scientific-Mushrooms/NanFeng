@@ -4,8 +4,8 @@ import ClassroomInfo from './components/classroomInfo';
 import MemberList from './components/memberList';
 import AddStudent from './components/addStudennt'
 
-
 import {Row, Col, Card, AutoComplete, Button} from 'antd'
+import AddAssignment from './components/addAssignment';
 
 const Option = AutoComplete.Option;
 
@@ -59,7 +59,13 @@ export class ClassroomPanel extends BaseComponent {
                     <Row>
                         <Card>
                             <AddStudent classroomId={this.state.classroomId}/>
-                            <MemberList/>
+                            <MemberList class/>
+                        </Card>
+                    </Row>
+
+                    <Row>
+                        <Card>
+                            <AddAssignment classroomId={this.state.classroomId}/>
                         </Card>
                     </Row>
                 </Col>
