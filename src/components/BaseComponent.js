@@ -25,12 +25,14 @@ export class BaseComponent extends Component {
             .then((result) => {
 
                 if (!result) {
-                    this.pushNotification("danger", "Connection error", this.props.dispatch);
+                    console.log(result)
+                    this.pushNotification("danger", "Connection error");
                     return;
                 }
 
                 if (result.status === 'fail') {
-                    this.pushNotification("danger", result.detail, this.props.dispatch);
+                    console.log(result)
+                    this.pushNotification("danger", result.description);
                     return;
                 }
 
@@ -40,7 +42,7 @@ export class BaseComponent extends Component {
                 } 
 
                 alert(JSON.stringify(result))
-                this.pushNotification("danger", result.status, this.props.dispatch);
+                this.pushNotification("danger", result.description);
             });
     }
 

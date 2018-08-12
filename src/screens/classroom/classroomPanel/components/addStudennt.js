@@ -1,9 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Row, Col, Card, AutoComplete, Button} from 'antd'
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { BaseComponent } from '../../../../components/BaseComponent';
-import {Avatar} from '../../../../components'
 const Option = AutoComplete.Option;
 
 
@@ -13,8 +10,7 @@ class AddStudent extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true,
-            classroom: null,
+            selectedStudentId: null,
             realNameDataSource: [],
         };
     }
@@ -39,7 +35,7 @@ class AddStudent extends BaseComponent {
 
     renderRealNameDataSource = (student, index) => {
         return (
-            <Option key={student.code} text={"2"} onClick={() => {console.log("2333")}}>
+            <Option key={student.studentId} realName={student.realName} onClick={() => {this.setState({selectedStudentId: student.studentId})}}>
                 <a target="_blank" rel="noopener noreferrer">
                     {student.realName}
                 </a>
@@ -48,8 +44,19 @@ class AddStudent extends BaseComponent {
         )
     }
 
-    onSelect = (value) => {
-        console.log(value)
+
+    onClickAdd = () => {
+
+        let form = new FormData()
+        form.append("classroomId", this.props.classroomId)
+        form.append("studentId", this.state.selectedStudentId)
+
+        console.log(this.state.selectedStudentId);
+        var successAction = (result) => {
+            this.pushNotification("success", "add student")
+        }
+
+        this.newPost("/api/classroomMember/create", form, successAction)
     }
 
 
@@ -57,16 +64,14 @@ class AddStudent extends BaseComponent {
 
     render() {
 
-        if (this.props.classroom === null) {
-            return null;
-        }
-
-        var classroom = this.props.classroom;
-
         return (
             <Row>
-                <AutoComplete onSelect={this.onSelect} dataSource={this.state.realNameDataSource.map(this.renderRealNameDataSource)} onChange={this.realNameOnChange}/>
-                <Button type='default'>Add</Button>
+                <AutoComplete 
+                    optionLabelProp="realName"
+                    dataSource={this.state.realNameDataSource.map(this.renderRealNameDataSource)} 
+                    onChange={this.realNameOnChange}
+                    />
+                <Button type='default' onClick={this.onClickAdd}>Add</Button>
             </Row>
         );
     }
