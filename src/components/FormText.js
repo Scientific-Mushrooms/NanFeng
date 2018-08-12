@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, Form } from 'antd';
+import { Input, Form,Icon } from 'antd';
 const FormItem = Form.Item;
 
 
@@ -10,11 +10,11 @@ export class FormText extends Component {
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
-                sm: { span: 8 },
+                sm: { span: 4 },
             },
             wrapperCol: {
                 xs: { span: 24 },
-                sm: { span: 16 },
+                sm: { span: 18 },
             },
         };
 
@@ -33,7 +33,7 @@ export class FormText extends Component {
                         }
                     ]
                 })(
-                    <Input />
+                    <Input type={this.props.inputType} prefix={<Icon type={this.props.icon}/>} />
                 )}
             </FormItem>
         );

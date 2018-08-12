@@ -1,161 +1,121 @@
 import React from 'react';
-
-import {TextField,Typography} from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
+import {withRouter} from "react-router-dom";
 import { login, set_instructor } from '../../redux/actions/action';
+import { Row, Col, Input, Button, Icon, Form, Upload, Avatar,Card } from 'antd';
 import { BaseComponent } from '../../components/BaseComponent';
+import {FormButton, FormText, FormAvatar, FormSelector} from '../../components';
 import NjuImg from './src/nju.png';
-import {Card, Button} from 'antd';
-
-const homeImage = {
-    marginTop:40,
-    display:'inline-blocks',
-    height:700,
-    width:1200,
-    backgroundImage: 'url('+NjuImg+')',
-    borderRadius:20,
-}
 
 export class SignIn extends BaseComponent {
 
     constructor(props) {
         super(props);
-        this.state = {
-            email: '',
-            password: '',
-        };
+        this.state={
+            isenter:false
+        }
     }
 
-    onMouseEnter(){
-        this.setState({
-            hover: true,
-        });
+    MouseEnter() {
+        setTimeout(() => {
+            this.setState({
+                isenter: true
+            })
+        }, 0)
     }
 
-    onMouseLeave(){
-        this.setState({
-            hover: false,
-        })
+    MouseLeave() {
+        setTimeout(() => {
+            this.setState({
+                isenter: false
+            })
+        }, 0)
     }
 
     goBack = () => {
         this.props.history.goBack();
     }
 
-    signUp = () => {
-        this.props.history.push({ pathname: "/signup" })
-    }
-
-
-    login = () => {
-
-        if (this.state.email === '' ) {
-            this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
-            return;
-        }
-        
-        if(this.state.password === ''){
-            this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
-            return;
-        } 
-
-        let form = new FormData();
-        form.append("email", this.state.email);
-        form.append("password", this.state.password);
-
-        this.post('/api/security/signIn', form).then((result) => {
-
-            if (!result){
-                this.pushNotification("danger","Connection To Server Failed",this.props.dispatch);
-                return;
-            } 
-
-            if (result.status === 'fail') {
-                this.pushNotification("danger",result.description,this.props.dispatch);
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (values.email === '' ) {
+                this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
                 return;
             }
-            console.log(result)
+            if(values.password === ''){
+                this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
+                return;
+            }
+            if (!err) {
+                console.log("hey");
+                console.log('Received values of form: ', values);
+            }
 
-            sessionStorage.setItem('userId', result.detail.userId);
-            sessionStorage.setItem("instructorId", result.more.instructorId);
-            sessionStorage.setItem("studentId", result.extra.studentId);
-            this.props.dispatch(login(result.detail, result.more, result.extra));
-            this.props.history.push("/home");
-            this.pushNotification("normal","Login Succeeded",this.props.dispatch);
-                      
-        })
-        
-    };
+            let form = new FormData();
+            form.append('email', values.email);
+            form.append('password', values.password);
 
+            var successAction = (result) => {
+
+                sessionStorage.setItem('userId', result.detail.userId);
+                sessionStorage.setItem("instructorId", result.more.instructorId);
+                sessionStorage.setItem("studentId", result.extra.studentId);
+                this.props.dispatch(login(result.detail, result.more, result.extra));
+
+                this.props.history.push("/home");
+                this.pushNotification("success", "successfully log in! ");
+            }
+
+            this.newPost('/api/security/signIn', form, successAction);
+
+        });
+    }
 
     render() {
+        const isenter = this.state.isenter
         return (
-            <Grid 
-            alignItems='center' 
-            justify='center' 
-            xs={12} container>
-            
-                <Grid style={homeImage} 
-                justify='center' 
-                direction='row' 
-                alignItems='center' container>
-                    {this._renderLoginPanel()}
-                </Grid>
-            </Grid>
-        );
-    }
+            <Row type='flex' justify="center">
+                <Col>
+                    <Row type='flex' justify='center' align="middle" style={styles.homeImage}>
+                        <Col>
+                            <Card
+                                style={isenter? styles.cardContainer_1:styles.cardContainer}
+                                onMouseEnter={this.MouseEnter.bind(this)}
+                                onMouseLeave={this.MouseLeave.bind(this)}>
+                                <div style={styles.welcome}>欢迎使用南风!</div>
+                                <div style={styles.welcome2}>登录</div>
+                                <Form onSubmit={this.handleSubmit} type='flex' justify='center'>
 
-    _renderLeftPanel(){
-        return(
-            <Grid xs={6} justify='center' container>
-            </Grid>
-        );
+                                    <FormText form={this.props.form}
+                                              label='邮箱' name='email' required={true} icon="user"/>
 
-    }
+                                    <FormText form={this.props.form}
+                                              label='密码' name='password' required={true} icon="lock"
+                                              inputType="password"/>
 
-    _renderLoginPanel(){
-        return(
-            <Grid sm={6} direction='column' justify='center' 
-                  onMouseEnter = {this.onMouseEnter.bind(this)}
-                  onMouseLeave = {this.onMouseLeave.bind(this)}
-                  style={this.state.hover? styles.wrapper_1:styles.wrapper} container>
-                <Card>
-                        <Typography style={styles.welcome}>欢迎使用南风！</Typography>
-                        <Typography style={styles.welcome2}>登录</Typography>
-                        <Grid >
-                            <TextField
-                                id="name"
-                                label="用户名"
-                                style={styles.textField}
-                                value={this.state.name}
-                                onChange={this.handleChange('email')}
-                                margin="none"
-                                fullWidth={true}
-                            />
-                        </Grid>
-                        <Grid >
-                            <TextField
-                                id="password-input"
-                                label="密码"
-                                style={styles.textField}
-                                type="password"
-                                autoComplete="current-password"
-                                onChange={this.handleChange('password')}
-                                margin="normal"
-                                fullWidth={true}
-                            />
-                        </Grid>
-                        <Grid >
-                            <Button
-                                size="large"
-                                style={styles.button}
-                                color='primary'
-                                onClick={this.login}
-                            >登录</Button>
-                            <Button style={styles.button2} onClick={this.goBack}>返回</Button>
-                        </Grid>
-                </Card>
-            </Grid>
+                                    <Row type='flex' justify='center'>
+                                        <Col>
+                                            <FormButton form={this.props.form} label="登录" style={styles.formButton}/>
+                                            <Button style={styles.button} onClick={this.goBack}>
+                                                返回
+                                            </Button>
+                                        </Col>
+                                    </Row>
+
+                                </Form>
+
+                                <Row type='flex' justify='center'>
+                                    <Col>
+                                        <html><body>
+                                        没有账号? <a href="http://localhost:3000/#/signUp">快速注册!</a>
+                                        </body></html>
+                                    </Col>
+                                </Row>
+                            </Card>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
         );
     }
 
@@ -163,20 +123,37 @@ export class SignIn extends BaseComponent {
 
 
 
+const styles={
 
+    homeImage:{
+        display:'inline-blocks',
+        height:700,
+        width:1200,
+        backgroundImage: 'url('+NjuImg+')',
+        borderRadius:20,
+    },
 
-const styles = {
-    policy:{
-        fontsize:15,
-        color:'#AAAAAA',
-        marginTop:'10px',
+    cardContainer:{
+        width:'600px',
+        opacity:'0.85',
     },
-    policy_button:{
-        fontsize:15,
-        color:'#3D91F7',
-        borderColor:'#3D91F7',
-        marginTop:'10px',
+
+    cardContainer_1:{
+        width:'600px',
+        opacity:'1',
     },
+
+    formButton:{
+        width:'400px',
+    },
+
+    button:{
+        width:'400px',
+        backgroundColor:'',
+        color:'white',
+        backgroundColor: '#CCCCCC',
+    },
+
     welcome:{
         fontSize:25,
         marginLeft: '10px',
@@ -190,72 +167,8 @@ const styles = {
         marginRight: '10px',
         marginBottom: '10px',
     },
-    button: {
-        color:'white',
-        width: '100%',
-        marginTop: '30px',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 50,
-        backgroundColor: '#3D91F7',    
-        marginBottom: 30,
-    },
-    button2:{
-        color:'white',
-        width: '100%',
-        marginTop: '10px',
-        marginBottom:'0px',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 50,
-        backgroundColor: '#CCCCCC',    
-        marginBottom: 30,
-    },
-    wrapper: {
-        opacity: 0.85,
-    },
 
-    wrapper_1:{
-        opacity: 1,
-    },
-
-    container: {
-        width: '400px',
-        height: '400px',
-        marginTop: '500px',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    textField: {
-        marginLeft: '10px',
-        marginRight: '10px',
-        marginBottom: '10px',
-    },
-
-
-    modalContainer: {
-        textAlign: 'center',
-        justifyContent: 'center',
-    },
-
-    cardTitleWhite:{
-       fontFamily: 'Righteous',
-        margin:'0px'
-    },
-
-    avatar:{
-      width: 100,
-      height: 100,
-      border: "5px solid yellow",
-    },
-
-    cardHead:{
-      display: "flex",
-      justifyContent: "center",
-    },
-
-    temp:{
-        marginTop: '20px',
-    }
 };
+
+export default withRouter(SignIn)
+
