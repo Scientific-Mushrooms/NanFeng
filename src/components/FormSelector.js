@@ -9,7 +9,7 @@ export class FormSelector extends Component {
 
     renderOption = (option) => {
         return (
-            <Option value={option}>{option}</Option>
+            <Option value={option} onClick={() => {this.props.setTask(option)}}>{option}</Option>
         )
     }
 

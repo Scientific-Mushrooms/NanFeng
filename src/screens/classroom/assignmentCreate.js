@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Input, Button, Icon, Form, Upload, Avatar } from 'antd';
 import { BaseComponent } from '../../components/BaseComponent';
-import {FormButton, FormText, FormAvatar, FormSelector} from '../../components';
+import {FormButton, FormText, FormAvatar, FormSelector, FormDate} from '../../components';
 
 
 export class AssignmentCreate extends BaseComponent {
@@ -10,7 +10,7 @@ export class AssignmentCreate extends BaseComponent {
         super(props);
         this.state = {
             loading: false,
-            avatarUrl: null,
+            task: null,
         };
     }
 
@@ -37,6 +37,35 @@ export class AssignmentCreate extends BaseComponent {
         });
     }
 
+    renderTask = () => {
+
+        if (this.state.task === null) {
+            return null;
+        }
+
+        if (this.state.task === 'discussion') {
+            return (
+                <Row>
+                    <FormText form={this.props.form} label='Topic' name='name' required={true} />
+                </Row>
+            )
+        }
+
+        if (this.state.task === 'quiz') {
+            return (
+                <Row>
+                    11111
+                </Row>
+            )
+        }
+
+        
+    }
+
+    setTask = (task) => {
+        this.setState({task: task})
+    }
+
     render() {
 
         return (
@@ -44,15 +73,13 @@ export class AssignmentCreate extends BaseComponent {
                 <Col span={20}>
                     <Form onSubmit={this.handleSubmit}>
 
-                        <FormText form={this.props.form} label='Classroom Name' name='name' required={true} />
+                        <FormText form={this.props.form} label='Assignment Name' name='name' required={true} />
 
-                        <FormText form={this.props.form} label='Classroom Code' name='code' required={true} />
+                        <FormDate form={this.props.form} label='deadline' name='deadline' required={true}/>
 
-                        {/* <FormText form={this.props.form} label='E-mail' name='email' type='email' required={true}/> */}
+                        <FormSelector form={this.props.form} options={['discussion', 'quiz']} label='type' name='type' setTask={this.setTask}/>
 
-                        <FormAvatar form={this.props.form}/>
-
-                        <FormSelector form={this.props.form} options={[1, 2, 3]} label='time' name='time'/>
+                        {this.renderTask()}
 
                         <FormButton form={this.props.form} label="submit" />
 
