@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import { BaseComponent } from '../../../components/BaseComponent';
 import ImageUploader from 'react-images-upload';
-import { Divider, Grid, Button, Typography, Card} from '@material-ui/core';
+import {Typography} from '@material-ui/core';
 
-
+import { Row, Col, Card} from 'antd';
 
 import PersonalInformation from './components/personalInformation';
 import InstructorVerification from './components/instructorVerification';
@@ -31,24 +31,22 @@ export class UserProfile extends BaseComponent {
 
     render(){
         return (
-            <Grid container spacing={16}>
-
-                <Grid xs={7} item>
+            <Row>
+                <Col span={2}></Col>
+                <Typography variant='display3' style={styles.header}>账号设置</Typography>
+                <Row>
+                    <Col span={2}></Col>
+                <Col span={12}>
                     <Card>
-
-
-                        <Grid container >
-                            <Typography variant='display3' style={styles.header}>Your Profile</Typography>
-                        </Grid>
 
                         <PersonalInformation/>
 
                         <ChangePassword/>
 
                     </Card>
-                </Grid>
-
-                <Grid xs={5} item>
+                </Col>
+                <Col span={1}></Col>
+                <Col span={8}>
 
                     <ChangeAvatar />
 
@@ -56,9 +54,10 @@ export class UserProfile extends BaseComponent {
 
                     <StudentVerification/>
 
-                </Grid>
+                </Col>
+                </Row>
 
-            </Grid>
+            </Row>
         );
     }
 
@@ -68,8 +67,8 @@ export class UserProfile extends BaseComponent {
 const styles = {
 
     header:{
-      marginLeft:'20px',
-        color:'#57bad8',
+        marginLeft:'20px',
+        color:'#0078d7',
     },
 
 };

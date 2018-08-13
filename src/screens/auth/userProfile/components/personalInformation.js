@@ -3,9 +3,9 @@ import { BaseComponent } from '../../../../components/BaseComponent';
 import ImageUploader from 'react-images-upload';
 import { Divider, Grid, Button, Typography, Icon, TextField, Popover } from '@material-ui/core';
 import { FormControl } from 'react-bootstrap';
-import { update } from '../../../../redux/actions/action';
+import {set_instructor, update} from '../../../../redux/actions/action';
 import { connect } from 'react-redux';
-
+import { Row, Col} from 'antd';
 
 
 
@@ -63,65 +63,52 @@ class PersonalInformation extends BaseComponent {
         form.append("nickName", this.state.nickName);
         form.append("email", this.state.email);
 
-        this.post('/api/user/update', form).then((result) => {
+        var successAction = (result) => {
+            this.props.dispatch(update(result.detail))
+            this.pushNotification("success", "successfully update info", this.props.dispatch);
+        }
 
-            if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.status, this.props.dispatch);
-
-            } else if (result.status === 'success') {
-
-                this.props.dispatch(update(result.detail))
-                this.pushNotification("success", "successfully update info", this.props.dispatch);
-
-            } else {
-
-                this.pushNotification("danger", result.status, this.props.dispatch);
-            }
-
-        })
+        this.newPost('/api/user/update', form, successAction);
     }
 
     
     render() {
         return (
-            <Grid style={styles.container} direction='column' container xs={8}>
-
-                <Typography variant='display2'>Personal Information</Typography>
+            <div>
+                <Typography variant='display2'>个人信息</Typography>
                 <Divider/>
-                <Grid container style={styles.container}>
-                    <Grid xs={3}>
-                        <Typography style={styles.typography}>Nick Name :</Typography>
-                    </Grid>
-                    <Grid xs={8}>
+                <div style={{height:'25px'}}></div>
+                <Row style={styles.container} type='flex' justify='center'>
+                    <Col span={4}>
+                        <Typography style={styles.typography}>用户名:</Typography>
+                    </Col>
+                    <Col span={20}>
                         <FormControl type="text" value={this.state.nickName} onChange={this.handleChange("nickName")} />
-                    </Grid>
-                </Grid>
+                    </Col>
+                </Row>
 
-                <Grid container style={styles.container}>
-                    <Grid xs={3}>
-                        <Typography style={styles.typography}>Email :</Typography>
-                    </Grid>
-                    <Grid xs={8}>
+                <Row style={styles.container} type='flex' justify='center'>
+                    <Col span={4}>
+                        <Typography style={styles.typography}>邮箱:</Typography>
+                    </Col>
+                    <Col span={20}>
                         <FormControl type="text" value={this.state.email} onChange={this.handleChange("email")} />
-                    </Grid>
-                </Grid>
+                    </Col>
+                </Row>
 
                 {/* {this.renderChooseAvatar()} */}
 
-                <Grid justify='center' container xs={12}>
+                <Row justify='center' type='flex'>
                     <Button
                         mini
                         style={styles.button}
                         variant="outlined"
                         onClick={this.save} >
-                        <Typography variant='button' style={styles.buttonText}>Save</Typography>
+                        <Typography variant='button' style={styles.buttonText}>保存</Typography>
                     </Button>
-                </Grid>
+                </Row>
 
-            </Grid>
+            </div>
         );
     }
 }
@@ -131,12 +118,13 @@ const styles = {
 
 
     button: {
-        marginTop: '10px',
-        marginBottom:'20px',
+        marginTop: '20px',
+        marginBottom:'50px',
         borderRadius: "5px",
         borderWidth:"1.2px",
         borderColor:"#60CDEE",
-        width: "30%",
+        width: "20%",
+        height:'40px',
     },
 
     buttonText:{
