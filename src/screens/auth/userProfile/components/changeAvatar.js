@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { BaseComponent } from '../../../../components/BaseComponent';
-import { Divider, Grid, Button, Typography, Icon, Card } from '@material-ui/core';
+import { Divider, Grid, Button, Typography, Icon} from '@material-ui/core';
 import { connect } from 'react-redux';
-
+import { Row, Col, Card} from 'antd';
 
 class ChangeAvatar extends BaseComponent {
 
@@ -19,22 +19,20 @@ class ChangeAvatar extends BaseComponent {
     render() {
         return (
             <Card style={styles.card}>
-
-                <Grid xs={12} style={styles.avatarContainer} container>
-                    <img src={require('../../src/nju.png')} style={styles.avatar} />
-                </Grid>
-
-                <Grid style={styles.container} justify='center' container xs={12}>
-                    <Grid justify='center' container xs={8}>
+                <Typography variant='display2'>修改头像</Typography>
+                <Divider/>
+                <div style={{height:'25px'}}></div>
+                <Row justify='center' type='flex'>
+                <img src={this.getImagePath(this.props.user.avatarId)} style={styles.avatar}/>
+                </Row>
+                <Row justify='center' type='flex' xs={8}>
                         <Button
                             mini
                             style={styles.button}
                             variant="outlined" >
-                            <Typography variant='button' style={styles.buttonText}>Change Avatar</Typography>
+                            <Typography variant='button' style={styles.buttonText}>提交修改</Typography>
                         </Button>
-                    </Grid>
-                </Grid>
-
+                </Row>
             </Card>
         );
     }
@@ -48,12 +46,13 @@ const styles = {
     },
 
     button: {
-        marginTop: '10px',
+        marginTop: '20px',
         marginBottom:'10px',
         borderRadius: "5px",
         borderWidth:"1.2px",
         borderColor:"#60CDEE",
-        width: "50%",
+        width: "40%",
+        height:'40px',
     },
 
     buttonText:{
