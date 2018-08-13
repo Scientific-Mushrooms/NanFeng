@@ -10,6 +10,7 @@ export class AssignmentCreate extends BaseComponent {
         super(props);
         this.state = {
             loading: false,
+            classroomId: this.props.match.params.classroomId,
             task: null,
         };
     }
@@ -21,18 +22,31 @@ export class AssignmentCreate extends BaseComponent {
                 console.log('Received values of form: ', values);
             }
 
-            let form = new FormData();
-            form.append('instructorId', this.props.instructor.instructorId);
-            form.append('avatar', values.avatar);
-            form.append('name', values.name);
-            form.append('code', values.password);
+            let form = new FormData()
+            form.append('classroomId', this.state.classroomId)
+            form.append('name', values.name)
+            form.append('deadline', values.deadline)
+            form.append('type', values.type)
+
+            if (this.state.task === 'discussion') {
+                form.append('topic', values.topic)
+            }
+
+            if (this.state.task === 'quiz') {
+                form.append('topic', values.topic)
+            }
+
+            if (this.state.task === null) {
+                return;
+            }
 
             var successAction = (result) => {
                 this.props.history.goBack();
-                this.pushNotification("success", "successfully create the classroom");
+                console.log(result)
+                this.pushNotification("success", "successfully create the assignment");
             }
 
-            this.newPost('/api/classroom/create', form, successAction);
+            this.newPost('/api/assignment/create', form, successAction);
 
         });
     }
@@ -46,7 +60,7 @@ export class AssignmentCreate extends BaseComponent {
         if (this.state.task === 'discussion') {
             return (
                 <Row>
-                    <FormText form={this.props.form} label='Topic' name='name' required={true} />
+                    <FormText form={this.props.form} label='Topic' name='topic' required={true} />
                 </Row>
             )
         }

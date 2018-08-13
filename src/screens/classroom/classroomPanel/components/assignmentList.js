@@ -5,46 +5,51 @@ import { connect } from 'react-redux';
 import { BaseComponent } from '../../../../components/BaseComponent';
 import {Avatar} from '../../../../components'
 
-class MemberList extends BaseComponent {
+class AssignmentList extends BaseComponent {
 
     constructor(props) {
         super(props);
         this.state = {
             loading: true,
             classroomId: this.props.classroomId,
-            students: [],
+            assignments: [],
         };
     }
 
     componentWillMount = () => {
-        this.fetchMembers(this.state.classroomId)
+        this.fetchAssignments(this.state.classroomId)
     }
 
-    renderStudent = (student) => {
+    renderAssignment = (assignment, index) => {
         return (
-            <Col span={4}>
-                <Row type='flex' justify='center'>
-                    <Avatar shape='round' size={80} src={this.studentIdToImage(student.studentId)} />
-                </Row>
-                <Row type='flex' justify='center'>
-                    {student.realName}
-                </Row>
-            </Col>
+            <Row type='flex' justify='center'>
+                <Col span={4}>{assignment.name}</Col>
+                <Col span={4}>{assignment.deadline}</Col>
+            </Row>
         )
     }
 
-    fetchMembers = (classroomId) => {
+    renderTitle = () => {
+        return (
+            <Row type='flex' justify='center'>
+                <Col span={4}>Name</Col>
+                <Col span={4}>Deadline</Col>
+            </Row>
+        )
+    }
+
+    fetchAssignments = (classroomId) => {
 
         let form = new FormData()
         form.append("classroomId", classroomId)
-        console.log(classroomId)
+  
 
         var successAction = (result) => {
             console.log(result)
-            this.setState({students: result.detail})
+            this.setState({assignments: result.detail})
         }
 
-        this.newPost("/api/classroomMember/classroomIdToAllStudents", form, successAction)
+        this.newPost("/api/assignment/classroomIdToAllAssignments", form, successAction)
 
     }
 
@@ -56,7 +61,8 @@ class MemberList extends BaseComponent {
 
         return (
             <Row>
-                {this.state.students.map(this.renderStudent)}
+                {this.renderTitle()}
+                {this.state.assignments.map(this.renderAssignment)}
             </Row>
         );
     }
@@ -84,11 +90,4 @@ const styles = {
     }
 }
 
-
-const mapStateToProps = state => ({
-    user: state.identityReducer.user,
-    instructor: state.identityReducer.instructor,
-    student: state.identityReducer.student,
-})
-
-export default connect(mapStateToProps)(withRouter(MemberList));
+export default withRouter(AssignmentList);

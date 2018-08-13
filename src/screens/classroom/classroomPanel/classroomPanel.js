@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import BaseComponent from '../../../components/BaseComponent';
 import ClassroomInfo from './components/classroomInfo';
 import MemberList from './components/memberList';
-import AddStudent from './components/addStudennt'
+import AddStudent from './components/addStudennt';
+import AssignmentList from './components/assignmentList';
 
 import {Row, Col, Card, AutoComplete, Button} from 'antd'
 import AddAssignment from './components/addAssignment';
@@ -59,13 +60,14 @@ export class ClassroomPanel extends BaseComponent {
                     <Row>
                         <Card>
                             <AddStudent classroomId={this.state.classroomId}/>
-                            <MemberList class/>
+                            <MemberList classroomId={this.state.classroomId}/>
                         </Card>
                     </Row>
 
                     <Row>
                         <Card>
                             <AddAssignment classroomId={this.state.classroomId}/>
+                            <AssignmentList classroomId={this.state.classroomId}/>
                         </Card>
                     </Row>
                 </Col>
