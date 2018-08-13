@@ -131,6 +131,13 @@ const mainRoutes = [
         icon: 'add',
         component: wrap(Screens.AssignmentCreate)
     },
+
+    {
+        path: "/assignmentPanel/:assignmentId",
+        name: "assignment panel",
+        icon: 'add',
+        component: wrap(Screens.AssignmentPanel)
+    },
     
     {
         path: "/confess",

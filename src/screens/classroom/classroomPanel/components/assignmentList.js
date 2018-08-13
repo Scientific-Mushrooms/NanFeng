@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { BaseComponent } from '../../../../components/BaseComponent';
 import {Avatar} from '../../../../components'
+import { Button } from '@material-ui/core';
+
 
 class AssignmentList extends BaseComponent {
 
@@ -21,10 +23,19 @@ class AssignmentList extends BaseComponent {
     }
 
     renderAssignment = (assignment, index) => {
+
+        var onClick = () => {
+            this.props.history.push("/assignmentPanel/" + assignment.assignmentId)
+        }
+
         return (
-            <Row type='flex' justify='center'>
-                <Col span={4}>{assignment.name}</Col>
-                <Col span={4}>{assignment.deadline}</Col>
+            <Row>
+                <Button fullWidth onClick={onClick}>
+                    <Col span={4}>{assignment.name}</Col>
+                    <Col span={4}>{assignment.type}</Col>
+                    <Col span={4}>{assignment.status}</Col>
+                    <Col span={4}>{assignment.deadline}</Col>
+                </Button>
             </Row>
         )
     }
@@ -33,6 +44,8 @@ class AssignmentList extends BaseComponent {
         return (
             <Row type='flex' justify='center'>
                 <Col span={4}>Name</Col>
+                <Col span={4}>Type</Col>
+                <Col span={4}>Status</Col>
                 <Col span={4}>Deadline</Col>
             </Row>
         )
