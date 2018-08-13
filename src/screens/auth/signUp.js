@@ -80,7 +80,17 @@ export class SignUp extends BaseComponent {
 
                 } else if (result.status === 'success') {
 
-                    this.props.dispatch(login(result.detail));
+                    if (result.detail !== null) {
+                        sessionStorage.setItem('userId', result.detail.userId);
+                    }
+                    if (result.more !== null) {
+                        sessionStorage.setItem("instructorId", result.more.instructorId);
+                    }
+                    if (result.extra !== null) {
+                        sessionStorage.setItem("studentId", result.extra.studentId);
+                    }
+
+                    this.props.dispatch(login(result.detail, result.more, result.extra));
                     this.props.history.push('home')
                     this.pushNotification("normal","Regist Succeeded",this.props.dispatch);
                     

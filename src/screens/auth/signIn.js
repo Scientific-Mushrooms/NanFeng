@@ -56,10 +56,16 @@ export class SignIn extends BaseComponent {
             form.append('password', values.password);
 
             var successAction = (result) => {
-
-                sessionStorage.setItem('userId', result.detail.userId);
-                sessionStorage.setItem("instructorId", result.more.instructorId);
-                sessionStorage.setItem("studentId", result.extra.studentId);
+                if (result.detail !== null) {
+                    sessionStorage.setItem('userId', result.detail.userId);
+                }
+                if (result.more !== null) {
+                    sessionStorage.setItem("instructorId", result.more.instructorId);
+                }
+                if (result.extra !== null) {
+                    sessionStorage.setItem("studentId", result.extra.studentId);
+                }
+                
                 this.props.dispatch(login(result.detail, result.more, result.extra));
 
                 this.props.history.push("/home");
