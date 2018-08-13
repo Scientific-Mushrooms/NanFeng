@@ -3,7 +3,7 @@ import { BaseComponent } from '../../../../components/BaseComponent';
 import { Divider, Grid, Button, Typography, Icon, TextField, Popover } from '@material-ui/core';
 import { FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
-
+import { Row, Col} from 'antd';
 
 class ChangePassword extends BaseComponent {
 
@@ -23,22 +23,24 @@ class ChangePassword extends BaseComponent {
 
     renderPassInput = (name, variable) => {
         return (
-            <Grid style={styles.inputContainer} xs={12} container>
+            <Row style={styles.inputContainer}>
+                <Col span={6}>
                 <Typography style={styles.typography}>{name} :</Typography>
-                <Grid xs={11}>
+                </Col>
+                <Col span={18}>
                     <FormControl type="password" onChange={this.handleChange(variable)} />
-                </Grid>
-            </Grid>
+                </Col>
+            </Row>
         )
     }
 
     renderPassWarning = () => {
         if (this.state.passChange == true && this.state.reNewPass != this.state.newPass)
             return (
-                <Grid direction='row' alignItems='center' xs={4} container>
+                <Row align='middle' span={8}>
                     <Icon style={{ color: 'red' }}>warning</Icon>
                     <Typography style={styles.warning}>Repassword Wrong</Typography>
-                </Grid>
+                </Row>
             )
     }
 
@@ -54,40 +56,40 @@ class ChangePassword extends BaseComponent {
 
     renderVarifyIdentity = () => {
         return (
-            <Grid style={styles.inputContainer} xs={8} container>
-                <Typography style={styles.typography}>NickName :</Typography>
+            <Row style={styles.inputContainer} span={16}>
+                <Typography style={styles.typography}>用户名:</Typography>
                 <FormControl type="text" value={this.state.nickName} onChange={this.handleChange("nickName")} />
-            </Grid>
+            </Row>
         )
     }
 
     render() {
         return (
-            <Grid style={styles.container} direction='column' container xs={8}>
-
-                <Typography variant='display2'>Security Settings</Typography>
+            <div>
+                <Typography variant='display2'>修改密码</Typography>
                 <Divider/>
-                {this.renderPassInput("Old Password", "oldPass")}
-                {this.renderPassInput("New Password", "newPass")}
-                <Grid style={styles.inputContainer} direction='row' container xs={12}>
-                    <Typography style={styles.typography}>Confirm New Password :</Typography>
-                    <Grid direction='row' container>
-                        <Grid xs={11}>
-                            <FormControl type="password" onChange={this.handleChange("reNewPass")} />
-                        </Grid>
-                        {this.renderPassWarning()}
-                    </Grid>
-                </Grid>
-                <Grid justify='center' container xs={12}>
+                <div style={{height:'25px'}}></div>
+                    {this.renderPassInput("输入原密码", "oldPass")}
+                    {this.renderPassInput("输入新密码", "newPass")}
+                    <Row style={styles.inputContainer}>
+                        <Col span={6}>
+                    <Typography style={styles.typography}>再次输入密码:</Typography>
+                        </Col>
+                    <Col span={18}>
+                        <FormControl type="password" onChange={this.handleChange("reNewPass")} />
+                    </Col>
+                    {this.renderPassWarning()}
+                </Row>
+                <Row justify='center' type='flex'>
                     <Button
                         mini
                         variant="outlined"
                         style={styles.button}
                         onClick={this.changePass}>
-                        <Typography variant='button' style={styles.buttonText}>Change Password</Typography>
+                        <Typography variant='button' style={styles.buttonText}>提交修改</Typography>
                     </Button>
-                </Grid>
-            </Grid>
+                </Row>
+            </div>
         );
     }
 }
@@ -97,12 +99,13 @@ const styles = {
 
 
     button: {
-        marginTop: '10px',
+        marginTop: '20px',
         marginBottom:'20px',
         borderRadius: "5px",
         borderWidth:"1.2px",
         borderColor:"#60CDEE",
-        width: "30%",
+        width: "20%",
+        height:'40px',
     },
 
     buttonText:{
