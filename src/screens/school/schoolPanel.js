@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import "antd/dist/antd.css";
 import ListItem from '../../components/ListItem';
 import HorizontalListItem from '../../components/HorizontalListItem';
-import {Typography,Grid,Button} from '@material-ui/core';
-import { Anchor,Divider } from 'antd';
+import {Typography,Grid,Card,Icon,Paper} from '@material-ui/core';
+import { Anchor,Divider,Button } from 'antd';
 
 const { Link } = Anchor;
 export class SchoolPanel extends Component {
@@ -17,19 +17,21 @@ export class SchoolPanel extends Component {
 
     renderAnchor(){
         return(
-            <Anchor style={{backgroundColor:'rgba(0,0,0,0)'}} offsetTop={300}>
+            <Anchor style={{backgroundColor:'rgba(0,0,0,0)'}} offsetTop={100}>
                 <Grid container>
-                    <Grid xs={2}/>
-                    <Grid xs={10} direction='column' container>
-                        <a onClick={()=>this.scrollToAnchor('study')}>
-                            <Button style={{borderWidth:0,fontSize:25}}>自习 研讨 组队</Button>
-                        </a>
-                        <a onClick={()=>this.scrollToAnchor('activity')}>
-                            <Button style={{borderWidth:0,fontSize:25}}>最近的校园生活</Button>
-                        </a>
-                        <a onClick={()=>this.scrollToAnchor('share')}>
-                            <Button style={{borderWidth:0,fontSize:25}}>TA的校园见闻</Button>
-                        </a>
+                    <Grid xs={2} style={{marginLeft:10}}/>
+                    <Grid xs={12} direction='column' container>
+                        <Paper elevation={10} style={{height:'100%',margin:15}}>
+                            <a onClick={()=>this.scrollToAnchor('study')}>
+                                <Button icon="form" style={{borderWidth:0,fontSize:25,marginTop:20,marginBottom:50}}>自习 研讨 组队</Button>
+                            </a>
+                            <a onClick={()=>this.scrollToAnchor('activity')}>
+                                <Button icon="calendar" style={{borderWidth:0,fontSize:25,marginBottom:50}}>最近的校园生活</Button>
+                            </a>
+                            <a onClick={()=>this.scrollToAnchor('share')}>
+                                <Button icon="camera-o" style={{borderWidth:0,fontSize:25,marginBottom:20}}>TA的校园见闻</Button>
+                            </a>
+                        </Paper>
                     </Grid>
                 </Grid>
             </Anchor>
@@ -39,7 +41,7 @@ export class SchoolPanel extends Component {
     render() {
         return (
     <Grid justify='center' container>
-        <Grid xs={2} style={{marginTop:400}}> 
+        <Grid xs={2} style={{marginTop:300}}> 
         {this.renderAnchor()}
         </Grid>
         <Grid xs={8}>
