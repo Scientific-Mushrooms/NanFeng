@@ -7,22 +7,42 @@ import {FormButton, FormText, FormAvatar, FormSelector, FormDate} from '../../..
 
 export class AssignmentInfo extends BaseComponent {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            assignment: null,
-        };
+    renderQuestion = () => {
+        
+        let {type, name} = this.props.assignment
+        let {topic} = this.props.discussion
+
+        if (type === 'discussion') {
+            return (
+                <Row>
+                    <Row>Name: {name}</Row>
+                    <Row>Type: {type}</Row>
+                    <Row>Topic: {topic}</Row>
+                </Row>
+            )
+        }
+
+        if (type === 'quiz') {
+            return (
+                <Row>
+                    <Row>Name: {name}</Row>
+                    <Row>Type: {type}</Row>
+                    <Row>Topic: {topic}</Row>
+                </Row>
+            )
+        }
     }
 
     render() {
+        const {assignment} = this.props
 
-        if (this.props.assignment === null) {
+        if (assignment === null) {
             return null
         }
 
         return (
-            <Row type='flex' justify='center'>
-                111111
+            <Row>
+                {this.renderQuestion()}
             </Row>
         );
     }

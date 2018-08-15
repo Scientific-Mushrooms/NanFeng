@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import {notification} from 'antd'
-
+var moment = require('moment');
 
 export class BaseComponent extends Component {
 
@@ -43,6 +43,11 @@ export class BaseComponent extends Component {
                 alert(JSON.stringify(result))
                 this.pushNotification("danger", result.description);
             });
+    }
+
+    fromNow = (date) => {
+        return moment(date).fromNow()
+        
     }
 
     handleChange = name => event => {

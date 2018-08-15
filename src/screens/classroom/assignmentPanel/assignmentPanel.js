@@ -1,8 +1,11 @@
 import React from 'react';
-import { Row, Col, Input, Button, Icon, Form, Upload, Avatar } from 'antd';
+import { Row, Col, Input, Button, Icon, Form, Upload, Avatar, Card } from 'antd';
 import { BaseComponent } from '../../../components/BaseComponent';
 import {FormButton, FormText, FormAvatar, FormSelector, FormDate} from '../../../components';
 import { AssignmentInfo } from './components/assignmentInfo';
+import DiscussionCard from './components/discussionCard';
+import { QuizCard } from './components/quizCard';
+
 
 export class AssignmentPanel extends BaseComponent {
 
@@ -12,6 +15,7 @@ export class AssignmentPanel extends BaseComponent {
             loading: false,
             assignmentId: this.props.match.params.assignmentId,
             assignment: null,
+            discussion: null,
         };
     }
 
@@ -26,7 +30,7 @@ export class AssignmentPanel extends BaseComponent {
 
         let successAction = (result) => {
             console.log(result)
-            this.setState({assignment: result.detail})
+            this.setState({assignment: result.detail, discussion: result.more})
         }
 
         this.newPost('/api/assignment/assignmentIdToAssignment', form, successAction)
@@ -37,6 +41,12 @@ export class AssignmentPanel extends BaseComponent {
         this.setState({task: task})
     }
 
+    renderContent = () => {
+        return (
+            <DiscussionCard discussion={this.state.discussion}/>
+        )
+    }
+
     render() {
 
         if (this.state.assignment === null) {
@@ -44,9 +54,20 @@ export class AssignmentPanel extends BaseComponent {
         }
 
         return (
-            <Row type='flex' justify='center'>
-                <AssignmentInfo assignment={this.state.assignment}/>
-                23323
+            <Row>
+
+                <Row>
+                    <Card>
+                        <AssignmentInfo assignment={this.state.assignment} discussion={this.state.discussion}/>
+                    </Card>
+                </Row>
+
+                <Row>
+                    <Card>
+                        {this.renderContent()}
+                    </Card>
+                </Row>
+
             </Row>
         );
     }

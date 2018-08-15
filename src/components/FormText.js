@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Input, Form,Icon } from 'antd';
 const FormItem = Form.Item;
-
+const { TextArea } = Input;
 
 export class FormText extends Component {
 
@@ -33,7 +33,7 @@ export class FormText extends Component {
                         }
                     ]
                 })(
-                    <Input type={this.props.inputType} prefix={<Icon type={this.props.icon}/>} />
+                    <TextArea type={this.props.inputType} rows={this.props.rows} prefix={<Icon type={this.props.icon} />} />
                 )}
             </FormItem>
         );
@@ -42,5 +42,6 @@ export class FormText extends Component {
 
 FormText.defaultProps = {
     required: false,
+    rows: 1,
 }
 

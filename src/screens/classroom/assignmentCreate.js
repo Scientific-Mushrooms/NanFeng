@@ -24,6 +24,7 @@ export class AssignmentCreate extends BaseComponent {
 
             let form = new FormData()
             form.append('classroomId', this.state.classroomId)
+            form.append('instructorId', this.props.instructor.instructorId)
             form.append('name', values.name)
             form.append('deadline', values.deadline)
             form.append('type', values.type)

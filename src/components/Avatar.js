@@ -8,7 +8,7 @@ export class Avatar extends Component {
         container: {
             height: this.props.size,
             width: this.props.size,
-            margin: '10px',
+            // margin: '10px',
         },
 
         image: {
