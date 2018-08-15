@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Input, Button, Icon, Form, Upload, Avatar } from 'antd';
 import { BaseComponent } from '../../components/BaseComponent';
-import {FormButton, FormText, FormAvatar, FormSelector, FormDate} from '../../components';
+import {FormButton, FormText, FormAvatar, FormSelector, FormDate, FormDynamic} from '../../components';
 
 
 export class AssignmentCreate extends BaseComponent {
@@ -21,6 +21,7 @@ export class AssignmentCreate extends BaseComponent {
             if (!err) {
                 console.log('Received values of form: ', values);
             }
+            console.log(values.keys)
 
             let form = new FormData()
             form.append('classroomId', this.state.classroomId)
@@ -69,7 +70,7 @@ export class AssignmentCreate extends BaseComponent {
         if (this.state.task === 'quiz') {
             return (
                 <Row>
-                    11111
+                    <FormDynamic form={this.props.form} />
                 </Row>
             )
         }
