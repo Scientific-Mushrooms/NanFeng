@@ -1,10 +1,10 @@
 import React from "react";
 import { BaseComponent } from '../../../../components/BaseComponent';
-import { Grid, Button, Typography, Card } from '@material-ui/core';
+import { Grid, Button, Typography } from '@material-ui/core';
 import { FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { set_student } from '../../../../redux/actions/action';
-
+import {set_instructor, set_student} from '../../../../redux/actions/action';
+import { Row, Col, Card} from 'antd';
 
 class StudentVerification extends BaseComponent {
 
@@ -24,27 +24,12 @@ class StudentVerification extends BaseComponent {
         form.append("code", this.state.code);
         form.append("realName", this.state.realName);
 
-        this.post('/api/student/create', form).then((result) => {
+        var successAction = (result) => {
+            this.setState({ student: result.detail })
+            this.pushNotification("success", "successfully create student", this.props.dispatch);
+        }
 
-            if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
-                return;
-            } 
-            
-            if (result.status === 'fail') {
-                this.pushNotification("danger", result.status, this.props.dispatch);
-                return;
-            } 
-            
-            if (result.status === 'success') {
-                this.setState({ student: result.detail })
-                this.pushNotification("success", "successfully create student", this.props.dispatch);
-            } else {
-
-                this.pushNotification("danger", result.status, this.props.dispatch);
-            }
-
-        })
+        this.newPost('/api/student/create', form, successAction);
     }
 
     submit = () => {
@@ -54,30 +39,13 @@ class StudentVerification extends BaseComponent {
         form.append("code", this.state.code);
         form.append("realName", this.state.realName);
 
-        this.post('/api/student/updateByStudentId', form).then((result) => {
+        var successAction = (result) => {
+            this.props.dispatch(set_student(result.detail))
+            this.setState({ update: false })
+            this.pushNotification("success", "successfully update student", this.props.dispatch);
+        }
 
-            if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
-                return;
-            } 
-            
-            if (result.status === 'fail') {
-                this.pushNotification("danger", result.status, this.props.dispatch);
-                return;
-            } 
-            
-            if (result.status === 'success') {
-
-                this.props.dispatch(set_student(result.detail))
-                this.setState({ update: false })
-                this.pushNotification("success", "successfully update student", this.props.dispatch);
-
-            } else {
-
-                this.pushNotification("danger", result.status, this.props.dispatch);
-            }
-
-        })
+        this.newPost('/api/student/updateByStudentId', form, successAction);
     }
 
     update = () => {
@@ -85,123 +53,110 @@ class StudentVerification extends BaseComponent {
     }
 
 
-    renderContent = () => {
+    render() {
 
         if (this.props.student === null) {
             return (
-                <Grid justify='center' container>
+                <Card>
 
-                    <Grid style={styles.container} container>
-                        <Grid xs={4}>
-                            <Typography style={styles.typography}>Real Name :</Typography>
-                        </Grid>
-                        <Grid xs={8}>
+                    <Row type='flex' justify='center'>
+                        <Col xs={8}>
+                            <Typography style={styles.typography}>真实姓名:</Typography>
+                        </Col>
+                        <Col xs={16}>
                             <FormControl type="text" value={this.state.realName} onChange={this.handleChange("realName")} />
-                        </Grid>
-                    </Grid>
+                        </Col>
+                    </Row>
 
-                    <Grid style={styles.container} container>
-                        <Grid xs={4}>
-                            <Typography style={styles.typography}>Code :</Typography>
-                        </Grid>
-                        <Grid xs={8}>
+                    <Row type='flex' justify='center'>
+                        <Col xs={8}>
+                            <Typography style={styles.typography}>学号:</Typography>
+                        </Col>
+                        <Col xs={16}>
                             <FormControl type="text" value={this.state.code} onChange={this.handleChange("code")} />
-                        </Grid>
-                    </Grid>
+                        </Col>
+                    </Row>
 
-                    <Grid justify='center' container xs={8}>
+                    <Row type='flex' justify='center'>
                         <Button mini style={styles.button} variant="outlined" onClick={this.create} >
-                            <Typography variant='button' style={styles.buttonText}>Create</Typography>
+                            <Typography variant='button' style={styles.buttonText}>提交</Typography>
                         </Button>
-                    </Grid>
+                    </Row>
 
-                </Grid>
+                </Card>
             )
         }
 
         if (this.state.update) {
             return (
-                <Grid justify='center' container>
+                <Card>
 
-                    <Grid style={styles.container} container>
-                        <Grid xs={4}>
-                            <Typography style={styles.typography}>Real Name ::</Typography>
-                        </Grid>
-                        <Grid xs={8}>
+                    <Row type='flex' justify='center'>
+                        <Col xs={8}>
+                            <Typography style={styles.typography}>真实姓名:</Typography>
+                        </Col>
+                        <Col xs={16}>
                             <FormControl type="text" value={this.state.realName} onChange={this.handleChange("realName")} />
-                        </Grid>
-                    </Grid>
+                        </Col>
+                    </Row>
 
-                    <Grid style={styles.container} container>
-                        <Grid xs={4}>
-                            <Typography style={styles.typography}>Code :</Typography>
-                        </Grid>
-                        <Grid xs={8}>
+                    <Row type='flex' justify='center'>
+                        <Col xs={8}>
+                            <Typography style={styles.typography}>学号:</Typography>
+                        </Col>
+                        <Col xs={16}>
                             <FormControl type="text" value={this.state.code} onChange={this.handleChange("code")} />
-                        </Grid>
-                    </Grid>
+                        </Col>
+                    </Row>
 
-                    <Grid justify='center' container xs={8}>
+                    <Row type='flex' justify='center'>
                         <Button mini style={styles.button} variant="outlined" onClick={this.submit} >
-                            <Typography variant='button' style={styles.buttonText}>Submit</Typography>
+                            <Typography variant='button' style={styles.buttonText}>提交</Typography>
                         </Button>
-                    </Grid>
+                    </Row>
 
-                </Grid>
+                </Card>
             )
         }
 
         return (
-            <Grid justify='center' container>
+            <Card>
 
-                <Grid justify='center' container>
+                <Row type='flex' justify='center'>
                     <Typography style={styles.name}>{this.props.student.realName}</Typography>
-                </Grid>
+                </Row>
 
-                <Grid justify='center' container>
+                <Row type='flex' justify='center'>
                     <Typography style={styles.code}>{this.props.student.code}</Typography>
-                </Grid>
+                </Row>
 
-                <Grid justify='center' container>
+                <Row type='flex' justify='center'>
                     <Typography style={styles.instructor}>Verified Student</Typography>
-                </Grid>
+                </Row>
 
-                <Grid justify='center' container xs={8}>
+                <Row type='flex' justify='center'>
                     <Button mini style={styles.button} variant="outlined" onClick={this.update} >
-                        <Typography variant='button' style={styles.buttonText}>Update</Typography>
+                        <Typography variant='button' style={styles.buttonText}>更新</Typography>
                     </Button>
-                </Grid>
+                </Row>
 
-            </Grid>
+            </Card>
         )
     }
 
-
-    render() {
-        return (
-            <Card>
-                <Grid style={styles.container} justify='center' container xs={12}>
-                    <Grid justify='center' container xs={8}>
-
-                        {this.renderContent()}
-
-                    </Grid>
-                </Grid>
-            </Card>
-        );
-    }
 }
 
 
 const styles = {
 
     button: {
-        marginTop: '10px',
+        marginTop: '20px',
         marginBottom: '10px',
         borderRadius: "5px",
         borderWidth: "1.2px",
         borderColor: "#60CDEE",
-        width: "50%",
+        width: "40%",
+        height:'40px',
     },
 
     buttonText: {

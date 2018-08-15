@@ -62,25 +62,14 @@ export class CourseSearch extends BaseComponent {
         let form = new FormData();
         form.append('name', this.state.name);
 
-        this.post('/api/course/search', form).then((result) => {
+        var successAction = (result) => {
+            console.log(new Date())
 
-            if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
+            this.setState({ courses: result.detail, loading: false })
+            this.pushNotification("success", "successfully fetch courses! ");
+        }
 
-            } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.status, this.props.dispatch);
-
-            } else if (result.status === 'success') {
-
-                this.setState({ courses: result.detail, loading: false })
-                this.pushNotification("success", "successfully fetch courses", this.props.dispatch);
-
-            } else {
-
-                this.pushNotification("danger", result.status, this.props.dispatch);
-            }
-
-        })
+        this.newPost('/api/course/search', form, successAction);
     }
 
 
