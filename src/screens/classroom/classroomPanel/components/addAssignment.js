@@ -1,73 +1,40 @@
-import React, {Component} from 'react';
-import { Row, Col, Card, } from 'antd';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React from 'react';
+import {Row, Col, Card, AutoComplete, Button,Icon,Divider} from 'antd'
 import { BaseComponent } from '../../../../components/BaseComponent';
-import {Avatar} from '../../../../components'
-import { Button } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
 
 
-class AssignmentList extends BaseComponent {
+class AddAssignment extends BaseComponent {
 
     constructor(props) {
         super(props);
         this.state = {
-            loading: true,
-            classroomId: this.props.classroomId,
-            assignments: [],
+            selectedStudentId: null,
+            realNameDataSource: [],
         };
     }
 
-    componentWillMount = () => {
-        this.fetchAssignments(this.state.classroomId)
-    }
-
-    renderAssignment = (assignment, index) => {
-
-        var onClick = () => {
-            this.props.history.push("/assignmentPanel/" + assignment.assignmentId)
-        }
-
-        return (
-            <Row type='flex' align='middle'>
-                <Button fullWidth onClick={onClick}>
-                    <Col span={2}></Col>
-                    <Col span={18}>
-                        <Col span={6}>{assignment.name}</Col>
-                        <Col span={6}>{assignment.type}</Col>
-                        <Col span={6}>{assignment.status}</Col>
-                        <Col span={6}>{assignment.deadline}</Col>
-                    </Col>
-                </Button>
-            </Row>
-        )
-    }
-
-    fetchAssignments = (classroomId) => {
-
-        let form = new FormData()
-        form.append("classroomId", classroomId)
-
-
-        var successAction = (result) => {
-            console.log(result)
-            this.setState({assignments: result.detail})
-        }
-
-        this.newPost("/api/assignment/classroomIdToAllAssignments", form, successAction)
-
+    onClickCreate = () => {
+        this.props.history.push("/assignmentCreate/" + this.props.classroomId);
     }
 
     render() {
 
-        if (this.props.classroomId === null) {
-            return null;
-        }
-
         return (
+            <div>
             <Row>
-                {this.state.assignments.map(this.renderAssignment)}
+                <Col span={4}>
+                <Button type='primary' onClick={this.onClickCreate}><Icon type="plus" />New Assignment</Button>
+                </Col>
+                <Col span={18} offset={2}>
+                    <Col span={6}>Name</Col>
+                    <Col span={6}>Type</Col>
+                    <Col span={6}>Status</Col>
+                    <Col span={6}>Deadline</Col>
+                </Col>
             </Row>
+            <Divider/>
+            </div>
         );
     }
 }
@@ -91,7 +58,8 @@ const styles = {
         width: '100%',
         height: '100%',
         backgroundColor: 'transparent'
-    }
+    },
+
 }
 
-export default withRouter(AssignmentList);
+export default withRouter(AddAssignment);
