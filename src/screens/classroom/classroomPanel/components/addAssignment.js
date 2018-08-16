@@ -1,28 +1,72 @@
-import React from 'react';
-import {Row, Col, Card, AutoComplete, Button} from 'antd'
-import { BaseComponent } from '../../../../components/BaseComponent';
+import React, {Component} from 'react';
+import { Row, Col, Card, } from 'antd';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { BaseComponent } from '../../../../components/BaseComponent';
+import {Avatar} from '../../../../components'
+import { Button } from '@material-ui/core';
 
 
-class AddAssignment extends BaseComponent {
+class AssignmentList extends BaseComponent {
 
     constructor(props) {
         super(props);
         this.state = {
-            selectedStudentId: null,
-            realNameDataSource: [],
+            loading: true,
+            classroomId: this.props.classroomId,
+            assignments: [],
         };
     }
 
-    onClickCreate = () => {
-        this.props.history.push("/assignmentCreate/" + this.props.classroomId);
+    componentWillMount = () => {
+        this.fetchAssignments(this.state.classroomId)
+    }
+
+    renderAssignment = (assignment, index) => {
+
+        var onClick = () => {
+            this.props.history.push("/assignmentPanel/" + assignment.assignmentId)
+        }
+
+        return (
+            <Row type='flex' align='middle'>
+                <Button fullWidth onClick={onClick}>
+                    <Col span={2}></Col>
+                    <Col span={18}>
+                        <Col span={6}>{assignment.name}</Col>
+                        <Col span={6}>{assignment.type}</Col>
+                        <Col span={6}>{assignment.status}</Col>
+                        <Col span={6}>{assignment.deadline}</Col>
+                    </Col>
+                </Button>
+            </Row>
+        )
+    }
+
+    fetchAssignments = (classroomId) => {
+
+        let form = new FormData()
+        form.append("classroomId", classroomId)
+
+
+        var successAction = (result) => {
+            console.log(result)
+            this.setState({assignments: result.detail})
+        }
+
+        this.newPost("/api/assignment/classroomIdToAllAssignments", form, successAction)
+
     }
 
     render() {
 
+        if (this.props.classroomId === null) {
+            return null;
+        }
+
         return (
             <Row>
-                <Button type='primary' onClick={this.onClickCreate}>New Assignment</Button>
+                {this.state.assignments.map(this.renderAssignment)}
             </Row>
         );
     }
@@ -50,4 +94,4 @@ const styles = {
     }
 }
 
-export default withRouter(AddAssignment);
+export default withRouter(AssignmentList);
