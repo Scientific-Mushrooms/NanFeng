@@ -95,7 +95,7 @@ class DiscussionCard extends BaseComponent {
                 <Row>
                     <Form onSubmit={this.handleSubmit}>
                         <FormText form={this.props.form}  name='content' required={true} rows={4}/>
-                        <FormButton form={this.props.form} label="submit" />
+                        <FormButton form={this.props.form} label="submit"/>
                     </Form>
                 </Row>
 
