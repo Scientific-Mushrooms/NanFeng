@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Card, AutoComplete, Button} from 'antd'
+import {Row, Col, Card, AutoComplete, Button,Icon,Divider} from 'antd'
 import { BaseComponent } from '../../../../components/BaseComponent';
 import { withRouter } from 'react-router-dom';
 
@@ -21,9 +21,20 @@ class AddAssignment extends BaseComponent {
     render() {
 
         return (
+            <div>
             <Row>
-                <Button type='primary' onClick={this.onClickCreate}>New Assignment</Button>
+                <Col span={4}>
+                <Button type='primary' onClick={this.onClickCreate}><Icon type="plus" />New Assignment</Button>
+                </Col>
+                <Col span={18} offset={2}>
+                    <Col span={6}>Name</Col>
+                    <Col span={6}>Type</Col>
+                    <Col span={6}>Status</Col>
+                    <Col span={6}>Deadline</Col>
+                </Col>
             </Row>
+            <Divider/>
+            </div>
         );
     }
 }
@@ -47,7 +58,8 @@ const styles = {
         width: '100%',
         height: '100%',
         backgroundColor: 'transparent'
-    }
+    },
+
 }
 
 export default withRouter(AddAssignment);

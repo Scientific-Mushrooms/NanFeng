@@ -29,24 +29,16 @@ class AssignmentList extends BaseComponent {
         }
 
         return (
-            <Row>
+            <Row type='flex' align='middle'>
                 <Button fullWidth onClick={onClick}>
-                    <Col span={4}>{assignment.name}</Col>
-                    <Col span={4}>{assignment.type}</Col>
-                    <Col span={4}>{assignment.status}</Col>
-                    <Col span={4}>{assignment.deadline}</Col>
+                    <Col span={2}></Col>
+                    <Col span={18}>
+                        <Col span={6}>{assignment.name}</Col>
+                        <Col span={6}>{assignment.type}</Col>
+                        <Col span={6}>{assignment.status}</Col>
+                        <Col span={6}>{assignment.deadline}</Col>
+                    </Col>
                 </Button>
-            </Row>
-        )
-    }
-
-    renderTitle = () => {
-        return (
-            <Row type='flex' justify='center'>
-                <Col span={4}>Name</Col>
-                <Col span={4}>Type</Col>
-                <Col span={4}>Status</Col>
-                <Col span={4}>Deadline</Col>
             </Row>
         )
     }
@@ -55,7 +47,7 @@ class AssignmentList extends BaseComponent {
 
         let form = new FormData()
         form.append("classroomId", classroomId)
-  
+
 
         var successAction = (result) => {
             console.log(result)
@@ -74,7 +66,6 @@ class AssignmentList extends BaseComponent {
 
         return (
             <Row>
-                {this.renderTitle()}
                 {this.state.assignments.map(this.renderAssignment)}
             </Row>
         );
