@@ -28,18 +28,18 @@ class ClassroomInfo extends BaseComponent {
         var classroom = this.props.classroom;
 
         return (
-            <Row>
-                <Col span={4}>
-                    <Card style={styles.cardContainer}>
-                     
+            <div style={styles.cardContainer}>
+                <Row>
+                    <Col offset={1} span={4}>
                         <Avatar shape="square" size={100} src={this.getImagePath(classroom.avatarId)} />
+                    </Col>
+                    <Col span={6}>
                         <Row style={styles.classroomTitle}>{classroom.name}</Row>
                         <Row style={styles.text}>{classroom.code}</Row>
                         <Row style={styles.text}>{classroom.currentStudentNum}/{classroom.currentStudentNum}</Row>
-                    
-                    </Card>
-                </Col>
-            </Row>
+                    </Col>
+                </Row>
+            </div>
         );
     }
 }
@@ -48,6 +48,7 @@ const styles = {
 
     cardContainer: {
         borderRadius: '5px',
+        height:'120px',
     },
 
     text: {
