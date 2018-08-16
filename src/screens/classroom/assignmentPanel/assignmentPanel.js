@@ -55,22 +55,26 @@ export class AssignmentPanel extends BaseComponent {
 
         return (
             <Row>
+                <Card style={styles.cardContainer}>
+                    <AssignmentInfo assignment={this.state.assignment} discussion={this.state.discussion}/>
+                </Card>
 
-                <Row>
-                    <Card>
-                        <AssignmentInfo assignment={this.state.assignment} discussion={this.state.discussion}/>
-                    </Card>
-                </Row>
-
-                <Row>
-                    <Card>
-                        {this.renderContent()}
-                    </Card>
-                </Row>
+                <Card>
+                    {this.renderContent()}
+                </Card>
 
             </Row>
         );
     }
+}
+
+const styles = {
+
+    cardContainer: {
+        marginBottom:'20px',
+        height:'200px',
+    },
+
 }
 
 
