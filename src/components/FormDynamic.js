@@ -67,9 +67,9 @@ export class FormDynamic extends React.Component {
 
 
 
-                     
+                        {getFieldDecorator(`names[${k}]`, { })(
                         <Input placeholder="passenger name" style={{ width: '60%', marginRight: 8 }} />
-                   
+                    )}
 
 
 
