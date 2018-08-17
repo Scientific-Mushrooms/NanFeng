@@ -85,9 +85,7 @@ export class SignIn extends BaseComponent {
                     <Row type='flex' justify='center' align="middle" style={styles.homeImage}>
                         <Col>
                             <Card
-                                style={isenter? styles.cardContainer_1:styles.cardContainer}
-                                onMouseEnter={this.MouseEnter.bind(this)}
-                                onMouseLeave={this.MouseLeave.bind(this)}>
+                                style={styles.cardContainer}>
                                 <div style={styles.welcome}>欢迎使用南风!</div>
                                 <div style={styles.welcome2}>登录</div>
                                 <Form onSubmit={this.handleSubmit} type='flex' justify='center'>
@@ -140,11 +138,6 @@ const styles={
     },
 
     cardContainer:{
-        width:'600px',
-        opacity:'0.85',
-    },
-
-    cardContainer_1:{
         width:'600px',
         opacity:'1',
     },

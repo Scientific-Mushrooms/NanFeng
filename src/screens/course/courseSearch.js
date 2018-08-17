@@ -39,7 +39,7 @@ export class CourseSearch extends BaseComponent {
     }
 
     autoOnChange = (value) => {
-
+        this.handleChange("name")(value)
         this.fetchAutoComplete(value);
 
     }
@@ -63,8 +63,7 @@ export class CourseSearch extends BaseComponent {
         form.append('name', this.state.name);
 
         var successAction = (result) => {
-            console.log(new Date())
-
+            console.log(result)
             this.setState({ courses: result.detail, loading: false })
             this.pushNotification("success", "successfully fetch courses! ");
         }
@@ -129,7 +128,7 @@ export class CourseSearch extends BaseComponent {
                     <Option value="Yiminghe">yiminghe</Option>
                 </Select>
 
-                <AutoComplete onChange={this.handleChange("name")} dataSource={this.state.dataSource} onChange={this.autoOnChange}/>
+                <AutoComplete dataSource={this.state.dataSource} onChange={this.autoOnChange}/>
 
                 <Button type="primary" onClick={this.search}>Search</Button>
 

@@ -131,9 +131,7 @@ export class SignUp extends BaseComponent {
     _renderLoginPanel(){
         return(
             <Grid direction='column' sm={6} justify='center'
-                  onMouseEnter = {this.onMouseEnter.bind(this)}
-                  onMouseLeave = {this.onMouseLeave.bind(this)}
-                  style={this.state.hover? styles.wrapper_1:styles.wrapper} container>
+                  style={styles.wrapper} container>
                 <Card>
                         <Typography style={styles.welcome}>欢迎来到南风！</Typography>
                         <Typography style={styles.welcome2}>加入我们</Typography>
@@ -257,10 +255,6 @@ const styles = {
         marginBottom: 30,
     },
     wrapper: {
-        opacity: 0.85,
-    },
-
-    wrapper_1:{
         opacity: 1,
     },
 	
