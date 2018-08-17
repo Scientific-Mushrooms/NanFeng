@@ -102,17 +102,17 @@ export default class ListItem extends Component {
         </Grid>
         <Typography style={{fontSize:20,margin:15}}>请问今晚的东亚海域史作业的要求是什么？什么时候交呢。</Typography>
         <Grid direction='row' justify='flex-end' container>
-            <Button shape="circle" icon="heart-o" style={{marginRight:5}} size='large'/>
-            <Button shape="circle" icon="upload" style={{marginRight:10}} size='large'/>
+            <Button shape="circle" icon="heart-o" style={{marginRight:5,borderColor:'#5190E4',color:'#5190E4'}} size='large'/>
+            <Button shape="circle" icon="upload" style={{marginRight:10,borderColor:'#5190E4',color:'#5190E4'}} size='large'/>
         </Grid>
         <Grid container>
             <Grid style={{marginLeft:10}} alignItems='center' direction='row' container>
-                <Icon type="heart-o" style={{fontSize:15,margin:10}} />
-                <Typography style={{fontSize:15}}>11人觉得很赞</Typography>
+                <Icon type="heart-o" style={{fontSize:15,margin:10,color:'#5190E4'}} />
+                <Typography style={{fontSize:15,color:'#5190E4'}}>11人觉得很赞</Typography>
             </Grid>
             <Grid style={{marginLeft:10,}} direction='row' container>
-                <Icon type="message" style={{fontSize:15,marginLeft:10,marginRight:10,marginBottom:10}}/>
-                <Typography style={{fontSize:15}}>2条评论回复</Typography>
+                <Icon type="message" style={{fontSize:15,marginLeft:10,marginRight:10,color:'#5190E4',marginBottom:10}}/>
+                <Typography style={{fontSize:15,color:'#5190E4'}}>2条评论回复</Typography>
             </Grid>
         </Grid>
         <Grid style={{margin:10}} container>
