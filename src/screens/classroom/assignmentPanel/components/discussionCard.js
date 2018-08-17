@@ -10,6 +10,7 @@ class DiscussionCard extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
+            discussionId: this.props.discussion.discussionId,
             loading: false,
             discussionPosts: [],
             students: [],
@@ -17,7 +18,8 @@ class DiscussionCard extends BaseComponent {
     }
 
     componentWillMount = () => {
-        this.fetchDiscussionPosts(this.props.discussion.discussionId)
+        console.log('???')
+        this.fetchDiscussionPosts()
     }
 
     handleSubmit = (e) => {
@@ -40,6 +42,7 @@ class DiscussionCard extends BaseComponent {
             var successAction = (result) => {
                 console.log(result)
                 this.fetchDiscussionPosts(this.props.discussion.discussionId)
+                this.pushNotification("success", "successfully submit comment", this.props.dispatch);
             }
 
             this.newPost('/api/discussionPost/create', form, successAction);
@@ -47,10 +50,10 @@ class DiscussionCard extends BaseComponent {
         });
     }
 
-    fetchDiscussionPosts = (discussionId) => {
+    fetchDiscussionPosts = () => {
 
         let form = new FormData()
-        form.append('discussionId', discussionId)
+        form.append('discussionId', this.state.discussionId)
 
         let successAction = (result) => {
             this.setState({discussionPosts: result.detail, students: result.more})
@@ -71,18 +74,22 @@ class DiscussionCard extends BaseComponent {
 
         return (
             <Row>
+                <Col span={18}>
                 <Card>
                     <Row>
-                        <Col span={1}>
+                        <Col span={3}>
+                            <Row type="flex" justify="center">
                             <Avatar src={this.studentIdToImage(student.studentId)} size={60}/>
+                            </Row>
+                        <Row style={styles.rightContainer}>
+                            <Row type="flex" justify="center">{student.realName}</Row>
+                            <Row type="flex" justify="center">{this.fromNow(discussionPost.date)}</Row>
+                        </Row>
                         </Col>
-                        <Col span={3} style={styles.rightContainer}>
-                            <Row>{student.realName}</Row>
-                            <Row>{this.fromNow(discussionPost.date)}</Row>
-                        </Col>
+                        <Col span={8}>{discussionPost.content}</Col>
                     </Row>
-                    <Row>{discussionPost.content}</Row>
                 </Card>
+                </Col>
             </Row>
         )
     }
