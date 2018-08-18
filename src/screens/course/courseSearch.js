@@ -2,8 +2,7 @@ import React from "react";
 import "antd/dist/antd.css";
 import { BaseComponent } from '../../components/BaseComponent';
 import { Grid, CircularProgress,Typography } from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
-import { AutoComplete, Row, Col, Card, Select, Button} from 'antd';
+import { AutoComplete, Row, Col, Card, Select, Button, Layout, Menu, Breadcrumb, Icon} from 'antd';
 
 const lite=['文学院', '历史学院', '法学院', '哲学系', '新闻传播学院', '政府管理学院', '信息管理学院', '社会学院', '商学院','外国语学院', '海外教育学院', '马克思主义学院', '大学外语教学部','*社会科学试验班', '*文科试验班（人文艺术传播类）'
 ]
@@ -13,6 +12,11 @@ const collegeData=['文学院', '历史学院', '法学院', '哲学系', '新�
 ]
 const typeData=['核心','就业','选修','公选','缺省'
 ]
+const credit=['1学分','2学分','3学分','4学分','5学分']
+
+const { SubMenu } = Menu;
+const { Header, Content, Footer, Sider } = Layout;
+
 export class CourseSearch extends BaseComponent {
 
     constructor(props) {
@@ -66,6 +70,13 @@ export class CourseSearch extends BaseComponent {
         this.newPost('/api/course/autoComplete', form, successAction)
     }
 
+    menuItem=(value)=>{
+        var bars=[];
+        for(var i=0;i<value.length;i++){
+            bars.push(<Menu.Item key={i}>{value[i]}</Menu.Item>)
+        }
+        return bars;
+    }
 
     search = () => {
 
@@ -89,7 +100,6 @@ export class CourseSearch extends BaseComponent {
         }
     } 
 
-
     renderIcon(str){
         if(engi.indexOf(str)!=-1)
             return  <img style={styles.img} src={require('./src/engi.png')} alt='Engineering'/>
@@ -99,6 +109,34 @@ export class CourseSearch extends BaseComponent {
             return <img style={styles.img} src={require('./src/sci.png')} alt='Science'/>
     }
 
+    renderSider=()=>{
+        return(
+            <Sider width={250} style={{ background: '#fff' }}>
+                <Menu
+                    mode="inline"
+                    defaultSelectedKeys={['0']}
+                    defaultOpenKeys={['sub1']}
+                    style={{ height: '100%' }}>
+                    <SubMenu key="sub1" title={<span><Icon type="bars"/>课程类型</span>}>
+                        {this.menuItem(typeData)}
+                    </SubMenu>
+                    <SubMenu key="sub2" title={<span><Icon type="book" />开课院系</span>}>
+                        {this.menuItem(collegeData)}
+                    </SubMenu>
+                    <SubMenu key="sub3" title={<span><Icon type="bulb" />课程学分</span>}>
+                        {this.menuItem(credit)}
+                    </SubMenu>
+                    <SubMenu key="sub4" title={<span><Icon type="heart" />课友推荐</span>}>
+                        <Menu.Item key="13">option5</Menu.Item>
+                        <Menu.Item key="14">option6</Menu.Item>
+                        <Menu.Item key="15">option7</Menu.Item>
+                        <Menu.Item key="16">option8</Menu.Item>
+                    </SubMenu>
+                </Menu>
+            </Sider>
+        )
+    }
+
     renderCourses = (course, index) => {
 
         let onClick = () => {
@@ -106,7 +144,7 @@ export class CourseSearch extends BaseComponent {
         }
 
         return (
-            <Grid justify='center' container>
+            <Row type='flex' justify='center'>
                 <Button  onClick={onClick} style={styles.button}>
                 <Row type="flex" justify="center">
                     <Col span={3} style={styles.courseItem}>
@@ -122,7 +160,7 @@ export class CourseSearch extends BaseComponent {
                         </Row>
                     </Col>
 
-                    <Col span={6} style={styles.courseItem}>
+                    <Col span={8} style={styles.courseItem}>
                         <Row>课程名</Row>
                         <Typography variant='title'>{this.handleText(course.name)}</Typography>
                     </Col>
@@ -155,7 +193,7 @@ export class CourseSearch extends BaseComponent {
                 </Row>
                 </Button>
                 <Grid xs={12} style={styles.padding} />
-            </Grid>
+            </Row>
         )
     }
 
@@ -168,7 +206,7 @@ export class CourseSearch extends BaseComponent {
         const collegeOptions = collegeData.map(college => <Option value={college}>{college}</Option>);
         const typeOptions = typeData.map(type => <Option value={type}>{type}</Option>);
         return (
-            <Row style={styles.searchBar}>
+            <Row style={styles.searchBar} type='flex' justify='center'>
 
                 <Select defaultValue="校区" style={{ width: 120 }} onChange={(value)=>{this.setState({location:value})}}>
                     <Option value={'仙林校区'}>仙林校区</Option>
@@ -204,11 +242,16 @@ export class CourseSearch extends BaseComponent {
 
         return (
             <Row justify='center' type='flex'>
-                <Col span={20}>
-                    <Card>
-                        {this.renderSearchBar()}
-                        {this.state.courses.map(this.renderCourses)}
-                    </Card>
+                <Col span={22}>
+                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                        {this.renderSider()}
+                        <Content style={{ padding: '0 24px', minHeight: 280 }}>
+                            <div>
+                                {this.renderSearchBar()}
+                                {this.state.courses.map(this.renderCourses)}
+                            </div>
+                        </Content>
+                    </Layout>
                 </Col>
             </Row>
         );
@@ -256,7 +299,7 @@ const styles = {
 
     searchBar: {
         paddingBottom: '20px'
-    }
+    },
 
 
 }
