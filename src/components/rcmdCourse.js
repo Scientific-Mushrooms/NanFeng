@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import "antd/dist/antd.css";
 import {Typography,Grid,Paper} from '@material-ui/core';
 
-export default class rcmdCourse extends Component {
+export default class RcmdCourse extends Component {
 
   render() {
     return (
