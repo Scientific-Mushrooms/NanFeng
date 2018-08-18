@@ -1,10 +1,14 @@
 import React from "react";
 import { BaseComponent } from '../../components/BaseComponent';
-import { Grid, CircularProgress } from '@material-ui/core';
+import { Grid, CircularProgress,Typography } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
-
 import { AutoComplete, Row, Col, Card, Select, Button} from 'antd';
+import Avatar from '@material-ui/core/Avatar';
 
+const lite=['文学院', '历史学院', '法学院', '哲学系', '新闻传播学院', '政府管理学院', '信息管理学院', '社会学院', '商学院','外国语学院', '海外教育学院', '马克思主义学院', '大学外语教学部','*社会科学试验班', '*文科试验班（人文艺术传播类）'
+]
+const engi=['现代工程与应用科学学院','电子科学与工程学院','工程管理学院','软件学院','*工科试验班'
+]
 
 export class CourseSearch extends BaseComponent {
 
@@ -71,8 +75,23 @@ export class CourseSearch extends BaseComponent {
         this.newPost('/api/course/search', form, successAction);
     }
 
+    handleText(str){
+        if(str.length>15){
+            return str.substr(0,15)+"...";
+        }else{
+            return str;
+        }
+    } 
 
 
+    renderIcon(str){
+        if(engi.indexOf(str)!=-1)
+            return  <img style={styles.img} src={require('./src/engi.png')} alt='Engineering'/>
+        else if (lite.indexOf(str)!=-1)
+            return <img style={styles.img} src={require('./src/lite.png')} alt='Literature'/>
+        else 
+            return <img style={styles.img} src={require('./src/sci.png')} alt='Science'/>
+    }
 
     renderCourses = (course, index) => {
 
@@ -82,22 +101,52 @@ export class CourseSearch extends BaseComponent {
 
         return (
             <Grid justify='center' container>
-                <Button onClick={onClick} style={styles.button}>
+                <Button  onClick={onClick} style={styles.button}>
+                <Row type="flex" justify="center">
                     <Col span={3} style={styles.courseItem}>
-                        <Icon>star</Icon>
+                        {this.renderIcon(course.faculty)}
                     </Col>
 
                     <Col span={3} style={styles.courseItem}>
-                        {course.code}
+                        <Row>课程编号</Row>
+                        <Row>
+                            <Typography variant='body2'>
+                                {course.code}
+                            </Typography>
+                        </Row>
                     </Col>
 
-                    <Col xs={6} style={styles.courseItem}>
-                        {course.name}
+                    <Col span={6} style={styles.courseItem}>
+                        <Row>课程名</Row>
+                        <Typography variant='title'>{this.handleText(course.name)}</Typography>
                     </Col>
 
-                    <Col span={12} style={styles.courseItem}>
-                        {course.introduction}
+                    <Col span={3} >
+                        <Row>类型</Row>
+                        <Row>
+                            <Typography  variant='body2'>  
+                                {course.type}课
+                            </Typography>
+                        </Row>
                     </Col>
+                    
+                    <Col span={3} style={styles.courseItem}>
+                        <Row>开课院系</Row>
+                        <Row>
+                            <Typography variant='body2'>
+                                {course.faculty}
+                            </Typography>
+                        </Row>
+                    </Col>
+                    <Col span={3} style={styles.courseItem}>
+                        <Row>学分</Row>
+                        <Row>
+                            <Typography variant='body2'>
+                                {course.credit}
+                            </Typography>
+                        </Row>
+                    </Col>
+                </Row>
                 </Button>
                 <Grid xs={12} style={styles.padding} />
             </Grid>
@@ -161,6 +210,10 @@ export class CourseSearch extends BaseComponent {
 }
 
 const styles = {
+    img:{
+        width:"45px",
+        height:'45px'
+    },
 
     padding: {
         height: '20px'
