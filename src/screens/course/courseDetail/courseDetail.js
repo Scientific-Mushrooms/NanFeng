@@ -114,7 +114,7 @@ export class CourseDetail extends BaseComponent {
 
                 <Grid xs={3} item>
                     <Card style={{marginBottom:'5px'}}>
-                        <Typography style={styles.teacher}>Instructors</Typography>
+                        <Typography style={styles.teacher}>授课人</Typography>
                     </Card>
                     <CourseInstructors courseId={courseId}/>
 
