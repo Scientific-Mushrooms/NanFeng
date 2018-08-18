@@ -19,7 +19,7 @@ export default class CourseIntroduction extends Component {
             <ExpansionPanel style={styles.card}>
 
                 <ExpansionPanelSummary expandIcon={<Icon>expand_more_icon</Icon>} >
-                    <Typography style={styles.title}>Course Introduction</Typography>
+                    <Typography style={styles.title}>课程简介</Typography>
                 </ExpansionPanelSummary>
 
                 <ExpansionPanelDetails>

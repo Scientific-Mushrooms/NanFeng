@@ -74,7 +74,7 @@ export default class CourseCard extends BaseComponent {
                     <Typography style={styles.ratingNum}>{num} %</Typography>
                 </Grid>
                 <Grid xs={2} alignItems='center' container>
-                    <Typography style={styles.ratingTotalNum}>{total / 100} ratings</Typography>
+                    <Typography style={styles.ratingTotalNum}>{total / 100} 个评分</Typography>
                 </Grid>
             </Grid>
         )
@@ -99,19 +99,17 @@ export default class CourseCard extends BaseComponent {
                             <Grid xs={12} style={styles.titleContainer} container>
                                 <Typography style={styles.title}>{name}</Typography>
                             </Grid>
-                            {this.renderRating("Useful", totalCommentNum * 100, usefulNum * 100)}
-                            {this.renderRating("Easy", totalCommentNum * 100, easyNum * 100)}
-                            {this.renderRating("Enjoy", totalCommentNum * 100, enjoyNum * 100)}
+                            {this.renderRating("推荐", totalCommentNum * 100, usefulNum * 100)}
                             <Grid xs={12} style={styles.padding} />
                         </Grid>
                     </Grid>
 
                     <Grid xs={4} container style={styles.rightContainer}>
                         <Grid xs={12} style={styles.padding} />
-                        {this.renderCourseItem("Code:", code)}
-                        {this.renderCourseItem("Type:", type)}
-                        {this.renderCourseItem("Credit:", credit)}
-                        {this.renderCourseItem("Faculty:", faculty)}
+                        {this.renderCourseItem("编号:", code)}
+                        {this.renderCourseItem("类型:", type)}
+                        {this.renderCourseItem("学分:", credit)}
+                        {this.renderCourseItem("授课院系:", faculty)}
                         <Grid xs={12} style={styles.padding} /> 
                     </Grid>
 

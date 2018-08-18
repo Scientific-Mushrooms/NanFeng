@@ -83,26 +83,26 @@ class CourseSections extends BaseComponent {
 
                     <Grid xs={11} container>
                         <Grid style={styles.headerContainer}>
-                            <Typography style={styles.title}>Course Sections</Typography>
+                            <Typography style={styles.title}>课程信息</Typography>
                         </Grid>
                     </Grid>
 
                     <Grid xs={11} style={styles.sectionContainer}>
                         <Button fullWidth style={styles.button}>
                             <Grid xs={2} container>
-                                <Typography style={styles.text}>code</Typography>
+                                <Typography style={styles.text}>编号</Typography>
                             </Grid>
                             <Grid xs={4} container>
-                                <Typography style={styles.text}>Enrolled Student Number</Typography>
+                                <Typography style={styles.text}>接受学生数量</Typography>
                             </Grid>
                             <Grid xs={2} container>
-                                <Typography style={styles.text}>location</Typography>
+                                <Typography style={styles.text}>地点</Typography>
                             </Grid>
                             <Grid xs={2} container>
-                                <Typography style={styles.text}>time</Typography>
+                                <Typography style={styles.text}>时间</Typography>
                             </Grid>
                             <Grid xs={2} container>
-                                <Typography style={styles.text}>instructor Id</Typography>
+                                <Typography style={styles.text}>授课人Id</Typography>
                             </Grid>
 
                         </Button>

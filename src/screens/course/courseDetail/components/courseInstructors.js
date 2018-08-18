@@ -1,29 +1,27 @@
 import React, { Component } from "react";
 import { withRouter } from 'react-router-dom';
+import {Divider} from 'antd'
 import {
-    Divider,
-    Grid,
-    Button, ExpansionPanel, ExpansionPanelSummary,
-    ExpansionPanelDetails, Typography, Icon, Card, LinearProgress
+    Grid,Button, Typography, Icon, Card, LinearProgress
 } from '@material-ui/core';
 
 const teachers = [
 
     {
-        realName:'Clef',
-        faculty:'SE',
+        realName:'暂无信息',
+        faculty:'暂无信息',
         courses:[
-            {courseName:"Course1",courseId:"1"},
-            {courseName:"Course2",courseId:"2"}
+            {courseName:"暂无教师课程信息",courseId:"1"},
+            {courseName:"暂无教师课程信息",courseId:"2"}
         ]
     },
 
     {
-        realName: 'Bright',
-        faculty: 'CS',
+        realName: '暂无信息',
+        faculty: '暂无信息',
         courses:[
-            {courseName:"Course3",courseId:"3"},
-            {courseName:"Course4",courseId:"4"}
+            {courseName:"暂无教师课程信息",courseId:"3"},
+            {courseName:"暂无教师课程信息",courseId:"4"}
         ]
     }
 ]
@@ -66,7 +64,7 @@ class CourseInstructors extends Component {
                             <Typography style={styles.facultyName}>{teacher.faculty}</Typography>
                         </Grid>
                     </Grid>
-                    <Typography style={styles.courseName}>Also teaches</Typography>
+                    <Divider style={{fontSize:'15px'}}>同时教授</Divider>
                     {this.renderOtherCourses(teacher.courses)}              
                     <Grid xs={12} style={styles.padding} />
                 </Grid>

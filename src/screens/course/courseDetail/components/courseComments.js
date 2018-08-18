@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import {Icon} from 'antd'
+import "antd/dist/antd.css";
 import {
     Divider,
     Grid,
-    Button, Typography, Icon, Card, LinearProgress
+    Button, Typography,  Card, LinearProgress
 } from '@material-ui/core';
 import { FormControl } from 'react-bootstrap';
 import { BaseComponent } from '../../../../components/BaseComponent';
@@ -19,8 +21,6 @@ class CourseComments extends BaseComponent {
 
             courseId: this.props.courseId,
             userId: this.props.user === null ? null : this.props.user.userId,
-            enjoy: true,
-            easy: true,
             useful: true,
             comment: null,
             
@@ -71,8 +71,6 @@ class CourseComments extends BaseComponent {
 
         form.append("courseId", courseId);
         form.append("userId", userId);
-        form.append("enjoy", enjoy);
-        form.append("easy", easy);
         form.append('useful', useful);
         form.append('comment', comment);
 
@@ -130,31 +128,10 @@ class CourseComments extends BaseComponent {
                             <Typography style={styles.optionTitle}>Useful ?</Typography>
                         </Grid>
                         <Grid xs={9}>
-                            <Button style={comment.useful ? styles.leftButton : styles.defaultButton}>Yes</Button>
-                            <Button style={comment.useful ? styles.defaultButton : styles.rightButton}>No</Button>
+                            <Button style={comment.useful ? styles.leftButton : styles.defaultButton}>推荐</Button>
+                            <Button style={comment.useful ? styles.defaultButton : styles.rightButton}>不推荐</Button>
                         </Grid>
                     </Grid>
-
-                    <Grid xs={12} container style={styles.commentOptionContainer}>
-                        <Grid xs={3} alignItems='center' justify='center' container>
-                            <Typography style={styles.optionTitle}>Easy ?</Typography>
-                        </Grid>
-                        <Grid xs={9}>
-                            <Button style={comment.easy ? styles.leftButton : styles.defaultButton}>Yes</Button>
-                            <Button style={comment.easy ? styles.defaultButton : styles.rightButton}>No</Button>
-                        </Grid>
-                    </Grid>
-
-                    <Grid xs={12} container>
-                        <Grid xs={3} alignItems='center' justify='center' container>
-                            <Typography style={styles.optionTitle}>Enjoy ?</Typography>
-                        </Grid>
-                        <Grid xs={9}>
-                            <Button style={comment.enjoy ? styles.leftButton : styles.defaultButton}>Yes</Button>
-                            <Button style={comment.enjoy ? styles.defaultButton : styles.rightButton}>No</Button>
-                        </Grid>
-                    </Grid>
-
                 </Grid>
             </Grid>
         )
@@ -196,35 +173,15 @@ class CourseComments extends BaseComponent {
                 </Grid>
 
                 <Grid xs={12} container>
-                    <Grid xs={1} container alignItems='center'>
-                        <Typography style={styles.optionTitle}>Useful ?</Typography>
+                    <Grid xs={3} style={{marginLeft:20}} container>
+                        <Button onClick={onClickUsefulYes} style={useful ? styles.leftButton : styles.defaultButton}><Icon type="like-o" style={{marginRight:5}}/>推荐</Button>
+                        <Button onClick={onClickUsefulNo} style={useful ? styles.defaultButton : styles.rightButton}><Icon type="dislike-o" style={{marginRight:5}}/>不推荐</Button>
                     </Grid>
-                    <Grid xs={3} container>
-                        <Button onClick={onClickUsefulYes} style={useful ? styles.leftButton : styles.defaultButton}>Yes</Button>
-                        <Button onClick={onClickUsefulNo} style={useful ? styles.defaultButton : styles.rightButton}>No</Button>
-                    </Grid>
-
-                    <Grid xs={1} container alignItems='center'>
-                        <Typography style={styles.optionTitle}>Enjoy ?</Typography>
-                    </Grid>
-                    <Grid xs={3} container>
-                        <Button onClick={onClickEnjoyYes} style={enjoy ? styles.leftButton : styles.defaultButton}>Yes</Button>
-                        <Button onClick={onClickEnjoyNo} style={enjoy ? styles.defaultButton : styles.rightButton}>No</Button>
-                    </Grid>
-
-                    <Grid xs={1} container alignItems='center'>
-                        <Typography style={styles.optionTitle}>Easy ?</Typography>
-                    </Grid>
-                    <Grid xs={3} fullwidth container>
-                        <Button onClick={onClickEasyYes} style={easy ? styles.leftButton : styles.defaultButton}>Yes</Button>
-                        <Button onClick={onClickEasyNo} style={easy ? styles.defaultButton : styles.rightButton}>No</Button>
-                    </Grid>
-                    
                 </Grid>
 
                 <Grid xs={11} container style={styles.submitContainer} justify='flex-end'>
                     <Grid xs={3}>
-                        <Button onClick={this.createComment} style={styles.submit} fullWidth>submit</Button>
+                        <Button onClick={this.createComment} style={styles.submit} fullWidth>提交</Button>
                     </Grid>
                 </Grid>
 
@@ -249,7 +206,7 @@ class CourseComments extends BaseComponent {
 
                     <Grid xs={11} container>
                         <Grid style={styles.headerContainer}>
-                            <Typography style={styles.title}>Course Comments</Typography>
+                            <Typography style={styles.title}>课程评价</Typography>
                         </Grid>
                     </Grid>
 
@@ -315,7 +272,7 @@ const styles = {
 
     leftButton:{
         fontSize: '15px',
-        backgroundColor:'#86be0c',
+        backgroundColor:'#0078d7',
         color:'#FFF',
         width:'10px',
     },
@@ -324,11 +281,11 @@ const styles = {
         fontSize: '15px',
         backgroundColor:'#fd9d9e',
         color:'#FFF',
-        width:'10px',
+        width:'100px',
     },
 
     submitButton:{
-        backgroundColor:'#62d0f1',
+        backgroundColor:'#0078d7',
         color:'#FFF',
         fontSize: '15px',
     },
@@ -379,7 +336,7 @@ const styles = {
     },
 
     submit: {
-        backgroundColor: '#66ccff',
+        backgroundColor: '#0078d7',
         fontSize: '20px',
         color: '#fff',
     },
