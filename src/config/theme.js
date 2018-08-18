@@ -2,8 +2,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
 import pink from '@material-ui/core/colors/pink';
 import red from '@material-ui/core/colors/red';
-import green from '@material-ui/core/colors/green';
-
+import blue from '@material-ui/core/colors/blue';
 
 export const theme = createMuiTheme({
 
@@ -12,7 +11,7 @@ export const theme = createMuiTheme({
         base: 'white',
 
         
-        primary: green,
+        primary: blue,
         secondary: pink,
         error: red,
         // Used by `getContrastText()` to maximize the contrast between the background and
