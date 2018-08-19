@@ -18,7 +18,6 @@ import ListItem from '@material-ui/core/ListItem';
 import mainRoutes from '../../routes/routes';
 
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 const mapStateToProps = state => ({
     user: state.identityReducer.user,
@@ -259,7 +258,7 @@ class Header extends BaseComponent {
             current:e.key
         })
         if (this.props.instructor !== null) {
-            this.props.history.push('/instructorPanel')
+            this.props.history.push('/classroom/instructorPanel')
             return;
         }
         if (this.props.student !== null) {

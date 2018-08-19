@@ -6,6 +6,7 @@ import { withTheme } from '@material-ui/core/styles';
 import { Form } from 'antd';
 
 
+
 const mapStateToProps = state => ({
     user: state.identityReducer.user,
     instructor: state.identityReducer.instructor,
@@ -23,29 +24,27 @@ const mainRoutes = [
         sidebarName: "Home",
         icon: 'home',
         component: wrap(Screens.Home),
-        children: [
+    },
 
-            {
-                path: "/signin",
-                sidebarName: "Dashboard",
-                icon: "dashboard",
-                component: wrap(Screens.SignIn)
-            },
+    {
+        path: "/signin",
+        sidebarName: "Dashboard",
+        icon: "dashboard",
+        component: wrap(Screens.SignIn)
+    },
 
-            {
-                path: "/signup",
-                sidebarName: "Dashboard",
-                icon: "dashboard",
-                component: wrap(Screens.SignUp)
-            },
+    {
+        path: "/signup",
+        sidebarName: "Dashboard",
+        icon: "dashboard",
+        component: wrap(Screens.SignUp)
+    },
 
-            {
-                path: "/userProfile",
-                sidebarName: "Dashboard",
-                icon: "dashboard",
-                component: wrap(Screens.UserProfile)
-            },
-        ]
+    {
+        path: "/userProfile",
+        sidebarName: "Dashboard",
+        icon: "dashboard",
+        component: wrap(Screens.UserProfile)
     },
 
     {
@@ -53,14 +52,13 @@ const mainRoutes = [
         sidebarName: "Admin",
         icon: 'account_box',
         component: Screens.AdminPanel,
-        children: [
-            {
-                path: "/userBoard",
-                sidebarName: "User Board",
-                icon: 'code',
-                component: wrap(Screens.UserBoard)
-            },
-        ]
+    },
+
+    {
+        path: "/userBoard",
+        sidebarName: "User Board",
+        icon: 'code',
+        component: wrap(Screens.UserBoard)
     },
 
     {
@@ -68,76 +66,80 @@ const mainRoutes = [
         sidebarName: "Course",
         icon: "view_headline",
         component: wrap(Screens.CoursePanel),
+    },
+
+    {
+        path: "/courseDetail/:courseId",
+        name: "Course detail",
+        icon: 'assignment',
+        component: wrap(Screens.CourseDetail),
+    },
+
+    {
+        path: "/sectionCreate",
+        name: "Course Create",
+        icon: 'add',
+        component: wrap(Screens.SectionCreate)
+    },
+
+    {
+        path: "/courseSearch",
+        name: "Course Search",
+        icon: 'edit_icon',
+        component: wrap(Screens.CourseSearch)
+    },
+
+    {
+        path: "/courseCreate",
+        name: "Course Create",
+        icon: 'add',
+        component: wrap(Screens.CourseCreate)
+    },
+
+    {
+        path: "/classroom",
+        name: "classroomCreate",
+        icon: 'add',
+        component: wrap(Screens.ClassroomLayout),
         children: [
-
             {
-                path: "/courseDetail/:courseId",
-                name: "Course detail",
-                icon: 'assignment',
-                component: wrap(Screens.CourseDetail),
-                children: [
-
-                    {
-                        path: "/sectionCreate",
-                        name: "Course Create",
-                        icon: 'add',
-                        component: wrap(Screens.SectionCreate)
-                    },
-
-                ]
-            },
-
-            {
-                path: "/courseSearch",
-                name: "Course Search",
-                icon: 'edit_icon',
-                component: wrap(Screens.CourseSearch)
-            },
-
-            {
-                path: "/courseCreate",
-                name: "Course Create",
+                path: "/classroom/classroomCreate",
+                name: "classroomCreate",
                 icon: 'add',
-                component: wrap(Screens.CourseCreate)
+                component: wrap(Screens.ClassroomCreate)
             },
-
+        
+            {
+                path: "/classroom/classroomPanel/:classroomId",
+                name: "classroom",
+                icon: 'add',
+                component: wrap(Screens.ClassroomPanel)
+            },
+        
+            {
+                path: "classroom//assignmentCreate/:classroomId",
+                name: "assignment create",
+                icon: 'add',
+                component: wrap(Screens.AssignmentCreate)
+            },
+        
+            {
+                path: "/classroom/assignmentPanel/:assignmentId",
+                name: "assignment panel",
+                icon: 'add',
+                component: wrap(Screens.AssignmentPanel)
+            },
+        
+            {
+                path: "/classroom/instructorPanel",
+                name: "instructor Panel",
+                icon: 'add',
+                component: wrap(Screens.InsturctorPanel)
+            },
         ]
     },
 
-    {
-        path: "/instructorPanel",
-        name: "instructor Panel",
-        icon: 'add',
-        component: wrap(Screens.InsturctorPanel)
-    },
-
-    {
-        path: "/classroomCreate",
-        name: "classroomCreate",
-        icon: 'add',
-        component: wrap(Screens.ClassroomCreate)
-    },
-
-    {
-        path: "/classroomPanel/:classroomId",
-        name: "classroom",
-        icon: 'add',
-        component: wrap(Screens.ClassroomPanel)
-    },
-
-    {
-        path: "/assignmentCreate/:classroomId",
-        name: "assignment create",
-        icon: 'add',
-        component: wrap(Screens.AssignmentCreate)
-    },
-
-    {
-        path: "/assignmentPanel/:assignmentId",
-        name: "assignment panel",
-        icon: 'add',
-        component: wrap(Screens.AssignmentPanel)
-    },
+    
     
     {
         path: "/confess",
@@ -158,4 +160,5 @@ const mainRoutes = [
 export default mainRoutes;
 
 const courseRoutes = _.find(mainRoutes, { path: '/coursePanel'}).children;
-export {courseRoutes};
+const classroomRoutes = _.find(mainRoutes, { path: '/classroom'}).children;
+export {courseRoutes, classroomRoutes};

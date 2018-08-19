@@ -1,5 +1,7 @@
 import { Component } from 'react';
-import {notification} from 'antd'
+import {notification} from 'antd';
+import { Switch, Route, Redirect } from "react-router-dom";
+
 var moment = require('moment');
 
 export class BaseComponent extends Component {
@@ -47,7 +49,6 @@ export class BaseComponent extends Component {
 
     fromNow = (date) => {
         return moment(date).fromNow()
-        
     }
 
     handleChange = name => event => {
