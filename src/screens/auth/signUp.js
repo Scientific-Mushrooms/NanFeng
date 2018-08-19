@@ -1,11 +1,10 @@
 import React from 'react';
-
-import {TextField,Typography} from '@material-ui/core';
+import {FormButton, FormText} from '../../components';
 import Grid from '@material-ui/core/Grid';
 import { login } from '../../redux/actions/action';
 import { BaseComponent } from '../../components/BaseComponent';
 import NjuImg from './src/nju.png';
-import {Button, Card} from 'antd'
+import {Button, Card,Row, Col, Form,Divider} from 'antd'
 
 const homeImage = {
     marginTop:40,
@@ -102,97 +101,51 @@ export class SignUp extends BaseComponent {
         }
     }
 
-    render() {
-        return (
-            <Grid 
-            alignItems='center' 
-            justify='center' 
-            xs={12} container>
-            
-                <Grid style={homeImage} 
-                justify='center' 
-                direction='row' 
-                alignItems='center' container>
-                    {/*this._renderLeftPanel()*/}
-                    {this._renderLoginPanel()}
-                </Grid>
-            </Grid>
-        );
-    }
-
-    _renderLeftPanel(){
+    render(){
         return(
-            <Grid sm={4} justify='center'  container>
-            </Grid>
-        );
-
-    }
-
-    _renderLoginPanel(){
-        return(
-            <Grid direction='column' sm={6} justify='center'
-                  style={styles.wrapper} container>
-                <Card>
-                        <Typography style={styles.welcome}>欢迎来到南风！</Typography>
-                        <Typography style={styles.welcome2}>加入我们</Typography>
-                    <Grid>
-                        <TextField
-                            id="name"
-                            label="用户名"
-                            style={styles.textField}
-                            value={this.state.name}
-                            onChange={this.handleChange('email')}
-                            margin="normal"
-                            fullWidth={true}
-                        />
-                        </Grid>
-                        <Grid>
-                            <TextField
-                                id="password-input"
-                                label="密码"
-                                style={styles.textField}
-                                type="password"
-                                autoComplete="current-password"
-                                onChange={this.handleChange('password')}
-                                margin="normal"
-                                fullWidth={true}
-                            />
-                        </Grid>
-                        <Grid>
-                            <TextField
-                                id="password-verify"
-                                label="确认密码"
-                                style={styles.textField}
-                                type="password"
-                                autoComplete="current-password"
-                                onChange={this.handleChange('repassword')}
-                                margin="normal"
-                                fullWidth={true}
-                            />
-                        </Grid>
-                        <Grid >
-                            <Button
-                                size="large"
-                                style={styles.button}
-                                color='primary'
-                                onClick={this.signUp}
-                                >注册</Button>
-                        </Grid>
-                        <Grid xs={12}>
-                            <Button
-                            size="large"
-                            style={styles.button2}
-                            color='primary'
-                            onClick={this.signIn}
-                            >已有账号，去登录</Button>
-                            <Button style={styles.button3} onClick={this.goBack}>返回</Button>
-                        </Grid>
-                        <Grid alignItems='center' direction='column' container>
-                            <Typography style={styles.policy}>我已阅读并接受</Typography>
-                            <Button style={styles.policy_button}>服务与隐私条款</Button>
-                        </Grid>
-                </Card>
-            </Grid>
+            <Row type='flex' justify="center">
+                <Col>
+                    <Row type='flex' justify='center' align="middle" style={styles.homeImage}>
+                        <Col>
+                            <Card style={styles.cardContainer}>
+                                <Grid direction='row' container>
+                                    <img style={styles.logo} src={require('./src/logo-color.png')}/>
+                                    <Grid>
+                                        <div style={styles.welcome}>欢迎来到南风!</div>
+                                        <div style={styles.welcome2}>加入我们</div>
+                                    </Grid>
+                                </Grid>
+                                <Form onSubmit={this.handleSubmit} type='flex' justify='center'>
+                                    <FormText form={this.props.form}
+                                              label='邮箱' name='email' required={true} icon="user"/>
+                                    <FormText form={this.props.form}
+                                              label='密码' name='password' required={true} icon="lock"
+                                              inputType="password"/>
+                                    <FormText form={this.props.form}
+                                              label='确认' name='passwordVerify' required={true} icon="lock"
+                                              inputType="password"/>
+                                    <Row type='flex' justify='center'>
+                                        <Col>
+                                            <FormButton form={this.props.form} label="注册" style={styles.formButton}/>
+                                            <Button style={styles.button} onClick={this.goBack}>
+                                                返回
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                <Divider/>
+                                </Form>
+                                <Row type='flex' justify='center'>
+                                    <Col>
+                                        <html><body>
+                                        已有账号? <a href="http://localhost:3000/#/signIn">去登录!</a>
+                                        </body></html>
+                                    </Col>
+                                </Row>
+                            </Card>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
         );
     }
 }
@@ -200,6 +153,25 @@ export class SignUp extends BaseComponent {
 
 
 const styles = {
+    homeImage:{
+        display:'inline-blocks',
+        height:700,
+        width:1200,
+        borderRadius:20,
+    },
+    cardContainer:{
+        width:'600px',
+        opacity:'1',
+    },
+    logo: {
+        marginLeft:40,
+        marginTop:5,
+        height:'50px',
+        width:'90px'
+    },
+    formButton:{
+        width:'400px',
+    },
     policy:{
         fontsize:15,
         color:'#AAAAAA',
@@ -215,7 +187,7 @@ const styles = {
         fontSize:25,
         marginLeft: '10px',
         marginRight: '10px',
-        marginBottom: '10px',
+        marginBottom: '3px',
     },
     welcome2:{
         fontSize:17,
@@ -224,14 +196,10 @@ const styles = {
         marginRight: '10px',
     },
     button: {
+        width:'400px',
+        backgroundColor:'',
         color:'white',
-        width: '100%',
-        marginTop: '20px',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 50,
-        backgroundColor: '#3D91F7',    
-        marginBottom: 30,
+        backgroundColor: '#CCCCCC',
     },
     button2: {
         color:'white',

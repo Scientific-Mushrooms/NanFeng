@@ -1,10 +1,11 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
+import Grid from '@material-ui/core/Grid';
 import { login, set_instructor } from '../../redux/actions/action';
-import { Row, Col, Input, Button, Icon, Form, Upload, Avatar,Card } from 'antd';
+import { Row, Col, Divider, Button, Icon, Form, Upload, Avatar,Card } from 'antd';
 import { BaseComponent } from '../../components/BaseComponent';
 import {FormButton, FormText, FormAvatar, FormSelector} from '../../components';
-import NjuImg from './src/nju.png';
+
 
 export class SignIn extends BaseComponent {
 
@@ -86,8 +87,13 @@ export class SignIn extends BaseComponent {
                         <Col>
                             <Card
                                 style={styles.cardContainer}>
-                                <div style={styles.welcome}>欢迎使用南风!</div>
-                                <div style={styles.welcome2}>登录</div>
+                                <Grid direction='row' container>
+                                    <img style={styles.logo} src={require('./src/logo-color.png')}/>
+                                    <Grid>
+                                        <div style={styles.welcome}>欢迎使用南风!</div>
+                                        <div style={styles.welcome2}>登录</div>
+                                    </Grid>
+                                </Grid>
                                 <Form onSubmit={this.handleSubmit} type='flex' justify='center'>
 
                                     <FormText form={this.props.form}
@@ -96,7 +102,6 @@ export class SignIn extends BaseComponent {
                                     <FormText form={this.props.form}
                                               label='密码' name='password' required={true} icon="lock"
                                               inputType="password"/>
-
                                     <Row type='flex' justify='center'>
                                         <Col>
                                             <FormButton form={this.props.form} label="登录" style={styles.formButton}/>
@@ -107,7 +112,7 @@ export class SignIn extends BaseComponent {
                                     </Row>
 
                                 </Form>
-
+                                <Divider/>
                                 <Row type='flex' justify='center'>
                                     <Col>
                                         <html><body>
@@ -133,8 +138,14 @@ const styles={
         display:'inline-blocks',
         height:700,
         width:1200,
-        backgroundImage: 'url('+NjuImg+')',
         borderRadius:20,
+    },
+
+    logo: {
+        marginLeft:40,
+        marginTop:5,
+        height:'50px',
+        width:'90px'
     },
 
     cardContainer:{
@@ -157,7 +168,7 @@ const styles={
         fontSize:25,
         marginLeft: '10px',
         marginRight: '10px',
-        marginBottom: '10px',
+        marginBottom: '3px',
     },
     welcome2:{
         fontSize:17,
