@@ -107,14 +107,11 @@ export class SignUp extends BaseComponent {
                 <Col>
                     <Row type='flex' justify='center' align="middle" style={styles.homeImage}>
                         <Col>
+                            <Grid direction='row' container>
+                            <img style={{width:'480px',height:'270px',marginRight:40,marginTop:60}} src={require('./src/Logo.PNG')}/>
                             <Card style={styles.cardContainer}>
-                                <Grid direction='row' container>
-                                    <img style={styles.logo} src={require('./src/logo-color.png')}/>
-                                    <Grid>
-                                        <div style={styles.welcome}>欢迎来到南风!</div>
-                                        <div style={styles.welcome2}>加入我们</div>
-                                    </Grid>
-                                </Grid>
+                                <div style={styles.welcome}>欢迎来到南风!</div>
+                                <div style={styles.welcome2}>加入我们</div>
                                 <Form onSubmit={this.handleSubmit} type='flex' justify='center'>
                                     <FormText form={this.props.form}
                                               label='邮箱' name='email' required={true} icon="user"/>
@@ -142,6 +139,7 @@ export class SignUp extends BaseComponent {
                                     </Col>
                                 </Row>
                             </Card>
+                            </Grid>
                         </Col>
                     </Row>
                 </Col>
@@ -185,14 +183,14 @@ const styles = {
     },
     welcome:{
         fontSize:25,
-        marginLeft: '10px',
+        marginLeft: '35px',
         marginRight: '10px',
         marginBottom: '3px',
     },
     welcome2:{
         fontSize:17,
         color:'#AAAAAA',
-        marginLeft: '10px',
+        marginLeft: '35px',
         marginRight: '10px',
     },
     button: {
