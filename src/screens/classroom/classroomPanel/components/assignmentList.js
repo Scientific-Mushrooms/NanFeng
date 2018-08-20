@@ -25,7 +25,7 @@ class AssignmentList extends BaseComponent {
     renderAssignment = (assignment, index) => {
 
         var onClick = () => {
-            this.props.history.push("/assignmentPanel/" + assignment.assignmentId)
+            this.props.history.push("/classroom/assignmentPanel/" + assignment.assignmentId)
         }
 
         return (
