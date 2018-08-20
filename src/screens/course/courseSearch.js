@@ -61,7 +61,8 @@ export class CourseSearch extends BaseComponent {
         }
         this.timer = setTimeout((
             this.fetchAutoComplete(value)
-        ),100);
+        ),500);
+        
     }
 
     fetchAutoComplete = (value) => {
@@ -206,8 +207,6 @@ export class CourseSearch extends BaseComponent {
     }
 
  
-   
-
     renderSearchBar = () => {
 
         const Option = Select.Option;
