@@ -13,14 +13,13 @@ export class InsturctorPanel extends Component {
                         <Divider orientation="left">
                         <Col span={8} align='bottom' style={styles.title}>我的课堂</Col>
                         </Divider>
-                            <Button type='primary' icon='plus-square' size={20} onClick={() => { this.props.history.push('/classroomCreate') }}>Create</Button>
+                            <Button type='primary' icon='plus-square' size={20} onClick={() => { this.props.history.push('/classroom/classroomCreate') }}>Create</Button>
                     </Row>
                 </Col>
             </Row>
         );
     }
 }
-
 
 const styles = {
 
