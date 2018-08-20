@@ -3,24 +3,23 @@ import "antd/dist/antd.css";
 import { BaseComponent } from '../../components/BaseComponent';
 import { Grid, CircularProgress,Typography } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
-import { AutoComplete, Row, Col, Card, Select, Button} from 'antd';
+import {Anchor, AutoComplete, Row, Col, Card, Select, Button} from 'antd';
 
-const lite=['文学院', '历史学院', '法学院', '哲学系', '新闻传播学院', '政府管理学院', '信息管理学院', '社会学院', '商学院','外国语学院', '海外教育学院', '马克思主义学院', '大学外语教学部','*社会科学试验班', '*文科试验班（人文艺术传播类）'
+const lite=['全部','文学院', '历史学院', '法学院', '哲学系', '新闻传播学院', '政府管理学院', '信息管理学院', '社会学院', '商学院','外国语学院', '海外教育学院', '马克思主义学院', '大学外语教学部','*社会科学试验班', '*文科试验班（人文艺术传播类）'
 ]
-const engi=['现代工程与应用科学学院','电子科学与工程学院','工程管理学院','软件学院','*工科试验班'
+const engi=['全部','现代工程与应用科学学院','电子科学与工程学院','工程管理学院','软件学院','*工科试验班'
 ]
-const collegeData=['文学院', '历史学院', '法学院', '哲学系', '新闻传播学院', '政府管理学院', '信息管理学院', '社会学院', '商学院', '数学系', '外国语学院', '', '物理学院', '现代工程与应用科学学院', '化学化工学院', '生命科学学院', '地球科学与工程学院', '地理与海洋科学学院', '大气科学学院', '电子科学与工程学院', '计算机科学与技术系', '环境学院', '天文与空间科学学院', '工程管理学院', '软件学院', '海外教育学院', '建筑与城市规划学院', '马克思主义学院', '大学外语教学部', '计算中心', '匡亚明学院', '医学院', '*文科试验班（人文艺术传播类）', '*理科试验班（数理科学类）', '*理科试验班（化学与生命科学类）', '*社会科学试验班', '*理科试验班（地球科学与资源环境类）', '*工科试验班'
+const collegeData=['全部','文学院', '历史学院', '法学院', '哲学系', '新闻传播学院', '政府管理学院', '信息管理学院', '社会学院', '商学院', '数学系', '外国语学院', '', '物理学院', '现代工程与应用科学学院', '化学化工学院', '生命科学学院', '地球科学与工程学院', '地理与海洋科学学院', '大气科学学院', '电子科学与工程学院', '计算机科学与技术系', '环境学院', '天文与空间科学学院', '工程管理学院', '软件学院', '海外教育学院', '建筑与城市规划学院', '马克思主义学院', '大学外语教学部', '计算中心', '匡亚明学院', '医学院', '*文科试验班（人文艺术传播类）', '*理科试验班（数理科学类）', '*理科试验班（化学与生命科学类）', '*社会科学试验班', '*理科试验班（地球科学与资源环境类）', '*工科试验班'
 ]
-const typeData=['核心','就业','选修','公选','缺省'
-]
+const typeData=['全部','核心','就业','选修','公选']
 export class CourseSearch extends BaseComponent {
 
     constructor(props) {
         super(props);
         this.state = {
-            college:"",
+            faculty:"",
             type:"",
-            location:"",
+            campus:"",
             loading: true,
             courses: [],
             name: "",
@@ -45,13 +44,20 @@ export class CourseSearch extends BaseComponent {
     };
 
     handleChange = name => (value) => {
-        this.setState({ [name]: value })
+        if(value=="全部")
+            this.setState({[name]:""})
+        else
+            this.setState({[name]:value})
     }
 
     autoOnChange = (value) => {
         this.handleChange("name")(value)
-        this.fetchAutoComplete(value);
-
+        if(this.timer){
+            clearTimeout(this.timer);
+        }
+        this.timer = setTimeout((
+            this.fetchAutoComplete(value)
+        ),100);
     }
 
     fetchAutoComplete = (value) => {
@@ -71,7 +77,9 @@ export class CourseSearch extends BaseComponent {
 
         let form = new FormData();
         form.append('name', this.state.name);
-
+        form.append('campus', this.state.campus);
+        form.append('faculty', this.state.faculty);
+        form.append('type', this.state.type);
         var successAction = (result) => {
             console.log(result)
             this.setState({ courses: result.detail, loading: false })
@@ -168,18 +176,24 @@ export class CourseSearch extends BaseComponent {
         const collegeOptions = collegeData.map(college => <Option value={college}>{college}</Option>);
         const typeOptions = typeData.map(type => <Option value={type}>{type}</Option>);
         return (
-            <Row style={styles.searchBar}>
+        <Anchor style={styles.searchBar} offsetTop={65}>
+            <Row >
 
-                <Select defaultValue="校区" style={{ width: 120 }} onChange={(value)=>{this.setState({location:value})}}>
+                <Select 
+                defaultValue="校区" style={{ width: 120 }} 
+                onChange={(value)=> this.handleChange("campus")(value)}>
                     <Option value={'仙林校区'}>仙林校区</Option>
                     <Option value={'鼓楼校区'}>鼓楼校区</Option>
                 </Select>
 
-                <Select defaultValue="类型" style={{ width: 120 }} onChange={(value)=>{this.setState({type:value})}}>
+                <Select 
+                defaultValue="类型" style={{ width: 120 }} 
+                onChange={(value)=> this.handleChange("type")(value)}>
                     {typeOptions}
                 </Select>
 
-                <Select defaultValue="院系" style={{ width: 120 }} onChange={(value)=>{this.setState({college:value})}}>
+                <Select defaultValue="院系" style={{ width: 120 }} 
+                onChange={(value)=> this.handleChange("faculty")(value)}>
                     {collegeOptions}
                 </Select>
 
@@ -188,6 +202,7 @@ export class CourseSearch extends BaseComponent {
                 <Button type="primary" icon="search" onClick={this.search}>搜索</Button>
 
             </Row>
+        </Anchor>
         )
     }
 
@@ -255,7 +270,7 @@ const styles = {
     },
 
     searchBar: {
-        paddingBottom: '20px'
+        marginBottom: '20px'
     }
 
 
