@@ -15,7 +15,7 @@ class AddAssignment extends BaseComponent {
     }
 
     onClickCreate = () => {
-        this.props.history.push("/assignmentCreate/" + this.props.classroomId);
+        this.props.history.push("/classroom/assignmentCreate/" + this.props.classroomId);
     }
 
     render() {
