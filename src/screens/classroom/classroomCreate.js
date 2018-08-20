@@ -28,7 +28,7 @@ export class ClassroomCreate extends BaseComponent {
             form.append('code', values.password);
 
             var successAction = (result) => {
-                this.props.history.goBack();
+                this.props.history.push("/classroom/classroomPanel/" + result.detail.classroomId);
                 this.pushNotification("success", "successfully create the classroom");
             }
 

@@ -5,7 +5,7 @@ import MemberList from './components/memberList';
 import AddStudent from './components/addStudennt';
 import AssignmentList from './components/assignmentList';
 
-import {Row, Col, Card, AutoComplete, Button} from 'antd'
+import {Row, Col, Card, AutoComplete, Button,Icon} from 'antd'
 import AddAssignment from './components/addAssignment';
 
 const Option = AutoComplete.Option;
@@ -35,6 +35,26 @@ export class ClassroomPanel extends BaseComponent {
 
         this.fetchClassroom(this.state.classroomId);
 
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+            }
+
+            let form = new FormData();
+            form.append("classroomId", this.state.classroomId);
+
+            var successAction = (result) => {
+                this.props.history.goBack();
+                this.pushNotification("success", "successfully delete the classroom");
+            }
+
+            this.newPost('/api/classroom/deleteByClassroomId', form, successAction);
+
+        });
     }
 
     fetchClassroom = (classroomId) => {
@@ -70,6 +90,13 @@ export class ClassroomPanel extends BaseComponent {
                             <AssignmentList classroomId={this.state.classroomId}/>
                         </Card>
                     </Row>
+
+                    <br></br>
+                    <Row type='flex' justify='end'>
+                        <Button onClick={this.handleSubmit} style={styles.button}>
+                            <Icon type="minus" />删除此课堂
+                        </Button>
+                    </Row>
                 </Col>
             </Row>
         );
@@ -80,6 +107,11 @@ const styles = {
 
     container: {
         marginTop: '20px'
-    }
+    },
+
+    button:{
+        backgroundColor:'#ff0000',
+        color:'#fff'
+    },
 
 }
