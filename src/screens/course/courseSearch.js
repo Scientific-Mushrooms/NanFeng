@@ -2,7 +2,6 @@ import React from "react";
 import "antd/dist/antd.css";
 import { BaseComponent } from '../../components/BaseComponent';
 import { Grid, CircularProgress,Typography } from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
 import {Anchor, AutoComplete, Row, Col, Card, Select, Button, Layout, Menu, Breadcrumb, Icon} from 'antd';
 
 const lite=['全部','文学院', '历史学院', '法学院', '哲学系', '新闻传播学院', '政府管理学院', '信息管理学院', '社会学院', '商学院','外国语学院', '海外教育学院', '马克思主义学院', '大学外语教学部','*社会科学试验班', '*文科试验班（人文艺术传播类）'
