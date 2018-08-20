@@ -55,7 +55,7 @@ class Layout extends Component {
 
                 <Row className={classes.bodyContainer}>
                     <Switch>
-                        {this.createRoutes(this.flatWrapper(dashboardRoutes))}
+                        {this.createRoutes(dashboardRoutes)}
                     </Switch>
                 </Row>
 

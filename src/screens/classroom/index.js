@@ -4,3 +4,5 @@ export * from './classroomPanel';
 export * from './classroomCreate';
 export * from './assignmentCreate';
 export * from './assignmentPanel';
+
+export * from './classroomLayout';

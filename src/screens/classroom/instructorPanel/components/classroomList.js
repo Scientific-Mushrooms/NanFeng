@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
-import { Row, Col, Card} from 'antd';
+import { Row, Col, Card,Menu,Divider} from 'antd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { BaseComponent } from '../../../../components/BaseComponent';
 import {Avatar} from '../../../../components'
 import { Button } from '@material-ui/core';
+import {Layout} from "antd/lib/index";
+const { SubMenu } = Menu;
+const { Header, Content, Footer, Sider } = Layout;
 
 class ClassroomList extends BaseComponent {
 
@@ -67,19 +70,14 @@ class ClassroomList extends BaseComponent {
         }
 
         return (
-           
-            <Col span={4}>
+            <Row style={{height:'60px',backgroundColor:'#eff5f6'}} type='flex' justify='center'>
                 <Button  style={styles.test} onClick={goToClassroom(classroom.classroomId)}>
-                    <Card style={styles.cardContainer} bordered={false}>
-                     
-                        <Avatar shape="square" size={100} src={this.getImagePath(classroom.avatarId)} />
+                    <div>
                         <Row style={styles.classroomTitle}>{classroom.name}</Row>
                         <Row style={styles.text}>{classroom.code}</Row>
-                        <Row style={styles.text}>{classroom.currentStudentNum}/{classroom.currentStudentNum}</Row>
-                    
-                    </Card>
+                    </div>
                 </Button>
-            </Col>
+            </Row>
         )
     }
 
@@ -94,23 +92,22 @@ class ClassroomList extends BaseComponent {
 
 const styles = {
 
-    cardContainer: {
-        borderRadius: '5px',
-    },
-
     text: {
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize:'12px',
+        fontWeight:'400',
     },
 
     classroomTitle: {
         textAlign: 'center',
-        fontSize: '20px'
+        fontSize: '14px',
+        fontWeight:'500',
     },
 
     test: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'transparent'
+        width: '95%',
+        height:'95%',
+        backgroundColor:'#fff'
     }
 }
 
