@@ -19,7 +19,7 @@ export class FormSelector extends Component {
         const { options, label, name, required } = this.props;
 
         return (
-            <FormItem label={label} labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
+            <FormItem label={label} labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
                 {getFieldDecorator(name, {
                     rules: [{ required: required, message: 'Please select your ' + name + '!' }],
                 })(

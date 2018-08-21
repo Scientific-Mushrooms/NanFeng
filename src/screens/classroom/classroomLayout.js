@@ -82,9 +82,6 @@ export class ClassroomLayout extends BaseComponent {
                                 <Menu.Item onClick={() => { this.props.history.push('/classroom/classroomCreate') }}>
                                     <Icon type="plus" />新建课堂
                                 </Menu.Item>
-                                <Menu.Item onClick={() => { this.props.history.push('/classroom/classroomDelete') }}>
-                                    <Icon type="minus" />删除课堂
-                                </Menu.Item>
                                 <SubMenu key="sub1" title={<span><Icon type="switcher" />课堂列表</span>}>
                                     {this.state.classrooms.map(this.renderCard)}
                                 </SubMenu>

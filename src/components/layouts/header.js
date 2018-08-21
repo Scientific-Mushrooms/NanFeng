@@ -270,10 +270,12 @@ class Header extends BaseComponent {
     }
 
     handleClick = (e) => {
-        if(e.key!='/classroom'){ 
+        if(e.key!='/classroom'){
+            console.log(this.state.current);
             this.setState({
                 current:e.key
             })
+            console.log(this.state.current);
             if(e.key.indexOf('school')!=-1)  { 
                 this.props.history.push('/school')//未写完所有页面，先修改跳转
             }

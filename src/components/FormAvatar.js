@@ -57,12 +57,12 @@ export class FormAvatar extends Component {
         const uploadButton = (
             <div>
                 <Icon type={this.state.loading ? 'loading' : 'plus'} />
-                <div className="ant-upload-text">Upload</div>
+                <div className="ant-upload-text">上传</div>
             </div>
         );
 
         return (
-            <FormItem {...formItemLayout} label="Upload">
+            <FormItem {...formItemLayout} label="上传头像">
                 {getFieldDecorator('avatar', {
                     valuePropName: 'file',
                     getValueFromEvent: this.normFile,

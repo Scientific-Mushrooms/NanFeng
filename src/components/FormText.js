@@ -14,7 +14,7 @@ export class FormText extends Component {
             },
             wrapperCol: {
                 xs: { span: 24 },
-                sm: { span: 18 },
+                sm: { span: 14 },
             },
         };
 
