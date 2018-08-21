@@ -60,11 +60,6 @@ const styles = {
         fontSize: '20px'
     },
 
-    test: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'transparent'
-    }
 }
 
 

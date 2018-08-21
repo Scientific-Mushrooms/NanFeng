@@ -97,6 +97,7 @@ export class ClassroomPanel extends BaseComponent {
                             <Icon type="minus" />删除此课堂
                         </Button>
                     </Row>
+                    <br></br>
                 </Col>
             </Row>
         );

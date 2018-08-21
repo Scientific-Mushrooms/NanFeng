@@ -1,9 +1,7 @@
 import React from 'react';
-import {Row, Col, Card, AutoComplete, Button} from 'antd'
+import {Row, Col, Card, AutoComplete, Button,Divider,Icon} from 'antd'
 import { BaseComponent } from '../../../../components/BaseComponent';
 const Option = AutoComplete.Option;
-
-
 
 class AddStudent extends BaseComponent {
 
@@ -65,14 +63,16 @@ class AddStudent extends BaseComponent {
     render() {
 
         return (
+            <div>
             <Row>
                 <AutoComplete 
                     optionLabelProp="realName"
                     dataSource={this.state.realNameDataSource.map(this.renderRealNameDataSource)} 
                     onChange={this.realNameOnChange}
                     />
-                <Button type='default' onClick={this.onClickAdd}>Add</Button>
+                <Button type='default' onClick={this.onClickAdd}><Icon type='plus'/></Button>
             </Row>
+            </div>
         );
     }
 }

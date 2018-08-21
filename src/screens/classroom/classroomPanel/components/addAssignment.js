@@ -22,15 +22,20 @@ class AddAssignment extends BaseComponent {
 
         return (
             <div>
+                <Divider orientation="left">
+                    <Row style={{fontSize:'18px'}}>
+                        课堂作业
+                    </Row>
+                </Divider>
             <Row>
                 <Col span={4}>
-                <Button type='primary' onClick={this.onClickCreate}><Icon type="plus" />New Assignment</Button>
+                <Button type='primary' onClick={this.onClickCreate}><Icon type="plus" />新作业</Button>
                 </Col>
                 <Col span={18} offset={2}>
-                    <Col span={6}>Name</Col>
-                    <Col span={6}>Type</Col>
-                    <Col span={6}>Status</Col>
-                    <Col span={6}>Deadline</Col>
+                    <Col span={6}>作业标题</Col>
+                    <Col span={6}>作业类型</Col>
+                    <Col span={6}>状态</Col>
+                    <Col span={6}>截止日期</Col>
                 </Col>
             </Row>
             <Divider/>
