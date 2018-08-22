@@ -1,7 +1,8 @@
 import React from 'react';
-import { Row, Col, Input, Button, Icon, Form, Upload, Avatar,AutoComplete,Divider} from 'antd';
+import { Row, Col, Input, Button, Icon, Form, Upload,AutoComplete,Divider,Card} from 'antd';
 import { BaseComponent } from '../../components/BaseComponent';
 import {FormButton, FormText, FormAvatar, FormSelector} from '../../components';
+import {Avatar} from '../../components'
 const Option = AutoComplete.Option;
 
 export class ClassroomCreate extends BaseComponent {
@@ -12,7 +13,12 @@ export class ClassroomCreate extends BaseComponent {
             loading: false,
             avatarUrl: null,
             selectedStudentId: null,
+            selectedStudentName: null,
             realNameDataSource: [],
+            studentIds:[],
+            studentNames:[],
+            studentsList:[],
+            selectedStudent:null,
         };
     }
 
@@ -35,8 +41,11 @@ export class ClassroomCreate extends BaseComponent {
     }
 
     renderRealNameDataSource = (student, index) => {
+
+        console.log(student)
         return (
-            <Option key={student.studentId} realName={student.realName} onClick={() => {this.setState({selectedStudentId: student.studentId})}}>
+            <Option key={student.studentId} realName={student.realName}
+                    onClick={() => {this.setState({selectedStudentId: student.studentId,selectedStudent:student});}}>
                 <a target="_blank" rel="noopener noreferrer">
                     {student.realName}
                 </a>
@@ -68,13 +77,41 @@ export class ClassroomCreate extends BaseComponent {
         });
     }
 
+    onClickAdd = () => {
+        {/*var studentIds=this.state.studentIds;
+        var studentNames=this.state.studentNames;
+
+        this.setState({studentIds:studentIds.concat(this.state.selectedStudentId)});
+        this.setState({studentNames:studentNames.concat(this.state.selectedStudentName)});*/}
+
+        console.log('qwq')
+        console.log(this.state.studentsList);
+        console.log(this.state.selectedStudent);
+
+        var studentsList=this.state.studentsList;
+        this.setState({studentsList:studentsList.concat(this.state.selectedStudent)});
+        console.log(this.state.studentsList);
+    }
+
+    renderStudent = (student) => {
+        return (
+            <Col span={4}>
+                <Row type='flex' justify='center'>
+                    <Avatar shape='round' size={80} src={this.studentIdToImage(student.studentId)} />
+                </Row>
+                <Row type='flex' justify='center'>
+                    {student.realName}
+                </Row>
+            </Col>
+        )
+    }
+
     render() {
 
         return (
 
             <Row type='flex' justify='center'>
-                <Col>
-
+                <Col span={24}>
                     <Divider orientation="left"><Row style={styles.title}>新建课堂</Row></Divider>
 
                     <Form onSubmit={this.handleSubmit}>
@@ -85,39 +122,42 @@ export class ClassroomCreate extends BaseComponent {
 
                         {/* <FormText form={this.props.form} label='E-mail' name='email' type='email' required={true}/> */}
 
+                        <br></br>
                         <Row>
-
-                            <Col span={12}>
-                                <br></br>
-                            <Row>
-                                <Col offset={5}>
-                                <AutoComplete
-                            optionLabelProp="realName"
-                            dataSource={this.state.realNameDataSource.map(this.renderRealNameDataSource)}
-                            onChange={this.realNameOnChange}
-                            style={{width:310}}
-                            placeholder="添加学生"/>
-                                <Button type='default'><Icon type='plus'/></Button>
-                                </Col>
-                            </Row>
-                                <br></br>
-                                <Row>
-                                    <Col offset={2}>
-                                <FormSelector form={this.props.form} options={[1, 2, 3]} label='时间' name='time'/>
-                                    </Col>
-                                </Row>
+                            <Col span={16} offset={2}>
+                                <Card>
+                                    <Row>
+                                        <AutoComplete
+                                            optionLabelProp="realName"
+                                            dataSource={this.state.realNameDataSource.map(this.renderRealNameDataSource)}
+                                            onChange={this.realNameOnChange}
+                                            style={{width:310}}
+                                            placeholder="添加学生"/>
+                                        <Button type='default' onClick={this.onClickAdd}><Icon type='plus'/></Button>
+                                    </Row>
+                                    <Row>
+                                        {this.state.studentsList.map(this.renderStudent)}
+                                    </Row>
+                                </Card>
                             </Col>
-
-                            <Col span={6}>
-                                <FormAvatar form={this.props.form}/>
-                            </Col>
-
                         </Row>
+                        <br></br>
+                        <br></br>
+
+                        <Row>
+                            <Col span={13}>
+                        <FormSelector form={this.props.form} options={[1, 2, 3]} label='时间' name='time'/>
+                            </Col>
+                            <Col span={6}>
+                        <FormAvatar form={this.props.form}/>
+                            </Col>
+                        </Row>
+
 
                         <br></br>
                         <Row>
                             <Col offset={9}>
-                        <FormButton form={this.props.form} label="确认" />
+                                <FormButton form={this.props.form} label="确认" />
                             </Col>
                         </Row>
                     </Form>
