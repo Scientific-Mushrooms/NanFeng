@@ -22,18 +22,21 @@ const data1thumb = [
 ];
 const data = [
     {id:0,poster:"匿名用户",time:"今天 13:20",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:data1thumb,reviewlist:data1review},
-    {id:1,poster:"匿名用户",time:"今天 13:20",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
-    {id:2,poster:"匿名用户",time:"今天 13:20",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
-    {id:3,poster:"匿名用户",time:"今天 13:20",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
-    {id:4,poster:"匿名用户",time:"今天 13:20",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
-    {id:5,poster:"匿名用户",time:"今天 13:20",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
-    {id:6,poster:"匿名用户",time:"今天 13:20",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
-    {id:7,poster:"匿名用户",time:"今天 13:20",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:1,poster:"匿名用户",time:"今天 13:21",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:2,poster:"匿名用户",time:"今天 13:22",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:3,poster:"匿名用户",time:"今天 13:23",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:0,poster:"匿名用户",time:"今天 13:30",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:1,poster:"匿名用户",time:"今天 13:31",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:2,poster:"匿名用户",time:"今天 13:32",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:data1thumb,reviewlist:data1review},
+    {id:3,poster:"匿名用户",time:"今天 13:33",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:0,poster:"匿名用户",time:"今天 13:40",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:data1thumb,reviewlist:data1review},
+    {id:1,poster:"匿名用户",time:"今天 13:41",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:2,poster:"匿名用户",time:"今天 13:42",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:3,poster:"匿名用户",time:"今天 13:43",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:data1thumb,reviewlist:data1review},
 ];
-
-
-//我不知道一开始是谁做这个的但这个任务中途交到我手上那我就要打爆那个人的头——Chirachiino
-
+const data1 = [];
+const data2 = [];
+const data3 = [];
 
 export class ListItem extends Component {
     constructor(props) {
@@ -41,12 +44,11 @@ export class ListItem extends Component {
         this.state = {
           layout: 'grid',
           horizonData:[],
-          gridData:data,
+          gridData:data1,
           refreshing: false,
         }
     }
 /*
-    //这几段网络请求一点注释都没有，谁知道在做什么？真以为每个程序员都是全栈吗，那我还是立即去世比较好
     
     componentWillMount() {
     //防止卡死的多次请求，故性能可能会有点差
@@ -105,7 +107,7 @@ export class ListItem extends Component {
             gridData: json,
           });
           let rowData =this.state.gridData
-          startFetch(rowData, pageLimit);   //谁知道这在做什么？？
+          startFetch(rowData, pageLimit);  
         })
         .catch((error) => {
           if (error) {
@@ -115,12 +117,13 @@ export class ListItem extends Component {
       });
     };*/
 
-    Item(id){
+    Item(id,datatype){
+        this.state.gridData=datatype;
         return(
             <Paper elevation={24} style={styles.paper}>
                 <Grid direction='row' style={{margin:10}} alignItems='center' container>
                     <Grid>
-                        <Typography style={{fontSize:20}}>{this.state.gridData[id].poster}</Typography>
+                        <Typography style={{marginTop:5,fontSize:20}}>{this.state.gridData[id].poster}</Typography>
                         <Typography style={{fontSize:15,color:'#AAAAAA'}}>{this.state.gridData[id].time}</Typography>
                     </Grid>
                 </Grid>
@@ -159,15 +162,38 @@ export class ListItem extends Component {
 
     render() {
         return (
-            <List
-                grid={{ gutter: 8, column: 3 }}
-                dataSource={data}
-                renderItem={item => (
-                    <List.Item>
-                        {this.Item(item.id)}
-                    </List.Item>
-                )}
-            />
+            <Grid direction='row' container>
+                <List
+                    style={{width:'30%'}}
+                    grid={{ column: 1 }}
+                    dataSource={data1}
+                    renderItem={item => (
+                        <List.Item>
+                            {this.Item(item.id,data1)}
+                        </List.Item>
+                    )}
+                />
+                <List
+                    style={{width:'30%'}}
+                    grid={{ column: 1 }}
+                    dataSource={data2}
+                    renderItem={item => (
+                        <List.Item>
+                            {this.Item(item.id,data2)}
+                        </List.Item>
+                    )}
+                />
+                <List
+                    style={{width:'30%'}}
+                    grid={{ column: 1 }}
+                    dataSource={data3}
+                    renderItem={item => (
+                        <List.Item>
+                            {this.Item(item.id,data3)}
+                        </List.Item>
+                    )}
+                />
+            </Grid>
         );
     }
 }
@@ -176,7 +202,7 @@ export class ListItem extends Component {
 const styles = {
     paper:{
         margin:10,
-        width:'80%',
+        width:'90%',
         borderRadius:15,
         backgroundColor: '#FFFFFF',
       },
@@ -192,7 +218,6 @@ const styles = {
         color:"#000000",
         fontSize:15,
       },
-    //注意到了吗！这种反人类的缩进方法，原本还有很多！
 };
 
 /*
