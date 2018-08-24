@@ -29,7 +29,7 @@ export class CourseSearch extends BaseComponent {
             totalPages: 0,
             name: "",
             dataSource: [],
-            page:0,
+            page:1,
             size:10,
 
         };
@@ -107,7 +107,7 @@ export class CourseSearch extends BaseComponent {
         form.append('campus', this.state.campus);
         form.append('faculty', this.state.faculty);
         form.append('type', this.state.type);
-        form.append('page', this.state.page);
+        form.append('page', this.state.page-1);
         form.append('size', this.state.size);
         var successAction = (result) => {
             console.log(result)
@@ -266,6 +266,7 @@ export class CourseSearch extends BaseComponent {
 
         this.setState({
             page: page,
+            loading:true,
         });
 
         console.log(this.state.page);
