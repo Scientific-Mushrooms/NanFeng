@@ -26,7 +26,7 @@ export class CourseSearch extends BaseComponent {
             campus:"",
             loading: true,
             courses: [],
-            totalCourses:[],
+            totalPages: 0,
             name: "",
             dataSource: [],
             page:0,
@@ -43,9 +43,7 @@ export class CourseSearch extends BaseComponent {
         form.append('faculty', this.state.faculty);
         form.append('type', this.state.type);
         var successAction = (result) => {
-            console.log(result)
-            this.setState({ totalCourses: result.detail.content, loading: false })
-            console.log(this.state.totalCourses)
+            this.setState({ totalPages: result.detail.totalPages, loading: false })
         }
 
         this.newPost('/api/course/search', form, successAction);
@@ -262,12 +260,12 @@ export class CourseSearch extends BaseComponent {
         )
     }
 
-    onChange = (changepage) => {
-        console.log(changepage);
-        changepage=changepage-1;
-        console.log(changepage);
+    onChange = (page) => {
+        console.log("this. is change page")
+        console.log(page);
+
         this.setState({
-            page: changepage,
+            page: page,
         });
 
         console.log(this.state.page);
@@ -277,7 +275,7 @@ export class CourseSearch extends BaseComponent {
         form.append('campus', this.state.campus);
         form.append('faculty', this.state.faculty);
         form.append('type', this.state.type);
-        form.append('page', this.state.page);
+        form.append('page', page - 1);
         form.append('size', this.state.size);
         var successAction = (result) => {
             console.log(result)
@@ -308,7 +306,7 @@ export class CourseSearch extends BaseComponent {
                                 {this.renderSearchBar()}
                                 {this.state.courses.map(this.renderCourses)}
                             </div>
-                            <Pagination current={this.state.page+1} onChange={this.onChange} pageSize={this.state.size} total={this.state.totalCourses.length} />
+                            <Pagination current={this.state.page} onChange={this.onChange} pageSize={this.state.size} total={this.state.totalPages} />
                         </Content>
                     </Layout>
                 </Col>
