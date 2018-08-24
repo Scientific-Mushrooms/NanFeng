@@ -2,7 +2,7 @@ import React from "react";
 import "antd/dist/antd.css";
 import { BaseComponent } from '../../components/BaseComponent';
 import { Grid, CircularProgress,Typography } from '@material-ui/core';
-import {Anchor, AutoComplete, Row, Col, Card, Select, Button, Layout, Menu, Breadcrumb, Icon} from 'antd';
+import {Table,Anchor, AutoComplete, Row, Col, Card, Select, Button, Layout, Menu,Pagination, Icon} from 'antd';
 
 const lite=['全部','文学院', '历史学院', '法学院', '哲学系', '新闻传播学院', '政府管理学院', '信息管理学院', '社会学院', '商学院','外国语学院', '海外教育学院', '马克思主义学院', '大学外语教学部','*社会科学试验班', '*文科试验班（人文艺术传播类）'
 ]
@@ -26,12 +26,30 @@ export class CourseSearch extends BaseComponent {
             campus:"",
             loading: true,
             courses: [],
+            totalCourses:[],
             name: "",
             dataSource: [],
+            page:0,
+            size:10,
+
         };
     }
 
     componentWillMount = () => {
+
+        let form = new FormData();
+        form.append('name', this.state.name);
+        form.append('campus', this.state.campus);
+        form.append('faculty', this.state.faculty);
+        form.append('type', this.state.type);
+        var successAction = (result) => {
+            console.log(result)
+            this.setState({ totalCourses: result.detail.content, loading: false })
+            console.log(this.state.totalCourses)
+        }
+
+        this.newPost('/api/course/search', form, successAction);
+
         this.search()
     }
 
@@ -86,16 +104,18 @@ export class CourseSearch extends BaseComponent {
     }
 
     search = () => {
-
         let form = new FormData();
         form.append('name', this.state.name);
         form.append('campus', this.state.campus);
         form.append('faculty', this.state.faculty);
         form.append('type', this.state.type);
+        form.append('page', this.state.page);
+        form.append('size', this.state.size);
         var successAction = (result) => {
             console.log(result)
-            this.setState({ courses: result.detail, loading: false })
+            this.setState({ courses: result.detail.content, loading: false })
             this.pushNotification("success", "successfully fetch courses! ");
+            console.log(this.state.courses)
         }
 
         this.newPost('/api/course/search', form, successAction);
@@ -206,7 +226,6 @@ export class CourseSearch extends BaseComponent {
         )
     }
 
- 
     renderSearchBar = () => {
 
         const Option = Select.Option;
@@ -243,6 +262,31 @@ export class CourseSearch extends BaseComponent {
         )
     }
 
+    onChange = (changepage) => {
+        console.log(changepage);
+        changepage=changepage-1;
+        console.log(changepage);
+        this.setState({
+            page: changepage,
+        });
+
+        console.log(this.state.page);
+
+        let form = new FormData();
+        form.append('name', this.state.name);
+        form.append('campus', this.state.campus);
+        form.append('faculty', this.state.faculty);
+        form.append('type', this.state.type);
+        form.append('page', this.state.page);
+        form.append('size', this.state.size);
+        var successAction = (result) => {
+            console.log(result)
+            this.setState({ courses: result.detail.content, loading: false })
+            this.pushNotification("success", "successfully fetch courses! ");
+        }
+
+        this.newPost('/api/course/search', form, successAction);
+    }
 
     render() {
 
@@ -253,7 +297,7 @@ export class CourseSearch extends BaseComponent {
                 </center>
             )
         }
-
+        console.log(this.state.page)
         return (
             <Row justify='center' type='flex'>
                 <Col span={22}>
@@ -264,6 +308,7 @@ export class CourseSearch extends BaseComponent {
                                 {this.renderSearchBar()}
                                 {this.state.courses.map(this.renderCourses)}
                             </div>
+                            <Pagination current={this.state.page+1} onChange={this.onChange} pageSize={this.state.size} total={this.state.totalCourses.length} />
                         </Content>
                     </Layout>
                 </Col>
