@@ -127,13 +127,35 @@ export class CourseSearch extends BaseComponent {
         }
     } 
 
+    handleFaculty(course){
+        if(course.faculty==""&&(course.type=="公选"||course.type=="就业"))
+            return "公选、就业课暂无院系信息"
+        else
+            return course.faculty
+    }
+
+        
     renderIcon(str){
         if(engi.indexOf(str)!=-1)
-            return  <img style={styles.img} src={require('./src/engi.png')} alt='Engineering'/>
+            return  <img 
+            src={require('./src/engi.png')} 
+            alt='Engineering' 
+            style={styles.img}/>
         else if (lite.indexOf(str)!=-1)
-            return <img style={styles.img} src={require('./src/lite.png')} alt='Literature'/>
+            return <img  
+            src={require('./src/lite.png')} 
+            alt='Literature' 
+            style={styles.img}/>
+        else if(str=="")
+            return <img 
+            src={require('./src/public.png')}
+            alt="Public"
+            style={styles.img}/>
         else 
-            return <img style={styles.img} src={require('./src/sci.png')} alt='Science'/>
+            return <img 
+            src={require('./src/sci.png')} 
+            alt='Science' 
+            style={styles.img}/>
     }
 
     renderSider=()=>{
@@ -205,7 +227,7 @@ export class CourseSearch extends BaseComponent {
                         <Row>开课院系</Row>
                         <Row>
                             <Typography variant='body2'>
-                                {course.faculty}
+                                {this.handleFaculty(course)}
                             </Typography>
                         </Row>
                     </Col>

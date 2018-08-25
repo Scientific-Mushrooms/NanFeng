@@ -8,7 +8,10 @@ import {
 import _ from 'lodash';
 import { Card } from 'antd';
 
-
+const lite=['全部','文学院', '历史学院', '法学院', '哲学系', '新闻传播学院', '政府管理学院', '信息管理学院', '社会学院', '商学院','外国语学院', '海外教育学院', '马克思主义学院', '大学外语教学部','*社会科学试验班', '*文科试验班（人文艺术传播类）'
+]
+const engi=['全部','现代工程与应用科学学院','电子科学与工程学院','工程管理学院','软件学院','*工科试验班'
+]
 export default class CourseCard extends BaseComponent {
 
     constructor(props) {
@@ -51,6 +54,30 @@ export default class CourseCard extends BaseComponent {
         )
     }
 
+    
+    renderIcon(str){
+        if(engi.indexOf(str)!=-1)
+            return  <img 
+            src={require('../src/engi.png')} 
+            alt='Engineering' 
+            style={styles.courseAvatar}/>
+        else if (lite.indexOf(str)!=-1)
+            return <img  
+            src={require('../src/lite.png')} 
+            alt='Literature' 
+            style={styles.courseAvatar}/>
+        else if(str=="")
+            return <img 
+            src={require('../src/public.png')}
+            alt="Public"
+            style={styles.courseAvatar}/>
+        else 
+            return <img 
+            src={require('../src/sci.png')} 
+            alt='Science' 
+            style={styles.courseAvatar}/>
+    }
+
     renderRating = (title, total, positive) => {
 
         var num = (positive / total).toFixed(2) * 100;
@@ -79,7 +106,13 @@ export default class CourseCard extends BaseComponent {
             </Grid>
         )
     }
-
+    
+    handleFaculty(course){
+        if(course.faculty==""&&(course.type=="公选"||course.type=="就业"))
+            return "公选、就业课暂无院系信息"
+        else
+            return course.faculty
+    }
 
     render() {
 
@@ -94,7 +127,7 @@ export default class CourseCard extends BaseComponent {
                         <Grid xs={11} container>
                             <Grid xs={12} style={styles.padding}/>
                             <Grid xs={12} style={styles.courseAvatarContainer} container>
-                                <img src={this.getImagePath(avatarId)} style={styles.courseAvatar} />
+                                {this.renderIcon(faculty)}
                             </Grid>
                             <Grid xs={12} style={styles.titleContainer} container>
                                 <Typography style={styles.title}>{name}</Typography>
@@ -111,7 +144,7 @@ export default class CourseCard extends BaseComponent {
                         {this.renderCourseItem("编号:", code)}
                         {this.renderCourseItem("类型:", type)}
                         {this.renderCourseItem("学分:", credit)}
-                        {this.renderCourseItem("授课院系:", faculty)}
+                        {this.renderCourseItem("授课院系:", this.handleFaculty(this.props.course))}
                         <Grid xs={12} style={styles.padding} /> 
                     </Grid>
 
