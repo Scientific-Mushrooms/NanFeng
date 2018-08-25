@@ -26,18 +26,6 @@ export class SignUp extends BaseComponent {
             repassword:'',
         };
     }
-
-	onMouseEnter(){
-        this.setState({
-            hover: true,
-        });
-    }
-
-    onMouseLeave(){
-        this.setState({
-            hover: false,
-        })
-    }
 	
     goBack = () => {
         this.props.history.goBack();
@@ -53,32 +41,25 @@ export class SignUp extends BaseComponent {
         });
     };
 
-    signUp = () =>{
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (values.email === '' ) {
+                this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
+                return
+            } else if(values.password === ''){
+                this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
+                return
+            }else if (values.password !== values.repassword) {
+                this.pushNotification("danger","Wrong Repassword",this.props.dispatch);
+                return
+            } else {
+                
+                let form = new FormData();
+                form.append('email', values.email);
+                form.append('password', values.password);
 
-        if (this.state.email === '' ) {
-            this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
-
-        } else if(this.state.password === ''){
-            this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
-
-        }else if (this.state.password !== this.state.repassword) {
-            this.pushNotification("danger","Wrong Repassword",this.props.dispatch);
-
-        } else {
-            let form = new FormData();
-            form.append("email", this.state.email);
-            form.append("password", this.state.password);
-
-            this.post('/api/user/create', form).then((result) => {
-
-                if (!result) {
-                    this.pushNotification("danger","Connection To Server Failed",this.props.dispatch);
-
-                } else if (result.status === 'fail') {
-                        this.pushNotification("danger",result.description,this.props.dispatch);
-
-                } else if (result.status === 'success') {
-
+                var successAction = (result) => {
                     if (result.detail !== null) {
                         sessionStorage.setItem('userId', result.detail.userId);
                     }
@@ -88,17 +69,16 @@ export class SignUp extends BaseComponent {
                     if (result.extra !== null) {
                         sessionStorage.setItem("studentId", result.extra.studentId);
                     }
-
-                    this.props.dispatch(login(result.detail, result.more, result.extra));
-                    this.props.history.push('home')
-                    this.pushNotification("normal","Regist Succeeded",this.props.dispatch);
-                    
-                } else {
-                    this.pushNotification("danger", result.status, this.props.dispatch);
-                }
                 
-            })
-        }
+                    this.props.dispatch(login(result.detail, result.more, result.extra));
+
+                    this.goBack()
+                    this.pushNotification("success", "Regist Succeeded");
+                }
+
+                this.newPost('/api/user/create', form, successAction);
+            }    
+        })
     }
 
     render(){
@@ -119,7 +99,7 @@ export class SignUp extends BaseComponent {
                                               label='密码' name='password' required={true} icon="lock"
                                               inputType="password"/>
                                     <FormText form={this.props.form}
-                                              label='确认' name='passwordVerify' required={true} icon="lock"
+                                              label='确认' name='repassword' required={true} icon="lock"
                                               inputType="password"/>
                                     <Row type='flex' justify='center'>
                                         <Col>

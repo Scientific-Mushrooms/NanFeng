@@ -69,7 +69,7 @@ export class SignIn extends BaseComponent {
                 
                 this.props.dispatch(login(result.detail, result.more, result.extra));
 
-                this.props.history.push("/home");
+                this.goBack()
                 this.pushNotification("success", "successfully log in! ");
             }
 
