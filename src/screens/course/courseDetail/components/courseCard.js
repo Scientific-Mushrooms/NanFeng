@@ -99,7 +99,9 @@ export default class CourseCard extends BaseComponent {
                             <Grid xs={12} style={styles.titleContainer} container>
                                 <Typography style={styles.title}>{name}</Typography>
                             </Grid>
-                            {this.renderRating("推荐", totalCommentNum * 100, usefulNum * 100)}
+                            {this.renderRating("实用度", totalCommentNum * 100, usefulNum * 100)}
+                            {this.renderRating("难易度", totalCommentNum * 100, usefulNum * 100)}
+                            {this.renderRating("推荐度", totalCommentNum * 100, usefulNum * 100)}
                             <Grid xs={12} style={styles.padding} />
                         </Grid>
                     </Grid>
