@@ -278,6 +278,8 @@ class Header extends BaseComponent {
             console.log(this.state.current);
             if(e.key.indexOf('school')!=-1)  { 
                 this.props.history.push('/school')//未写完所有页面，先修改跳转
+            }else if(e.key.indexOf('confess')!=-1)  { 
+                this.props.history.push('/confess')//未写完所有页面，先修改跳转
             }
             else{
                 this.props.history.push(e.key+'')

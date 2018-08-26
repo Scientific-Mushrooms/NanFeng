@@ -5,6 +5,13 @@ const { TextArea } = Input;
 
 export class FormText extends Component {
 
+    renderInput(){
+        if(this.props.width)
+            return <Input style={{width:this.props.width}} type={this.props.inputType} rows={this.props.rows} prefix={<Icon type={this.props.icon} />} />
+        else 
+            return <Input style={{width:'349px'}} type={this.props.inputType} rows={this.props.rows} prefix={<Icon type={this.props.icon} />} />
+    }
+
     render() {
 
         const formItemLayout = {
