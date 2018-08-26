@@ -21,7 +21,9 @@ class CourseComments extends BaseComponent {
 
             courseId: this.props.courseId,
             userId: this.props.user === null ? null : this.props.user.userId,
-            useful: true,
+            useful: false,
+            easy:false,
+            enjoy:false,
             comment: null,
             
             commentAuthors: null,
@@ -139,28 +141,16 @@ class CourseComments extends BaseComponent {
 
     renderCreateComment = () => {
 
-        var onClickEasyYes = () => {
-            this.setState({ easy: true })
+        var onClickEasy = () => {
+            this.setState({ easy: !this.state.easy })
         }
 
-        var onClickEasyNo = () => {
-            this.setState({ easy: false })
+        var onClickEnjoy = () => {
+            this.setState({ enjoy: !this.state.enjoy })
         }
 
-        var onClickEnjoyYes = () => {
-            this.setState({ enjoy: true })
-        }
-
-        var onClickEnjoyNo = () => {
-            this.setState({ enjoy: false })
-        }
-
-        var onClickUsefulYes = () => {
-            this.setState({ useful: true })
-        }
-
-        var onClickUsefulNo = () => {
-            this.setState({ useful: false })
+        var onClickUseful = () => {
+            this.setState({ useful: !this.state.useful })
         }
 
         var {enjoy, useful, easy} = this.state;
@@ -173,9 +163,10 @@ class CourseComments extends BaseComponent {
                 </Grid>
 
                 <Grid xs={12} container>
-                    <Grid xs={3} style={{marginLeft:20}} container>
-                        <Button onClick={onClickUsefulYes} style={useful ? styles.leftButton : styles.defaultButton}><Icon type="like-o" style={{marginRight:5}}/>推荐</Button>
-                        <Button onClick={onClickUsefulNo} style={useful ? styles.defaultButton : styles.rightButton}><Icon type="dislike-o" style={{marginRight:5}}/>不推荐</Button>
+                    <Grid xs={4} direction='row' style={{marginLeft:20}} container>
+                        <Button variant="outlined" onClick={onClickUseful} style={useful ? styles.leftButton : styles.defaultButton}>课程内容实用</Button>
+                        <Button variant="outlined" onClick={onClickEasy} style={easy ? styles.leftButton : styles.defaultButton}>课程难度较低</Button>
+                        <Button variant="outlined" onClick={onClickEnjoy} style={enjoy ? styles.leftButton : styles.defaultButton}>推荐</Button>
                     </Grid>
                 </Grid>
 
@@ -272,17 +263,20 @@ const styles = {
 
     leftButton:{
         fontSize: '15px',
-        backgroundColor:'#0078d7',
-        color:'#FFF',
-        width:'10px',
+        borderColor:'#0078d7',
+        marginRight:'15px',
+        color:'#0078d7',
+        borderWidth:1,
     },
 
-    rightButton:{
+    defaultButton: {
+        marginRight:'15px',
         fontSize: '15px',
-        backgroundColor:'#fd9d9e',
-        color:'#FFF',
-        width:'100px',
+        borderColor:'#CCCCCC',
+        color:'#CCCCCC',
+        borderWidth:1,
     },
+
 
     submitButton:{
         backgroundColor:'#0078d7',
@@ -322,12 +316,6 @@ const styles = {
         color: '#666666',
         fontSize: '15px',
         textAlign: 'center',
-    },
-
-    defaultButton: {
-        color: '#666666',
-        fontSize: '10px',
-        width: '10px'
     },
 
     submitContainer: {
