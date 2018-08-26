@@ -33,7 +33,7 @@ export class FormText extends Component {
                         }
                     ]
                 })(
-                    <TextArea type={this.props.inputType} rows={this.props.rows} prefix={<Icon type={this.props.icon} />} />
+                    <Input style={{width:'349px'}} type={this.props.inputType} rows={this.props.rows} prefix={<Icon type={this.props.icon} />} />
                 )}
             </FormItem>
         );

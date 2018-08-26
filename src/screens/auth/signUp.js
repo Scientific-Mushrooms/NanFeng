@@ -93,14 +93,16 @@ export class SignUp extends BaseComponent {
                                 <div style={styles.welcome}>欢迎来到南风!</div>
                                 <div style={styles.welcome2}>加入我们</div>
                                 <Form onSubmit={this.handleSubmit} type='flex' justify='center'>
-                                    <FormText form={this.props.form}
+                                    <Row style={{marginLeft:40}}>
+                                        <FormText form={this.props.form}
                                               label='邮箱' name='email' required={true} icon="user"/>
-                                    <FormText form={this.props.form}
+                                        <FormText form={this.props.form}
                                               label='密码' name='password' required={true} icon="lock"
                                               inputType="password"/>
-                                    <FormText form={this.props.form}
+                                        <FormText form={this.props.form}
                                               label='确认' name='repassword' required={true} icon="lock"
                                               inputType="password"/>
+                                    </Row>
                                     <Row type='flex' justify='center'>
                                         <Col>
                                             <FormButton form={this.props.form} label="注册" style={styles.formButton}/>
@@ -163,14 +165,14 @@ const styles = {
     },
     welcome:{
         fontSize:25,
-        marginLeft: '35px',
+        marginLeft: '70px',
         marginRight: '10px',
         marginBottom: '3px',
     },
     welcome2:{
         fontSize:17,
         color:'#AAAAAA',
-        marginLeft: '35px',
+        marginLeft: '70px',
         marginRight: '10px',
     },
     button: {

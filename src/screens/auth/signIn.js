@@ -92,13 +92,14 @@ export class SignIn extends BaseComponent {
                                 <div style={styles.welcome}>欢迎使用南风!</div>
                                 <div style={styles.welcome2}>登录</div>
                                 <Form onSubmit={this.handleSubmit} type='flex' justify='center'>
+                                    <Row style={{marginLeft:40}} justify='center'>
+                                        <FormText form={this.props.form}
+                                            label='邮箱' name='email' required={true} icon="user"/>
 
-                                    <FormText form={this.props.form}
-                                              label='邮箱' name='email' required={true} icon="user"/>
-
-                                    <FormText form={this.props.form}
-                                              label='密码' name='password' required={true} icon="lock"
-                                              inputType="password"/>
+                                        <FormText form={this.props.form}
+                                            label='密码' name='password' required={true} icon="lock"
+                                            inputType="password"/>
+                                    </Row>
                                     <Row type='flex' justify='center'>
                                         <Col>
                                             <FormButton form={this.props.form} label="登录" style={styles.formButton}/>
@@ -107,7 +108,6 @@ export class SignIn extends BaseComponent {
                                             </Button>
                                         </Col>
                                     </Row>
-
                                 </Form>
                                 <Divider/>
                                 <Row type='flex' justify='center'>
@@ -164,14 +164,14 @@ const styles={
 
     welcome:{
         fontSize:25,
-        marginLeft: '37px',
+        marginLeft: '70px',
         marginRight: '10px',
         marginBottom: '3px',
     },
     welcome2:{
         fontSize:17,
         color:'#AAAAAA',
-        marginLeft: '37px',
+        marginLeft: '70px',
         marginRight: '10px',
         marginBottom: '10px',
     },
