@@ -33,7 +33,7 @@ export class CourseSearch extends BaseComponent {
             name: "",
             dataSource: [],
             page:1,
-            size:10,
+            size:20,
 
         };
     }
@@ -97,12 +97,14 @@ export class CourseSearch extends BaseComponent {
     }
 
     menuItem=(value,index)=>{
-        return (<Menu.Item key={value}>{value}</Menu.Item>)
+        if(value!="")
+            return (<Menu.Item key={value}>{value}</Menu.Item>)
     }
 
     typeSearch=(e)=>{
         if(e.key==="全部") {e.key="";}
-
+        this.state.page=1
+        this.state.type=e.key
         let form = new FormData();
         form.append('name', "");
         form.append('campus', this.state.campus);
@@ -122,7 +124,7 @@ export class CourseSearch extends BaseComponent {
     }
 
     creditSearch=(e)=>{
-
+        this.state.page=1
         let form = new FormData();
         form.append('name', "");
         form.append('campus', this.state.campus);
@@ -144,7 +146,8 @@ export class CourseSearch extends BaseComponent {
 
     collegeSearch=(e)=>{
         if(e.key==="全部") {e.key="";}
-
+        this.state.page=1
+        this.state.faculty=e.key
         let form = new FormData();
         form.append('name', "");
         form.append('campus', this.state.campus);
@@ -164,7 +167,8 @@ export class CourseSearch extends BaseComponent {
     }
 
     search = () => {
-        let form = new FormData();
+        let form = new FormData();    
+        this.state.page=1
         form.append('name', this.state.name);
         form.append('campus', this.state.campus);
         form.append('faculty', this.state.faculty);
@@ -231,11 +235,11 @@ export class CourseSearch extends BaseComponent {
                     <SubMenu key="sub1" onClick={this.typeSearch} title={<span><Icon type="bars"/>课程类型</span>}>
                         {typeData.map(this.menuItem)}
                     </SubMenu>
-                    <SubMenu key="sub2" onClick={this.collegeSearch} title={<span><Icon type="book" />开课院系</span>}>
-                        {collegeData.map(this.menuItem)}
-                    </SubMenu>
-                    <SubMenu key="sub3" onClick={this.creditSearch} title={<span><Icon type="bulb" />课程学分</span>}>
+                    <SubMenu key="sub2" onClick={this.creditSearch} title={<span><Icon type="bulb" />课程学分</span>}>
                         {credit.map(this.menuItem)}
+                    </SubMenu>
+                    <SubMenu key="sub3" onClick={this.collegeSearch} title={<span><Icon type="book" />开课院系</span>}>
+                        {collegeData.map(this.menuItem)}
                     </SubMenu>
                     <SubMenu key="sub4" title={<span><Icon type="heart" />课友推荐</span>}>
                         {recommendation.map(this.menuItem)}
