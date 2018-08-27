@@ -17,23 +17,20 @@ export class SchoolPanel extends Component {
 
     renderAnchor(){
         return(
-            <Anchor style={{backgroundColor:'rgba(0,0,0,0)'}} offsetTop={100}>
-                <Grid container>
-                    <Grid xs={2} style={{marginLeft:10}}/>
-                    <Grid xs={12} direction='column' container>
+            <Anchor style={{backgroundColor:'rgba(0,0,0,0)'}} offsetTop={150}>
                         <Paper elevation={10} style={{height:'100%',margin:15}}>
-                            <a onClick={()=>this.scrollToAnchor('study')}>
-                                <Button icon="form" style={{borderWidth:0,fontSize:25,marginTop:20,marginBottom:50}}>自习 研讨 组队</Button>
-                            </a>
-                            <a onClick={()=>this.scrollToAnchor('activity')}>
-                                <Button icon="calendar" style={{borderWidth:0,fontSize:25,marginBottom:50}}>最近的校园生活</Button>
-                            </a>
-                            <a onClick={()=>this.scrollToAnchor('share')}>
-                                <Button icon="camera-o" style={{borderWidth:0,fontSize:25,marginBottom:20}}>TA的校园见闻</Button>
-                            </a>
+                           <Grid xs={12} direction='column' container>
+                                <a onClick={()=>this.scrollToAnchor('study')}>
+                                    <Button icon="form" style={{...styles.listElement, marginTop:'1em'}}>自习 研讨 组队</Button>
+                                </a>
+                                <a onClick={()=>this.scrollToAnchor('activity')}>
+                                    <Button icon="calendar" style={{...styles.listElement, marginTop:'1em', marginBottom:'1em'}}>最近的校园生活</Button>
+                                </a>
+                                <a onClick={()=>this.scrollToAnchor('share')}>
+                                    <Button icon="camera-o" style={{...styles.listElement, marginBottom:'1em'}}>TA的校园见闻</Button>
+                                </a>
+                            </Grid>
                         </Paper>
-                    </Grid>
-                </Grid>
             </Anchor>
         );
     }
@@ -84,6 +81,12 @@ const styles={
     marginBottom:50,
     justifyContent:'space-around',
   },
+  listElement:{
+    borderWidth:0,
+    fontSize:25,
+     whiteSpace: 'normal',
+     height:"100%"
+  }
 };
 
 
