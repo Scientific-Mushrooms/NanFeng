@@ -57,21 +57,23 @@ class InstructorVerification extends BaseComponent {
         if (this.props.instructor === null) {
             return (
                 <Card>
-                    <Row type='flex' justify='center'>
-                        <Col xs={8}>
+                    <Typography style={{color:'#0078d7',fontSize:25}} variant='display2'>学工认证</Typography>
+                    <Divider/>
+                    <Row style={styles.container} type='flex' justify='center'>
+                        <Col xs={3}>
                             <Typography style={styles.typography}>您的姓名:</Typography>
                         </Col>
-                        <Col xs={16}>
-                            <FormControl type="text" value={this.state.realName} onChange={this.handleChange("realName")} />
+                        <Col xs={6}>
+                            <FormControl style={{width:'100%'}}  type="text" value={this.state.realName} onChange={this.handleChange("realName")} />
                         </Col>
                     </Row>
 
-                    <Row type='flex' justify='center'>
-                        <Col xs={8}>
+                    <Row style={styles.container} type='flex' justify='center'>
+                        <Col xs={3}>
                             <Typography style={styles.typography}>学工号:</Typography>
                         </Col>
-                        <Col xs={16}>
-                            <FormControl type="text" value={this.state.code} onChange={this.handleChange("code")} />
+                        <Col xs={6}>
+                            <FormControl style={{width:'100%'}} type="text" value={this.state.code} onChange={this.handleChange("code")} />
                         </Col>
                     </Row>
 
@@ -87,22 +89,22 @@ class InstructorVerification extends BaseComponent {
 
         if (this.state.update) {
             return (
-                <Card>
-                    <Row type='flex' justify='center'>
-                        <Col span={8}>
+                <Card style={styles.card}>
+                    <Row style={styles.container} type='flex' justify='center'>
+                        <Col span={3}>
                             <Typography style={styles.typography}>真实姓名:</Typography>
                         </Col>
-                        <Col span={16}>
-                            <FormControl type="text" value={this.state.realName} onChange={this.handleChange("realName")} />
+                        <Col span={6}>
+                            <FormControl style={{width:'100%'}} type="text" value={this.state.realName} onChange={this.handleChange("realName")} />
                         </Col>
                     </Row>
 
-                    <Row type='flex' justify='center'>
-                        <Col span={8}>
+                    <Row style={styles.container} type='flex' justify='center'>
+                        <Col span={3}>
                             <Typography style={styles.typography}>学工号:</Typography>
                         </Col>
-                        <Col xs={16}>
-                            <FormControl type="text" value={this.state.code} onChange={this.handleChange("code")} />
+                        <Col span={6}>
+                            <FormControl style={{width:'100%'}} type="text" value={this.state.code} onChange={this.handleChange("code")} />
                         </Col>
                     </Row>
 
@@ -118,7 +120,7 @@ class InstructorVerification extends BaseComponent {
         }
 
         return (
-            <Card>
+            <Card style={styles.card}>
                 <Row type='flex' justify='center'>
                     <Typography style={styles.name}>{this.props.instructor.realName}</Typography>
                 </Row>
@@ -147,25 +149,27 @@ class InstructorVerification extends BaseComponent {
 
 
 const styles = {
+    card:{
+        marginBottom:'20px',
+    },
 
     button: {
         marginTop:'20px',
         marginBottom:'10px',
         borderRadius: "5px",
         borderWidth:"1.2px",
-        borderColor:"#60CDEE",
-        width: "40%",
+        borderColor:'#0078d7',
+        width: "20%",
         height:'40px',
     },
 
     buttonText:{
         fontSize:'12px',
-        color:'#60CDEE'
+        color:'#0078d7'
     },
 
     container: {
-        marginTop:'10px',
-        marginBottom: '10px',
+        marginTop:'20px',
     },
 
     typography: {

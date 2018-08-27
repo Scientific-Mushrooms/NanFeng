@@ -19,7 +19,7 @@ class ChangeAvatar extends BaseComponent {
     render() {
         return (
             <Card style={styles.card}>
-                <Typography variant='display2'>修改头像</Typography>
+                <Typography style={{fontSize:25,color:'#0078d7'}} variant='display2'>修改头像</Typography>
                 <Divider/>
                 <div style={{height:'25px'}}></div>
                 <Row justify='center' type='flex'>
@@ -50,14 +50,14 @@ const styles = {
         marginBottom:'10px',
         borderRadius: "5px",
         borderWidth:"1.2px",
-        borderColor:"#60CDEE",
-        width: "40%",
+        borderColor:'#0078d7',
+        width: "20%",
         height:'40px',
     },
 
     buttonText:{
         fontSize:'12px',
-        color:'#60CDEE'
+        color:'#0078d7'
     },
 
     card:{
