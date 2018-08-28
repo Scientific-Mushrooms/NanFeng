@@ -26,7 +26,7 @@ class InstructorVerification extends BaseComponent {
 
         var successAction = (result) => {
             this.props.dispatch(set_instructor(result.detail));
-            this.pushNotification("success", "successfully create instructor! ");
+            this.pushNotification("success", "学工认证成功");
         }
 
         this.newPost('/api/instructor/create', form, successAction);
@@ -41,7 +41,7 @@ class InstructorVerification extends BaseComponent {
         var successAction = (result) => {
             this.props.dispatch(set_instructor(result.detail))
             this.setState({ update: false })
-            this.pushNotification("success", "successfully fetch instructor info", this.props.dispatch);
+            this.pushNotification("success", "成功获取学工信息", this.props.dispatch);
         }
 
         this.newPost('/api/instructor/updateByInstructorId', form, successAction);

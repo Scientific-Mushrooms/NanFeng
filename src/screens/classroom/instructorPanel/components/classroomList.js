@@ -41,7 +41,7 @@ class ClassroomList extends BaseComponent {
             console.log(result)
 
             if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
+                this.pushNotification("danger", "连接错误", this.props.dispatch);
                 return;
             }
 
@@ -53,7 +53,7 @@ class ClassroomList extends BaseComponent {
             if (result.status === 'success') {
 
                 this.setState({classrooms: result.detail});
-                this.pushNotification("success", "successfully fetch classrooms", this.props.dispatch);
+                this.pushNotification("success", "成功获取教室", this.props.dispatch);
 
             } else {
 

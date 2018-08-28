@@ -69,7 +69,7 @@ export class ClassroomCreate extends BaseComponent {
 
             var successAction = (result) => {
                 this.props.history.push("/classroom/classroomPanel/" + result.detail.classroomId);
-                this.pushNotification("success", "successfully create the classroom");
+                this.pushNotification("success", "教室创建成功");
             }
 
             this.newPost('/api/classroom/create', form, successAction);

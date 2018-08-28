@@ -26,7 +26,7 @@ class StudentVerification extends BaseComponent {
 
         var successAction = (result) => {
             this.setState({ student: result.detail })
-            this.pushNotification("success", "successfully create student", this.props.dispatch);
+            this.pushNotification("success", "学生认证成功", this.props.dispatch);
         }
 
         this.newPost('/api/student/create', form, successAction);
@@ -42,7 +42,7 @@ class StudentVerification extends BaseComponent {
         var successAction = (result) => {
             this.props.dispatch(set_student(result.detail))
             this.setState({ update: false })
-            this.pushNotification("success", "successfully update student", this.props.dispatch);
+            this.pushNotification("success", "成功更新显示信息", this.props.dispatch);
         }
 
         this.newPost('/api/student/updateByStudentId', form, successAction);

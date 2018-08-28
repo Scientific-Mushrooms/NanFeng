@@ -65,7 +65,7 @@ class PersonalInformation extends BaseComponent {
 
         var successAction = (result) => {
             this.props.dispatch(update(result.detail))
-            this.pushNotification("success", "successfully update info", this.props.dispatch);
+            this.pushNotification("success", "成功更新信息", this.props.dispatch);
         }
 
         this.newPost('/api/user/update', form, successAction);

@@ -45,13 +45,13 @@ export class SignUp extends BaseComponent {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (values.email === '' ) {
-                this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
+                this.pushNotification("danger","用户名不能为空",this.props.dispatch);
                 return
             } else if(values.password === ''){
-                this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
+                this.pushNotification("danger","密码不能为空",this.props.dispatch);
                 return
             }else if (values.password !== values.repassword) {
-                this.pushNotification("danger","Wrong Repassword",this.props.dispatch);
+                this.pushNotification("danger","两次密码输入不一致",this.props.dispatch);
                 return
             } else {
                 
@@ -73,7 +73,7 @@ export class SignUp extends BaseComponent {
                     this.props.dispatch(login(result.detail, result.more, result.extra));
 
                     this.goBack()
-                    this.pushNotification("success", "Regist Succeeded");
+                    this.pushNotification("success", "注册成功");
                 }
 
                 this.newPost('/api/user/create', form, successAction);

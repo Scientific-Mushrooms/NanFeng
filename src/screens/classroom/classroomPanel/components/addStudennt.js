@@ -51,7 +51,7 @@ class AddStudent extends BaseComponent {
 
         console.log(this.state.selectedStudentId);
         var successAction = (result) => {
-            this.pushNotification("success", "add student")
+            this.pushNotification("success", "添加学生")
         }
 
         this.newPost("/api/classroomMember/create", form, successAction)

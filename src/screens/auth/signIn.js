@@ -40,11 +40,11 @@ export class SignIn extends BaseComponent {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (values.email === '' ) {
-                this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
+                this.pushNotification("danger","用户名不能为空",this.props.dispatch);
                 return;
             }
             if(values.password === ''){
-                this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
+                this.pushNotification("danger","密码不能为空",this.props.dispatch);
                 return;
             }
             if (!err) {
@@ -70,7 +70,7 @@ export class SignIn extends BaseComponent {
                 this.props.dispatch(login(result.detail, result.more, result.extra));
 
                 this.goBack()
-                this.pushNotification("success", "successfully log in! ");
+                this.pushNotification("success", "登录成功！");
             }
 
             this.newPost('/api/security/signIn', form, successAction);

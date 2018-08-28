@@ -115,7 +115,7 @@ export class CourseSearch extends BaseComponent {
         var successAction = (result) => {
             console.log(result)
             this.setState({ courses: result.detail.content,totalPages: result.detail.totalPages,loading: false })
-            this.pushNotification("success", "successfully fetch courses! ");
+            this.pushNotification("success", "成功获取课程！");
             console.log(this.state.courses)
         }
 
@@ -136,7 +136,7 @@ export class CourseSearch extends BaseComponent {
         var successAction = (result) => {
             console.log(result)
             this.setState({ courses: result.detail.content,totalPages: result.detail.totalPages,loading: false })
-            this.pushNotification("success", "successfully fetch courses! ");
+            this.pushNotification("success", "成功获取课程！");
             console.log(this.state.courses)
         }
 
@@ -158,7 +158,7 @@ export class CourseSearch extends BaseComponent {
         var successAction = (result) => {
             console.log(result)
             this.setState({ courses: result.detail.content,totalPages: result.detail.totalPages,loading: false })
-            this.pushNotification("success", "successfully fetch courses! ");
+            this.pushNotification("success", "成功获取课程！");
             console.log(this.state.courses)
         }
 
@@ -178,7 +178,7 @@ export class CourseSearch extends BaseComponent {
         var successAction = (result) => {
             console.log(result)
             this.setState({ courses: result.detail.content, loading: false })
-            this.pushNotification("success", "successfully fetch courses! ");
+            this.pushNotification("success", "成功获取课程！");
             console.log(this.state.courses)
         }
 
@@ -366,7 +366,7 @@ export class CourseSearch extends BaseComponent {
         var successAction = (result) => {
             console.log(result)
             this.setState({ courses: result.detail.content, loading: false })
-            this.pushNotification("success", "successfully fetch courses! ");
+            this.pushNotification("success", "成功获取课程！");
         }
 
         this.newPost('/api/course/search', form, successAction);

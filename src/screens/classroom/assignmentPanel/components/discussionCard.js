@@ -30,7 +30,7 @@ class DiscussionCard extends BaseComponent {
             }
 
             if (this.props.student.studentId === null) {
-                this.pushNotification("danger", "need to be student first")
+                this.pushNotification("danger", "需要完成显示认证")
                 return
             }
 
@@ -42,7 +42,7 @@ class DiscussionCard extends BaseComponent {
             var successAction = (result) => {
                 console.log(result)
                 this.fetchDiscussionPosts(this.props.discussion.discussionId)
-                this.pushNotification("success", "successfully submit comment", this.props.dispatch);
+                this.pushNotification("success", "评论发布成功", this.props.dispatch);
             }
 
             this.newPost('/api/discussionPost/create', form, successAction);
