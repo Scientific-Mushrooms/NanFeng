@@ -14,7 +14,7 @@ const typeData=['全部','核心','就业','选修','公选']
 
 const credit=['1学分','2学分','3学分','4学分','5学分']
 
-const recommendation=['内容实用','难度较低','综合推荐']
+const recommendation=['内容实用','难度较低','最受喜爱']
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -81,7 +81,7 @@ export class CourseSearch extends BaseComponent {
         this.timer = setTimeout((
             this.fetchAutoComplete(value)
         ),500);
-        
+
     }
 
     fetchAutoComplete = (value) => {
@@ -166,8 +166,38 @@ export class CourseSearch extends BaseComponent {
 
     }
 
+    recommendSearch=(e)=>{
+        this.state.page=1
+        let form = new FormData();
+        form.append('name', this.state.name);
+        form.append('campus', this.state.campus);
+        form.append('faculty', this.state.faculty);
+        form.append('type', this.state.type);
+        form.append('page', this.state.page-1);
+        form.append('size', this.state.size);
+        var successAction = (result) => {
+            console.log(result)
+            this.setState({ courses: result.detail,totalPages: result.detail.totalPages,loading: false })
+            this.pushNotification("success", "successfully fetch courses! ");
+            console.log(this.state.courses)
+        }
+        if(e.key==="难度较低") {
+            console.log("easy")
+            this.newPost('/api/course/easy', form, successAction);
+        }
+        else if(e.key==="内容实用") {
+            console.log("useful")
+            this.newPost('/api/course/useful', form, successAction);
+        }
+        else if(e.key==="最受喜爱"){
+            console.log("enjoy")
+            this.newPost('/api/course/enjoy', form, successAction);
+        }
+
+    }
+
     search = () => {
-        let form = new FormData();    
+        let form = new FormData();
         this.state.page=1
         form.append('name', this.state.name);
         form.append('campus', this.state.campus);
@@ -191,7 +221,7 @@ export class CourseSearch extends BaseComponent {
         }else{
             return str;
         }
-    } 
+    }
 
     handleFaculty(course){
         if(course.faculty==""&&(course.type=="公选"||course.type=="就业"))
@@ -200,28 +230,28 @@ export class CourseSearch extends BaseComponent {
             return course.faculty
     }
 
-        
+
     renderIcon(str){
         if(engi.indexOf(str)!=-1)
-            return  <img 
-            src={require('./src/engi.png')} 
-            alt='Engineering' 
-            style={styles.img}/>
+            return  <img
+                src={require('./src/engi.png')}
+                alt='Engineering'
+                style={styles.img}/>
         else if (lite.indexOf(str)!=-1)
-            return <img  
-            src={require('./src/lite.png')} 
-            alt='Literature' 
-            style={styles.img}/>
+            return <img
+                src={require('./src/lite.png')}
+                alt='Literature'
+                style={styles.img}/>
         else if(str=="")
-            return <img 
-            src={require('./src/public.png')}
-            alt="Public"
-            style={styles.img}/>
-        else 
-            return <img 
-            src={require('./src/sci.png')} 
-            alt='Science' 
-            style={styles.img}/>
+            return <img
+                src={require('./src/public.png')}
+                alt="Public"
+                style={styles.img}/>
+        else
+            return <img
+                src={require('./src/sci.png')}
+                alt='Science'
+                style={styles.img}/>
     }
 
     renderSider=()=>{
@@ -241,7 +271,7 @@ export class CourseSearch extends BaseComponent {
                     <SubMenu key="sub3" onClick={this.collegeSearch} title={<span><Icon type="book" />开课院系</span>}>
                         {collegeData.map(this.menuItem)}
                     </SubMenu>
-                    <SubMenu key="sub4" title={<span><Icon type="heart" />课友推荐</span>}>
+                    <SubMenu key="sub4" onClick={this.recommendSearch} title={<span><Icon type="heart" />课友推荐</span>}>
                         {recommendation.map(this.menuItem)}
                     </SubMenu>
                 </Menu>
@@ -258,51 +288,51 @@ export class CourseSearch extends BaseComponent {
         return (
             <Row type='flex' justify='center'>
                 <Button  onClick={onClick} style={styles.button}>
-                <Row type="flex" justify="center">
-                    <Col span={3} style={styles.courseItem}>
-                        {this.renderIcon(course.faculty)}
-                    </Col>
+                    <Row type="flex" justify="center">
+                        <Col span={3} style={styles.courseItem}>
+                            {this.renderIcon(course.faculty)}
+                        </Col>
 
-                    <Col span={3} style={styles.courseItem}>
-                        <Row>课程编号</Row>
-                        <Row>
-                            <Typography variant='body2'>
-                                {course.code}
-                            </Typography>
-                        </Row>
-                    </Col>
+                        <Col span={3} style={styles.courseItem}>
+                            <Row>课程编号</Row>
+                            <Row>
+                                <Typography variant='body2'>
+                                    {course.code}
+                                </Typography>
+                            </Row>
+                        </Col>
 
-                    <Col span={8} style={styles.courseItem}>
-                        <Row>课程名</Row>
-                        <Typography variant='title'>{this.handleText(course.name)}</Typography>
-                    </Col>
+                        <Col span={8} style={styles.courseItem}>
+                            <Row>课程名</Row>
+                            <Typography variant='title'>{this.handleText(course.name)}</Typography>
+                        </Col>
 
-                    <Col span={3} >
-                        <Row>类型</Row>
-                        <Row>
-                            <Typography  variant='body2'>  
-                                {course.type}课
-                            </Typography>
-                        </Row>
-                    </Col>
-                    
-                    <Col span={3} style={styles.courseItem}>
-                        <Row>开课院系</Row>
-                        <Row>
-                            <Typography variant='body2'>
-                                {this.handleFaculty(course)}
-                            </Typography>
-                        </Row>
-                    </Col>
-                    <Col span={3} style={styles.courseItem}>
-                        <Row>学分</Row>
-                        <Row>
-                            <Typography variant='body2'>
-                                {course.credit}
-                            </Typography>
-                        </Row>
-                    </Col>
-                </Row>
+                        <Col span={3} >
+                            <Row>类型</Row>
+                            <Row>
+                                <Typography  variant='body2'>
+                                    {course.type}课
+                                </Typography>
+                            </Row>
+                        </Col>
+
+                        <Col span={3} style={styles.courseItem}>
+                            <Row>开课院系</Row>
+                            <Row>
+                                <Typography variant='body2'>
+                                    {this.handleFaculty(course)}
+                                </Typography>
+                            </Row>
+                        </Col>
+                        <Col span={3} style={styles.courseItem}>
+                            <Row>学分</Row>
+                            <Row>
+                                <Typography variant='body2'>
+                                    {course.credit}
+                                </Typography>
+                            </Row>
+                        </Col>
+                    </Row>
                 </Button>
                 <Grid xs={12} style={styles.padding} />
             </Row>
@@ -315,33 +345,33 @@ export class CourseSearch extends BaseComponent {
         const collegeOptions = collegeData.map(college => <Option value={college}>{college}</Option>);
         const typeOptions = typeData.map(type => <Option value={type}>{type}</Option>);
         return (
-        <Anchor style={styles.searchBar} offsetTop={65}>
-            <Row >
+            <Anchor style={styles.searchBar} offsetTop={65}>
+                <Row >
 
-                <Select 
-                defaultValue="校区" style={{ width: 120 }} 
-                onChange={(value)=> this.handleChange("campus")(value)}>
-                    <Option value={'仙林校区'}>仙林校区</Option>
-                    <Option value={'鼓楼校区'}>鼓楼校区</Option>
-                </Select>
+                    <Select
+                        defaultValue="校区" style={{ width: 120 }}
+                        onChange={(value)=> this.handleChange("campus")(value)}>
+                        <Option value={'仙林校区'}>仙林校区</Option>
+                        <Option value={'鼓楼校区'}>鼓楼校区</Option>
+                    </Select>
 
-                <Select 
-                defaultValue="类型" style={{ width: 120 }} 
-                onChange={(value)=> this.handleChange("type")(value)}>
-                    {typeOptions}
-                </Select>
+                    <Select
+                        defaultValue="类型" style={{ width: 120 }}
+                        onChange={(value)=> this.handleChange("type")(value)}>
+                        {typeOptions}
+                    </Select>
 
-                <Select defaultValue="院系" style={{ width: 120 }} 
-                onChange={(value)=> this.handleChange("faculty")(value)}>
-                    {collegeOptions}
-                </Select>
+                    <Select defaultValue="院系" style={{ width: 120 }}
+                            onChange={(value)=> this.handleChange("faculty")(value)}>
+                        {collegeOptions}
+                    </Select>
 
-                <AutoComplete dataSource={this.state.dataSource} onChange={this.autoOnChange}/>
+                    <AutoComplete dataSource={this.state.dataSource} onChange={this.autoOnChange}/>
 
-                <Button type="primary" icon="search" onClick={this.search}>搜索</Button>
+                    <Button type="primary" icon="search" onClick={this.search}>搜索</Button>
 
-            </Row>
-        </Anchor>
+                </Row>
+            </Anchor>
         )
     }
 
