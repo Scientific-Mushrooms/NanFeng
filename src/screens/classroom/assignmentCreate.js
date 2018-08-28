@@ -45,7 +45,7 @@ export class AssignmentCreate extends BaseComponent {
             var successAction = (result) => {
                 this.props.history.goBack();
                 console.log(result)
-                this.pushNotification("success", "successfully create the assignment");
+                this.pushNotification("success", "作业创建成功");
             }
 
             this.newPost('/api/assignment/create', form, successAction);

@@ -50,7 +50,7 @@ export class CourseDetail extends BaseComponent {
         this.post('/api/course/courseIdToCourse', form).then((result) => {
 
             if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
+                this.pushNotification("danger", "连接错误", this.props.dispatch);
 
             } else if (result.status === 'fail') {
                 this.pushNotification("danger", result.status, this.props.dispatch);
@@ -58,7 +58,7 @@ export class CourseDetail extends BaseComponent {
             } else if (result.status === 'success') {
 
                 this.setState({ course: result.detail, loading: false, courseComments: result.more })
-                this.pushNotification("success", "successfully fetch the course", this.props.dispatch);
+                this.pushNotification("success", "成功获取课程", this.props.dispatch);
 
             } else {
 

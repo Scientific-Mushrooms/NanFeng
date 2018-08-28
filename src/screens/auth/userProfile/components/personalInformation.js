@@ -5,7 +5,7 @@ import { Divider, Grid, Button, Typography, Icon, TextField, Popover } from '@ma
 import { FormControl } from 'react-bootstrap';
 import {set_instructor, update} from '../../../../redux/actions/action';
 import { connect } from 'react-redux';
-import { Row, Col} from 'antd';
+import { Row, Col,Card} from 'antd';
 
 
 
@@ -65,7 +65,7 @@ class PersonalInformation extends BaseComponent {
 
         var successAction = (result) => {
             this.props.dispatch(update(result.detail))
-            this.pushNotification("success", "successfully update info", this.props.dispatch);
+            this.pushNotification("success", "成功更新信息", this.props.dispatch);
         }
 
         this.newPost('/api/user/update', form, successAction);
@@ -74,25 +74,25 @@ class PersonalInformation extends BaseComponent {
     
     render() {
         return (
-            <div>
-                <Typography variant='display2'>个人信息</Typography>
+            <Card style={styles.card}>
+                <Typography style={{color:'#0078d7',fontSize:25}} variant='display2'>个人信息</Typography>
                 <Divider/>
                 <div style={{height:'25px'}}></div>
                 <Row style={styles.container} type='flex' justify='center'>
-                    <Col span={4}>
+                    <Col span={3}>
                         <Typography style={styles.typography}>用户名:</Typography>
                     </Col>
-                    <Col span={20}>
-                        <FormControl type="text" value={this.state.nickName} onChange={this.handleChange("nickName")} />
+                    <Col span={6}>
+                        <FormControl style={{width:'100%'}} type="text" value={this.state.nickName} onChange={this.handleChange("nickName")} />
                     </Col>
                 </Row>
 
                 <Row style={styles.container} type='flex' justify='center'>
-                    <Col span={4}>
+                    <Col span={3}>
                         <Typography style={styles.typography}>邮箱:</Typography>
                     </Col>
-                    <Col span={20}>
-                        <FormControl type="text" value={this.state.email} onChange={this.handleChange("email")} />
+                    <Col span={6}>
+                        <FormControl style={{width:'100%'}} type="text" value={this.state.email} onChange={this.handleChange("email")} />
                     </Col>
                 </Row>
 
@@ -108,7 +108,7 @@ class PersonalInformation extends BaseComponent {
                     </Button>
                 </Row>
 
-            </div>
+            </Card>
         );
     }
 }
@@ -119,17 +119,17 @@ const styles = {
 
     button: {
         marginTop: '20px',
-        marginBottom:'50px',
+        marginBottom:'20px',
         borderRadius: "5px",
         borderWidth:"1.2px",
-        borderColor:"#60CDEE",
+        borderColor:'#0078d7',
         width: "20%",
         height:'40px',
     },
 
     buttonText:{
         fontSize:'12px',
-        color:'#60CDEE'
+        color:'#0078d7'
     },
 
     typography: {
@@ -160,6 +160,9 @@ const styles = {
 
     introContainer: {
         height: '80px'
+    },
+    card:{
+        marginBottom:'20px',
     },
 
 };

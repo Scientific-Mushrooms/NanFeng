@@ -50,7 +50,7 @@ class Header extends BaseComponent {
         this.post('/api/user/userIdToUser', form).then((result) => {
 
             if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
+                this.pushNotification("danger", "连接错误", this.props.dispatch);
                 return;
             } 
             
@@ -62,7 +62,7 @@ class Header extends BaseComponent {
             if (result.status === 'success') {
 
                 this.props.dispatch(login(result.detail, result.more, result.extra))
-                this.pushNotification("success", "successfully update user", this.props.dispatch);
+                this.pushNotification("success", "用户更新成功", this.props.dispatch);
 
             } else {
 
@@ -251,7 +251,7 @@ class Header extends BaseComponent {
     onClickClassroom = (e) => {
 
         if (this.props.user == null) {
-            this.pushNotification("danger", "sign in first", this.props.dispatch)
+            this.pushNotification("danger", "请先登录", this.props.dispatch)
             return;
         }      
         this.setState({
@@ -266,7 +266,7 @@ class Header extends BaseComponent {
             return;
         }
 
-        this.pushNotification("danger", "you need to verify first", this.props.dispatch)
+        this.pushNotification("danger", "需要进行认证", this.props.dispatch)
     }
 
     handleClick = (e) => {
@@ -278,6 +278,8 @@ class Header extends BaseComponent {
             console.log(this.state.current);
             if(e.key.indexOf('school')!=-1)  { 
                 this.props.history.push('/school')//未写完所有页面，先修改跳转
+            }else if(e.key.indexOf('confess')!=-1)  { 
+                this.props.history.push('/confess')//未写完所有页面，先修改跳转
             }
             else{
                 this.props.history.push(e.key+'')

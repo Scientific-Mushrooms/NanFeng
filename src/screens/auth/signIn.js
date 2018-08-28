@@ -40,11 +40,11 @@ export class SignIn extends BaseComponent {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (values.email === '' ) {
-                this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
+                this.pushNotification("danger","用户名不能为空",this.props.dispatch);
                 return;
             }
             if(values.password === ''){
-                this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
+                this.pushNotification("danger","密码不能为空",this.props.dispatch);
                 return;
             }
             if (!err) {
@@ -70,7 +70,7 @@ export class SignIn extends BaseComponent {
                 this.props.dispatch(login(result.detail, result.more, result.extra));
 
                 this.goBack()
-                this.pushNotification("success", "successfully log in! ");
+                this.pushNotification("success", "登录成功！");
             }
 
             this.newPost('/api/security/signIn', form, successAction);
@@ -92,13 +92,14 @@ export class SignIn extends BaseComponent {
                                 <div style={styles.welcome}>欢迎使用南风!</div>
                                 <div style={styles.welcome2}>登录</div>
                                 <Form onSubmit={this.handleSubmit} type='flex' justify='center'>
+                                    <Row style={{marginLeft:40}} justify='center'>
+                                        <FormText form={this.props.form}
+                                            label='邮箱' name='email' required={true} icon="user"/>
 
-                                    <FormText form={this.props.form}
-                                              label='邮箱' name='email' required={true} icon="user"/>
-
-                                    <FormText form={this.props.form}
-                                              label='密码' name='password' required={true} icon="lock"
-                                              inputType="password"/>
+                                        <FormText form={this.props.form}
+                                            label='密码' name='password' required={true} icon="lock"
+                                            inputType="password"/>
+                                    </Row>
                                     <Row type='flex' justify='center'>
                                         <Col>
                                             <FormButton form={this.props.form} label="登录" style={styles.formButton}/>
@@ -107,7 +108,6 @@ export class SignIn extends BaseComponent {
                                             </Button>
                                         </Col>
                                     </Row>
-
                                 </Form>
                                 <Divider/>
                                 <Row type='flex' justify='center'>
@@ -164,14 +164,14 @@ const styles={
 
     welcome:{
         fontSize:25,
-        marginLeft: '37px',
+        marginLeft: '70px',
         marginRight: '10px',
         marginBottom: '3px',
     },
     welcome2:{
         fontSize:17,
         color:'#AAAAAA',
-        marginLeft: '37px',
+        marginLeft: '70px',
         marginRight: '10px',
         marginBottom: '10px',
     },

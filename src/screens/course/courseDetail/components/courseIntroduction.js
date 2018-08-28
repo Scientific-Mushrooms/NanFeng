@@ -11,6 +11,9 @@ import {
 
 export default class CourseIntroduction extends Component {
 
+    renderTypo=(str)=>{
+        return <Typography style={styles.content}>{str}</Typography>
+    }
 
     render() {
 
@@ -28,7 +31,9 @@ export default class CourseIntroduction extends Component {
                 </ExpansionPanelSummary>
 
                 <ExpansionPanelDetails>
-                    <Typography style={styles.content}>{introduction}</Typography>
+                    <Grid direction='column'>
+                        {introduction.split("<br />").map(this.renderTypo)}
+                    </Grid>
                 </ExpansionPanelDetails>
 
             </ExpansionPanel>

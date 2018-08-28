@@ -45,13 +45,13 @@ export class SignUp extends BaseComponent {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (values.email === '' ) {
-                this.pushNotification("danger","Username Can't Be Empty",this.props.dispatch);
+                this.pushNotification("danger","用户名不能为空",this.props.dispatch);
                 return
             } else if(values.password === ''){
-                this.pushNotification("danger","Password Can't Be Empty",this.props.dispatch);
+                this.pushNotification("danger","密码不能为空",this.props.dispatch);
                 return
             }else if (values.password !== values.repassword) {
-                this.pushNotification("danger","Wrong Repassword",this.props.dispatch);
+                this.pushNotification("danger","两次密码输入不一致",this.props.dispatch);
                 return
             } else {
                 
@@ -73,7 +73,7 @@ export class SignUp extends BaseComponent {
                     this.props.dispatch(login(result.detail, result.more, result.extra));
 
                     this.goBack()
-                    this.pushNotification("success", "Regist Succeeded");
+                    this.pushNotification("success", "注册成功");
                 }
 
                 this.newPost('/api/user/create', form, successAction);
@@ -93,14 +93,16 @@ export class SignUp extends BaseComponent {
                                 <div style={styles.welcome}>欢迎来到南风!</div>
                                 <div style={styles.welcome2}>加入我们</div>
                                 <Form onSubmit={this.handleSubmit} type='flex' justify='center'>
-                                    <FormText form={this.props.form}
+                                    <Row style={{marginLeft:40}}>
+                                        <FormText form={this.props.form}
                                               label='邮箱' name='email' required={true} icon="user"/>
-                                    <FormText form={this.props.form}
+                                        <FormText form={this.props.form}
                                               label='密码' name='password' required={true} icon="lock"
                                               inputType="password"/>
-                                    <FormText form={this.props.form}
+                                        <FormText form={this.props.form}
                                               label='确认' name='repassword' required={true} icon="lock"
                                               inputType="password"/>
+                                    </Row>
                                     <Row type='flex' justify='center'>
                                         <Col>
                                             <FormButton form={this.props.form} label="注册" style={styles.formButton}/>
@@ -163,14 +165,14 @@ const styles = {
     },
     welcome:{
         fontSize:25,
-        marginLeft: '35px',
+        marginLeft: '70px',
         marginRight: '10px',
         marginBottom: '3px',
     },
     welcome2:{
         fontSize:17,
         color:'#AAAAAA',
-        marginLeft: '35px',
+        marginLeft: '70px',
         marginRight: '10px',
     },
     button: {

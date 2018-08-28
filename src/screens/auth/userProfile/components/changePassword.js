@@ -3,7 +3,7 @@ import { BaseComponent } from '../../../../components/BaseComponent';
 import { Divider, Grid, Button, Typography, Icon, TextField, Popover } from '@material-ui/core';
 import { FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Row, Col} from 'antd';
+import { Row, Col,Card} from 'antd';
 
 class ChangePassword extends BaseComponent {
 
@@ -23,12 +23,12 @@ class ChangePassword extends BaseComponent {
 
     renderPassInput = (name, variable) => {
         return (
-            <Row style={styles.inputContainer}>
-                <Col span={6}>
-                <Typography style={styles.typography}>{name} :</Typography>
+            <Row style={styles.inputContainer} type='flex' justify='center'>
+                <Col span={4}>
+                    <Typography style={styles.typography}>{name} :</Typography>
                 </Col>
-                <Col span={18}>
-                    <FormControl type="password" onChange={this.handleChange(variable)} />
+                <Col span={6}>
+                    <FormControl style={{width:'100%'}}  type="password" onChange={this.handleChange(variable)} />
                 </Col>
             </Row>
         )
@@ -46,9 +46,9 @@ class ChangePassword extends BaseComponent {
 
     changePass = () => {
         if (this.state.oldPass == null || this.state.newPass == null || this.state.reNewPass == null) {
-            this.pushNotification("danger", "Please enter the Password", this.props.dispatch);
+            this.pushNotification("danger", "请输入密码", this.props.dispatch);
         } else if (this.state.newPass != this.state.reNewPass) {
-            this.pushNotification("danger", "Please enter the right Repassword", this.props.dispatch);
+            this.pushNotification("danger", "请输入之前的密码", this.props.dispatch);
         } else {
             //post here
         }
@@ -65,19 +65,19 @@ class ChangePassword extends BaseComponent {
 
     render() {
         return (
-            <div>
-                <Typography variant='display2'>修改密码</Typography>
+            <Card style={styles.card}>
+                <Typography style={{color:'#0078d7',fontSize:25}} variant='display2'>修改密码</Typography>
                 <Divider/>
                 <div style={{height:'25px'}}></div>
                     {this.renderPassInput("输入原密码", "oldPass")}
                     {this.renderPassInput("输入新密码", "newPass")}
-                    <Row style={styles.inputContainer}>
-                        <Col span={6}>
-                    <Typography style={styles.typography}>再次输入密码:</Typography>
+                    <Row style={styles.inputContainer} type='flex' justify='center'>
+                        <Col span={4}>
+                            <Typography style={styles.typography}>再次输入密码:</Typography>
                         </Col>
-                    <Col span={18}>
-                        <FormControl type="password" onChange={this.handleChange("reNewPass")} />
-                    </Col>
+                        <Col span={6}>
+                            <FormControl style={{width:'100%'}}  type="password" onChange={this.handleChange("reNewPass")} />
+                        </Col>
                     {this.renderPassWarning()}
                 </Row>
                 <Row justify='center' type='flex'>
@@ -89,28 +89,30 @@ class ChangePassword extends BaseComponent {
                         <Typography variant='button' style={styles.buttonText}>提交修改</Typography>
                     </Button>
                 </Row>
-            </div>
+            </Card>
         );
     }
 }
 
 
 const styles = {
-
+    card:{
+        marginBottom:'20px',
+    },
 
     button: {
         marginTop: '20px',
         marginBottom:'20px',
         borderRadius: "5px",
         borderWidth:"1.2px",
-        borderColor:"#60CDEE",
+        borderColor:'#0078d7',
         width: "20%",
         height:'40px',
     },
 
     buttonText:{
         fontSize:'12px',
-        color:'#60CDEE'
+        color:'#0078d7'
     },
 
     typography: {

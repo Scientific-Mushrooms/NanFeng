@@ -27,7 +27,7 @@ export class BaseComponent extends Component {
 
                 if (!result) {
                     console.log(result)
-                    this.pushNotification("danger", "Connection error");
+                    this.pushNotification("danger", "连接错误");
                     return;
                 }
 
@@ -78,12 +78,12 @@ export class BaseComponent extends Component {
         if(kind=='danger')
             notification.warning({
             message:reason,
-            description:"Oops,a danger problem!",
+            description:"发生问题",
             })
         else if(kind=='success')
             notification.success({
             message:reason,
-            description:"Success!"
+            description:"成功"
             })
         else
             notification.open({
