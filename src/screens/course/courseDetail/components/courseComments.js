@@ -43,7 +43,7 @@ class CourseComments extends BaseComponent {
         this.post('/api/courseComment/courseIdToCourseComments', form).then((result) => {
 
             if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
+                this.pushNotification("danger", "连接错误", this.props.dispatch);
 
             } else if (result.status === 'fail') {
                 this.pushNotification("danger", result.status, this.props.dispatch);
@@ -52,7 +52,7 @@ class CourseComments extends BaseComponent {
 
                 this.setState({ courseComments: result.detail, commentAuthors: result.more })
                 
-                this.pushNotification("success", "successfully fetch courses", this.props.dispatch);
+                this.pushNotification("success", "成功获取课程", this.props.dispatch);
 
             } else {
 
@@ -79,7 +79,7 @@ class CourseComments extends BaseComponent {
         this.post('/api/courseComment/create', form).then((result) => {
 
             if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
+                this.pushNotification("danger", "连接错误", this.props.dispatch);
 
             } else if (result.status === 'fail') {
                 this.pushNotification("danger", result.status, this.props.dispatch);
@@ -87,7 +87,7 @@ class CourseComments extends BaseComponent {
             } else if (result.status === 'success') {
 
                 this.fetchCourseComments();
-                this.pushNotification("success", "successfully create the course", this.props.dispatch);
+                this.pushNotification("success", "成功创建课程", this.props.dispatch);
 
             } else {
 

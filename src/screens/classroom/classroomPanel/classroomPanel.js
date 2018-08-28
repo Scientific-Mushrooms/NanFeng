@@ -49,7 +49,7 @@ export class ClassroomPanel extends BaseComponent {
 
             var successAction = (result) => {
                 this.props.history.goBack();
-                this.pushNotification("success", "successfully delete the classroom");
+                this.pushNotification("success", "成功删除教室");
             }
 
             this.newPost('/api/classroom/deleteByClassroomId', form, successAction);
@@ -63,7 +63,7 @@ export class ClassroomPanel extends BaseComponent {
         form.append("classroomId", classroomId);
 
         var successAction = (result) => {
-            this.pushNotification("success", "fetch classroom");
+            this.pushNotification("success", "获取教室");
             this.setState({classroom: result.detail});
         }
 

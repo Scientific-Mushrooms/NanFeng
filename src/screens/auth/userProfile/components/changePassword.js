@@ -46,9 +46,9 @@ class ChangePassword extends BaseComponent {
 
     changePass = () => {
         if (this.state.oldPass == null || this.state.newPass == null || this.state.reNewPass == null) {
-            this.pushNotification("danger", "Please enter the Password", this.props.dispatch);
+            this.pushNotification("danger", "请输入密码", this.props.dispatch);
         } else if (this.state.newPass != this.state.reNewPass) {
-            this.pushNotification("danger", "Please enter the right Repassword", this.props.dispatch);
+            this.pushNotification("danger", "请输入之前的密码", this.props.dispatch);
         } else {
             //post here
         }

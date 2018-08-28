@@ -37,7 +37,7 @@ export class SectionCreate extends BaseComponent {
 
             if (!result) {
 
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
+                this.pushNotification("danger", "连接错误", this.props.dispatch);
 
             } else if (result.status === 'fail') {
 
@@ -46,7 +46,7 @@ export class SectionCreate extends BaseComponent {
             } else if (result.status === 'success') {
                 
                 this.props.history.goBack();
-                this.pushNotification("success", "successfully create the section", this.props.dispatch);
+                this.pushNotification("success", "成功创建课程信息", this.props.dispatch);
 
             } else {
 
@@ -116,3 +116,4 @@ const styles = {
 
 };
 
+//
