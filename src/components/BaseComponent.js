@@ -78,12 +78,12 @@ export class BaseComponent extends Component {
         if(kind=='danger')
             notification.warning({
             message:reason,
-            description:"噢，遇到严重问题！",
+            description:"发生问题",
             })
         else if(kind=='success')
             notification.success({
             message:reason,
-            description:"成功！"
+            description:"成功"
             })
         else
             notification.open({
