@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import "antd/dist/antd.css";
-import {Typography,Grid,Paper} from '@material-ui/core';
+import {Typography,Grid,Paper,Avatar} from '@material-ui/core';
 import {Button,Icon,Input,List,Card} from 'antd';
 const { TextArea } = Input;
 const datap = [
@@ -13,7 +13,7 @@ const datap = [
 const data1review = [
     {id:1,poster:"匿名用户",time:"今天 13:21",content:"有点意思",thumblist:[],reviewlist:[]},
     {id:2,poster:"匿名用户",time:"今天 13:22",content:"上周没来上课吗？",thumblist:[],reviewlist:[]},
-    {id:3,poster:"匿名用户",time:"今天 13:23",content:"发到邮箱里，昨晚已经截止了",thumblist:[],reviewlist:[]},
+    {id:3,poster:"匿名用户",time:"今天 13:23",content:"发到邮箱，昨晚截止了",thumblist:[],reviewlist:[]},
 ];
 const data1thumb = [
     {id:1,poster:"hape",time:"今天 13:21"},
@@ -34,9 +34,24 @@ const data = [
     {id:2,poster:"匿名用户",time:"今天 13:42",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
     {id:3,poster:"匿名用户",time:"今天 13:43",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:data1thumb,reviewlist:data1review},
 ];
-const data1 = [];
-const data2 = [];
-const data3 = [];
+const data1 = [
+    {id:0,poster:"匿名用户",time:"今天 13:20",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:data1thumb,reviewlist:data1review},
+    {id:1,poster:"匿名用户",time:"今天 13:21",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:2,poster:"匿名用户",time:"今天 13:22",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:3,poster:"匿名用户",time:"今天 13:23",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+];
+const data2 = [
+    {id:0,poster:"匿名用户",time:"今天 13:20",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:data1thumb,reviewlist:data1review},
+    {id:1,poster:"匿名用户",time:"今天 13:21",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:2,poster:"匿名用户",time:"今天 13:22",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:3,poster:"匿名用户",time:"今天 13:23",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+];
+const data3 = [
+    {id:0,poster:"匿名用户",time:"今天 13:20",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:data1thumb,reviewlist:data1review},
+    {id:1,poster:"匿名用户",time:"今天 13:21",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:2,poster:"匿名用户",time:"今天 13:22",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+    {id:3,poster:"匿名用户",time:"今天 13:23",content:"请问今晚的东亚海域史作业的要求是什么？什么时候交呢。",thumblist:[],reviewlist:[]},
+];
 
 export class ListItem extends Component {
     constructor(props) {
@@ -122,6 +137,7 @@ export class ListItem extends Component {
         return(
             <Paper elevation={24} style={styles.paper}>
                 <Grid direction='row' style={{margin:10}} alignItems='center' container>
+                    <Avatar style={{margin: 10, color: '#fff', backgroundColor:'#4d0099',}}>N</Avatar>
                     <Grid>
                         <Typography style={{marginTop:5,fontSize:20}}>{this.state.gridData[id].poster}</Typography>
                         <Typography style={{fontSize:15,color:'#AAAAAA'}}>{this.state.gridData[id].time}</Typography>
@@ -147,7 +163,7 @@ export class ListItem extends Component {
                         dataSource={this.state.gridData[id].reviewlist}
                         renderItem={item => (
                             <Grid direction='row' container>
-                                <Typography style={styles.username_friends}>{item.poster}</Typography>
+                                <Typography style={styles.username_friends}>{item.poster+"："}</Typography>
                                 <Typography style={styles.content_friends}>{item.content}</Typography>
                             </Grid>
                         )}
