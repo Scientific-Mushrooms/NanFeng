@@ -25,8 +25,7 @@ const data1thumb = [
 ];
 const data1 = [];
 const data2 = [];
-var data3 = [];
-
+const data3 = [];
 
 export class ListItem extends BaseComponent {
     constructor(props) {
@@ -34,13 +33,11 @@ export class ListItem extends BaseComponent {
         this.state = {
             layout: 'grid',
             horizonData:[],
-            gridData:[],
+            tagToData:[],
             refreshing: false,
             _data : [],
             _id:0,
-        }
-        this.props={
-            tag:"all",
+            tag:"all"
         }
     }
 
@@ -48,8 +45,22 @@ export class ListItem extends BaseComponent {
         let form = new FormData();
         form.append("test","");
         this.post('/api/confess/all', form).then((result) => {
-            this.setState({_data:result.detail});
+            this.setState({_data:result.detail,tagToData:result.detail});
         })
+    }
+
+    componentDidMount(){
+        this.props.onRef(this)
+    }
+    setTag(newTag){
+        var tagToData=[];
+        var _tag=[];
+        for (var i=0;i<this.state._data.length;i++){
+            if (this.state._data[i].type==newTag||newTag=="all") {
+                tagToData=tagToData.concat(this.state._data[i]);
+            }
+        }
+        this.setState({tagToData:tagToData});
     }
     /*
 
@@ -139,7 +150,7 @@ export class ListItem extends BaseComponent {
     Item(item){
         var _date=new String(item.date);
         _date=moment(item.date).calendar();
-        console.info(data3);
+        console.info(this.state.tagToData);
         return(
             <Paper elevation={24} style={styles.paper}>
                 <Grid direction='row' style={{margin:10}} alignItems='center' container>
@@ -181,25 +192,25 @@ export class ListItem extends BaseComponent {
                 <List
                     style={{width:'30%'}}
                     grid={{ column: 1 }}
-                    dataSource={this.state._data}
-                    renderItem={item => (
-                        this.state._data.indexOf(item)%3==0?<List.Item>{this.Item(item)}</List.Item>:<div></div>
+                    dataSource={this.state.tagToData}
+                    renderItem={(item) => (
+                        this.state.tagToData.indexOf(item)%3==0?<List.Item>{this.Item(item)}</List.Item>:<div></div>
                     )}
                 />
                 <List
                     style={{width:'30%'}}
                     grid={{ column: 1 }}
-                    dataSource={this.state._data}
-                    renderItem={item => (
-                        this.state._data.indexOf(item)%3==1?<List.Item>{this.Item(item)}</List.Item>:<div></div>
+                    dataSource={this.state.tagToData}
+                    renderItem={(item) => (
+                        this.state.tagToData.indexOf(item)%3==1?<List.Item>{this.Item(item)}</List.Item>:<div></div>
                     )}
                 />
                 <List
                     style={{width:'30%'}}
                     grid={{ column: 1 }}
-                    dataSource={this.state._data}
+                    dataSource={this.state.tagToData}
                     renderItem={(item) =>(
-                        this.state._data.indexOf(item)%3==2?<List.Item>{this.Item(item)}</List.Item>:<div></div>
+                        this.state.tagToData.indexOf(item)%3==2?<List.Item>{this.Item(item)}</List.Item>:<div></div>
                     )}
                 />
             </Grid>
