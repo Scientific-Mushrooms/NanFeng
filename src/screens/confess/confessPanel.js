@@ -46,6 +46,7 @@ export class ConfessPanel extends Component {
                 </Grid>
                 <Grid item xs={10}>
                     <ListItem/>
+                    <ListItem/>
                 </Grid>
             </Grid>
         );
