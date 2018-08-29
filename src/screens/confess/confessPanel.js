@@ -3,11 +3,14 @@ import React, {Component} from 'react';
 import "antd/dist/antd.css";
 import Grid from "@material-ui/core/Grid";
 import {ListItem} from "../../components/View3";
+
 const SubMenu = Menu.SubMenu;
 
-export class ConfessPanel extends Component {
+export class ConfessPanel extends Component{
     state = {
         collapsed: false,
+        tag:"all",
+
       }
     
       toggleCollapsed = () => {
@@ -45,7 +48,6 @@ export class ConfessPanel extends Component {
                     </Menu>
                 </Grid>
                 <Grid item xs={10}>
-                    <ListItem/>
                     <ListItem/>
                 </Grid>
             </Grid>
