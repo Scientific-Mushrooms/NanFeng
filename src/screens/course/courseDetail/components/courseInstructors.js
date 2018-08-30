@@ -4,8 +4,9 @@ import {Divider} from 'antd'
 import {
     Grid,Button, Typography, Icon, Card, LinearProgress
 } from '@material-ui/core';
+import BaseComponent from '../../../../components/BaseComponent'
 
-const teachers = [
+const teacher = [
 
     {
         realName:'暂无信息',
@@ -15,20 +16,44 @@ const teachers = [
             {courseName:"暂无教师课程信息",courseId:"2"}
         ]
     },
-
-    {
-        realName: '暂无信息',
-        faculty: '暂无信息',
-        courses:[
-            {courseName:"暂无教师课程信息",courseId:"3"},
-            {courseName:"暂无教师课程信息",courseId:"4"}
-        ]
-    }
 ]
 
 
-class CourseInstructors extends Component {
+class CourseInstructors extends BaseComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            courseId: this.props.courseId,
+            teachers: [],
+        };
+    }
+
     state = {}
+
+    componentWillMount = () => {
+        this.fetchSections();
+    }
+
+    fetchSections = () => {
+        
+        var form = new FormData();
+        form.append('courseId', this.state.courseId);
+
+        this.post('/api/section/courseIdToSections', form).then((result) => {
+
+            if (!result) {
+                this.pushNotification("danger", "连接错误", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.status, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+
+                result.detail.map(this.fetchInstructor)
+
+            }
+        })
+    }
 
     goToCourseDetail = (courseId) => {
         this.props.history.replace({ pathname: '/courseDetail', courseId: courseId })
@@ -49,6 +74,28 @@ class CourseInstructors extends Component {
         )
     }
 
+    fetchInstructor=(section)=>{
+        const instructorId=section.instructorId
+        var form = new FormData();
+        form.append('instructorId', instructorId);
+
+        this.post('/api/instructor/instructorIdToInstructor', form).then((result) => {
+
+            if (!result) {
+                this.pushNotification("danger", "连接错误", this.props.dispatch);
+
+            } else if (result.status === 'fail') {
+                this.pushNotification("danger", result.status, this.props.dispatch);
+
+            } else if (result.status === 'success') {
+
+                var teacher=this.state.teachers.concat(result.detail)
+                this.setState({teachers:teacher})
+
+            }
+        })
+    }
+
     renderInstructor = (teacher) => {
         return (
             <Card style={styles.container}>
@@ -61,11 +108,12 @@ class CourseInstructors extends Component {
                 
                         <Grid xs={6} direction='column' style={{marginTop:'10px'}} container>
                             <Typography style={styles.teacherName}>{teacher.realName}</Typography>
-                            <Typography style={styles.facultyName}>{teacher.faculty}</Typography>
+                            <Typography style={styles.facultyName}>暂无院系信息</Typography>
                         </Grid>
                     </Grid>
                     <Divider style={{fontSize:'15px'}}>同时教授</Divider>
-                    {this.renderOtherCourses(teacher.courses)}              
+                        <Button fullWidth onClick={this.goToCourseDetail.bind(this)}>暂无课程信息</Button>  
+                        <Button fullWidth onClick={this.goToCourseDetail.bind(this)}>暂无课程信息</Button>                    
                     <Grid xs={12} style={styles.padding} />
                 </Grid>
             </Card>
@@ -76,9 +124,35 @@ class CourseInstructors extends Component {
     render() {
         return (
             <Grid style={styles.container}>
-                {teachers.map(this.renderInstructor)}
+                {this.preRender()}
+                {this.state.teachers.map(this.renderInstructor)}
             </Grid>
         );
+    }
+
+    preRender(){
+        if(this.state.teachers.length==0)
+        return (
+            <Card style={styles.container}>
+                <Grid container style={styles.professorCard}>
+                    <Grid xs={12} style={styles.padding} />
+                    <Grid xs={12} direction='row' container>
+                        <Grid xs={6} style={styles.courseAvatarContainer} container>
+                            <img src={require('../src/test.png')} style={styles.teacherAvatar} />
+                        </Grid>
+                
+                        <Grid xs={6} direction='column' style={{marginTop:'10px'}} container>
+                            <Typography style={styles.teacherName}>暂无教师信息</Typography>
+                            <Typography style={styles.facultyName}>暂无院系信息</Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider style={{fontSize:'15px'}}>同时教授</Divider>
+                        <Button fullWidth onClick={this.goToCourseDetail.bind(this)}>暂无课程信息</Button>  
+                        <Button fullWidth onClick={this.goToCourseDetail.bind(this)}>暂无课程信息</Button>                    
+                    <Grid xs={12} style={styles.padding} />
+                </Grid>
+            </Card>
+        )
     }
 }
 

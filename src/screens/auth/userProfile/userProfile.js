@@ -59,7 +59,7 @@ export class UserProfile extends BaseComponent {
             reNewPass:null,
         };
         if (this.props.user === null) {
-            this.props.history.push("/home");
+            this.props.history.push("/courseSearch");
         }
     }
 

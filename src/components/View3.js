@@ -168,11 +168,11 @@ export class ListItem extends BaseComponent {
                 <Grid container>
                     <Grid style={{marginLeft:10}} alignItems='center' direction='row' container>
                         <Icon type="heart-o" style={{fontSize:15,margin:10,color:'#5190E4'}} />
-                        <Typography style={{fontSize:15,color:'#5190E4'}}>3</Typography>
+                        <Typography style={{fontSize:15,color:'#5190E4'}}>{item.love}</Typography>
                     </Grid>
                     <Grid style={{marginLeft:10,}} direction='row' container>
                         <Icon type="message" style={{fontSize:15,marginLeft:10,marginRight:10,color:'#5190E4',marginBottom:10}}/>
-                        <Typography style={{fontSize:15,color:'#5190E4'}}>3</Typography>
+                        <Typography style={{fontSize:15,color:'#5190E4'}}>0</Typography>
                     </Grid>
                 </Grid>
                 <Grid style={{margin:10}} container>

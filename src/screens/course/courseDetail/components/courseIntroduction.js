@@ -20,7 +20,7 @@ export default class CourseIntroduction extends Component {
         var {introduction} = this.props.course;
 
         return (
-            <ExpansionPanel style={styles.card}>
+            <ExpansionPanel expanded style={styles.card}>
 
                 <ExpansionPanelSummary style={{width:'25%'}} expandIcon={<Icon style={{fontSize:40,color:"#66ccff",}}>expand_more_icon</Icon>} >
                     <Grid xs={11} container>
