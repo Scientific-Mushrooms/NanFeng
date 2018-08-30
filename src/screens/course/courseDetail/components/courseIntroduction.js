@@ -20,9 +20,9 @@ export default class CourseIntroduction extends Component {
         var {introduction} = this.props.course;
 
         return (
-            <ExpansionPanel expanded style={styles.card}>
+            <ExpansionPanel defaultExpanded style={styles.card}>
 
-                <ExpansionPanelSummary style={{width:'25%'}} expandIcon={<Icon style={{fontSize:40,color:"#66ccff",}}>expand_more_icon</Icon>} >
+                <ExpansionPanelSummary style={{width:'30%'}} expandIcon={<Icon style={{fontSize:40,color:"#66ccff",}}>expand_more_icon</Icon>} >
                     <Grid xs={11} container>
                         <Grid style={styles.headerContainer}>
                             <Typography style={styles.title}>课程简介</Typography>
