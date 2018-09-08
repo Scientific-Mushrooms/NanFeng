@@ -288,7 +288,7 @@ export class CourseSearch extends BaseComponent {
         return (
             <Row type='flex' justify='center'>
                 <Button  onClick={onClick} style={styles.button}>
-                    <Row type="flex" justify="center">
+                   
                         <Col span={3} style={styles.courseItem}>
                             {this.renderIcon(course.faculty)}
                         </Col>
@@ -332,7 +332,7 @@ export class CourseSearch extends BaseComponent {
                                 </Typography>
                             </Row>
                         </Col>
-                    </Row>
+ 
                 </Button>
                 <Grid xs={12} style={styles.padding} />
             </Row>
@@ -346,31 +346,31 @@ export class CourseSearch extends BaseComponent {
         const typeOptions = typeData.map(type => <Option value={type}>{type}</Option>);
         return (
             <Anchor style={styles.searchBar} offsetTop={65}>
-                <Row >
+                <Grid container justify="stretch" >
 
                     <Select
-                        defaultValue="校区" style={{ width: 120 }}
+                        defaultValue="校区" style={{flexBasis:'10%'}}
                         onChange={(value)=> this.handleChange("campus")(value)}>
                         <Option value={'仙林校区'}>仙林校区</Option>
                         <Option value={'鼓楼校区'}>鼓楼校区</Option>
                     </Select>
 
                     <Select
-                        defaultValue="类型" style={{ width: 120 }}
+                        defaultValue="类型" style={{flexBasis:'10%'}}
                         onChange={(value)=> this.handleChange("type")(value)}>
                         {typeOptions}
                     </Select>
 
-                    <Select defaultValue="院系" style={{ width: 120 }}
+                    <Select defaultValue="院系" style={{flexBasis:'10%'}}
                             onChange={(value)=> this.handleChange("faculty")(value)}>
                         {collegeOptions}
                     </Select>
 
-                    <AutoComplete dataSource={this.state.dataSource} onChange={this.autoOnChange}/>
+                    <AutoComplete style={{flexBasis:'50%'}} dataSource={this.state.dataSource} onChange={this.autoOnChange}/>
 
-                    <Button type="primary" icon="search" onClick={this.search}>搜索</Button>
+                    <Button type="primary" icon="search" style={{flexBasis:'20%'}} onClick={this.search}>搜索</Button>
 
-                </Row>
+                </Grid>
             </Anchor>
         )
     }
@@ -413,9 +413,7 @@ export class CourseSearch extends BaseComponent {
         }
         console.log(this.state.page)
         return (
-            <Row justify='center' type='flex'>
-                <Col span={22}>
-                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                    <Layout style={{ padding: '24px 0'}}>
                         {this.renderSider()}
                         <Content style={{ padding: '0 24px', minHeight: 280 }}>
                             <div>
@@ -425,8 +423,7 @@ export class CourseSearch extends BaseComponent {
                             <Pagination current={this.state.page} onChange={this.onChange} pageSize={this.state.size} total={this.state.totalPages} />
                         </Content>
                     </Layout>
-                </Col>
-            </Row>
+            
         );
     }
 }
@@ -446,12 +443,16 @@ const styles = {
     },
 
     courseItem: {
-        textAlign: 'center'
+        textAlign: 'center',
+        whiteSpace:'normal'
     },
 
     button: {
         width: '100%',
-        height: '80px',
+        height: '100%',
+        paddingTop:10,
+        paddingBottom:10
+        
     },
 
     searchBarContainer: {
@@ -471,7 +472,8 @@ const styles = {
     },
 
     searchBar: {
-        marginBottom: '20px'
+        marginBottom: '20px',
+        backgroundColor:'transparent'
     }
 
 
