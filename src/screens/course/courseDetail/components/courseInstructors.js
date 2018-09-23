@@ -6,18 +6,6 @@ import {
 } from '@material-ui/core';
 import BaseComponent from '../../../../components/BaseComponent'
 
-const teacher = [
-
-    {
-        realName:'暂无信息',
-        faculty:'暂无信息',
-        courses:[
-            {courseName:"暂无教师课程信息",courseId:"1"},
-            {courseName:"暂无教师课程信息",courseId:"2"}
-        ]
-    },
-]
-
 
 class CourseInstructors extends BaseComponent {
     constructor(props) {

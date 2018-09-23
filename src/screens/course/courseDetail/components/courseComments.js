@@ -74,6 +74,8 @@ class CourseComments extends BaseComponent {
         form.append("courseId", courseId);
         form.append("userId", userId);
         form.append('useful', useful);
+        form.append('easy', easy);
+        form.append('enjoy', enjoy);
         form.append('comment', comment);
 
         this.post('/api/courseComment/create', form).then((result) => {
