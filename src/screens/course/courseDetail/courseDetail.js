@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { 
     Divider, 
     Grid, 
-    Button, ExpansionPanel, ExpansionPanelSummary, 
-    ExpansionPanelDetails, Typography, Icon, Card, CircularProgress} from '@material-ui/core';
+    ExpansionPanel, ExpansionPanelSummary, 
+    ExpansionPanelDetails, Typography, CircularProgress} from '@material-ui/core';
 import CourseInstructors from './components/courseInstructors';
 import CourseComments from './components/courseComments';
 import CourseIntroduction from './components/courseIntroduction';
 import CourseCard from './components/courseCard';
 import { BaseComponent } from '../../../components/BaseComponent';
 import CourseSections from './components/courseSections';
-
+import {Table,Anchor, AutoComplete, Row, Col, Card, Select, Button, Layout, Menu,Pagination, Icon} from 'antd';
 
 
 export class CourseDetail extends BaseComponent {
@@ -47,25 +47,12 @@ export class CourseDetail extends BaseComponent {
         let form = new FormData();
         form.append("courseId", this.state.courseId)
 
-        this.post('/api/course/courseIdToCourse', form).then((result) => {
+        let successAction = (result) => {
+            this.setState({ course: result.detail, loading: false, courseComments: result.more })
+        }
 
-            if (!result) {
-                this.pushNotification("danger", "连接错误", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.status, this.props.dispatch);
-
-            } else if (result.status === 'success') {
-
-                this.setState({ course: result.detail, loading: false, courseComments: result.more })
-                this.pushNotification("success", "成功获取课程", this.props.dispatch);
-
-            } else {
-
-                this.pushNotification("danger", result.status, this.props.dispatch);
-            }
-
-        })
+        this.newPost('/api/course/courseIdToCourse', form, successAction)
+        
     }
 
     goToSectionCreate = () => {
@@ -98,34 +85,41 @@ export class CourseDetail extends BaseComponent {
         }
 
         return (
-            <Grid container spacing={16}>
+            <Row justify='center' type='flex' style={styles.container}>
+                <Col span={18}>
+                    <Row gutter={32}>
 
-                <Grid xs={9} item>
+                        <Col span={18}>
 
-                    {this.renderCourseCard()}
+                            {this.renderCourseCard()}
 
-                    <CourseIntroduction course={this.state.course}/>
+                            <CourseIntroduction course={this.state.course}/>
 
-                    <CourseSections courseId={courseId}/>
+                            <CourseSections courseId={courseId}/>
 
-                    <CourseComments courseId={courseId} userId={userId}/>
+                            <CourseComments courseId={courseId} userId={userId}/>
 
-                </Grid>
+                        </Col>
 
-                <Grid xs={3} item>
-                    <Card style={{marginBottom:'5px'}}>
-                        <Typography style={styles.teacher}>授课人</Typography>
-                    </Card>
-                    <CourseInstructors courseId={courseId}/>
+                        <Col span={6}>
+                            <Card style={{marginBottom:'5px'}}>
+                                <Typography style={styles.teacher}>授课人</Typography>
+                            </Card>
+                            <CourseInstructors courseId={courseId}/>
+                        </Col>
 
-                </Grid>
-
-            </Grid>
+                    </Row>
+                </Col>
+            </Row>
         );
     }
 }
 
 const styles = {
+
+    container: {
+        marginTop: '20px'
+    },
 
     button: {
         width: '100%',

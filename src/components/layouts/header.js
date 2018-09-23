@@ -62,7 +62,6 @@ class Header extends BaseComponent {
             if (result.status === 'success') {
 
                 this.props.dispatch(login(result.detail, result.more, result.extra))
-                this.pushNotification("success", "用户更新成功", this.props.dispatch);
 
             } else {
 

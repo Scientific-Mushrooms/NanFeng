@@ -41,7 +41,6 @@ class InstructorVerification extends BaseComponent {
         var successAction = (result) => {
             this.props.dispatch(set_instructor(result.detail))
             this.setState({ update: false })
-            this.pushNotification("success", "成功获取学工信息", this.props.dispatch);
         }
 
         this.newPost('/api/instructor/updateByInstructorId', form, successAction);

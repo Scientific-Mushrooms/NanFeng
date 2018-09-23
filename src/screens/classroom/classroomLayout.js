@@ -39,7 +39,6 @@ export class ClassroomLayout extends BaseComponent {
 
         var successAction = (result) => {
             this.setState({classrooms: result.detail});
-            this.pushNotification("success", "成功获取教室", this.props.dispatch);
         }
 
         this.newPost('/api/classroom/instructorIdToAllClassrooms', form, successAction);

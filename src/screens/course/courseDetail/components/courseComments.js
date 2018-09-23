@@ -46,13 +46,12 @@ class CourseComments extends BaseComponent {
                 this.pushNotification("danger", "连接错误", this.props.dispatch);
 
             } else if (result.status === 'fail') {
+                
                 this.pushNotification("danger", result.status, this.props.dispatch);
 
             } else if (result.status === 'success') {
 
                 this.setState({ courseComments: result.detail, commentAuthors: result.more })
-                
-                this.pushNotification("success", "成功获取课程", this.props.dispatch);
 
             } else {
 
@@ -128,12 +127,17 @@ class CourseComments extends BaseComponent {
                 <Grid xs={4}>
 
                     <Grid xs={12} container style={styles.commentOptionContainer}>
-                        <Grid xs={3} alignItems='center' justify='center' container>
-                            <Typography style={styles.optionTitle}>Useful ?</Typography>
+                        <Grid xs={9}>
+                            <Button style={comment.easy ? styles.leftButton : styles.defaultButton}>简单</Button>
+                            <Button style={comment.easy ? styles.leftButton : styles.defaultButton}>贼难</Button>
                         </Grid>
                         <Grid xs={9}>
-                            <Button style={comment.useful ? styles.leftButton : styles.defaultButton}>推荐</Button>
-                            <Button style={comment.useful ? styles.defaultButton : styles.rightButton}>不推荐</Button>
+                            <Button style={comment.useful ? styles.leftButton : styles.defaultButton}>实用</Button>
+                            <Button style={comment.useful ? styles.leftButton : styles.defaultButton}>鸡肋</Button>
+                        </Grid>
+                        <Grid xs={9}>
+                            <Button style={comment.enjoy ? styles.leftButton : styles.defaultButton}>有趣</Button>
+                            <Button style={comment.enjoy ? styles.leftButton : styles.defaultButton}>无聊</Button>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -166,9 +170,9 @@ class CourseComments extends BaseComponent {
 
                 <Grid xs={12} container>
                     <Grid xs={4} direction='row' style={{marginLeft:20}} container>
-                        <Button variant="outlined" onClick={onClickUseful} style={useful ? styles.leftButton : styles.defaultButton}>课程内容实用</Button>
-                        <Button variant="outlined" onClick={onClickEasy} style={easy ? styles.leftButton : styles.defaultButton}>课程难度较低</Button>
-                        <Button variant="outlined" onClick={onClickEnjoy} style={enjoy ? styles.leftButton : styles.defaultButton}>推荐</Button>
+                        <Button variant="outlined" onClick={onClickUseful} style={useful ? styles.leftButton : styles.defaultButton}>实用</Button>
+                        <Button variant="outlined" onClick={onClickEasy} style={easy ? styles.leftButton : styles.defaultButton}>简单</Button>
+                        <Button variant="outlined" onClick={onClickEnjoy} style={enjoy ? styles.leftButton : styles.defaultButton}>有趣</Button>
                     </Grid>
                 </Grid>
 
@@ -197,7 +201,7 @@ class CourseComments extends BaseComponent {
             <Card  >
                 <Grid container style={styles.container} justify='center'>
 
-                    <Grid xs={11} container>
+                    <Grid xs={12} container>
                         <Grid style={styles.headerContainer}>
                             <Typography style={styles.title}>课程评价</Typography>
                         </Grid>
@@ -278,7 +282,6 @@ const styles = {
         color:'#CCCCCC',
         borderWidth:1,
     },
-
 
     submitButton:{
         backgroundColor:'#0078d7',

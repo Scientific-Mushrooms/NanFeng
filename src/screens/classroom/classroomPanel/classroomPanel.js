@@ -63,7 +63,6 @@ export class ClassroomPanel extends BaseComponent {
         form.append("classroomId", classroomId);
 
         var successAction = (result) => {
-            this.pushNotification("success", "获取教室");
             this.setState({classroom: result.detail});
         }
 

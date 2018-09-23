@@ -41,7 +41,6 @@ class CourseSections extends BaseComponent {
             } else if (result.status === 'success') {
 
                 this.setState({sections: result.detail})
-                this.pushNotification("success", "成功获取课程信息", this.props.dispatch);
 
             } else {
 

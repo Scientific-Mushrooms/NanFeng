@@ -53,7 +53,6 @@ class ClassroomList extends BaseComponent {
             if (result.status === 'success') {
 
                 this.setState({classrooms: result.detail});
-                this.pushNotification("success", "成功获取教室", this.props.dispatch);
 
             } else {
 

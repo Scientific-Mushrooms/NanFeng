@@ -115,8 +115,6 @@ export class CourseSearch extends BaseComponent {
         var successAction = (result) => {
             console.log(result)
             this.setState({ courses: result.detail.content,totalPages: result.detail.totalPages,loading: false })
-            this.pushNotification("success", "成功获取课程！");
-            console.log(this.state.courses)
         }
 
         this.newPost('/api/course/search', form, successAction);
@@ -136,8 +134,6 @@ export class CourseSearch extends BaseComponent {
         var successAction = (result) => {
             console.log(result)
             this.setState({ courses: result.detail.content,totalPages: result.detail.totalPages,loading: false })
-            this.pushNotification("success", "成功获取课程！");
-            console.log(this.state.courses)
         }
 
         this.newPost('/api/course/search', form, successAction);
@@ -158,8 +154,6 @@ export class CourseSearch extends BaseComponent {
         var successAction = (result) => {
             console.log(result)
             this.setState({ courses: result.detail.content,totalPages: result.detail.totalPages,loading: false })
-            this.pushNotification("success", "成功获取课程！");
-            console.log(this.state.courses)
         }
 
         this.newPost('/api/course/search', form, successAction);
@@ -178,8 +172,6 @@ export class CourseSearch extends BaseComponent {
         var successAction = (result) => {
             console.log(result)
             this.setState({ courses: result.detail,totalPages: result.detail.totalPages,loading: false })
-            this.pushNotification("success", "successfully fetch courses! ");
-            console.log(this.state.courses)
         }
         if(e.key==="难度较低") {
             console.log("easy")
@@ -208,8 +200,6 @@ export class CourseSearch extends BaseComponent {
         var successAction = (result) => {
             console.log(result)
             this.setState({ courses: result.detail.content, loading: false })
-            this.pushNotification("success", "成功获取课程！");
-            console.log(this.state.courses)
         }
 
         this.newPost('/api/course/search', form, successAction);
@@ -289,11 +279,12 @@ export class CourseSearch extends BaseComponent {
             <Row type='flex' justify='center'>
                 <Button  onClick={onClick} style={styles.button}>
                     <Row type="flex" justify="center">
-                        <Col span={3} style={styles.courseItem}>
+
+                        <Col span={3} style={styles.courseItem} xs={0} sm={6} md={5} lg={3} xl={3}>
                             {this.renderIcon(course.faculty)}
                         </Col>
 
-                        <Col span={3} style={styles.courseItem}>
+                        <Col span={3} style={styles.courseItem} xs={0} sm={0} md={3} lg={3} xl={3}>
                             <Row>课程编号</Row>
                             <Row>
                                 <Typography variant='body2'>
@@ -302,12 +293,12 @@ export class CourseSearch extends BaseComponent {
                             </Row>
                         </Col>
 
-                        <Col span={8} style={styles.courseItem}>
+                        <Col span={8} style={styles.courseItem} xs={24} sm={18} md={16} lg={14} xl={8}>
                             <Row>课程名</Row>
                             <Typography variant='title'>{this.handleText(course.name)}</Typography>
                         </Col>
 
-                        <Col span={3} >
+                        <Col span={3} xs={0} sm={0} md={0} lg={4} xl={3}>
                             <Row>类型</Row>
                             <Row>
                                 <Typography  variant='body2'>
@@ -316,7 +307,7 @@ export class CourseSearch extends BaseComponent {
                             </Row>
                         </Col>
 
-                        <Col span={3} style={styles.courseItem}>
+                        <Col span={3} style={styles.courseItem} xs={0} sm={0} md={0} lg={0} xl={3}>
                             <Row>开课院系</Row>
                             <Row>
                                 <Typography variant='body2'>
@@ -324,7 +315,8 @@ export class CourseSearch extends BaseComponent {
                                 </Typography>
                             </Row>
                         </Col>
-                        <Col span={3} style={styles.courseItem}>
+
+                        <Col span={3} style={styles.courseItem} xs={0} sm={0} md={0} lg={0} xl={3}>
                             <Row>学分</Row>
                             <Row>
                                 <Typography variant='body2'>
@@ -332,6 +324,7 @@ export class CourseSearch extends BaseComponent {
                                 </Typography>
                             </Row>
                         </Col>
+
                     </Row>
                 </Button>
                 <Grid xs={12} style={styles.padding} />
@@ -344,34 +337,35 @@ export class CourseSearch extends BaseComponent {
         const Option = Select.Option;
         const collegeOptions = collegeData.map(college => <Option value={college}>{college}</Option>);
         const typeOptions = typeData.map(type => <Option value={type}>{type}</Option>);
-        return (
-            <Anchor style={styles.searchBar} offsetTop={65}>
-                <Row >
+        return ( 
+            <Row style={styles.searchBar}>
 
-                    <Select
-                        defaultValue="校区" style={{ width: 120 }}
-                        onChange={(value)=> this.handleChange("campus")(value)}>
-                        <Option value={'仙林校区'}>仙林校区</Option>
-                        <Option value={'鼓楼校区'}>鼓楼校区</Option>
-                    </Select>
+                <Select
+                    defaultValue="校区" style={{ width: 120 }}
+                    onChange={(value)=> this.handleChange("campus")(value)}
+                    style={styles.gap}>
+                    <Option value={'仙林校区'}>仙林校区</Option>
+                    <Option value={'鼓楼校区'}>鼓楼校区</Option>
+                </Select>
 
-                    <Select
-                        defaultValue="类型" style={{ width: 120 }}
-                        onChange={(value)=> this.handleChange("type")(value)}>
-                        {typeOptions}
-                    </Select>
+                <Select
+                    defaultValue="类型" style={{ width: 120 }}
+                    onChange={(value)=> this.handleChange("type")(value)}
+                    style={styles.gap}>
+                    {typeOptions}
+                </Select>
 
-                    <Select defaultValue="院系" style={{ width: 120 }}
-                            onChange={(value)=> this.handleChange("faculty")(value)}>
-                        {collegeOptions}
-                    </Select>
+                <Select defaultValue="院系" style={{ width: 120 }}
+                        onChange={(value)=> this.handleChange("faculty")(value)}
+                        style={styles.gap}>
+                    {collegeOptions}
+                </Select>
 
-                    <AutoComplete dataSource={this.state.dataSource} onChange={this.autoOnChange}/>
+                <AutoComplete dataSource={this.state.dataSource} onChange={this.autoOnChange} style={styles.gap}/>
 
-                    <Button type="primary" icon="search" onClick={this.search}>搜索</Button>
+                <Button type="primary" icon="search" onClick={this.search}>搜索</Button>
 
-                </Row>
-            </Anchor>
+            </Row>
         )
     }
 
@@ -414,7 +408,7 @@ export class CourseSearch extends BaseComponent {
         console.log(this.state.page)
         return (
             <Row justify='center' type='flex'>
-                <Col span={22}>
+                <Col span={18}>
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
                         {this.renderSider()}
                         <Content style={{ padding: '0 24px', minHeight: 280 }}>
@@ -472,7 +466,12 @@ const styles = {
 
     searchBar: {
         marginBottom: '20px'
-    }
+    },
+
+    gap: {
+        marginRight: '10px'
+    },
+
 
 
 }
