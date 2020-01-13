@@ -1,22 +1,24 @@
 <br />
 <p align="center">
   <a href="https://github.com/Clavier-Zhang/AWSL-Japanese">
-    <img src="./doc/logo/logo-wide.png" alt="Logo" width="80" height="80">
+    <img src="./doc/logo/logo-wide.png" alt="Logo" height="120">
   </a>
-  <h3 align="center">AWSL Japanese</h3>
+  <h3 align="center">南风</h3>
   <p align="center">
-    A flash-card app that helps you to memorize Japanese vocabulary
+    校园服务App
     <br />
-    <a href="https://apps.apple.com/us/app/awsl-japanese/id1492610472"><strong>Download at App Store - Apple</strong></a>
+    <a href="https://github.com/Scientific-Mushrooms/NanFeng-mobile"><strong>Mobile</strong></a> ·
+    <a href="https://github.com/Scientific-Mushrooms/NanFeng-server"><strong>Server</strong></a> ·
+    <a href="https://github.com/Scientific-Mushrooms/NanFeng"><strong>Web</strong></a>
     <br />
     <br />
   </p>
 </p>
 
 
-## Table of Contents
+## 目录
 
-- [Table of Contents](#table-of-contents)
+- [目录](#%e7%9b%ae%e5%bd%95)
 - [About the Project](#about-the-project)
 - [Previews](#previews)
   - [Dashboard](#dashboard)
